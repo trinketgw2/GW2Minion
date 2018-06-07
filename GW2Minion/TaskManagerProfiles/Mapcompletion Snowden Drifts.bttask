@@ -36,7 +36,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Highpass Haven",
+				name = "Highpass Haven (Waypoint)",
 				pos = 
 				{
 					hx = 1,
@@ -79,7 +79,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[VISTA] Trapper's Labyrinth",
+				name = "Trapper's Labyrinth (Vista)",
 				pos = 
 				{
 					hx = 0.78823465108871,
@@ -183,7 +183,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Help hunters and travelers near the road",
+				name = "Help hunters and travelers near the road (Heart)",
 				pos = 
 				{
 					hx = 0.45126941800117,
@@ -225,7 +225,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Drakentelt",
+				name = "Drakentelt (POI)",
 				pos = 
 				{
 					hx = 0.25717103481293,
@@ -268,7 +268,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[VISTA] King's Jail Refuge",
+				name = "King's Jail Refuge (Vista)",
 				pos = 
 				{
 					hx = -0.43056666851044,
@@ -311,7 +311,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[VISTA] Vilmark Foothills (Nav Position Fixed)",
+				name = "Vilmark Foothills (Vista)",
 				pos = 
 				{
 					hx = -0.68368089199066,
@@ -353,7 +353,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Reaver's",
+				name = "Reaver's (Waypoint)",
 				pos = 
 				{
 					hx = 0.10681796818972,
@@ -395,15 +395,15 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Owl",
+				name = "Svannijem Hold (POI)",
 				pos = 
 				{
-					hx = -0.89748162031174,
-					hy = 0.44105210900307,
-					hz = 0,
-					x = 42398.109375,
-					y = -15266.83203125,
-					z = -4372.6430664063,
+					hx = -0.54389387369156,
+					hy = -0.75708121061325,
+					hz = 0.36194959282875,
+					x = 27124.841796875,
+					y = -12222.611328125,
+					z = -2283.755859375,
 				},
 				radius = 0,
 				type = "tm_moveto",
@@ -425,42 +425,6 @@ local tbl =
 			},
 			subtasks = 
 			{
-				
-				{
-					customProperties = 
-					{
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "aggro",
-						type = "tm_st_fightaggro",
-					},
-				},
-				
-				{
-					customProperties = 
-					{
-						talkagent = 
-						{
-							character = true,
-							contentid = 167018,
-							gadget = false,
-							name = "Devotee of Owl",
-						},
-						talksteps = 
-						{
-							0,
-						},
-						talktype = "Index",
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "talk with devotee of Owl",
-						type = "tm_st_talk",
-					},
-				},
 			},
 			taskProperties = 
 			{
@@ -473,398 +437,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HP] Devotee of Owldw",
-				pos = 
-				{
-					hx = 0.44305276870728,
-					hy = -0.85295909643173,
-					hz = 0.27598017454147,
-					x = 43623.64453125,
-					y = -19914.591796875,
-					z = -4397.1630859375,
-				},
-				radius = 0,
-				type = "tm_heropoint",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-				fightaggro = true,
-			},
-			lastrun = 0,
-			order = 10,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = false,
-				mapid = 31,
-				maxduration = 180,
-				maxlevel = 0,
-				minlevel = 0,
-				name = "[VISTA] Owl's Abattoir",
-				pos = 
-				{
-					hx = -0.36575371026993,
-					hy = 0.74895912408829,
-					hz = 0.55252552032471,
-					x = 40411.921875,
-					y = -16673.623046875,
-					z = -5412.6337890625,
-				},
-				radius = 0,
-				type = "tm_vista",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-			},
-			lastrun = 0,
-			order = 11,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = false,
-				mapid = 31,
-				maxduration = 0,
-				maxlevel = 0,
-				minlevel = 0,
-				name = "[POI] Owl Lodge",
-				pos = 
-				{
-					hx = 0.96860098838806,
-					hy = 0.031189318746328,
-					hz = 0.24665634334087,
-					x = 41784.8359375,
-					y = -17444.576171875,
-					z = -4046.365234375,
-				},
-				radius = 0,
-				type = "tm_moveto",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-				hqid = 31,
-			},
-			lastrun = 0,
-			order = 12,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-				
-				{
-					customProperties = 
-					{
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "aggro",
-						type = "tm_st_fightaggro",
-					},
-				},
-				
-				{
-					customProperties = 
-					{
-						hqchecktimer = 180,
-						hqid = 31,
-						hqpos = 
-						{
-							x = 37940.1015625,
-							y = -19802.80078125,
-							z = -5019.9624023438,
-						},
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "status",
-						type = "tm_st_hqstatus",
-					},
-				},
-				
-				{
-					customProperties = 
-					{
-						targets = 
-						{
-							
-							{
-								character = true,
-								contentid = 44167,
-								gadget = false,
-								name = "Frost Bat",
-							},
-						},
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "kill Frost Bat",
-						type = "tm_st_killspecific",
-					},
-				},
-				
-				{
-					customProperties = 
-					{
-						targetpos = 
-						{
-							hx = 0.43706697225571,
-							hy = -0.86833256483078,
-							hz = 0.23445902764797,
-							x = 41423.84765625,
-							y = -16820.005859375,
-							z = -4025.5390625,
-						},
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "move near frost bats",
-						type = "tm_st_moveto",
-					},
-				},
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = false,
-				mapid = 31,
-				maxduration = 0,
-				maxlevel = 0,
-				minlevel = 0,
-				name = "[HQ] Help Owl's followers",
-				pos = 
-				{
-					hx = 0.44879528880119,
-					hy = -0.83477628231049,
-					hz = 0.31895354390144,
-					x = 37899.578125,
-					y = -19741.525390625,
-					z = -5007.6274414063,
-				},
-				radius = 0,
-				type = "tm_hq",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-			},
-			lastrun = 0,
-			order = 13,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = false,
-				mapid = 31,
-				maxduration = 0,
-				maxlevel = 0,
-				minlevel = 0,
-				name = "[POI] Svannijem Hold",
-				pos = 
-				{
-					hx = -0.54389387369156,
-					hy = -0.75708121061325,
-					hz = 0.36194959282875,
-					x = 27124.841796875,
-					y = -12222.611328125,
-					z = -2283.755859375,
-				},
-				radius = 0,
-				type = "tm_moveto",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-				hqid = 30,
-			},
-			lastrun = 0,
-			order = 14,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-				
-				{
-					customProperties = 
-					{
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "aggro",
-						type = "tm_st_fightaggro",
-					},
-				},
-				
-				{
-					customProperties = 
-					{
-						hqchecktimer = 80,
-						hqid = 30,
-						hqpos = 
-						{
-							x = 24079,
-							y = -438,
-							z = -1200.3223876953,
-						},
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "status",
-						type = "tm_st_hqstatus",
-					},
-				},
-				
-				{
-					customProperties = 
-					{
-						targets = 
-						{
-							
-							{
-								character = true,
-								contentid = 455328,
-								gadget = false,
-								name = "Wolf",
-							},
-							
-							{
-								character = true,
-								contentid = 526759,
-								gadget = false,
-								name = "Veteran Wolf",
-							},
-						},
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "kill Wolfs",
-						type = "tm_st_killspecific",
-					},
-				},
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = false,
-				mapid = 31,
-				maxduration = 0,
-				maxlevel = 0,
-				minlevel = 0,
-				name = "[HQ] Assist Lionguard Nadel",
-				pos = 
-				{
-					hx = -0.3800961971283,
-					hy = 0.8653826713562,
-					hz = 0.32655736804008,
-					x = 24110.021484375,
-					y = -500.89282226563,
-					z = -1211.0631103516,
-				},
-				radius = 0,
-				type = "tm_hq",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-			},
-			lastrun = 0,
-			order = 15,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = false,
-				mapid = 31,
-				maxduration = 0,
-				maxlevel = 0,
-				minlevel = 0,
-				name = "[WP] Snowhawk Landing",
+				name = "Snowhawk Landing (Waypoint)",
 				pos = 
 				{
 					hx = 0.86588168144226,
@@ -886,7 +459,7 @@ local tbl =
 				hqid = 29,
 			},
 			lastrun = 0,
-			order = 16,
+			order = 10,
 			posttasks = 
 			{
 			},
@@ -982,7 +555,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Push back the corruption",
+				name = "Push back the corruption (Heart)",
 				pos = 
 				{
 					hx = -0.35580119490623,
@@ -1003,7 +576,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 17,
+			order = 11,
 			posttasks = 
 			{
 			},
@@ -1024,7 +597,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Blasted Haven",
+				name = "Blasted Haven (POI)",
 				pos = 
 				{
 					hx = 0.88044065237045,
@@ -1043,9 +616,138 @@ local tbl =
 		{
 			customProperties = 
 			{
+				hqid = 30,
 			},
 			lastrun = 0,
-			order = 18,
+			order = 12,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = false,
+								closedialog = false,
+								contentid = 15144,
+								gadget = true,
+								maxinteract = 1,
+								name = "Detour Marker",
+								oncepertarget = false,
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Interact",
+						type = "tm_st_interact",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						hqchecktimer = 80,
+						hqid = 30,
+						hqpos = 
+						{
+							x = 24079,
+							y = -438,
+							z = -1200.3223876953,
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "status",
+						type = "tm_st_hqstatus",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 455328,
+								gadget = false,
+								name = "Wolf",
+							},
+							
+							{
+								character = true,
+								contentid = 526759,
+								gadget = false,
+								name = "Veteran Wolf",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "kill Wolfs",
+						type = "tm_st_killspecific",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 31,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Assist Lionguard Nadel (Heart)",
+				pos = 
+				{
+					hx = -0.3800961971283,
+					hy = 0.8653826713562,
+					hz = 0.32655736804008,
+					x = 24110.021484375,
+					y = -500.89282226563,
+					z = -1211.0631103516,
+				},
+				radius = 0,
+				type = "tm_hq",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 13,
 			posttasks = 
 			{
 			},
@@ -1066,7 +768,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Lost Child's Sorrow",
+				name = "Lost Child's Sorrow (Waypoint)",
 				pos = 
 				{
 					hx = 1,
@@ -1087,7 +789,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 19,
+			order = 14,
 			posttasks = 
 			{
 			},
@@ -1144,15 +846,15 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HP] Stinging Wind",
+				name = "Stinging Wind (Hero)",
 				pos = 
 				{
-					hx = 0.25450417399406,
-					hy = 0.91513234376907,
-					hz = 0.31266659498215,
-					x = 25380.58203125,
-					y = 22496.404296875,
-					z = -2842.3935546875,
+					hx = 0.43794149160385,
+					hy = 0.89530926942825,
+					hz = -0.081416934728622,
+					x = 25387.94140625,
+					y = 22511.552734375,
+					z = -2848.3366699219,
 				},
 				radius = 0,
 				type = "tm_heropoint",
@@ -1166,7 +868,7 @@ local tbl =
 				hqid = 26,
 			},
 			lastrun = 0,
-			order = 20,
+			order = 15,
 			posttasks = 
 			{
 			},
@@ -1241,7 +943,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Support the crafters of Soderhem",
+				name = "Support the crafters of Soderhem (Heart)",
 				pos = 
 				{
 					hx = -0.75312775373459,
@@ -1262,7 +964,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 21,
+			order = 16,
 			posttasks = 
 			{
 			},
@@ -1283,7 +985,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Njordstead ",
+				name = "Njordstead (Waypoint)",
 				pos = 
 				{
 					hx = 0.77338564395905,
@@ -1305,7 +1007,7 @@ local tbl =
 				hqid = 27,
 			},
 			lastrun = 0,
-			order = 22,
+			order = 17,
 			posttasks = 
 			{
 			},
@@ -1330,7 +1032,7 @@ local tbl =
 				{
 					customProperties = 
 					{
-						hqchecktimer = 120,
+						hqchecktimer = 180,
 						hqid = 27,
 						hqpos = 
 						{
@@ -1375,6 +1077,31 @@ local tbl =
 						type = "tm_st_killspecific",
 					},
 				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								closedialog = false,
+								contentid = 44799,
+								gadget = false,
+								maxinteract = 20,
+								name = "Wounded Hunter",
+								oncepertarget = false,
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Interact",
+						type = "tm_st_interact",
+					},
+				},
 			},
 			taskProperties = 
 			{
@@ -1387,7 +1114,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Preserve the Njorstead hunting grounds ",
+				name = "Preserve the Njorstead hunting grounds (Heart)",
 				pos = 
 				{
 					hx = 0.52806627750397,
@@ -1399,6 +1126,253 @@ local tbl =
 				},
 				radius = 0,
 				type = "tm_hq",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 18,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 31,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Soderhem Steading (Waypoint)",
+				pos = 
+				{
+					hx = 0.77170485258102,
+					hy = -0.63598084449768,
+					hz = 0,
+					x = 12590.46875,
+					y = 12596.474609375,
+					z = -2537.8022460938,
+				},
+				radius = 0,
+				type = "tm_moveto",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 19,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 31,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Torstvedt Homestead (Waypoint)",
+				pos = 
+				{
+					hx = 0.86033064126968,
+					hy = -0.23857706785202,
+					hz = 0.45045778155327,
+					x = 8807.2216796875,
+					y = 5573.2060546875,
+					z = -3148.9689941406,
+				},
+				radius = 0,
+				type = "tm_moveto",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 20,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 31,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Owl (Waypoint)",
+				pos = 
+				{
+					hx = -0.89748162031174,
+					hy = 0.44105210900307,
+					hz = 0,
+					x = 42398.109375,
+					y = -15266.83203125,
+					z = -4372.6430664063,
+				},
+				radius = 0,
+				type = "tm_moveto",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+				fightaggro = true,
+			},
+			lastrun = 0,
+			order = 21,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 31,
+				maxduration = 180,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Owl's Abattoir (Vista)",
+				pos = 
+				{
+					hx = -0.36575371026993,
+					hy = 0.74895912408829,
+					hz = 0.55252552032471,
+					x = 40411.921875,
+					y = -16673.623046875,
+					z = -5412.6337890625,
+				},
+				radius = 0,
+				type = "tm_vista",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 22,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 167018,
+							gadget = false,
+							name = "Devotee of Owl",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "talk with devotee of Owl",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 31,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Devotee of Owldw (Hero)",
+				pos = 
+				{
+					hx = 0.44305276870728,
+					hy = -0.85295909643173,
+					hz = 0.27598017454147,
+					x = 43623.64453125,
+					y = -19914.591796875,
+					z = -4397.1630859375,
+				},
+				radius = 0,
+				type = "tm_heropoint",
 			},
 			version = 0,
 		},
@@ -1429,15 +1403,15 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Soderhem Steading",
+				name = "Owl Lodge (POI)",
 				pos = 
 				{
-					hx = 0.77170485258102,
-					hy = -0.63598084449768,
-					hz = 0,
-					x = 12590.46875,
-					y = 12596.474609375,
-					z = -2537.8022460938,
+					hx = 0.96860098838806,
+					hy = 0.031189318746328,
+					hz = 0.24665634334087,
+					x = 41784.8359375,
+					y = -17444.576171875,
+					z = -4046.365234375,
 				},
 				radius = 0,
 				type = "tm_moveto",
@@ -1448,6 +1422,7 @@ local tbl =
 		{
 			customProperties = 
 			{
+				hqid = 31,
 			},
 			lastrun = 0,
 			order = 24,
@@ -1459,6 +1434,81 @@ local tbl =
 			},
 			subtasks = 
 			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						hqchecktimer = 180,
+						hqid = 31,
+						hqpos = 
+						{
+							x = 37940.1015625,
+							y = -19802.80078125,
+							z = -5019.9624023438,
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "status",
+						type = "tm_st_hqstatus",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 44167,
+								gadget = false,
+								name = "Frost Bat",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "kill Frost Bat",
+						type = "tm_st_killspecific",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targetpos = 
+						{
+							hx = 0.43706697225571,
+							hy = -0.86833256483078,
+							hz = 0.23445902764797,
+							x = 41423.84765625,
+							y = -16820.005859375,
+							z = -4025.5390625,
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "move near frost bats",
+						type = "tm_st_moveto",
+					},
+				},
 			},
 			taskProperties = 
 			{
@@ -1471,18 +1521,18 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Torstvedt Homestead",
+				name = "Help Owl's followers (Heart)",
 				pos = 
 				{
-					hx = 0.86033064126968,
-					hy = -0.23857706785202,
-					hz = 0.45045778155327,
-					x = 8807.2216796875,
-					y = 5573.2060546875,
-					z = -3148.9689941406,
+					hx = 0.44879528880119,
+					hy = -0.83477628231049,
+					hz = 0.31895354390144,
+					x = 37899.578125,
+					y = -19741.525390625,
+					z = -5007.6274414063,
 				},
 				radius = 0,
-				type = "tm_moveto",
+				type = "tm_hq",
 			},
 			version = 0,
 		},
@@ -1513,7 +1563,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Exile",
+				name = "Exile (Waypoint)",
 				pos = 
 				{
 					hx = -0.2481996268034,
@@ -1555,7 +1605,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Tala Point",
+				name = "Tala Point (POI)",
 				pos = 
 				{
 					hx = -0.047826066613197,
@@ -1652,7 +1702,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Help quaggans settle into Urgulp",
+				name = "Help quaggans settle into Urgulp (Heart)",
 				pos = 
 				{
 					hx = -0.0017610837239772,
@@ -1694,7 +1744,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Urgulp",
+				name = "Urgulp (POI)",
 				pos = 
 				{
 					hx = -0.7225449681282,
@@ -1736,7 +1786,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Valslake",
+				name = "Valslake (Waypoint)",
 				pos = 
 				{
 					hx = -0.90583831071854,
@@ -1778,7 +1828,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Moldary Point",
+				name = "Moldary Point (POI)",
 				pos = 
 				{
 					hx = 0.32648476958275,
@@ -1820,15 +1870,15 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Jorand's Sluice",
+				name = "Jorand's Sluice (POI)",
 				pos = 
 				{
-					hx = -0.94471991062164,
-					hy = 0.32787841558456,
-					hz = 0,
-					x = -7159.41015625,
-					y = -3505.3994140625,
-					z = 46.019653320313,
+					hx = -0.93546068668365,
+					hy = 0.30974966287613,
+					hz = -0.1702011525631,
+					x = -7135.3442382813,
+					y = -3495.9133300781,
+					z = 116.22695922852,
 				},
 				radius = 0,
 				type = "tm_moveto",
@@ -1862,7 +1912,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Snowdrift Haven",
+				name = "Snowdrift Haven (Waypoint)",
 				pos = 
 				{
 					hx = 1,
@@ -1973,7 +2023,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Oppose the thieving grawl",
+				name = "Oppose the thieving grawl (Heart)",
 				pos = 
 				{
 					hx = 0.93890529870987,
@@ -2015,7 +2065,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Lashoosh",
+				name = "Lashoosh (POI)",
 				pos = 
 				{
 					hx = -0.26979920268059,
@@ -2057,7 +2107,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Isenfall",
+				name = "Isenfall (Waypoint)",
 				pos = 
 				{
 					hx = 0.69676125049591,
@@ -2145,7 +2195,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HP] Corvin the Skaald",
+				name = "Corvin the Skaald (Hero)",
 				pos = 
 				{
 					hx = -0.23324866592884,
@@ -2187,7 +2237,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Durgar's Homestead",
+				name = "Durgar's Homestead (POI)",
 				pos = 
 				{
 					hx = -0.013502638787031,
@@ -2206,7 +2256,6 @@ local tbl =
 		{
 			customProperties = 
 			{
-				hqid = 32,
 			},
 			lastrun = 0,
 			order = 38,
@@ -2218,74 +2267,6 @@ local tbl =
 			},
 			subtasks = 
 			{
-				
-				{
-					customProperties = 
-					{
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "aggro",
-						type = "tm_st_fightaggro",
-					},
-				},
-				
-				{
-					customProperties = 
-					{
-						hqchecktimer = 120,
-						hqid = 32,
-						hqpos = 
-						{
-							x = -32823,
-							y = 8821,
-							z = -2763.3549804688,
-						},
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "status",
-						type = "tm_st_hqstatus",
-					},
-				},
-				
-				{
-					customProperties = 
-					{
-						targets = 
-						{
-							
-							{
-								character = true,
-								contentid = 43489,
-								gadget = false,
-								name = "Modniir Sage",
-							},
-							
-							{
-								character = true,
-								contentid = 43487,
-								gadget = false,
-								name = "Modniir Hunter",
-							},
-							
-							{
-								character = true,
-								contentid = 43485,
-								gadget = false,
-								name = "Modniir Berserker",
-							},
-						},
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "kill",
-						type = "tm_st_killspecific",
-					},
-				},
 			},
 			taskProperties = 
 			{
@@ -2298,18 +2279,18 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Support the Durnand Priory against the centaurs",
+				name = "Lornar's (Waypoint)",
 				pos = 
 				{
-					hx = -0.28963977098465,
-					hy = -0.83199977874756,
-					hz = 0.47316506505013,
-					x = -32775.01171875,
-					y = 8928.9443359375,
-					z = -2766.8142089844,
+					hx = 1,
+					hy = 0,
+					hz = 0,
+					x = -15967.66015625,
+					y = -16647.841796875,
+					z = -1165.6684570313,
 				},
 				radius = 0,
-				type = "tm_hq",
+				type = "tm_moveto",
 			},
 			version = 0,
 		},
@@ -2317,7 +2298,6 @@ local tbl =
 		{
 			customProperties = 
 			{
-				fightaggro = true,
 			},
 			lastrun = 0,
 			order = 39,
@@ -2338,220 +2318,18 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 31,
-				maxduration = 180,
-				maxlevel = 0,
-				minlevel = 0,
-				name = "[VISTA] Isenfall Gullies",
-				pos = 
-				{
-					hx = 0.32203993201256,
-					hy = 0.69035178422928,
-					hz = 0.64784622192383,
-					x = -26356.2734375,
-					y = 8059.09375,
-					z = -3953.3388671875,
-				},
-				radius = 0,
-				type = "tm_vista",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-				hqid = 34,
-			},
-			lastrun = 0,
-			order = 40,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-				
-				{
-					customProperties = 
-					{
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "aggro",
-						type = "tm_st_fightaggro",
-					},
-				},
-				
-				{
-					customProperties = 
-					{
-						hqchecktimer = 120,
-						hqid = 34,
-						hqpos = 
-						{
-							x = -24943,
-							y = 3918,
-							z = -2509,
-						},
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "status",
-						type = "tm_st_hqstatus",
-					},
-				},
-				
-				{
-					customProperties = 
-					{
-						targets = 
-						{
-							
-							{
-								character = true,
-								contentid = 301492,
-								gadget = false,
-								name = "Son of Svanir",
-							},
-							
-							{
-								character = false,
-								contentid = 28443,
-								gadget = true,
-								name = "Sons of Svanir Banner",
-							},
-							
-							{
-								character = true,
-								contentid = 480582,
-								gadget = false,
-								name = "Veteran Son of Svanir",
-							},
-							
-							{
-								character = true,
-								contentid = 396370,
-								gadget = false,
-								name = "Son of Svanir",
-							},
-						},
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "kill Son of Svanir",
-						type = "tm_st_killspecific",
-					},
-				},
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = false,
-				mapid = 31,
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Fight the denizens of Jormabakke Stead",
+				name = "Mennerheim (POI)",
 				pos = 
 				{
-					hx = 0.12285335361958,
-					hy = 0.91005355119705,
-					hz = 0.39586555957794,
-					x = -24949.068359375,
-					y = 3944.9587402344,
-					z = -2519.3171386719,
-				},
-				radius = 0,
-				type = "tm_hq",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-			},
-			lastrun = 0,
-			order = 41,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = false,
-				mapid = 31,
-				maxduration = 0,
-				maxlevel = 0,
-				minlevel = 0,
-				name = "[WP] Frozen Sweeps",
-				pos = 
-				{
-					hx = 0.30930358171463,
-					hy = -0.83850926160812,
-					hz = 0.44859063625336,
-					x = 8556.6796875,
-					y = 5325.4506835938,
-					z = -3107.8588867188,
-				},
-				radius = 0,
-				type = "tm_moveto",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-			},
-			lastrun = 0,
-			order = 42,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = false,
-				mapid = 31,
-				maxduration = 0,
-				maxlevel = 0,
-				minlevel = 0,
-				name = "[WP] Lornar's",
-				pos = 
-				{
-					hx = 1,
-					hy = 0,
-					hz = 0,
-					x = -15967.66015625,
-					y = -16647.841796875,
-					z = -1165.6684570313,
+					hx = 0.22282142937183,
+					hy = 0.91858726739883,
+					hz = 0.3264172077179,
+					x = -22762.1796875,
+					y = -17014.99609375,
+					z = -2344.3024902344,
 				},
 				radius = 0,
 				type = "tm_moveto",
@@ -2565,7 +2343,7 @@ local tbl =
 				hqid = 36,
 			},
 			lastrun = 0,
-			order = 43,
+			order = 40,
 			posttasks = 
 			{
 			},
@@ -2640,7 +2418,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Impress the Mennerheim steadholders",
+				name = "Impress the Mennerheim steadholders (Heart)",
 				pos = 
 				{
 					hx = 0.93675953149796,
@@ -2659,52 +2437,10 @@ local tbl =
 		{
 			customProperties = 
 			{
-			},
-			lastrun = 0,
-			order = 44,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = false,
-				mapid = 31,
-				maxduration = 0,
-				maxlevel = 0,
-				minlevel = 0,
-				name = "[POI] Mennerheim",
-				pos = 
-				{
-					hx = 0.22282142937183,
-					hy = 0.91858726739883,
-					hz = 0.3264172077179,
-					x = -22762.1796875,
-					y = -17014.99609375,
-					z = -2344.3024902344,
-				},
-				radius = 0,
-				type = "tm_moveto",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
 				hqid = 35,
 			},
 			lastrun = 0,
-			order = 45,
+			order = 41,
 			posttasks = 
 			{
 			},
@@ -2723,26 +2459,6 @@ local tbl =
 						enabled = true,
 						name = "aggro",
 						type = "tm_st_fightaggro",
-					},
-				},
-				
-				{
-					customProperties = 
-					{
-						hqchecktimer = 120,
-						hqid = 35,
-						hqpos = 
-						{
-							x = -26004.69921875,
-							y = -16617.099609375,
-							z = -1962.8220214844,
-						},
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "status",
-						type = "tm_st_hqstatus",
 					},
 				},
 				
@@ -2848,6 +2564,26 @@ local tbl =
 						type = "tm_st_movetomultiple",
 					},
 				},
+				
+				{
+					customProperties = 
+					{
+						hqchecktimer = 120,
+						hqid = 35,
+						hqpos = 
+						{
+							x = -26004.69921875,
+							y = -16617.099609375,
+							z = -1962.8220214844,
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "status",
+						type = "tm_st_hqstatus",
+					},
+				},
 			},
 			taskProperties = 
 			{
@@ -2860,7 +2596,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Disrupt the dredge in Molengrad",
+				name = "Disrupt the dredge in Molengrad (Heart)",
 				pos = 
 				{
 					hx = -0.65282446146011,
@@ -2881,7 +2617,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 46,
+			order = 42,
 			posttasks = 
 			{
 			},
@@ -2902,7 +2638,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Podaga Steading",
+				name = "Podaga Steading (Waypoint)",
 				pos = 
 				{
 					hx = 0.41808989644051,
@@ -2924,7 +2660,7 @@ local tbl =
 				fightaggro = true,
 			},
 			lastrun = 0,
-			order = 47,
+			order = 43,
 			posttasks = 
 			{
 			},
@@ -2945,7 +2681,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[VISTA] Skradden Slopes",
+				name = "Skradden Slopes (Vista)",
 				pos = 
 				{
 					hx = 0.33046954870224,
@@ -2966,7 +2702,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 48,
+			order = 44,
 			posttasks = 
 			{
 			},
@@ -3035,15 +2771,15 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HP] Glisterice Caves",
+				name = "Glisterice Caves (Hero)",
 				pos = 
 				{
-					hx = 0.81484287977219,
-					hy = -0.57708436250687,
-					hz = -0.054815676063299,
-					x = -45029.73828125,
-					y = -17087.59375,
-					z = -2151.9936523438,
+					hx = 0.83283197879791,
+					hy = 0.26907488703728,
+					hz = 0.48372474312782,
+					x = -45068.8671875,
+					y = -17327.0390625,
+					z = -2137.6694335938,
 				},
 				radius = 0,
 				type = "tm_heropoint",
@@ -3056,7 +2792,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 49,
+			order = 45,
 			posttasks = 
 			{
 			},
@@ -3077,7 +2813,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Skradden",
+				name = "Skradden (Waypoint)",
 				pos = 
 				{
 					hx = -0.24763463437557,
@@ -3098,7 +2834,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 50,
+			order = 46,
 			posttasks = 
 			{
 			},
@@ -3119,7 +2855,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Seraph Outriders'",
+				name = "Seraph Outriders' (Waypoint)",
 				pos = 
 				{
 					hx = -0.90604341030121,
@@ -3141,7 +2877,7 @@ local tbl =
 				hqid = 33,
 			},
 			lastrun = 0,
-			order = 51,
+			order = 47,
 			posttasks = 
 			{
 			},
@@ -3166,7 +2902,7 @@ local tbl =
 				{
 					customProperties = 
 					{
-						hqchecktimer = 120,
+						hqchecktimer = 180,
 						hqid = 33,
 						hqpos = 
 						{
@@ -3230,6 +2966,20 @@ local tbl =
 								gadget = true,
 								name = "Sons of Svanir Banner",
 							},
+							
+							{
+								character = false,
+								contentid = 13501,
+								gadget = true,
+								name = "Sons of Svanir Banner",
+							},
+							
+							{
+								character = false,
+								contentid = 22937,
+								gadget = true,
+								name = "Sons of Svanir Banner",
+							},
 						},
 					},
 					taskProperties = 
@@ -3272,7 +3022,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Help the Seraph outrider camp",
+				name = "Help the Seraph outrider camp (Heart)",
 				pos = 
 				{
 					hx = -0.92706525325775,
@@ -3281,6 +3031,369 @@ local tbl =
 					x = -41084.83203125,
 					y = 3808.2431640625,
 					z = -3012.6281738281,
+				},
+				radius = 0,
+				type = "tm_hq",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 48,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 31,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Frozen Sweeps (Waypoint)",
+				pos = 
+				{
+					hx = -0.023509413003922,
+					hy = 0.99956405162811,
+					hz = 0.017861351370811,
+					x = -29354.630859375,
+					y = -1650.8642578125,
+					z = -1648.9852294922,
+				},
+				radius = 0,
+				type = "tm_moveto",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+				hqid = 34,
+			},
+			lastrun = 0,
+			order = 49,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 301492,
+								gadget = false,
+								name = "Son of Svanir",
+							},
+							
+							{
+								character = false,
+								contentid = 28443,
+								gadget = true,
+								name = "Sons of Svanir Banner",
+							},
+							
+							{
+								character = true,
+								contentid = 480582,
+								gadget = false,
+								name = "Veteran Son of Svanir",
+							},
+							
+							{
+								character = true,
+								contentid = 396370,
+								gadget = false,
+								name = "Son of Svanir",
+							},
+							
+							{
+								character = false,
+								contentid = 20998,
+								gadget = true,
+								name = "Sons of Svanir Banner",
+							},
+							
+							{
+								character = false,
+								contentid = 5006,
+								gadget = true,
+								name = "Sons of Svanir Banner",
+							},
+							
+							{
+								character = false,
+								contentid = 1629,
+								gadget = true,
+								name = "Sons of Svanir Banner",
+							},
+							
+							{
+								character = true,
+								contentid = 301478,
+								gadget = false,
+								name = "Son of Svanir",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "kill Son of Svanir",
+						type = "tm_st_killspecific",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						hqchecktimer = 180,
+						hqid = 34,
+						hqpos = 
+						{
+							x = -24943,
+							y = 3918,
+							z = -2509,
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "status",
+						type = "tm_st_hqstatus",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targetpos = 
+						{
+							hx = -0.15030804276466,
+							hy = -0.85215193033218,
+							hz = 0.50124299526215,
+							x = -27551.876953125,
+							y = 5461.1567382813,
+							z = -3017.3950195313,
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Move to location",
+						type = "tm_st_moveto",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 31,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Fight the denizens of Jormabakke Stead (Heart)",
+				pos = 
+				{
+					hx = 0.12285335361958,
+					hy = 0.91005355119705,
+					hz = 0.39586555957794,
+					x = -24949.068359375,
+					y = 3944.9587402344,
+					z = -2519.3171386719,
+				},
+				radius = 0,
+				type = "tm_hq",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+				fightaggro = true,
+			},
+			lastrun = 0,
+			order = 50,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 31,
+				maxduration = 180,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Isenfall Gullies (Vista)",
+				pos = 
+				{
+					hx = 0.32203993201256,
+					hy = 0.69035178422928,
+					hz = 0.64784622192383,
+					x = -26356.2734375,
+					y = 8059.09375,
+					z = -3953.3388671875,
+				},
+				radius = 0,
+				type = "tm_vista",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+				hqid = 32,
+			},
+			lastrun = 0,
+			order = 51,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						hqchecktimer = 120,
+						hqid = 32,
+						hqpos = 
+						{
+							x = -32823,
+							y = 8821,
+							z = -2763.3549804688,
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "status",
+						type = "tm_st_hqstatus",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 43489,
+								gadget = false,
+								name = "Modniir Sage",
+							},
+							
+							{
+								character = true,
+								contentid = 43487,
+								gadget = false,
+								name = "Modniir Hunter",
+							},
+							
+							{
+								character = true,
+								contentid = 43485,
+								gadget = false,
+								name = "Modniir Berserker",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "kill",
+						type = "tm_st_killspecific",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 31,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Support the Durnand Priory against the centaurs (Heart)",
+				pos = 
+				{
+					hx = -0.28963977098465,
+					hy = -0.83199977874756,
+					hz = 0.47316506505013,
+					x = -32775.01171875,
+					y = 8928.9443359375,
+					z = -2766.8142089844,
 				},
 				radius = 0,
 				type = "tm_hq",
@@ -3314,7 +3427,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Angvar's Trove",
+				name = "Angvar's Trove (Waypoint)",
 				pos = 
 				{
 					hx = -0.18446692824364,
@@ -3336,6 +3449,48 @@ local tbl =
 			},
 			lastrun = 0,
 			order = 53,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 31,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Scholar's Cleft (Waypoint)",
+				pos = 
+				{
+					hx = 0.078139945864677,
+					hy = 0.80358296632767,
+					hz = 0.59004110097885,
+					x = -43404.82421875,
+					y = 12655.198242188,
+					z = -5080.615234375,
+				},
+				radius = 0,
+				type = "tm_moveto",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 54,
 			posttasks = 
 			{
 			},
@@ -3414,7 +3569,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HP] Razorwing's Nest (Nav Position Fixed)",
+				name = "Razorwing's Nest (Hero)",
 				pos = 
 				{
 					hx = -0.88876694440842,
@@ -3435,39 +3590,178 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 54,
+			order = 55,
 			posttasks = 
 			{
 			},
 			pretasks = 
 			{
+				
+				{
+					customProperties = 
+					{
+					},
+					order = 0,
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 95646,
+								gadget = false,
+								name = "Vilnia Shadowsong",
+							},
+							
+							{
+								character = true,
+								contentid = 43668,
+								gadget = false,
+								name = "Noxia",
+							},
+							
+							{
+								character = true,
+								contentid = 250323,
+								gadget = false,
+								name = "Vilnia Shadowsong",
+							},
+							
+							{
+								character = true,
+								contentid = 34316,
+								gadget = false,
+								name = "Vision of Raven",
+							},
+						},
+					},
+					order = 1,
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Kill specific targets",
+						type = "tm_st_killspecific",
+					},
+				},
 			},
 			subtasks = 
 			{
+				
+				{
+					customProperties = 
+					{
+					},
+					order = 0,
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 43668,
+								gadget = false,
+								name = "Noxia",
+							},
+							
+							{
+								character = true,
+								contentid = 95646,
+								gadget = false,
+								name = "Vilnia Shadowsong",
+							},
+							
+							{
+								character = true,
+								contentid = 34316,
+								gadget = false,
+								name = "Vision of Raven",
+							},
+							
+							{
+								character = true,
+								contentid = 250323,
+								gadget = false,
+								name = "Vilnia Shadowsong",
+							},
+						},
+					},
+					order = 2,
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Kill Targets",
+						type = "tm_st_killspecific",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 45378,
+							gadget = true,
+							name = "Raven Shaman's Power Source",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					order = 1,
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
 			},
 			taskProperties = 
 			{
 				cooldown = 0,
 				enabled = true,
-				gw2_failondeath = false,
+				gw2_failondeath = true,
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 31,
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Scholar's Cleft",
+				name = "Ravens place of power (Hero)",
 				pos = 
 				{
-					hx = 0.078139945864677,
-					hy = 0.80358296632767,
-					hz = 0.59004110097885,
-					x = -43404.82421875,
-					y = 12655.198242188,
-					z = -5080.615234375,
+					hx = 0.88253027200699,
+					hy = 0.3319254219532,
+					hz = -0.3331153690815,
+					x = -34604.16796875,
+					y = 19052.162109375,
+					z = -3388.9682617188,
 				},
 				radius = 0,
-				type = "tm_moveto",
+				type = "tm_heropoint",
 			},
 			version = 0,
 		},

@@ -36,7 +36,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Nightguard",
+				name = "Nightguard (Waypoint)",
 				pos = 
 				{
 					hx = 0.56757909059525,
@@ -364,7 +364,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Help the Seraph at Nightguard Beach",
+				name = "Help the Seraph at Nightguard Beach (Heart)",
 				pos = 
 				{
 					hx = 0.82085001468658,
@@ -406,7 +406,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Shieldbluff",
+				name = "Shieldbluff (Waypoint)",
 				pos = 
 				{
 					hx = -0.50144475698471,
@@ -448,7 +448,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Shorebluff Camp",
+				name = "Shorebluff Camp (POI)",
 				pos = 
 				{
 					hx = -0.74265688657761,
@@ -545,7 +545,7 @@ local tbl =
 				{
 					customProperties = 
 					{
-						hqchecktimer = 180,
+						hqchecktimer = 240,
 						hqid = 205,
 						hqpos = 
 						{
@@ -722,7 +722,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Help Broil Cane disrupt centaurs",
+				name = "Help Broil Cane disrupt centaurs (Heart)",
 				pos = 
 				{
 					hx = 0.12263461202383,
@@ -764,7 +764,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Koofooloo",
+				name = "Koofooloo (POI)",
 				pos = 
 				{
 					hx = -0.46279284358025,
@@ -830,7 +830,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HP] Dolyak's Rest",
+				name = "Dolyak's Rest (Hero)",
 				pos = 
 				{
 					hx = 0.40618526935577,
@@ -872,7 +872,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Grey Gritta's",
+				name = "Grey Gritta's (Waypoint)",
 				pos = 
 				{
 					hx = 0.57914257049561,
@@ -1127,7 +1127,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Train with the Company",
+				name = "Train with the Company (Heart)",
 				pos = 
 				{
 					hx = 0.9560187458992,
@@ -1249,7 +1249,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HP] Craig Sensay",
+				name = "Craig Sensay (Hero)",
 				pos = 
 				{
 					hx = 0.85300493240356,
@@ -1292,7 +1292,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[VISTA] Wildspine Hills",
+				name = "Wildspine Hills (Vista)",
 				pos = 
 				{
 					hx = 0.68768936395645,
@@ -1376,7 +1376,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Barricade Camp",
+				name = "Barricade Camp (Waypoint)",
 				pos = 
 				{
 					hx = 0.65894889831543,
@@ -1418,7 +1418,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[VISTA] Hangman's Saddle Part 1",
+				name = "Hangman's Saddle Part 1 (Vista)",
 				pos = 
 				{
 					hx = 0.85259860754013,
@@ -1473,7 +1473,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[VISTA] Hangman's Saddle Part 2",
+				name = "Hangman's Saddle Part 2 (Vista)",
 				pos = 
 				{
 					hx = 0.80242210626602,
@@ -1557,7 +1557,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Blackhold Mine Camp",
+				name = "Blackhold Mine Camp (POI)",
 				pos = 
 				{
 					hx = 0.96377414464951,
@@ -1818,7 +1818,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Help Forward Scout Luke disrupt centaur logistics",
+				name = "Help Forward Scout Luke disrupt centaur logistics (Heart)",
 				pos = 
 				{
 					hx = -0.33551779389381,
@@ -1872,7 +1872,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Kingstate Camp",
+				name = "Kingstate Camp (POI)",
 				pos = 
 				{
 					hx = 0.51830410957336,
@@ -1914,7 +1914,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Cloven Hoof",
+				name = "Cloven Hoof (Waypoint)",
 				pos = 
 				{
 					hx = -0.71160012483597,
@@ -1956,7 +1956,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] War King`s Greatcamp (approaching)",
+				name = "War King`s Greatcamp (approaching) (POI)",
 				pos = 
 				{
 					hx = 0.97678577899933,
@@ -1998,7 +1998,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] War King`s Greatcamp",
+				name = "War King`s Greatcamp (POI)",
 				pos = 
 				{
 					hx = 0.96826034784317,
@@ -2076,7 +2076,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HP] Ancient War Stones",
+				name = "Ancient War Stones (Hero)",
 				pos = 
 				{
 					hx = -0.47325229644775,
@@ -2316,7 +2316,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Help Forward Scout Greta cause chaos in the Modniir homeland",
+				name = "Help Forward Scout Greta cause chaos in the Modniir homeland (Heart)",
 				pos = 
 				{
 					hx = 0.59159141778946,
@@ -2358,7 +2358,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Southforge Camp",
+				name = "Southforge Camp (POI)",
 				pos = 
 				{
 					hx = 0.77924114465714,
@@ -2401,7 +2401,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[VISTA] ClovenHoof Pass",
+				name = "ClovenHoof Pass (Vista)",
 				pos = 
 				{
 					hx = -0.57794094085693,
@@ -2443,7 +2443,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Junction Camp",
+				name = "Junction Camp (Waypoint)",
 				pos = 
 				{
 					hx = 0.21360072493553,
@@ -2485,7 +2485,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Northpasture Camp",
+				name = "Northpasture Camp (POI)",
 				pos = 
 				{
 					hx = -0.19098819792271,
@@ -2743,7 +2743,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Assist the skritt in Arcallion Digs",
+				name = "Assist the skritt in Arcallion Digs (Heart)",
 				pos = 
 				{
 					hx = -0.68880075216293,
@@ -2785,7 +2785,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Arcallion",
+				name = "Arcallion (Waypoint)",
 				pos = 
 				{
 					hx = 0.7134844660759,
@@ -3149,7 +3149,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Attack the centaurs",
+				name = "Attack the centaurs (Heart)",
 				pos = 
 				{
 					hx = 0.9512100815773,
@@ -3191,7 +3191,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Bridgewatch Camp",
+				name = "Bridgewatch Camp (Waypoint)",
 				pos = 
 				{
 					hx = -0.28837463259697,
@@ -3291,7 +3291,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HP] Conspicuous Feather Pile",
+				name = "Conspicuous Feather Pile (Hero)",
 				pos = 
 				{
 					hx = 0.90205824375153,
@@ -3333,7 +3333,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Arca",
+				name = "Arca (Waypoint)",
 				pos = 
 				{
 					hx = 0.7405988574028,
@@ -3411,7 +3411,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HP] Harathi Forward Post",
+				name = "Harathi Forward Post (Hero)",
 				pos = 
 				{
 					hx = -0.11125883460045,
@@ -3453,7 +3453,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Seraph's Landing",
+				name = "Seraph's Landing (Waypoint)",
 				pos = 
 				{
 					hx = 1,
@@ -3723,7 +3723,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Protect Seraph's Landing",
+				name = "Protect Seraph's Landing (Heart)",
 				pos = 
 				{
 					hx = -0.43348875641823,
@@ -3766,7 +3766,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[VISTA] Seraph's Landing",
+				name = "Seraph's Landing (Vista)",
 				pos = 
 				{
 					hx = -0.44105532765388,
@@ -3808,7 +3808,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Forward Camp",
+				name = "Forward Camp (POI)",
 				pos = 
 				{
 					hx = 0.97969824075699,
@@ -3850,7 +3850,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Demetra",
+				name = "Demetra (Waypoint)",
 				pos = 
 				{
 					hx = -0.93769836425781,
@@ -3892,7 +3892,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Martyr's Tomb",
+				name = "Martyr's Tomb (POI)",
 				pos = 
 				{
 					hx = 0.99329364299774,
@@ -4133,7 +4133,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Help Ket investigate the Ruins of Demetra",
+				name = "Help Ket investigate the Ruins of Demetra (Heart)",
 				pos = 
 				{
 					hx = 0.75009059906006,
@@ -4175,7 +4175,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Mountainroot Lair",
+				name = "Mountainroot Lair (POI)",
 				pos = 
 				{
 					hx = -0.080683946609497,
@@ -4253,7 +4253,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HP] Hidden Falls",
+				name = "Hidden Falls (Hero)",
 				pos = 
 				{
 					hx = 0.22835597395897,
@@ -4296,7 +4296,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[VISTA] Bonerattler Caverns",
+				name = "Bonerattler Caverns (Vista)",
 				pos = 
 				{
 					hx = -0.28165581822395,
@@ -4338,7 +4338,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Faun's",
+				name = "Faun's (Waypoint)",
 				pos = 
 				{
 					hx = 0.61609452962875,
@@ -4380,7 +4380,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Wynchona Rally Point",
+				name = "Wynchona Rally Point (Waypoint)",
 				pos = 
 				{
 					hx = -0.84981429576874,
@@ -4542,7 +4542,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Help the Seraph disrupt bandit activity",
+				name = "Help the Seraph disrupt bandit activity (Heart)",
 				pos = 
 				{
 					hx = 0.82278263568878,
@@ -4585,7 +4585,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[VISTA] Wynchona Rally Point",
+				name = "Wynchona Rally Point (Vista)",
 				pos = 
 				{
 					hx = 0.27324122190475,
@@ -4627,7 +4627,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Drakken's Den",
+				name = "Drakken's Den (POI)",
 				pos = 
 				{
 					hx = -0.80729633569717,
@@ -4669,7 +4669,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Trebusha's Overlook",
+				name = "Trebusha's Overlook (Waypoint)",
 				pos = 
 				{
 					hx = 0.96050697565079,
@@ -4712,7 +4712,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[VISTA] North of Trebusha's Overlook",
+				name = "North of Trebusha's Overlook (Vista)",
 				pos = 
 				{
 					hx = -0.030199818313122,
@@ -4965,7 +4965,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[HQ] Cause chaos among the centaurs",
+				name = "Cause chaos among the centaurs (Heart)",
 				pos = 
 				{
 					hx = -0.78802222013474,
@@ -5007,7 +5007,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Watchlin Armory",
+				name = "Watchlin Armory (POI)",
 				pos = 
 				{
 					hx = -0.81921690702438,
@@ -5049,7 +5049,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Overwatch Camp",
+				name = "Overwatch Camp (POI)",
 				pos = 
 				{
 					hx = -0.52596497535706,
@@ -5092,7 +5092,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[VISTA] Thunder Rock",
+				name = "Thunder Rock (Vista)",
 				pos = 
 				{
 					hx = 0.24813517928123,
@@ -5134,7 +5134,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Recovery Camp",
+				name = "Recovery Camp (Waypoint)",
 				pos = 
 				{
 					hx = 1,
@@ -5176,7 +5176,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Confinement Camp",
+				name = "Confinement Camp (POI)",
 				pos = 
 				{
 					hx = 0.27633512020111,
@@ -5218,7 +5218,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[POI] Restricted Zone XRB",
+				name = "Restricted Zone XRB (POI)",
 				pos = 
 				{
 					hx = 0.95787453651428,

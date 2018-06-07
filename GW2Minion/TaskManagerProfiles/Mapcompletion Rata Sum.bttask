@@ -29,19 +29,22 @@ local tbl =
 			{
 				cooldown = 0,
 				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
 				mapid = 139,
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Metrical Court",
+				name = "Magustan Court (Waypoint)",
 				pos = 
 				{
-					hx = 0.22402356564999,
-					hy = 0.71895533800125,
-					hz = 0.65796405076981,
-					x = 4692.7294921875,
-					y = 4715.4462890625,
-					z = -15190.182617188,
+					hx = -0.25084033608437,
+					hy = 0.75475251674652,
+					hz = 0.60615819692612,
+					x = 2871.2346191406,
+					y = 9696.048828125,
+					z = -15190.1484375,
 				},
 				radius = 0,
 				type = "tm_moveto",
@@ -52,6 +55,7 @@ local tbl =
 		{
 			customProperties = 
 			{
+				fightaggro = true,
 			},
 			lastrun = 0,
 			order = 2,
@@ -68,22 +72,25 @@ local tbl =
 			{
 				cooldown = 0,
 				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
 				mapid = 139,
-				maxduration = 0,
+				maxduration = 180,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Forge Hall",
+				name = "Forge Hall (Vista)",
 				pos = 
 				{
-					hx = -0.30979695916176,
-					hy = 0.75400561094284,
-					hz = 0.57922476530075,
-					x = 5258.4555664063,
-					y = 7567.2895507813,
-					z = -15190.141601563,
+					hx = -0.01691353879869,
+					hy = -0.59653609991074,
+					hz = 0.80240797996521,
+					x = 4391.1455078125,
+					y = 7174.69921875,
+					z = -15865.482421875,
 				},
 				radius = 0,
-				type = "tm_moveto",
+				type = "tm_vista",
 			},
 			version = 0,
 		},
@@ -107,19 +114,22 @@ local tbl =
 			{
 				cooldown = 0,
 				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
 				mapid = 139,
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Magustan Court",
+				name = "Forge Hall (POI)",
 				pos = 
 				{
-					hx = -0.25084033608437,
-					hy = 0.75475251674652,
-					hz = 0.60615819692612,
-					x = 2871.2346191406,
-					y = 9696.048828125,
-					z = -15190.1484375,
+					hx = -0.30979695916176,
+					hy = 0.75400561094284,
+					hz = 0.57922476530075,
+					x = 5258.4555664063,
+					y = 7567.2895507813,
+					z = -15190.141601563,
 				},
 				radius = 0,
 				type = "tm_moveto",
@@ -146,25 +156,22 @@ local tbl =
 			{
 				cooldown = 0,
 				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = false,
 				mapid = 139,
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[Vista] Forge Hall",
+				name = "Metrical Court (Waypoint)",
 				pos = 
 				{
-					hx = -0.01691353879869,
-					hy = -0.59653609991074,
-					hz = 0.80240797996521,
-					x = 4391.1455078125,
-					y = 7174.69921875,
-					z = -15865.482421875,
+					hx = 0.22402356564999,
+					hy = 0.71895533800125,
+					hz = 0.65796405076981,
+					x = 4692.7294921875,
+					y = 4715.4462890625,
+					z = -15190.182617188,
 				},
 				radius = 0,
-				type = "tm_vista",
+				type = "tm_moveto",
 			},
 			version = 0,
 		},
@@ -192,7 +199,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] College of Dynamics",
+				name = "College of Dynamics (POI)",
 				pos = 
 				{
 					hx = -0.72120028734207,
@@ -231,7 +238,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Magicat Court",
+				name = "Magicat Court (Waypoint)",
 				pos = 
 				{
 					hx = -0.49236384034157,
@@ -270,7 +277,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] College of Synergy",
+				name = "College of Synergy (POI)",
 				pos = 
 				{
 					hx = -0.3196739256382,
@@ -309,7 +316,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Arcane Council",
+				name = "Arcane Council (POI)",
 				pos = 
 				{
 					hx = -0.54686498641968,
@@ -348,7 +355,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Accountancy",
+				name = "Accountancy (Waypoint)",
 				pos = 
 				{
 					hx = -0.54909300804138,
@@ -387,7 +394,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Arcane Council",
+				name = "Arcane Council (POI)",
 				pos = 
 				{
 					hx = -0.79655140638351,
@@ -426,7 +433,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] ???",
+				name = "??? (POI)",
 				pos = 
 				{
 					hx = 0.83423960208893,
@@ -465,7 +472,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Polymock Atrium",
+				name = "Polymock Atrium (POI)",
 				pos = 
 				{
 					hx = 0.70748114585876,
@@ -504,7 +511,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Vigil Recruiting Station",
+				name = "Vigil Recruiting Station (POI)",
 				pos = 
 				{
 					hx = 0.16283120214939,
@@ -543,7 +550,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Artisan Hall",
+				name = "Artisan Hall (POI)",
 				pos = 
 				{
 					hx = -0.73611223697662,
@@ -582,7 +589,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Skinner Hall",
+				name = "Skinner Hall (POI)",
 				pos = 
 				{
 					hx = -0.18302983045578,
@@ -621,7 +628,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Depot. Of Arcane Eye",
+				name = "Depot. Of Arcane Eye (POI)",
 				pos = 
 				{
 					hx = -0.94564843177795,
@@ -660,7 +667,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Priory Recruiting Station",
+				name = "Priory Recruiting Station (POI)",
 				pos = 
 				{
 					hx = 0.68115526437759,
@@ -702,7 +709,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[Vista] Synergetic Union",
+				name = "Synergetic Union (Vista)",
 				pos = 
 				{
 					hx = 0.96909594535828,
@@ -741,7 +748,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Auxiliary",
+				name = "Auxiliary (Waypoint)",
 				pos = 
 				{
 					hx = -0.68312209844589,
@@ -780,7 +787,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Inquest Recruiting Station",
+				name = "Inquest Recruiting Station (POI)",
 				pos = 
 				{
 					hx = -0.16452834010124,
@@ -819,7 +826,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Research",
+				name = "Research (Waypoint)",
 				pos = 
 				{
 					hx = 0.15787354111671,
@@ -861,7 +868,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Lower Research",
+				name = "Lower Research (POI)",
 				pos = 
 				{
 					hx = -0.64159244298935,
@@ -903,7 +910,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Apprentice",
+				name = "Apprentice (Waypoint)",
 				pos = 
 				{
 					hx = 0.52188491821289,
@@ -945,7 +952,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] The Aquatarium",
+				name = "The Aquatarium (POI)",
 				pos = 
 				{
 					hx = -0.21309614181519,
@@ -988,7 +995,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[Vista] Apprentice Station",
+				name = "Apprentice Station (Vista)",
 				pos = 
 				{
 					hx = 0.013839421793818,
@@ -1019,7 +1026,6 @@ local tbl =
 					{
 						waypointid = 1209,
 					},
-					order = 0,
 					taskProperties = 
 					{
 						enabled = true,
@@ -1045,7 +1051,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[Vista] Bottom floor",
+				name = "Bottom floor (Vista)",
 				pos = 
 				{
 					hx = -0.25945854187012,
@@ -1087,7 +1093,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Zojjas Workstation",
+				name = "Zojjas Workstation (POI)",
 				pos = 
 				{
 					hx = 0.50292158126831,
@@ -1129,7 +1135,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Engage Demo Station",
+				name = "Engage Demo Station (POI)",
 				pos = 
 				{
 					hx = 0.51652902364731,
@@ -1171,7 +1177,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Incubation",
+				name = "Incubation (Waypoint)",
 				pos = 
 				{
 					hx = 0.23262710869312,
@@ -1213,7 +1219,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Usability Station ",
+				name = "Usability Station (POI)",
 				pos = 
 				{
 					hx = -0.32885748147964,
@@ -1252,7 +1258,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Dawnside Quay",
+				name = "Dawnside Quay (POI)",
 				pos = 
 				{
 					hx = 0.71504330635071,
@@ -1294,7 +1300,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[WP] Port",
+				name = "Port (Waypoint)",
 				pos = 
 				{
 					hx = -0.8258952498436,
@@ -1336,7 +1342,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[PoI] Antidawn Anchorage",
+				name = "Antidawn Anchorage (POI)",
 				pos = 
 				{
 					hx = 0.40249755978584,
@@ -1378,7 +1384,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "[Vista] Port",
+				name = "Port (Vista)",
 				pos = 
 				{
 					hx = -0.38715732097626,
