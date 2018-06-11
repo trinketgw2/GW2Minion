@@ -18,6 +18,7 @@ function Player:MoveTo(x, y, z, targetid, stoppingdistance, randommovement, smoo
 	ml_navigation.randommovement = randommovement
 	ml_navigation.smoothturns = smoothturns or true
 	ml_navigation.targetid = targetid or 0
+	ml_navigation.debug = nil
 	
 	if ( ml_navigation.targetposition and math.distance3d(ml_navigation.targetposition, { x=x, y=y, z=z }) > 10 ) then
 		gw2_unstuck.SoftReset()
@@ -47,7 +48,7 @@ function ml_navigation.Navigate(event, ticks )
 			return
 		end
 		
-		if ( GetGameState() == GW2.GAMESTATE.GAMEPLAY) then				
+		if ( GetGameState() == GW2.GAMESTATE.GAMEPLAY and not ml_navigation.debug) then				
 			local playerpos = Player.pos
 			ml_navigation.pathindex = NavigationManager.NavPathNode	-- gets the current path index which is saved in c++ ( and changed there on updating / adjusting the path, which happens each time MoveTo() is called. Index starts at 1 and 'usually' is 2 whne running
 						
