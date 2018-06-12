@@ -1481,6 +1481,31 @@ local tbl =
 			},
 			pretasks = 
 			{
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 30274,
+							gadget = true,
+							name = "Morgan's Orchid",
+						},
+						talksteps = 
+						{
+							0,
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
 			},
 			subtasks = 
 			{
@@ -1493,10 +1518,11 @@ local tbl =
 							character = false,
 							contentid = 30274,
 							gadget = true,
-							name = "Morgans Orchidee",
+							name = "Morgan's Orchid",
 						},
 						talksteps = 
 						{
+							0,
 							0,
 						},
 						talktype = "Index",
@@ -1547,9 +1573,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 34,
-				maxduration = 0,
+				maxduration = 60,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Morgans Orchid (Hero)",
 				pos = 
 				{
@@ -2377,6 +2403,58 @@ local tbl =
 				{
 					customProperties = 
 					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 44283,
+							gadget = false,
+							name = "Imprisoned Hound",
+						},
+						talksteps = 
+						{
+							0,
+							0,
+						},
+						talktype = "Index",
+					},
+					order = 19,
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 64305,
+							gadget = false,
+							name = "Nightmare Pup",
+						},
+						talksteps = 
+						{
+							0,
+							0,
+						},
+						talktype = "Index",
+					},
+					order = 20,
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
 						positions = 
 						{
 							
@@ -2592,9 +2670,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 34,
-				maxduration = 0,
+				maxduration = 60,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Briarthorn - Dark Thorn Patch (Hero)",
 				pos = 
 				{
@@ -3314,9 +3392,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 34,
-				maxduration = 0,
+				maxduration = 60,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Waterfall (Hero)",
 				pos = 
 				{
@@ -3948,9 +4026,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 34,
-				maxduration = 0,
+				maxduration = 60,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Mysterious Soil (Hero)",
 				pos = 
 				{
@@ -5064,9 +5142,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 34,
-				maxduration = 0,
+				maxduration = 60,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Swift Arrow (Hero)",
 				pos = 
 				{
@@ -5704,7 +5782,7 @@ local tbl =
 								closedialog = false,
 								contentid = 30564,
 								gadget = true,
-								maxinteract = 1,
+								maxinteract = 2,
 								name = "Zopatl Grounds Marker",
 								oncepertarget = false,
 							},
@@ -5714,7 +5792,7 @@ local tbl =
 								closedialog = false,
 								contentid = 26735,
 								gadget = true,
-								maxinteract = 1,
+								maxinteract = 2,
 								name = "Zopatl Grounds Marker",
 								oncepertarget = false,
 							},
@@ -5724,7 +5802,7 @@ local tbl =
 								closedialog = false,
 								contentid = 7320,
 								gadget = true,
-								maxinteract = 1,
+								maxinteract = 2,
 								name = "Zopatl Grounds Marker",
 								oncepertarget = false,
 							},
@@ -5734,7 +5812,7 @@ local tbl =
 								closedialog = false,
 								contentid = 9859,
 								gadget = true,
-								maxinteract = 1,
+								maxinteract = 2,
 								name = "Small Cell",
 								oncepertarget = false,
 							},
@@ -5744,7 +5822,7 @@ local tbl =
 								closedialog = false,
 								contentid = 9104,
 								gadget = true,
-								maxinteract = 1,
+								maxinteract = 2,
 								name = "Small Cell",
 								oncepertarget = false,
 							},
@@ -5754,7 +5832,7 @@ local tbl =
 								closedialog = false,
 								contentid = 28720,
 								gadget = true,
-								maxinteract = 1,
+								maxinteract = 2,
 								name = "Small Cell",
 								oncepertarget = false,
 							},
@@ -6958,9 +7036,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 34,
-				maxduration = 0,
+				maxduration = 60,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Krait Altar (Hero)",
 				pos = 
 				{
@@ -7435,9 +7513,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 34,
-				maxduration = 0,
+				maxduration = 60,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Powerful darkness (Hero)",
 				pos = 
 				{
