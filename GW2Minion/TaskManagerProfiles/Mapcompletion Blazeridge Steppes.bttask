@@ -2250,7 +2250,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 20,
-				maxduration = 60,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 46,
 				name = "Searing Crystal (Hero)",
@@ -3149,7 +3149,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 20,
-				maxduration = 60,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 46,
 				name = "Serenity Temple (Hero)",
@@ -3882,7 +3882,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 20,
-				maxduration = 60,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 48,
 				name = "Fane Skinchisel (Hero)",
@@ -5351,52 +5351,9 @@ local tbl =
 		{
 			customProperties = 
 			{
-				waypointid = 515,
 			},
 			lastrun = 0,
 			order = 51,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = true,
-				mapid = 20,
-				maxduration = 0,
-				maxlevel = 0,
-				minlevel = 0,
-				name = "Kindling  (Waypoint)",
-				pos = 
-				{
-					hx = 0.83939522504807,
-					hy = -0.26436492800713,
-					hz = 0.47489663958549,
-					x = -20307.501953125,
-					y = 39112.58203125,
-					z = -777.31848144531,
-				},
-				radius = 0,
-				type = "tm_discoverwaypoint",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-			},
-			lastrun = 0,
-			order = 52,
 			posttasks = 
 			{
 			},
@@ -5429,6 +5386,49 @@ local tbl =
 				},
 				radius = 0,
 				type = "tm_moveto",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+				waypointid = 515,
+			},
+			lastrun = 0,
+			order = 52,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 20,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Kindling  (Waypoint)",
+				pos = 
+				{
+					hx = 0.83939522504807,
+					hy = -0.26436492800713,
+					hz = 0.47489663958549,
+					x = -20307.501953125,
+					y = 39112.58203125,
+					z = -777.31848144531,
+				},
+				radius = 0,
+				type = "tm_discoverwaypoint",
 			},
 			version = 0,
 		},
@@ -5492,7 +5492,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 20,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 50,
 				name = "Birthplace Of The Vigil (Hero)",
@@ -5514,7 +5514,7 @@ local tbl =
 		{
 			customProperties = 
 			{
-				hqid = 0,
+				hqid = 126,
 			},
 			lastrun = 0,
 			order = 54,
@@ -5570,6 +5570,49 @@ local tbl =
 				},
 				radius = 0,
 				type = "tm_hq",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+				duration = 0,
+			},
+			lastrun = 0,
+			order = 55,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 20,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Move to Complete",
+				pos = 
+				{
+					hx = 0.15810231864452,
+					hy = -0.98201596736908,
+					hz = -0.10319062322378,
+					x = 15810.768554688,
+					y = -45864.2109375,
+					z = -1216.2312011719,
+				},
+				radius = 0,
+				type = "tm_wait",
 			},
 			version = 0,
 		},
