@@ -2307,7 +2307,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Alter Brook (POI)nt of Intrest",
+				name = "Alter Brook (POI)",
 				pos = 
 				{
 					hx = -0.52724123001099,
@@ -2724,7 +2724,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Bar Curtis Ranch (POI)nt of Inrest",
+				name = "Bar Curtis Ranch (POI)",
 				pos = 
 				{
 					hx = -0.77849578857422,
@@ -2851,7 +2851,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Duran Brothers (POI)nt of interest",
+				name = "Duran Brothers (POI)",
 				pos = 
 				{
 					hx = 0.92307823896408,
@@ -3404,7 +3404,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Greatheart Weald (POI)nt of intrest",
+				name = "Greatheart Weald (POI)",
 				pos = 
 				{
 					hx = -0.60654670000076,
@@ -3730,7 +3730,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Hunting Lodge",
+				name = "Hunting Lodge (POI)",
 				pos = 
 				{
 					hx = 0.9240455031395,
@@ -4091,9 +4091,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 15,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 80,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Beetletun (Waypoint)",
 				pos = 
 				{
@@ -4241,9 +4241,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 15,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 80,
-				minlevel = 10,
+				minlevel = 13,
 				name = "Bandit Loot (Hero)",
 				pos = 
 				{
@@ -4327,9 +4327,9 @@ local tbl =
 				gw2_failondeathcount = 3,
 				gw2_trytosurvive = true,
 				mapid = 15,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 80,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Ert and Burt (Hero)",
 				pos = 
 				{
@@ -4415,9 +4415,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 15,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 80,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Chhk the Windmill King (Hero)",
 				pos = 
 				{
@@ -4503,9 +4503,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 15,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 80,
-				minlevel = 11,
+				minlevel = 13,
 				name = "Carnie Jeb (Hero)",
 				pos = 
 				{
@@ -4948,7 +4948,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Holdland Camp (POI)nt of intrest",
+				name = "Holdland Camp (POI)",
 				pos = 
 				{
 					hx = -0.95036512613297,
@@ -5075,7 +5075,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Kappa's Corral",
+				name = "Kappa's Corral (POI)",
 				pos = 
 				{
 					hx = 0.88356119394302,
@@ -5117,7 +5117,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Elvdin Monastery",
+				name = "Elvdin Monastery (POI)",
 				pos = 
 				{
 					hx = 0.58889502286911,
@@ -5355,7 +5355,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Cliffwatch Camp",
+				name = "Cliffwatch Camp (POI)",
 				pos = 
 				{
 					hx = -0.19893871247768,
@@ -5397,7 +5397,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Hidden Cliff Camp",
+				name = "Hidden Cliff Camp (POI)",
 				pos = 
 				{
 					hx = 0.22047838568687,
@@ -5638,9 +5638,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 15,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 80,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Tamini Place of Power (Hero)",
 				pos = 
 				{
@@ -5683,7 +5683,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Bonegrinder's Gully",
+				name = "Bonegrinder's Gully (POI)",
 				pos = 
 				{
 					hx = -0.067172206938267,
@@ -5725,7 +5725,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Temple of the Ages",
+				name = "Temple of the Ages (POI)",
 				pos = 
 				{
 					hx = 0.8398265838623,
@@ -5767,7 +5767,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Deathroot Shack (POI)nt of intrest",
+				name = "Deathroot Shack (POI)",
 				pos = 
 				{
 					hx = 0.056377243250608,
@@ -6128,9 +6128,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 15,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 80,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Temple of The Ages (Hero)",
 				pos = 
 				{
@@ -6182,6 +6182,651 @@ local tbl =
 					x = 13076.19921875,
 					y = -24590.623046875,
 					z = -270.26950073242,
+				},
+				radius = 0,
+				type = "tm_moveto",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 68,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 19445,
+							gadget = true,
+							name = "Earthen Magic",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Channel",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 15,
+				maxduration = 0,
+				maxlevel = 80,
+				minlevel = 5,
+				name = "Earthen Magic (Hero)",
+				pos = 
+				{
+					hx = -0.87972503900528,
+					hy = 0.28780657052994,
+					hz = 0.37848544120789,
+					x = -5566.7495117188,
+					y = 6376.2036132813,
+					z = -1274.1070556641,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 69,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 26969,
+							gadget = true,
+							name = "Banditenbeute",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 43469,
+								gadget = false,
+								name = "Rogue",
+							},
+							
+							{
+								character = true,
+								contentid = 301457,
+								gadget = false,
+								name = "Franklin Quickblade",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "kill",
+						type = "tm_st_killspecific",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 15,
+				maxduration = 120,
+				maxlevel = 80,
+				minlevel = 13,
+				name = "Bandit Loot (Hero)",
+				pos = 
+				{
+					hx = -0.55566811561584,
+					hy = 0.83140420913696,
+					hz = 0,
+					x = -29253.0546875,
+					y = -4024.6704101563,
+					z = -1304.2770996094,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 70,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 21540,
+							gadget = true,
+							name = "Ert's Jug of Power Unguent",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Interact",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						itemlist = 
+						{
+							
+							{
+								id = 22375,
+								name = "Ert's Unguent",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "use Inventory item",
+						type = "tm_st_useitem",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = true,
+				gw2_failondeathcount = 3,
+				gw2_trytosurvive = true,
+				mapid = 15,
+				maxduration = 120,
+				maxlevel = 80,
+				minlevel = 13,
+				name = "Ert and Burt (Hero)",
+				pos = 
+				{
+					hx = 0.79364436864853,
+					hy = -0.60838198661804,
+					hz = 0,
+					x = -40799.14453125,
+					y = -4767.4833984375,
+					z = -2802.5778808594,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 71,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 45413,
+							gadget = false,
+							name = "Chhk der Windm\xc3\xbchlenk\xc3\xb6nig",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 45413,
+								gadget = false,
+								name = "Chhk der Windm\xc3\xbchlenk\xc3\xb6nig",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Kill",
+						type = "tm_st_killspecific",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 15,
+				maxduration = 120,
+				maxlevel = 80,
+				minlevel = 13,
+				name = "Chhk the Windmill King (Hero)",
+				pos = 
+				{
+					hx = 0.29341652989388,
+					hy = 0.95598471164703,
+					hz = 0,
+					x = 1282.6838378906,
+					y = 6839.7836914063,
+					z = -2323.97265625,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 72,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 267540,
+							gadget = false,
+							name = "Schausteller Jeb",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 267540,
+								gadget = false,
+								name = "Carnie Jeb",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Kill",
+						type = "tm_st_killspecific",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 15,
+				maxduration = 120,
+				maxlevel = 80,
+				minlevel = 13,
+				name = "Carnie Jeb (Hero)",
+				pos = 
+				{
+					hx = 0.59527260065079,
+					hy = 0.70375138521194,
+					hz = 0.38779440522194,
+					x = 40024.37109375,
+					y = 22990.703125,
+					z = -1083.2370605469,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 73,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 19600,
+							gadget = true,
+							name = "Tamini Place of Power",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Channel",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 15,
+				maxduration = 120,
+				maxlevel = 80,
+				minlevel = 13,
+				name = "Tamini Place of Power (Hero)",
+				pos = 
+				{
+					hx = 0.92492341995239,
+					hy = -0.0098409270867705,
+					hz = 0.3800260424614,
+					x = 35043.3984375,
+					y = -20320.0703125,
+					z = -2284.8581542969,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 74,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 19598,
+							gadget = true,
+							name = "Temple of the Ages",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Channel",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 15,
+				maxduration = 120,
+				maxlevel = 80,
+				minlevel = 13,
+				name = "Temple of The Ages (Hero)",
+				pos = 
+				{
+					hx = 0.38685372471809,
+					hy = 0.66327714920044,
+					hz = 0.64063060283661,
+					x = 17232.228515625,
+					y = -13302.586914063,
+					z = 836.74365234375,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 75,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 15,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Move to Complete",
+				pos = 
+				{
+					hx = -0.80083632469177,
+					hy = -0.59888333082199,
+					hz = 0,
+					x = -16502.560546875,
+					y = 17331.09765625,
+					z = -1370.2884521484,
 				},
 				radius = 0,
 				type = "tm_moveto",

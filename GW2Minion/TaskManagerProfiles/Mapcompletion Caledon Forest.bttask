@@ -2417,7 +2417,6 @@ local tbl =
 						},
 						talktype = "Index",
 					},
-					order = 19,
 					taskProperties = 
 					{
 						enabled = true,
@@ -2443,7 +2442,6 @@ local tbl =
 						},
 						talktype = "Index",
 					},
-					order = 20,
 					taskProperties = 
 					{
 						enabled = true,
@@ -7883,6 +7881,761 @@ local tbl =
 				},
 				radius = 0,
 				type = "tm_discoverwaypoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 73,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 30274,
+							gadget = true,
+							name = "Morgan's Orchid",
+						},
+						talksteps = 
+						{
+							0,
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 30274,
+							gadget = true,
+							name = "Morgan's Orchid",
+						},
+						talksteps = 
+						{
+							0,
+							0,
+						},
+						talktype = "Index",
+						targets = 
+						{
+							
+							{
+								character = false,
+								contentid = 30274,
+								gadget = true,
+								name = "Morgans Orchidee",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Interact",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						itemlist = 
+						{
+							
+							{
+								id = 22434,
+								name = "Morgans Orchidee",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Use inventory item",
+						type = "tm_st_useitem",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 34,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Morgans Orchid (Hero)",
+				pos = 
+				{
+					hx = 0.65856122970581,
+					hy = -0.58103537559509,
+					hz = 0.47822064161301,
+					x = 18617.736328125,
+					y = -28099.58984375,
+					z = -24.682582855225,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 74,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						targetpos = 
+						{
+							hx = 0.41984960436821,
+							hy = 0.67190062999725,
+							hz = 0.61014407873154,
+							x = 18933.837890625,
+							y = -18548.96875,
+							z = -56.165447235107,
+						},
+					},
+					taskProperties = 
+					{
+						enabled = false,
+						name = "Move to Warden Spy Alarin",
+						type = "tm_st_moveto",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 175347,
+							gadget = false,
+							name = "",
+						},
+						talksteps = 
+						{
+							0,
+							0,
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = false,
+						name = "Enter Briarthorn",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 18021,
+							gadget = true,
+							name = "Dark Thorn Patch",
+						},
+						talksteps = 
+						{
+							0,
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Hero Point Interact",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 34,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Briarthorn - Dark Thorn Patch (Hero)",
+				pos = 
+				{
+					hx = 0.33122906088829,
+					hy = 0.90118587017059,
+					hz = 0.27955564856529,
+					x = 23389.8828125,
+					y = -13493.88671875,
+					z = -665.07189941406,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 75,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 26789,
+							gadget = true,
+							name = "Wasserfall",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 34,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Waterfall (Hero)",
+				pos = 
+				{
+					hx = -0.34087499976158,
+					hy = -0.83838844299316,
+					hz = 0.42533406615257,
+					x = -19201.890625,
+					y = -27865.046875,
+					z = -347.33938598633,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 76,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 248502,
+								gadget = false,
+								name = "Veteran Uralter Maguuma-Wurm",
+							},
+							
+							{
+								character = true,
+								contentid = 44381,
+								gadget = false,
+								name = "Maguuma-Junges",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 5045,
+							gadget = true,
+							name = "Geheimnisvolles Bodenst\xc3\xbcck",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 44381,
+								gadget = false,
+								name = "Maguuma Hatchling",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Kill specific targets",
+						type = "tm_st_killspecific",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 34,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Mysterious Soil (Hero)",
+				pos = 
+				{
+					hx = 0.85657185316086,
+					hy = 0.51602774858475,
+					hz = 0,
+					x = 5404.1948242188,
+					y = -10123.368164063,
+					z = -1306.9760742188,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 77,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 283752,
+							gadget = false,
+							name = "",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 34,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Swift Arrow (Hero)",
+				pos = 
+				{
+					hx = 0.99940580129623,
+					hy = -0.034467447549105,
+					hz = 0,
+					x = 21691.865234375,
+					y = 9071.28515625,
+					z = -761.99609375,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 78,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 28430,
+							gadget = true,
+							name = "Krait-Altar",
+						},
+						talksteps = 
+						{
+							0,
+							0,
+						},
+						talktype = "Index",
+						targets = 
+						{
+							
+							{
+								character = false,
+								contentid = 28430,
+								gadget = true,
+								name = "Krait-Altar",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 34,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Krait Altar (Hero)",
+				pos = 
+				{
+					hx = -0.14903543889523,
+					hy = -0.83710771799088,
+					hz = 0.52634507417679,
+					x = 18978.67578125,
+					y = 39068.41796875,
+					z = 3465.7504882813,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 79,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 7367,
+							gadget = true,
+							name = "Machtvolle Dunkelheit",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 0,
+							gadget = false,
+							name = "",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					order = 2,
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 34,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Powerful darkness (Hero)",
+				pos = 
+				{
+					hx = 0.50318068265915,
+					hy = -0.59756022691727,
+					hz = 0.62428432703018,
+					x = -14636.580078125,
+					y = 40826.3203125,
+					z = -647.22314453125,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 80,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 34,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Move to Complete",
+				pos = 
+				{
+					hx = -0.022031588479877,
+					hy = 0.96187025308609,
+					hz = 0.27261739969254,
+					x = -6765.4921875,
+					y = -39643.75390625,
+					z = -197.42990112305,
+				},
+				radius = 0,
+				type = "tm_moveto",
 			},
 			version = 0,
 		},

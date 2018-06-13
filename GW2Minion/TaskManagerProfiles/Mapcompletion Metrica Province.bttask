@@ -6601,12 +6601,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 21,
+			order = 73,
 			posttasks = 
 			{
 			},
@@ -6709,12 +6710,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 26,
+			order = 74,
 			posttasks = 
 			{
 			},
@@ -6803,12 +6805,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 39,
+			order = 75,
 			posttasks = 
 			{
 			},
@@ -6924,12 +6927,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 43,
+			order = 76,
 			posttasks = 
 			{
 			},
@@ -7013,12 +7017,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 48,
+			order = 77,
 			posttasks = 
 			{
 			},
@@ -7090,12 +7095,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 66,
+			order = 78,
 			posttasks = 
 			{
 			},
@@ -7167,12 +7173,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 69,
+			order = 79,
 			posttasks = 
 			{
 			},
@@ -7250,7 +7257,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 72,
+			order = 80,
 			posttasks = 
 			{
 			},
@@ -7348,6 +7355,48 @@ local tbl =
 				},
 				radius = 0,
 				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 81,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 35,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Move to Complete",
+				pos = 
+				{
+					hx = 0.99966496229172,
+					hy = -0.025884615257382,
+					hz = 0,
+					x = -18920.19921875,
+					y = -28859.69921875,
+					z = -1861.7374267578,
+				},
+				radius = 0,
+				type = "tm_moveto",
 			},
 			version = 0,
 		},

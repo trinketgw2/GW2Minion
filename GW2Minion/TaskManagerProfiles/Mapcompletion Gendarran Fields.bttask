@@ -5130,6 +5130,48 @@ local tbl =
 			},
 			version = 0,
 		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 67,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 24,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Move to Complete",
+				pos = 
+				{
+					hx = -0.89394319057465,
+					hy = -0.44818031787872,
+					hz = 0,
+					x = 45283.49609375,
+					y = 12139.750976563,
+					z = -2702.2932128906,
+				},
+				radius = 0,
+				type = "tm_moveto",
+			},
+			version = 0,
+		},
 	},
 	version = 0,
 }

@@ -3601,7 +3601,6 @@ local tbl =
 					customProperties = 
 					{
 					},
-					order = 0,
 					taskProperties = 
 					{
 						enabled = true,
@@ -3645,7 +3644,6 @@ local tbl =
 							},
 						},
 					},
-					order = 1,
 					taskProperties = 
 					{
 						enabled = true,
@@ -3661,7 +3659,6 @@ local tbl =
 					customProperties = 
 					{
 					},
-					order = 0,
 					taskProperties = 
 					{
 						enabled = true,
@@ -3705,7 +3702,6 @@ local tbl =
 							},
 						},
 					},
-					order = 2,
 					taskProperties = 
 					{
 						enabled = true,
@@ -3730,7 +3726,6 @@ local tbl =
 						},
 						talktype = "Index",
 					},
-					order = 1,
 					taskProperties = 
 					{
 						enabled = true,
@@ -3762,6 +3757,48 @@ local tbl =
 				},
 				radius = 0,
 				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 56,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 31,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Move to Complete",
+				pos = 
+				{
+					hx = 1,
+					hy = 0,
+					hz = 0,
+					x = 44756.25390625,
+					y = 15024.29296875,
+					z = -2302.7758789063,
+				},
+				radius = 0,
+				type = "tm_moveto",
 			},
 			version = 0,
 		},

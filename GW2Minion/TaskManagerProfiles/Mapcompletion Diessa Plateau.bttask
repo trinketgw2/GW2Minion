@@ -154,7 +154,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 32,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 17,
 				name = "Shaman Purda (Hero)",
@@ -872,7 +872,6 @@ local tbl =
 						},
 						talktype = "Index",
 					},
-					order = 13,
 					taskProperties = 
 					{
 						enabled = true,
@@ -898,7 +897,6 @@ local tbl =
 						},
 						talktype = "Index",
 					},
-					order = 14,
 					taskProperties = 
 					{
 						enabled = true,
@@ -924,7 +922,6 @@ local tbl =
 						},
 						talktype = "Index",
 					},
-					order = 15,
 					taskProperties = 
 					{
 						enabled = true,
@@ -1229,7 +1226,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 32,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 19,
 				name = "Sharptail's Nest (Hero)",
@@ -1603,7 +1600,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 32,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 23,
 				name = "Veruta Beefhawker (Hero)",
@@ -3350,7 +3347,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 32,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 22,
 				name = "Poisonswill (Hero)",
@@ -3512,7 +3509,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 32,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 20,
 				name = "Ascalonian Aqueduct (Hero)",
@@ -4147,7 +4144,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 32,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 20,
 				name = "Roj the Rowdy Butcher (Hero)",
@@ -4555,7 +4552,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 32,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 24,
 				name = "Breached Wall (Hero)",
@@ -5798,7 +5795,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 32,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 24,
 				name = "Bogfang the Skale (Hero)",
@@ -6274,6 +6271,48 @@ local tbl =
 				},
 				radius = 0,
 				type = "tm_hq",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 69,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 32,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Move to Complete",
+				pos = 
+				{
+					hx = 0.97318750619888,
+					hy = 0.047997649759054,
+					hz = 0.22494964301586,
+					x = -37362.4140625,
+					y = 8522.43359375,
+					z = -3917.3854980469,
+				},
+				radius = 0,
+				type = "tm_moveto",
 			},
 			version = 0,
 		},

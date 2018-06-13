@@ -1615,7 +1615,6 @@ local tbl =
 					customProperties = 
 					{
 					},
-					order = 2,
 					taskProperties = 
 					{
 						enabled = true,
@@ -1641,7 +1640,6 @@ local tbl =
 							},
 						},
 					},
-					order = 3,
 					taskProperties = 
 					{
 						enabled = true,
@@ -1664,7 +1662,6 @@ local tbl =
 							},
 						},
 					},
-					order = 1,
 					taskProperties = 
 					{
 						enabled = true,
@@ -1685,7 +1682,6 @@ local tbl =
 							z = -749.05236816406,
 						},
 					},
-					order = 0,
 					taskProperties = 
 					{
 						enabled = true,
@@ -4613,6 +4609,48 @@ local tbl =
 				},
 				radius = 0,
 				type = "tm_hq",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 65,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 23,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Move to Complete",
+				pos = 
+				{
+					hx = 0.99844890832901,
+					hy = 0.055677279829979,
+					hz = 0,
+					x = 24081.61328125,
+					y = 19779.375,
+					z = -1509.7565917969,
+				},
+				radius = 0,
+				type = "tm_moveto",
 			},
 			version = 0,
 		},

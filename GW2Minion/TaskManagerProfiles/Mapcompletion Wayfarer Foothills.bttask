@@ -5291,7 +5291,6 @@ local tbl =
 							},
 						},
 					},
-					order = 3,
 					taskProperties = 
 					{
 						enabled = true,
@@ -6247,6 +6246,717 @@ local tbl =
 				},
 				radius = 0,
 				type = "tm_discoverwaypoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 6,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 455,
+							gadget = true,
+							name = "Issormirs Leiche",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Channel",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 28,
+				maxduration = 120,
+				maxlevel = 80,
+				minlevel = 13,
+				name = "Issomir's Body (Hero)",
+				pos = 
+				{
+					hx = -0.6033119559288,
+					hy = -0.49196371436119,
+					hz = 0.62768334150314,
+					x = -3105.9035644531,
+					y = -20192.787109375,
+					z = -6491.1513671875,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 12,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 45415,
+							gadget = false,
+							name = "B\xc3\xa4ren-Schamanin Marga",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 28,
+				maxduration = 120,
+				maxlevel = 80,
+				minlevel = 13,
+				name = "Bear Shaman Marga (Hero)",
+				pos = 
+				{
+					hx = 0.25113955140114,
+					hy = -0.897201359272,
+					hz = 0.36326113343239,
+					x = 18141.33203125,
+					y = -33408.90234375,
+					z = -8.9534873962402,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 31,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 551353,
+							gadget = false,
+							name = "Sbirre der Irre",
+						},
+						talksteps = 
+						{
+							0,
+							0,
+							0,
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 28,
+				maxduration = 120,
+				maxlevel = 80,
+				minlevel = 13,
+				name = "Blane the Insane (Hero)",
+				pos = 
+				{
+					hx = 0.2332780957222,
+					hy = 0.67635041475296,
+					hz = 0.69866406917572,
+					x = 17906.240234375,
+					y = -4380.6049804688,
+					z = -4710.015625,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 38,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 472911,
+							gadget = false,
+							name = "Burrisson der Blaue",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 28,
+				maxduration = 120,
+				maxlevel = 80,
+				minlevel = 13,
+				name = "Burisson the Blue (Hero)",
+				pos = 
+				{
+					hx = 0.050835020840168,
+					hy = 0.66171622276306,
+					hz = 0.74802899360657,
+					x = -15539.684570313,
+					y = 5348.4956054688,
+					z = -3685.6242675781,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 47,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 17517,
+							gadget = true,
+							name = "Verdorbener Dorn",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 28,
+				maxduration = 120,
+				maxlevel = 80,
+				minlevel = 13,
+				name = "Corrupted Spike (Hero)",
+				pos = 
+				{
+					hx = -0.86131203174591,
+					hy = -0.27093082666397,
+					hz = 0.42981162667274,
+					x = 16861.390625,
+					y = 21963.751953125,
+					z = -2897.2390136719,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 57,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 465572,
+							gadget = false,
+							name = "Brauer",
+						},
+						talksteps = 
+						{
+							1,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Get item",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						itemlist = 
+						{
+							
+							{
+								id = 22429,
+								name = "Kaltgefilterte Wurmtinktur",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Use item",
+						type = "tm_st_useitem",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 28,
+				maxduration = 120,
+				maxlevel = 80,
+				minlevel = 13,
+				name = "Aging Ale Barrels (Hero)",
+				pos = 
+				{
+					hx = 0.12095400691032,
+					hy = 0.89092826843262,
+					hz = 0.43774080276489,
+					x = 7146.2900390625,
+					y = 27417.234375,
+					z = -1132.7838134766,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 65,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 22270,
+							gadget = true,
+							name = "Ancient Cave Spring",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Channel",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 28,
+				maxduration = 120,
+				maxlevel = 80,
+				minlevel = 13,
+				name = "Ancient Cave Spring (Hero)",
+				pos = 
+				{
+					hx = -0.72528076171875,
+					hy = -0.30421459674835,
+					hz = 0.61759316921234,
+					x = 15677.203125,
+					y = 49002.30078125,
+					z = -6395.548828125,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 69,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 0,
+							gadget = false,
+							name = "",
+						},
+						talksteps = 
+						{
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 171613,
+								gadget = false,
+								name = "Veteran Bjord Frossenson",
+							},
+							
+							{
+								character = true,
+								contentid = 429298,
+								gadget = false,
+								name = "Bjords Mannschaft",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Kill specific targets",
+						type = "tm_st_killspecific",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 28,
+				maxduration = 120,
+				maxlevel = 80,
+				minlevel = 13,
+				name = "Bjord's Banner (Hero)",
+				pos = 
+				{
+					hx = -0.043128807097673,
+					hy = 0.78309154510498,
+					hz = 0.62040913105011,
+					x = -2963.5939941406,
+					y = 46958.1171875,
+					z = -8632.681640625,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 71,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 28,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Move to Complete",
+				pos = 
+				{
+					hx = 0.89135015010834,
+					hy = 0.4533154964447,
+					hz = 0,
+					x = -9053.5830078125,
+					y = -24302.552734375,
+					z = -3739.1313476563,
+				},
+				radius = 0,
+				type = "tm_moveto",
 			},
 			version = 0,
 		},
