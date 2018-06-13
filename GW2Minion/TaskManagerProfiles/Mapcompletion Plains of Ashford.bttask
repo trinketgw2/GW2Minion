@@ -324,9 +324,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 19,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
-				minlevel = 3,
+				minlevel = 13,
 				name = "Centurion Titus (Hero)",
 				pos = 
 				{
@@ -2041,9 +2041,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 19,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
-				minlevel = 8,
+				minlevel = 13,
 				name = "Effigy Core (Hero)",
 				pos = 
 				{
@@ -2397,9 +2397,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 19,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
-				minlevel = 11,
+				minlevel = 13,
 				name = "Ethereal Vanguard Monument (Hero)",
 				pos = 
 				{
@@ -2539,9 +2539,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 19,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
-				minlevel = 11,
+				minlevel = 13,
 				name = "Centurion Micka Thickblood (Hero)",
 				pos = 
 				{
@@ -3937,7 +3937,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 19,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 14,
 				name = "Ruins of Ascalon City (Hero)",
@@ -4350,7 +4350,7 @@ local tbl =
 				gw2_failondeathcount = 2,
 				gw2_trytosurvive = true,
 				mapid = 19,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 15,
 				name = "Ascalonian Ruins (Hero)",
@@ -5597,6 +5597,563 @@ local tbl =
 				},
 				radius = 0,
 				type = "tm_moveto",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 5,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 208865,
+							gadget = false,
+							name = "Zenturio Titus Ritzelklaue",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 208865,
+								gadget = false,
+								name = "Zenturio Titus Ritzelklaue",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 19,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Centurion Titus (Hero)",
+				pos = 
+				{
+					hx = -0.056993268430233,
+					hy = 0.90291100740433,
+					hz = 0.42603224515915,
+					x = -43455.140625,
+					y = 20261.615234375,
+					z = -2354.4907226563,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 24,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Kill Aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 32514,
+							gadget = true,
+							name = "Abbild-Kern",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "talk",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 212298,
+								gadget = false,
+								name = "Veteran Abbild-Prototyp",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "kill",
+						type = "tm_st_killspecific",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 19,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Effigy Core (Hero)",
+				pos = 
+				{
+					hx = -0.88505983352661,
+					hy = -0.31454664468765,
+					hz = 0.34311735630035,
+					x = -15058.245117188,
+					y = -24039.521484375,
+					z = -1247.1854248047,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 28,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 304776,
+								gadget = false,
+								name = "\xc3\x84therische Vorhut",
+							},
+							
+							{
+								character = true,
+								contentid = 304782,
+								gadget = false,
+								name = "Hauptmann Mattox",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "kill",
+						type = "tm_st_killspecific",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 12544,
+							gadget = true,
+							name = "Monument der \xc3\x84therischen Vorhut",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 19,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Ethereal Vanguard Monument (Hero)",
+				pos = 
+				{
+					hx = -0.93438732624054,
+					hy = -0.053763132542372,
+					hz = 0.35217869281769,
+					x = 1443.5871582031,
+					y = -5405.5439453125,
+					z = -1175.4501953125,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 30,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 176141,
+								gadget = false,
+								name = "Zenturio Micka Dickblut",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "kill",
+						type = "tm_st_killspecific",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 176141,
+							gadget = false,
+							name = "Zenturio Micka Dickblut",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 19,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Centurion Micka Thickblood (Hero)",
+				pos = 
+				{
+					hx = -0.68923264741898,
+					hy = 0.63345539569855,
+					hz = 0.35169965028763,
+					x = -5106.7475585938,
+					y = -7682.9331054688,
+					z = -1984.6633300781,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 50,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 56063,
+							gadget = true,
+							name = "Ruinen der Stadt Ascalon",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 19,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 14,
+				name = "Ruins of Ascalon City (Hero)",
+				pos = 
+				{
+					hx = 0.60841083526611,
+					hy = 0.7763347029686,
+					hz = 0.16474421322346,
+					x = 31050.546875,
+					y = 13274.567382813,
+					z = 726.41711425781,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 56,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 774,
+							gadget = true,
+							name = "Ascalon-Ruinen",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 2,
+				gw2_trytosurvive = true,
+				mapid = 19,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 15,
+				name = "Ascalonian Ruins (Hero)",
+				pos = 
+				{
+					hx = -0.012972041964531,
+					hy = 0.95232421159744,
+					hz = 0.30481201410294,
+					x = 36512.13671875,
+					y = 22566.19140625,
+					z = -3689.0649414063,
+				},
+				radius = 0,
+				type = "tm_heropoint",
 			},
 			version = 0,
 		},

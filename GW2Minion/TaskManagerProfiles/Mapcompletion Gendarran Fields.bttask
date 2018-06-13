@@ -1456,9 +1456,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 24,
-				maxduration = 0,
+				maxduration = 60,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Warmaster Yulia (Hero)",
 				pos = 
 				{
@@ -1860,9 +1860,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 24,
-				maxduration = 0,
+				maxduration = 60,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Oakheart Seed (Hero)",
 				pos = 
 				{
@@ -2421,9 +2421,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 24,
-				maxduration = 0,
+				maxduration = 60,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Ancient Cave Spring (Hero)",
 				pos = 
 				{
@@ -2852,9 +2852,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 24,
-				maxduration = 0,
+				maxduration = 60,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Ooze Analyzer XH-9333 (Hero)",
 				pos = 
 				{
@@ -4035,9 +4035,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 24,
-				maxduration = 0,
+				maxduration = 60,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Soflty Glowing Light (Hero)",
 				pos = 
 				{
@@ -4863,7 +4863,6 @@ local tbl =
 							},
 						},
 					},
-					order = 4,
 					taskProperties = 
 					{
 						enabled = true,
@@ -5113,9 +5112,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 24,
-				maxduration = 0,
+				maxduration = 60,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Klakka the Brain (Hero)",
 				pos = 
 				{

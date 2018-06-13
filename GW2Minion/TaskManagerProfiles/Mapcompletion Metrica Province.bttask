@@ -2090,9 +2090,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 35,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Utcua (Hero)",
 				pos = 
 				{
@@ -2647,9 +2647,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 35,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Arcanic Interfernmeter (Hero)",
 				pos = 
 				{
@@ -3927,9 +3927,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 35,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Oola (Hero)",
 				pos = 
 				{
@@ -4297,9 +4297,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 35,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Cuatk Health Goo (Hero)",
 				pos = 
 				{
@@ -4666,9 +4666,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 35,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Suspicious Control Panel (Hero)",
 				pos = 
 				{
@@ -5924,9 +5924,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 35,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Luminates Plant (Hero)",
 				pos = 
 				{
@@ -6257,9 +6257,9 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 35,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
 				name = "Black ice 4444 (Hero)",
 				pos = 
 				{
@@ -6583,9 +6583,759 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
 				mapid = 35,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
-				minlevel = 0,
+				minlevel = 13,
+				name = "Ancient Elemental Fire Energy (Hero)",
+				pos = 
+				{
+					hx = -0.49474588036537,
+					hy = 0.39237996935844,
+					hz = 0.77541244029999,
+					x = -11802.390625,
+					y = 34573.07421875,
+					z = -2.1707513332367,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 21,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						targetpos = 
+						{
+							hx = 0.88310521841049,
+							hy = 0.27766820788383,
+							hz = 0.37818711996078,
+							x = 6349.7299804688,
+							y = -24970.40234375,
+							z = -179.08059692383,
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Move",
+						type = "tm_st_moveto",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 467679,
+							gadget = false,
+							name = "Utcua",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 467679,
+								gadget = false,
+								name = "Utcua",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Kill",
+						type = "tm_st_killspecific",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 35,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Utcua (Hero)",
+				pos = 
+				{
+					hx = 0.87226289510727,
+					hy = 0.23329243063927,
+					hz = 0.42980471253395,
+					x = 6321.5859375,
+					y = -24973.123046875,
+					z = -169.82165527344,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 26,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 29194,
+							gadget = true,
+							name = "Arkaner Interferometer",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 524808,
+								gadget = false,
+								name = "Assistent",
+							},
+							
+							{
+								character = true,
+								contentid = 526949,
+								gadget = false,
+								name = "Veteran Meistergenie Jettz",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Kill",
+						type = "tm_st_killspecific",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 35,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Arcanic Interfernmeter (Hero)",
+				pos = 
+				{
+					hx = -0.82117533683777,
+					hy = -0.0014432449825108,
+					hz = 0.5706741809845,
+					x = -22218.732421875,
+					y = -13497.801757813,
+					z = -862.34588623047,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 39,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = false,
+								closedialog = true,
+								contentid = 23192,
+								gadget = true,
+								maxinteract = 1,
+								name = "",
+								oncepertarget = true,
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Interact",
+						type = "tm_st_interact",
+					},
+				},
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = false,
+								contentid = 23192,
+								gadget = true,
+								name = "Holoprojektor",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Interact",
+						type = "tm_st_interact",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 43352,
+							gadget = false,
+							name = "Oola",
+						},
+						talksteps = 
+						{
+							0,
+							0,
+							0,
+							0,
+							0,
+							1,
+							2,
+							1,
+							2,
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 35,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Oola (Hero)",
+				pos = 
+				{
+					hx = 0.44851794838905,
+					hy = -0.48435723781586,
+					hz = 0.7511522769928,
+					x = 23884.583984375,
+					y = -6207.9155273438,
+					z = -940.14465332031,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 43,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 4471,
+							gadget = true,
+							name = "Cuatl-Heilschlamm",
+						},
+						talksteps = 
+						{
+							0,
+							0,
+						},
+						talktype = "Index",
+						targets = 
+						{
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						itemlist = 
+						{
+							
+							{
+								id = 22380,
+								name = "Cuatl-Trank",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Use Item",
+						type = "tm_st_useitem",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 35,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Cuatk Health Goo (Hero)",
+				pos = 
+				{
+					hx = -0.10079242289066,
+					hy = -0.66245543956757,
+					hz = 0.74228948354721,
+					x = 13129.0234375,
+					y = 5347.837890625,
+					z = -236.03837585449,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 48,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 29164,
+							gadget = false,
+							name = "",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Steuerpult nutzen",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 35,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Suspicious Control Panel (Hero)",
+				pos = 
+				{
+					hx = 0.067513644695282,
+					hy = -0.90989798307419,
+					hz = 0.40930131077766,
+					x = 1106.54296875,
+					y = 873.88848876953,
+					z = -62.131286621094,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 66,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 14928,
+							gadget = true,
+							name = "Luminate-Werk",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 35,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Luminates Plant (Hero)",
+				pos = 
+				{
+					hx = 0.61696869134903,
+					hy = -0.49380287528038,
+					hz = 0.61278736591339,
+					x = 19938.486328125,
+					y = 16073.228515625,
+					z = -884.28625488281,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 69,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 45416,
+							gadget = false,
+							name = "Schwarzes Eis 4444",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Eis 4444",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 35,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
+				name = "Black ice 4444 (Hero)",
+				pos = 
+				{
+					hx = -0.0072598257102072,
+					hy = 0.99997365474701,
+					hz = 0,
+					x = 18104.146484375,
+					y = 33382.4765625,
+					z = -2852.18359375,
+				},
+				radius = 0,
+				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 72,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 29179,
+							gadget = true,
+							name = "Alte Elementar-Feuer-Energie",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
+								character = true,
+								contentid = 41069,
+								gadget = false,
+								name = "Gehilfe der Uralten Glut",
+							},
+							
+							{
+								character = true,
+								contentid = 132556,
+								gadget = false,
+								name = "Veteran Uralte Glut",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Kill",
+						type = "tm_st_killspecific",
+					},
+				},
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 35,
+				maxduration = 120,
+				maxlevel = 0,
+				minlevel = 13,
 				name = "Ancient Elemental Fire Energy (Hero)",
 				pos = 
 				{

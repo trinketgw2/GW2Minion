@@ -36,7 +36,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Shaemoore Waypoint",
+				name = "Shaemoore (Waypoint)",
 				pos = 
 				{
 					hx = -0.81699538230896,
@@ -78,7 +78,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Trainer's Terrace",
+				name = "Trainer's Terrace (POI)",
 				pos = 
 				{
 					hx = -0.12794300913811,
@@ -120,7 +120,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Fields Waypoint",
+				name = "Fields (Waypoint)",
 				pos = 
 				{
 					hx = -0.8392186164856,
@@ -520,7 +520,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Help Diah tend her farm",
+				name = "Help Diah tend her farm (Heart)",
 				pos = 
 				{
 					hx = -0.89627534151077,
@@ -776,7 +776,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Help Fisher Travis Maintain the river",
+				name = "Help Fisher Travis Maintain the river (Heart)",
 				pos = 
 				{
 					hx = -0.32158416509628,
@@ -994,7 +994,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Help foreman Flannum improve dam safety",
+				name = "Help foreman Flannum improve dam safety (Heart)",
 				pos = 
 				{
 					hx = -0.40490636229515,
@@ -1037,7 +1037,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Dam Vista",
+				name = "Dam (Vista)",
 				pos = 
 				{
 					hx = -0.23744384944439,
@@ -1240,7 +1240,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Assist Farmer Eda with her orchard",
+				name = "Assist Farmer Eda with her orchard (Heart)",
 				pos = 
 				{
 					hx = -0.92225366830826,
@@ -1282,7 +1282,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Orchard Waypoint",
+				name = "Orchard (Waypoint)",
 				pos = 
 				{
 					hx = 0.95037829875946,
@@ -1324,7 +1324,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Mepi's Moa Ranch POI",
+				name = "Mepi's Moa Ranch (POI)",
 				pos = 
 				{
 					hx = -0.40857794880867,
@@ -1582,7 +1582,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Help Cassie around the moa ranch",
+				name = "Help Cassie around the moa ranch (Heart)",
 				pos = 
 				{
 					hx = 0.065742217004299,
@@ -1625,7 +1625,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Badit Cave Vista",
+				name = "Badit Cave (Vista)",
 				pos = 
 				{
 					hx = -0.91954630613327,
@@ -1667,7 +1667,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Dalin's Pumping Station",
+				name = "Dalin's Pumping Station (Heart)",
 				pos = 
 				{
 					hx = 0.9311655163765,
@@ -1710,7 +1710,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Water Pipe Vista",
+				name = "Water Pipe (Vista)",
 				pos = 
 				{
 					hx = 0.75501298904419,
@@ -1752,7 +1752,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Garrison Waypoint",
+				name = "Garrison (Waypoint)",
 				pos = 
 				{
 					hx = 0.193807259202,
@@ -1795,7 +1795,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Garrison Vista",
+				name = "Garrison (Vista)",
 				pos = 
 				{
 					hx = 0.28566980361938,
@@ -2145,7 +2145,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Assist the Searaph at Shaemoor Garrison",
+				name = "Assist the Searaph at Shaemoor Garrison (Heart)",
 				pos = 
 				{
 					hx = 0.15686665475368,
@@ -2223,7 +2223,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 5,
-				name = "Earthen Magic Hero Challenge",
+				name = "Earthen Magic (Hero)",
 				pos = 
 				{
 					hx = -0.87972503900528,
@@ -2265,7 +2265,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Scaver Waypoint",
+				name = "Scaver (Waypoint)",
 				pos = 
 				{
 					hx = -0.34210070967674,
@@ -2307,7 +2307,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Alter Brook Point of Intrest",
+				name = "Alter Brook (POI)nt of Intrest",
 				pos = 
 				{
 					hx = -0.52724123001099,
@@ -2598,7 +2598,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Help Lexi Price protect the trade route",
+				name = "Help Lexi Price protect the trade route (Heart)",
 				pos = 
 				{
 					hx = -0.69679582118988,
@@ -2682,7 +2682,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Crossing Waypoint",
+				name = "Crossing (Waypoint)",
 				pos = 
 				{
 					hx = -0.43982639908791,
@@ -2724,7 +2724,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Bar Curtis Ranch Point of Inrest",
+				name = "Bar Curtis Ranch (POI)nt of Inrest",
 				pos = 
 				{
 					hx = -0.77849578857422,
@@ -2766,7 +2766,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Vale Waypoint",
+				name = "Vale (Waypoint)",
 				pos = 
 				{
 					hx = -0.94154179096222,
@@ -2809,7 +2809,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Vale Vista",
+				name = "Vale (Vista)",
 				pos = 
 				{
 					hx = -0.07794551551342,
@@ -2851,7 +2851,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Duran Brothers point of interest",
+				name = "Duran Brothers (POI)nt of interest",
 				pos = 
 				{
 					hx = 0.92307823896408,
@@ -2894,7 +2894,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Clayent Falls Vista",
+				name = "Clayent Falls (Vista)",
 				pos = 
 				{
 					hx = -0.6104502081871,
@@ -2936,7 +2936,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Claypool Waypoint",
+				name = "Claypool (Waypoint)",
 				pos = 
 				{
 					hx = -0.64077717065811,
@@ -3095,7 +3095,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Train with the militia",
+				name = "Train with the militia (Heart)",
 				pos = 
 				{
 					hx = 0.9172830581665,
@@ -3278,7 +3278,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Help the Seraph protect Claypool from centaurs",
+				name = "Help the Seraph protect Claypool from centaurs (Heart)",
 				pos = 
 				{
 					hx = -0.60869616270065,
@@ -3320,7 +3320,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Heartwood Pass Camp Waypoint",
+				name = "Heartwood Pass Camp (Waypoint)",
 				pos = 
 				{
 					hx = 0.34768906235695,
@@ -3362,7 +3362,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Phinney Waypoint",
+				name = "Phinney (Waypoint)",
 				pos = 
 				{
 					hx = 0.93366545438766,
@@ -3404,7 +3404,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Greatheart Weald Point of intrest",
+				name = "Greatheart Weald (POI)nt of intrest",
 				pos = 
 				{
 					hx = -0.60654670000076,
@@ -3446,7 +3446,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Ojon's Lumbermill Waypoint",
+				name = "Ojon's Lumbermill (Waypoint)",
 				pos = 
 				{
 					hx = -0.93829321861267,
@@ -3688,7 +3688,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Assist Laborer Cardy and Ojon's lumbermill",
+				name = "Assist Laborer Cardy and Ojon's lumbermill (Heart)",
 				pos = 
 				{
 					hx = 0.87242370843887,
@@ -3911,7 +3911,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Assist Hunter Block and the hunting lodge",
+				name = "Assist Hunter Block and the hunting lodge (Heart)",
 				pos = 
 				{
 					hx = -0.39626652002335,
@@ -4052,7 +4052,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Assist Fisherman Will and the fisherman of Beetletun",
+				name = "Assist Fisherman Will and the fisherman of Beetletun (Heart)",
 				pos = 
 				{
 					hx = 0.77523428201675,
@@ -4094,7 +4094,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Beetletun Waypoint",
+				name = "Beetletun (Waypoint)",
 				pos = 
 				{
 					hx = -0.64561152458191,
@@ -4137,7 +4137,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Beetletun Vista",
+				name = "Beetletun (Vista)",
 				pos = 
 				{
 					hx = 0.63093131780624,
@@ -4244,7 +4244,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 10,
-				name = "Bandit Loot Hero Challenge",
+				name = "Bandit Loot (Hero)",
 				pos = 
 				{
 					hx = -0.55566811561584,
@@ -4330,7 +4330,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Ert and Burt Hero point",
+				name = "Ert and Burt (Hero)",
 				pos = 
 				{
 					hx = 0.79364436864853,
@@ -4418,7 +4418,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Chhk the Windmill King Hero Point",
+				name = "Chhk the Windmill King (Hero)",
 				pos = 
 				{
 					hx = 0.29341652989388,
@@ -4506,7 +4506,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 11,
-				name = "Carnie Jeb hero Challenge",
+				name = "Carnie Jeb (Hero)",
 				pos = 
 				{
 					hx = 0.59527260065079,
@@ -4625,7 +4625,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Help the citizens of Beetletun",
+				name = "Help the citizens of Beetletun (Heart)",
 				pos = 
 				{
 					hx = 0.22450998425484,
@@ -4864,7 +4864,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Protect Beetletun farmers from Tamini centaurs",
+				name = "Protect Beetletun farmers from Tamini centaurs (Heart)",
 				pos = 
 				{
 					hx = 0.29138424992561,
@@ -4906,7 +4906,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Tunwatch Redoubt Waypoint",
+				name = "Tunwatch Redoubt (Waypoint)",
 				pos = 
 				{
 					hx = -0.95944267511368,
@@ -4948,7 +4948,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Holdland Camp point of intrest",
+				name = "Holdland Camp (POI)nt of intrest",
 				pos = 
 				{
 					hx = -0.95036512613297,
@@ -4990,7 +4990,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Krytan Waypoint",
+				name = "Krytan (Waypoint)",
 				pos = 
 				{
 					hx = 0.5696879029274,
@@ -5033,7 +5033,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Queensdale Vista",
+				name = "Queensdale (Vista)",
 				pos = 
 				{
 					hx = -0.24954906105995,
@@ -5235,7 +5235,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Keep the monastery operational",
+				name = "Keep the monastery operational (Heart)",
 				pos = 
 				{
 					hx = 0.95912396907806,
@@ -5277,7 +5277,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Godlost waypoint",
+				name = "Godlost (Waypoint)",
 				pos = 
 				{
 					hx = -0.67076349258423,
@@ -5563,7 +5563,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Unite the ettins",
+				name = "Unite the ettins (Heart)",
 				pos = 
 				{
 					hx = 0.85343539714813,
@@ -5641,7 +5641,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Tamini Place of Power",
+				name = "Tamini Place of Power (Hero)",
 				pos = 
 				{
 					hx = 0.92492341995239,
@@ -5767,7 +5767,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Deathroot Shack Point of intrest",
+				name = "Deathroot Shack (POI)nt of intrest",
 				pos = 
 				{
 					hx = 0.056377243250608,
@@ -5810,7 +5810,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Godlost Swamp Vista",
+				name = "Godlost Swamp (Vista)",
 				pos = 
 				{
 					hx = 0.54933947324753,
@@ -6053,7 +6053,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Help historian Garrod investigate Godslost Swamp",
+				name = "Help historian Garrod investigate Godslost Swamp (Heart)",
 				pos = 
 				{
 					hx = 0.95653635263443,
@@ -6131,7 +6131,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Temple of The Ages Hero Point",
+				name = "Temple of The Ages (Hero)",
 				pos = 
 				{
 					hx = 0.38685372471809,
@@ -6173,7 +6173,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Swamplost Haven Waypoint",
+				name = "Swamplost Haven (Waypoint)",
 				pos = 
 				{
 					hx = -0.86375945806503,
