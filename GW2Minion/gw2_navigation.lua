@@ -512,7 +512,7 @@ function ml_navigation:GetRaycast_Player_Node_Distance(ppos,node)
 			end
 			
 			if(self.lastpathnodefar > 3) then
-				d("Spinnydance  ? going back and forth ?? - reset navigation..")
+				d("[Navigation] - Loop detected, going back and forth too often - reset navigation..")
 				d(tostring(dist2d).. " ---- ".. tostring(self.lastpathnodefar))
 				ml_navigation.forcereset = true
 				return 0 -- should make the calling logic "arrive" at the node				
