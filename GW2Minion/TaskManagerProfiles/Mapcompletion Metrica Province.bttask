@@ -1374,7 +1374,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "Jeztar Falls  (Waypoint)",
+				name = "Jeztar Falls (Waypoint)",
 				pos = 
 				{
 					hx = 0.96889299154282,

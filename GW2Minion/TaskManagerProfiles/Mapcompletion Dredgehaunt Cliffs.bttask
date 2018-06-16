@@ -2370,7 +2370,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 26,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 0,
 				name = "Shiniest Skritt Treasure (Hero)",
@@ -2562,7 +2562,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 26,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 0,
 				name = "Preserved Footprint (Hero)",
@@ -2725,7 +2725,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 26,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 0,
 				name = "Jotun Holy Site (Hero)",
@@ -3244,6 +3244,18 @@ local tbl =
 			},
 			pretasks = 
 			{
+				
+				{
+					customProperties = 
+					{
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Fight aggro",
+						type = "tm_st_fightaggro",
+					},
+				},
 			},
 			subtasks = 
 			{
@@ -3321,7 +3333,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 26,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 0,
 				name = "Foreman's Gear (Hero)",
@@ -3445,6 +3457,7 @@ local tbl =
 						{
 							1,
 							1,
+							1,
 						},
 						talktype = "Index",
 					},
@@ -3470,6 +3483,7 @@ local tbl =
 						{
 							1,
 							0,
+							0,
 						},
 						talktype = "Index",
 					},
@@ -3493,6 +3507,7 @@ local tbl =
 						},
 						talksteps = 
 						{
+							1,
 							1,
 							1,
 						},
@@ -3520,6 +3535,7 @@ local tbl =
 						{
 							1,
 							0,
+							0,
 						},
 						talktype = "Index",
 					},
@@ -3544,6 +3560,7 @@ local tbl =
 						talksteps = 
 						{
 							1,
+							2,
 							2,
 						},
 						talktype = "Index",
@@ -3570,6 +3587,7 @@ local tbl =
 						{
 							1,
 							2,
+							2,
 						},
 						talktype = "Index",
 					},
@@ -3593,6 +3611,7 @@ local tbl =
 						},
 						talksteps = 
 						{
+							1,
 							1,
 							1,
 						},
@@ -3631,7 +3650,7 @@ local tbl =
 			taskProperties = 
 			{
 				cooldown = 0,
-				enabled = true,
+				enabled = false,
 				gw2_failondeath = false,
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
@@ -3955,6 +3974,30 @@ local tbl =
 						type = "tm_st_talk",
 					},
 				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 1500,
+							gadget = false,
+							name = "",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
 			},
 			taskProperties = 
 			{
@@ -3964,7 +4007,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 26,
-				maxduration = 0,
+				maxduration = 120,
 				maxlevel = 0,
 				minlevel = 0,
 				name = "Dwarven Relic (Hero)",
@@ -4783,7 +4826,6 @@ local tbl =
 		{
 			customProperties = 
 			{
-				hqid = 1,
 			},
 			lastrun = 0,
 			order = 66,
@@ -4820,7 +4862,7 @@ local tbl =
 						},
 						talksteps = 
 						{
-							0,
+							1,
 						},
 						talktype = "Index",
 					},
@@ -4828,6 +4870,31 @@ local tbl =
 					{
 						enabled = true,
 						name = "Talk with HC",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 44558,
+							gadget = false,
+							name = "Kakkilak",
+						},
+						talksteps = 
+						{
+							1,
+						},
+						talktype = "Index",
+					},
+					order = 2,
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
 						type = "tm_st_talk",
 					},
 				},
@@ -4854,7 +4921,7 @@ local tbl =
 					z = -3731.8486328125,
 				},
 				radius = 0,
-				type = "tm_hq",
+				type = "tm_heropoint",
 			},
 			version = 0,
 		},

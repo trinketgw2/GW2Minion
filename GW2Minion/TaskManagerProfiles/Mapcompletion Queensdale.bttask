@@ -5164,20 +5164,29 @@ local tbl =
 				{
 					customProperties = 
 					{
-						hqchecktimer = 180,
-						hqid = 225,
-						hqpos = 
+						targets = 
 						{
-							x = 19437.19921875,
-							y = 1978.8900146484,
-							z = -1844.6800537109,
+							
+							{
+								character = true,
+								contentid = 327515,
+								gadget = false,
+								name = "Brew Thief",
+							},
+							
+							{
+								character = true,
+								contentid = 44150,
+								gadget = false,
+								name = "Disgruntled Grub",
+							},
 						},
 					},
 					taskProperties = 
 					{
 						enabled = true,
-						name = "Check HQ status",
-						type = "tm_st_hqstatus",
+						name = "Kill specific targets",
+						type = "tm_st_killspecific",
 					},
 				},
 				
@@ -5189,30 +5198,42 @@ local tbl =
 							
 							{
 								character = false,
+								closedialog = false,
 								contentid = 17401,
 								gadget = true,
+								maxinteract = 10,
 								name = "Grub Tail",
+								oncepertarget = false,
 							},
 							
 							{
 								character = false,
+								closedialog = false,
 								contentid = 8945,
 								gadget = true,
+								maxinteract = 10,
 								name = "Grub Tail",
+								oncepertarget = false,
 							},
 							
 							{
 								character = false,
+								closedialog = false,
 								contentid = 18287,
 								gadget = true,
+								maxinteract = 10,
 								name = "Grub Tail",
+								oncepertarget = false,
 							},
 							
 							{
 								character = false,
+								closedialog = false,
 								contentid = 30562,
 								gadget = true,
+								maxinteract = 10,
 								name = "Grub Tail",
+								oncepertarget = false,
 							},
 						},
 					},
@@ -5221,6 +5242,26 @@ local tbl =
 						enabled = true,
 						name = "Grub tail",
 						type = "tm_st_interact",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						hqchecktimer = 180,
+						hqid = 225,
+						hqpos = 
+						{
+							x = 19437.19921875,
+							y = 1978.8900146484,
+							z = -1844.6800537109,
+						},
+					},
+					taskProperties = 
+					{
+						enabled = false,
+						name = "Check HQ status",
+						type = "tm_st_hqstatus",
 					},
 				},
 			},
@@ -5629,6 +5670,30 @@ local tbl =
 						type = "tm_st_talk",
 					},
 				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 19600,
+							gadget = false,
+							name = "",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
 			},
 			taskProperties = 
 			{
@@ -5857,20 +5922,71 @@ local tbl =
 				{
 					customProperties = 
 					{
-						hqchecktimer = 180,
-						hqid = 224,
-						hqpos = 
+						targets = 
 						{
-							x = 13749.400390625,
-							y = -8560.76953125,
-							z = -72.214599609375,
+							
+							{
+								character = false,
+								contentid = 3370,
+								gadget = true,
+								name = "Portal to the Underworld",
+							},
+							
+							{
+								character = false,
+								contentid = 22319,
+								gadget = true,
+								name = "Portal to the Underworld",
+							},
+							
+							{
+								character = false,
+								contentid = 13352,
+								gadget = true,
+								name = "Portal to the Underworld",
+							},
+							
+							{
+								character = false,
+								contentid = 25537,
+								gadget = true,
+								name = "Portal to the Underworld",
+							},
+							
+							{
+								character = false,
+								contentid = 9198,
+								gadget = true,
+								name = "Portal to the Underworld",
+							},
+							
+							{
+								character = false,
+								contentid = 8944,
+								gadget = true,
+								name = "Portal to the Underworld",
+							},
+							
+							{
+								character = false,
+								contentid = 26431,
+								gadget = true,
+								name = "Portal to the Underworld",
+							},
+							
+							{
+								character = false,
+								contentid = 3877,
+								gadget = true,
+								name = "Portal to the Underworld",
+							},
 						},
 					},
 					taskProperties = 
 					{
 						enabled = true,
-						name = "Check HQ status",
-						type = "tm_st_hqstatus",
+						name = "Portal",
+						type = "tm_st_killspecific",
 					},
 				},
 				
@@ -5945,36 +6061,20 @@ local tbl =
 				{
 					customProperties = 
 					{
-						targets = 
+						hqchecktimer = 180,
+						hqid = 224,
+						hqpos = 
 						{
-							
-							{
-								character = false,
-								contentid = 3370,
-								gadget = true,
-								name = "Portal to the Underworld",
-							},
-							
-							{
-								character = false,
-								contentid = 22319,
-								gadget = true,
-								name = "Portal to the Underworld",
-							},
-							
-							{
-								character = false,
-								contentid = 13352,
-								gadget = true,
-								name = "Portal to the Underworld",
-							},
+							x = 13749.400390625,
+							y = -8560.76953125,
+							z = -72.214599609375,
 						},
 					},
 					taskProperties = 
 					{
 						enabled = true,
-						name = "Portal",
-						type = "tm_st_killspecific",
+						name = "Check HQ status",
+						type = "tm_st_hqstatus",
 					},
 				},
 				
@@ -6116,6 +6216,31 @@ local tbl =
 					{
 						enabled = true,
 						name = "Channel",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 19598,
+							gadget = false,
+							name = "",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					order = 2,
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
 						type = "tm_st_talk",
 					},
 				},
@@ -6761,6 +6886,31 @@ local tbl =
 					{
 						enabled = true,
 						name = "Channel",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 0,
+							gadget = false,
+							name = "",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					order = 2,
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
 						type = "tm_st_talk",
 					},
 				},

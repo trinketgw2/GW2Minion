@@ -3805,7 +3805,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "Brandview  (Waypoint)",
+				name = "Brandview (Waypoint)",
 				pos = 
 				{
 					hx = -0.93623483181,
@@ -4284,7 +4284,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "Lunk Kraal  (Waypoint)",
+				name = "Lunk Kraal (Waypoint)",
 				pos = 
 				{
 					hx = -0.89813834428787,
@@ -5417,7 +5417,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "Kindling  (Waypoint)",
+				name = "Kindling (Waypoint)",
 				pos = 
 				{
 					hx = 0.83939522504807,

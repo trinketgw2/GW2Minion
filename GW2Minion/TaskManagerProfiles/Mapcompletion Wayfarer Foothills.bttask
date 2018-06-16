@@ -429,6 +429,30 @@ local tbl =
 						type = "tm_st_talk",
 					},
 				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 455,
+							gadget = true,
+							name = "Issormir's Body",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
 			},
 			taskProperties = 
 			{
@@ -502,53 +526,10 @@ local tbl =
 		{
 			customProperties = 
 			{
-				waypointid = 963,
-			},
-			lastrun = 0,
-			order = 8,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = true,
-				mapid = 28,
-				maxduration = 0,
-				maxlevel = 80,
-				minlevel = 0,
-				name = "Grawlenfjord (Waypoint)",
-				pos = 
-				{
-					hx = 0.6962189078331,
-					hy = -0.085540547966957,
-					hz = 0.71271455287933,
-					x = 9115.46875,
-					y = -26034.576171875,
-					z = -1894.3483886719,
-				},
-				radius = 0,
-				type = "tm_discoverwaypoint",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
 				hqid = 55,
 			},
 			lastrun = 0,
-			order = 9,
+			order = 8,
 			posttasks = 
 			{
 			},
@@ -862,7 +843,7 @@ local tbl =
 				fightaggro = true,
 			},
 			lastrun = 0,
-			order = 10,
+			order = 9,
 			posttasks = 
 			{
 				
@@ -941,6 +922,49 @@ local tbl =
 				},
 				radius = 0,
 				type = "tm_vista",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+				waypointid = 963,
+			},
+			lastrun = 0,
+			order = 10,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 28,
+				maxduration = 0,
+				maxlevel = 80,
+				minlevel = 0,
+				name = "Grawlenfjord (Waypoint)",
+				pos = 
+				{
+					hx = 0.5516385436058,
+					hy = 0.83408331871033,
+					hz = 0,
+					x = 10886.827148438,
+					y = -36053.640625,
+					z = -100.40341949463,
+				},
+				radius = 0,
+				type = "tm_discoverwaypoint",
 			},
 			version = 0,
 		},
@@ -2213,7 +2237,7 @@ local tbl =
 					},
 					taskProperties = 
 					{
-						enabled = true,
+						enabled = false,
 						name = "Kill specific targets",
 						type = "tm_st_killspecific",
 					},
@@ -2380,7 +2404,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 80,
 				minlevel = 0,
-				name = "Bjarni (Must Be Done Manually) (Heart)",
+				name = "Bjarni (Manual) (Heart)",
 				pos = 
 				{
 					hx = 0.9993993639946,
@@ -2584,7 +2608,6 @@ local tbl =
 								},
 								skillid = 6661,
 								skillname = "Werfen",
-								skillslot = 5,
 								target = 44585,
 								useat = "Target",
 							},
@@ -3317,7 +3340,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "The Dsenfold Shear (Vista)",
+				name = "The Osenfold Shear (Vista)",
 				pos = 
 				{
 					hx = 0.7308321595192,
@@ -6134,9 +6157,9 @@ local tbl =
 						talkagent = 
 						{
 							character = false,
-							contentid = 0,
-							gadget = false,
-							name = "",
+							contentid = 31588,
+							gadget = true,
+							name = "Bjord's Banner",
 						},
 						talksteps = 
 						{
@@ -6194,12 +6217,12 @@ local tbl =
 				name = "Bjord's Banner (Hero)",
 				pos = 
 				{
-					hx = -0.043128807097673,
-					hy = 0.78309154510498,
-					hz = 0.62040913105011,
-					x = -2963.5939941406,
-					y = 46958.1171875,
-					z = -8632.681640625,
+					hx = -0.87264996767044,
+					hy = 0.45639279484749,
+					hz = 0.17374581098557,
+					x = -2688.2741699219,
+					y = 46637.53125,
+					z = -8519.0576171875,
 				},
 				radius = 0,
 				type = "tm_heropoint",
@@ -6249,12 +6272,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 6,
+			order = 71,
 			posttasks = 
 			{
 			},
@@ -6299,6 +6323,30 @@ local tbl =
 						type = "tm_st_talk",
 					},
 				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 455,
+							gadget = true,
+							name = "Issormir's Body",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
 			},
 			taskProperties = 
 			{
@@ -6332,7 +6380,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 12,
+			order = 72,
 			posttasks = 
 			{
 			},
@@ -6404,12 +6452,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 31,
+			order = 73,
 			posttasks = 
 			{
 			},
@@ -6484,12 +6533,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 38,
+			order = 74,
 			posttasks = 
 			{
 			},
@@ -6561,12 +6611,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 47,
+			order = 75,
 			posttasks = 
 			{
 			},
@@ -6644,7 +6695,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 57,
+			order = 76,
 			posttasks = 
 			{
 			},
@@ -6736,12 +6787,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 65,
+			order = 77,
 			posttasks = 
 			{
 			},
@@ -6786,6 +6838,31 @@ local tbl =
 						type = "tm_st_talk",
 					},
 				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 22270,
+							gadget = false,
+							name = "",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					order = 2,
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
 			},
 			taskProperties = 
 			{
@@ -6813,12 +6890,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 69,
+			order = 78,
 			posttasks = 
 			{
 			},
@@ -6846,9 +6924,9 @@ local tbl =
 						talkagent = 
 						{
 							character = false,
-							contentid = 0,
-							gadget = false,
-							name = "",
+							contentid = 31588,
+							gadget = true,
+							name = "Bjord's Banner",
 						},
 						talksteps = 
 						{
@@ -6906,12 +6984,12 @@ local tbl =
 				name = "Bjord's Banner (Hero)",
 				pos = 
 				{
-					hx = -0.043128807097673,
-					hy = 0.78309154510498,
-					hz = 0.62040913105011,
-					x = -2963.5939941406,
-					y = 46958.1171875,
-					z = -8632.681640625,
+					hx = -0.87264996767044,
+					hy = 0.45639279484749,
+					hz = 0.17374581098557,
+					x = -2688.2741699219,
+					y = 46637.53125,
+					z = -8519.0576171875,
 				},
 				radius = 0,
 				type = "tm_heropoint",
@@ -6924,7 +7002,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 71,
+			order = 79,
 			posttasks = 
 			{
 			},
@@ -6948,12 +7026,12 @@ local tbl =
 				name = "Move to Complete",
 				pos = 
 				{
-					hx = 0.89135015010834,
-					hy = 0.4533154964447,
-					hz = 0,
-					x = -9053.5830078125,
-					y = -24302.552734375,
-					z = -3739.1313476563,
+					hx = -0.82603394985199,
+					hy = 0.56108772754669,
+					hz = 0.053371243178844,
+					x = -13522.420898438,
+					y = 41317.79296875,
+					z = -4568.0927734375,
 				},
 				radius = 0,
 				type = "tm_moveto",
