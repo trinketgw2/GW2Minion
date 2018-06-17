@@ -4499,52 +4499,10 @@ local tbl =
 		{
 			customProperties = 
 			{
-			},
-			lastrun = 0,
-			order = 42,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = true,
-				mapid = 25,
-				maxduration = 0,
-				maxlevel = 0,
-				minlevel = 45,
-				name = "Invictus Castrum (POI)",
-				pos = 
-				{
-					hx = 0.89946937561035,
-					hy = 0.41233792901039,
-					hz = 0.14467990398407,
-					x = -12110.130859375,
-					y = 26789.2578125,
-					z = -484.63854980469,
-				},
-				radius = 0,
-				type = "tm_moveto",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
 				waypointid = 493,
 			},
 			lastrun = 0,
-			order = 43,
+			order = 42,
 			posttasks = 
 			{
 			},
@@ -4587,7 +4545,7 @@ local tbl =
 				waypointid = 495,
 			},
 			lastrun = 0,
-			order = 44,
+			order = 43,
 			posttasks = 
 			{
 			},
@@ -4630,22 +4588,9 @@ local tbl =
 				fightaggro = true,
 			},
 			lastrun = 0,
-			order = 45,
+			order = 44,
 			posttasks = 
 			{
-				
-				{
-					customProperties = 
-					{
-						waypointid = 495,
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "Use waypoint",
-						type = "tm_st_usewaypoint",
-					},
-				},
 			},
 			pretasks = 
 			{
@@ -4676,6 +4621,48 @@ local tbl =
 				},
 				radius = 0,
 				type = "tm_vista",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 45,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 25,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 50,
+				name = "Heartsond Falls (POI)",
+				pos = 
+				{
+					hx = 0.54181408882141,
+					hy = 0.80151832103729,
+					hz = 0.25299376249313,
+					x = 22560.72265625,
+					y = 46087.2890625,
+					z = 8.9940633773804,
+				},
+				radius = 0,
+				type = "tm_moveto",
 			},
 			version = 0,
 		},
@@ -4715,6 +4702,51 @@ local tbl =
 						{
 							
 							{
+								character = false,
+								closedialog = false,
+								contentid = 7932,
+								gadget = true,
+								maxinteract = 1,
+								name = "Ogre Trap",
+								oncepertarget = false,
+							},
+							
+							{
+								character = false,
+								closedialog = false,
+								contentid = 2783,
+								gadget = true,
+								maxinteract = 1,
+								name = "Ogre Trap",
+								oncepertarget = false,
+							},
+							
+							{
+								character = false,
+								closedialog = false,
+								contentid = 9366,
+								gadget = true,
+								maxinteract = 1,
+								name = "Ogre Trap",
+								oncepertarget = false,
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Interact",
+						type = "tm_st_interact",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						targets = 
+						{
+							
+							{
 								character = true,
 								contentid = 43958,
 								gadget = false,
@@ -4741,41 +4773,6 @@ local tbl =
 						enabled = true,
 						name = "Kill specific targets",
 						type = "tm_st_killspecific",
-					},
-				},
-				
-				{
-					customProperties = 
-					{
-						targets = 
-						{
-							
-							{
-								character = false,
-								closedialog = false,
-								contentid = 7932,
-								gadget = true,
-								maxinteract = 1,
-								name = "Ogre Trap",
-								oncepertarget = false,
-							},
-							
-							{
-								character = false,
-								closedialog = false,
-								contentid = 2783,
-								gadget = true,
-								maxinteract = 1,
-								name = "Ogre Trap",
-								oncepertarget = false,
-							},
-						},
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "Interact",
-						type = "tm_st_interact",
 					},
 				},
 				
@@ -4923,48 +4920,6 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 50,
-				name = "Heartsond Falls (POI)",
-				pos = 
-				{
-					hx = 0.54181408882141,
-					hy = 0.80151832103729,
-					hz = 0.25299376249313,
-					x = 22560.72265625,
-					y = 46087.2890625,
-					z = 8.9940633773804,
-				},
-				radius = 0,
-				type = "tm_moveto",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-			},
-			lastrun = 0,
-			order = 48,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = true,
-				mapid = 25,
-				maxduration = 0,
-				maxlevel = 0,
-				minlevel = 50,
 				name = "Grundallion's Lair (POI)",
 				pos = 
 				{
@@ -4987,7 +4942,7 @@ local tbl =
 				waypointid = 494,
 			},
 			lastrun = 0,
-			order = 49,
+			order = 48,
 			posttasks = 
 			{
 			},
@@ -5027,9 +4982,94 @@ local tbl =
 		{
 			customProperties = 
 			{
+				fightaggro = true,
+			},
+			lastrun = 0,
+			order = 49,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 25,
+				maxduration = 180,
+				maxlevel = 0,
+				minlevel = 50,
+				name = "Gladefall Run (Vista)",
+				pos = 
+				{
+					hx = 0.032490100711584,
+					hy = -0.99947208166122,
+					hz = 0,
+					x = -10582.442382813,
+					y = 44059.47265625,
+					z = -833.88146972656,
+				},
+				radius = 0,
+				type = "tm_vista",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
 			},
 			lastrun = 0,
 			order = 50,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 25,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 50,
+				name = "Fellmyst Falls (POI)",
+				pos = 
+				{
+					hx = -0.33080542087555,
+					hy = 0.94369900226593,
+					hz = 0,
+					x = -11142.024414063,
+					y = 47315.94140625,
+					z = 41.599193572998,
+				},
+				radius = 0,
+				type = "tm_moveto",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 51,
 			posttasks = 
 			{
 			},
@@ -5069,10 +5109,137 @@ local tbl =
 		{
 			customProperties = 
 			{
+			},
+			lastrun = 0,
+			order = 52,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 25,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 45,
+				name = "Invictus Castrum (POI)",
+				pos = 
+				{
+					hx = 0.89946937561035,
+					hy = 0.41233792901039,
+					hz = 0.14467990398407,
+					x = -12110.130859375,
+					y = 26789.2578125,
+					z = -484.63854980469,
+				},
+				radius = 0,
+				type = "tm_moveto",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 53,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 25,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 50,
+				name = "The Blasted Hearth (POI)",
+				pos = 
+				{
+					hx = -0.25187543034554,
+					hy = 0.95556801557541,
+					hz = 0.15312917530537,
+					x = -18057.13671875,
+					y = 44772.03125,
+					z = -1813.1878662109,
+				},
+				radius = 0,
+				type = "tm_moveto",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+				fightaggro = true,
+			},
+			lastrun = 0,
+			order = 54,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 25,
+				maxduration = 180,
+				maxlevel = 0,
+				minlevel = 50,
+				name = "Scorchlands (Vista)",
+				pos = 
+				{
+					hx = -0.72486060857773,
+					hy = -0.0068353647366166,
+					hz = 0.68886166810989,
+					x = -16452.537109375,
+					y = 42253.66015625,
+					z = -1821.6531982422,
+				},
+				radius = 0,
+				type = "tm_vista",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
 				hqid = 153,
 			},
 			lastrun = 0,
-			order = 51,
+			order = 55,
 			posttasks = 
 			{
 			},
@@ -5333,7 +5500,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 52,
+			order = 56,
 			posttasks = 
 			{
 			},
@@ -5349,161 +5516,20 @@ local tbl =
 				enabled = true,
 				gw2_failondeath = false,
 				gw2_failondeathcount = 4,
-				gw2_trytosurvive = true,
+				gw2_trytosurvive = false,
 				mapid = 25,
 				maxduration = 0,
 				maxlevel = 0,
-				minlevel = 50,
-				name = "The Blasted Hearth (POI)",
+				minlevel = 0,
+				name = "Move to Complete",
 				pos = 
 				{
-					hx = -0.25187543034554,
-					hy = 0.95556801557541,
-					hz = 0.15312917530537,
-					x = -18057.13671875,
-					y = 44772.03125,
-					z = -1813.1878662109,
-				},
-				radius = 0,
-				type = "tm_moveto",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-				fightaggro = true,
-			},
-			lastrun = 0,
-			order = 53,
-			posttasks = 
-			{
-				
-				{
-					customProperties = 
-					{
-						waypointid = 493,
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "Use waypoint",
-						type = "tm_st_usewaypoint",
-					},
-				},
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = true,
-				mapid = 25,
-				maxduration = 180,
-				maxlevel = 0,
-				minlevel = 50,
-				name = "Scorchlands (Vista)",
-				pos = 
-				{
-					hx = -0.72486060857773,
-					hy = -0.0068353647366166,
-					hz = 0.68886166810989,
-					x = -16452.537109375,
-					y = 42253.66015625,
-					z = -1821.6531982422,
-				},
-				radius = 0,
-				type = "tm_vista",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-				fightaggro = true,
-			},
-			lastrun = 0,
-			order = 54,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = true,
-				mapid = 25,
-				maxduration = 180,
-				maxlevel = 0,
-				minlevel = 50,
-				name = "Gladefall Run (Vista)",
-				pos = 
-				{
-					hx = 0.032490100711584,
-					hy = -0.99947208166122,
-					hz = 0,
-					x = -10582.442382813,
-					y = 44059.47265625,
-					z = -833.88146972656,
-				},
-				radius = 0,
-				type = "tm_vista",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-			},
-			lastrun = 0,
-			order = 55,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = true,
-				mapid = 25,
-				maxduration = 0,
-				maxlevel = 0,
-				minlevel = 50,
-				name = "Fellmyst Falls (POI)",
-				pos = 
-				{
-					hx = -0.33080542087555,
-					hy = 0.94369900226593,
-					hz = 0,
-					x = -11142.024414063,
-					y = 47315.94140625,
-					z = 41.599193572998,
+					hx = -0.98737019300461,
+					hy = -0.072784096002579,
+					hz = 0.1407215744257,
+					x = 21082.3046875,
+					y = -21655.427734375,
+					z = -415.37438964844,
 				},
 				radius = 0,
 				type = "tm_moveto",
