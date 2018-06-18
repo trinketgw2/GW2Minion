@@ -4276,6 +4276,31 @@ local tbl =
 			order = 56,
 			posttasks = 
 			{
+				
+				{
+					customProperties = 
+					{
+						useskills = 
+						{
+							[10700] = 
+							{
+								pos = 
+								{
+								},
+								skillid = 10700,
+								skillname = "Leave Transform",
+								target = 0,
+								useat = "Self",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "leave transform",
+						type = "tm_st_useskill",
+					},
+				},
 			},
 			pretasks = 
 			{
@@ -4323,9 +4348,12 @@ local tbl =
 							
 							{
 								character = false,
+								closedialog = false,
 								contentid = 3438,
 								gadget = true,
+								maxinteract = 2,
 								name = "Essence Coagulator Rack",
+								oncepertarget = false,
 							},
 						},
 					},
@@ -4345,65 +4373,92 @@ local tbl =
 							
 							{
 								character = false,
+								closedialog = false,
 								contentid = 26939,
 								gadget = true,
+								maxinteract = 1,
 								name = "Imp Portal Location",
+								oncepertarget = false,
 							},
 							
 							{
 								character = false,
+								closedialog = false,
 								contentid = 11405,
 								gadget = true,
+								maxinteract = 1,
 								name = "Imp Portal Location",
+								oncepertarget = false,
 							},
 							
 							{
 								character = false,
+								closedialog = false,
 								contentid = 22779,
 								gadget = true,
+								maxinteract = 1,
 								name = "Imp Portal Location",
+								oncepertarget = false,
 							},
 							
 							{
 								character = false,
+								closedialog = false,
 								contentid = 12920,
 								gadget = true,
+								maxinteract = 1,
 								name = "Imp Portal Location",
+								oncepertarget = false,
 							},
 							
 							{
 								character = false,
+								closedialog = false,
 								contentid = 10624,
 								gadget = true,
+								maxinteract = 1,
 								name = "Imp Portal Location",
+								oncepertarget = false,
 							},
 							
 							{
 								character = false,
+								closedialog = false,
 								contentid = 32689,
 								gadget = true,
+								maxinteract = 1,
 								name = "Imp Portal Location",
+								oncepertarget = false,
 							},
 							
 							{
 								character = false,
+								closedialog = false,
 								contentid = 5043,
 								gadget = true,
+								maxinteract = 1,
 								name = "Imp Portal Location",
+								oncepertarget = false,
 							},
 							
 							{
 								character = false,
+								closedialog = false,
 								contentid = 17956,
 								gadget = true,
+								maxinteract = 1,
 								name = "Imp Portal Location",
+								oncepertarget = false,
 							},
 							
 							{
 								character = false,
+								closedialog = false,
 								contentid = 21959,
 								gadget = true,
+								maxinteract = 1,
 								name = "Imp Portal Location",
+								oncepertarget = false,
 							},
 						},
 					},
@@ -4418,7 +4473,7 @@ local tbl =
 			taskProperties = 
 			{
 				cooldown = 0,
-				enabled = false,
+				enabled = true,
 				gw2_failondeath = false,
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = false,
@@ -4426,7 +4481,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "Help Researcher Suki examine imps near Rocklair (Do Manually) (Heart)",
+				name = "Help Researcher Suki examine imps near Rocklair (Heart)",
 				pos = 
 				{
 					hx = 0.42992049455643,

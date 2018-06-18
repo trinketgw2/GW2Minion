@@ -686,11 +686,42 @@ local tbl =
 			},
 			pretasks = 
 			{
+			},
+			subtasks = 
+			{
+				
+				{
+					customProperties = 
+					{
+						useskills = 
+						{
+							[7024] = 
+							{
+								oncepertarget = true,
+								pos = 
+								{
+								},
+								skillid = 7024,
+								skillname = "Drink",
+								target = 0,
+								useat = "Self",
+							},
+						},
+					},
+					order = 2,
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Use skill",
+						type = "tm_st_useskill",
+					},
+				},
 				
 				{
 					customProperties = 
 					{
 					},
+					order = 3,
 					taskProperties = 
 					{
 						enabled = true,
@@ -702,7 +733,112 @@ local tbl =
 				{
 					customProperties = 
 					{
-						hqchecktimer = 180,
+						targets = 
+						{
+							
+							{
+								character = false,
+								closedialog = false,
+								contentid = 7092,
+								gadget = true,
+								maxinteract = 10,
+								name = "Beer Keg",
+								oncepertarget = false,
+							},
+							
+							{
+								character = false,
+								closedialog = false,
+								contentid = 32728,
+								gadget = true,
+								maxinteract = 10,
+								name = "Beer Keg",
+								oncepertarget = false,
+							},
+							
+							{
+								character = false,
+								closedialog = false,
+								contentid = 17699,
+								gadget = true,
+								maxinteract = 10,
+								name = "Beer Keg",
+								oncepertarget = false,
+							},
+							
+							{
+								character = false,
+								closedialog = false,
+								contentid = 18880,
+								gadget = true,
+								maxinteract = 10,
+								name = "Beer Keg",
+								oncepertarget = false,
+							},
+							
+							{
+								character = false,
+								closedialog = false,
+								contentid = 14858,
+								gadget = true,
+								maxinteract = 10,
+								name = "Beer Keg",
+								oncepertarget = false,
+							},
+							
+							{
+								character = false,
+								closedialog = false,
+								contentid = 5238,
+								gadget = true,
+								maxinteract = 10,
+								name = "Beer Keg",
+								oncepertarget = false,
+							},
+							
+							{
+								character = false,
+								closedialog = false,
+								contentid = 20391,
+								gadget = true,
+								maxinteract = 10,
+								name = "Meat Stand",
+								oncepertarget = false,
+							},
+							
+							{
+								character = false,
+								closedialog = false,
+								contentid = 29440,
+								gadget = true,
+								maxinteract = 10,
+								name = "Meat Stand",
+								oncepertarget = false,
+							},
+							
+							{
+								character = false,
+								closedialog = false,
+								contentid = 16621,
+								gadget = true,
+								maxinteract = 10,
+								name = "Meat Stand",
+								oncepertarget = false,
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Interact",
+						type = "tm_st_interact",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						hqchecktimer = 120,
 						hqid = 75,
 						hqpos = 
 						{
@@ -718,36 +854,11 @@ local tbl =
 						type = "tm_st_hqstatus",
 					},
 				},
-				
-				{
-					customProperties = 
-					{
-						targets = 
-						{
-							
-							{
-								character = true,
-								contentid = 43617,
-								gadget = false,
-								name = "Drunk Skritt",
-							},
-						},
-					},
-					taskProperties = 
-					{
-						enabled = true,
-						name = "Kill specific targets",
-						type = "tm_st_killspecific",
-					},
-				},
-			},
-			subtasks = 
-			{
 			},
 			taskProperties = 
 			{
 				cooldown = 0,
-				enabled = false,
+				enabled = true,
 				gw2_failondeath = false,
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
@@ -755,15 +866,15 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "Partake In The Moot (Do Manually) (Heart)",
+				name = "Partake In The Moot (Heart)",
 				pos = 
 				{
-					hx = 0.83614581823349,
-					hy = -0.54850709438324,
+					hx = -0.15244692564011,
+					hy = -0.98831164836884,
 					hz = 0,
-					x = -15569.2734375,
-					y = 27069.951171875,
-					z = -1840.2825927734,
+					x = -17710.326171875,
+					y = 27996.1484375,
+					z = -1906.8774414063,
 				},
 				radius = 0,
 				type = "tm_hq",
@@ -1289,7 +1400,6 @@ local tbl =
 					customProperties = 
 					{
 					},
-					order = 2,
 					taskProperties = 
 					{
 						enabled = true,
@@ -1339,7 +1449,6 @@ local tbl =
 						},
 						talktype = "Index",
 					},
-					order = 1,
 					taskProperties = 
 					{
 						enabled = true,
@@ -1950,6 +2059,60 @@ local tbl =
 				{
 					customProperties = 
 					{
+						useskills = 
+						{
+							[6478] = 
+							{
+								oncepertarget = false,
+								pos = 
+								{
+								},
+								skillid = 6478,
+								skillname = "Poison Cloud",
+								skillslot = 5,
+								target = 11848,
+								useat = "Target",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Use skill",
+						type = "tm_st_useskill",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = true,
+							contentid = 44504,
+							gadget = false,
+							name = "Exterminator Naff",
+						},
+						talksteps = 
+						{
+							0,
+							0,
+							0,
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = false,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
+				
+				{
+					customProperties = 
+					{
 						targets = 
 						{
 							
@@ -1999,9 +2162,52 @@ local tbl =
 		{
 			customProperties = 
 			{
+				fightaggro = true,
 			},
 			lastrun = 0,
 			order = 24,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 29,
+				maxduration = 180,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Fisher's Eye Bridges (Vista)",
+				pos = 
+				{
+					hx = 0.90519058704376,
+					hy = 0.25706958770752,
+					hz = 0.33844524621964,
+					x = -16848.322265625,
+					y = 4795.5546875,
+					z = -1980.4517822266,
+				},
+				radius = 0,
+				type = "tm_vista",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 25,
 			posttasks = 
 			{
 			},
@@ -2041,10 +2247,53 @@ local tbl =
 		{
 			customProperties = 
 			{
+				fightaggro = true,
+			},
+			lastrun = 0,
+			order = 26,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 29,
+				maxduration = 180,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Gyre Rapids (Vista)",
+				pos = 
+				{
+					hx = 0.98268115520477,
+					hy = 0.17614242434502,
+					hz = 0.057546842843294,
+					x = -12311.255859375,
+					y = -1014.1973876953,
+					z = -2316.9240722656,
+				},
+				radius = 0,
+				type = "tm_vista",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
 				waypointid = 1094,
 			},
 			lastrun = 0,
-			order = 25,
+			order = 27,
 			posttasks = 
 			{
 			},
@@ -2087,7 +2336,7 @@ local tbl =
 				hqid = 70,
 			},
 			lastrun = 0,
-			order = 26,
+			order = 28,
 			posttasks = 
 			{
 			},
@@ -2369,7 +2618,7 @@ local tbl =
 				waypointid = 587,
 			},
 			lastrun = 0,
-			order = 27,
+			order = 29,
 			posttasks = 
 			{
 			},
@@ -2387,7 +2636,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 29,
-				maxduration = 0,
+				maxduration = 20,
 				maxlevel = 0,
 				minlevel = 0,
 				name = "Concordia (Waypoint)",
@@ -2412,7 +2661,7 @@ local tbl =
 				hqid = 71,
 			},
 			lastrun = 0,
-			order = 28,
+			order = 30,
 			posttasks = 
 			{
 			},
@@ -2465,7 +2714,7 @@ local tbl =
 								closedialog = false,
 								contentid = 5829,
 								gadget = true,
-								maxinteract = 1,
+								maxinteract = 10,
 								name = "Flag Pole",
 								oncepertarget = false,
 							},
@@ -2475,7 +2724,7 @@ local tbl =
 								closedialog = false,
 								contentid = 18993,
 								gadget = true,
-								maxinteract = 1,
+								maxinteract = 10,
 								name = "Flag Pole",
 								oncepertarget = false,
 							},
@@ -2485,7 +2734,7 @@ local tbl =
 								closedialog = false,
 								contentid = 25940,
 								gadget = true,
-								maxinteract = 1,
+								maxinteract = 10,
 								name = "Flag Pole",
 								oncepertarget = false,
 							},
@@ -2495,7 +2744,7 @@ local tbl =
 								closedialog = false,
 								contentid = 32737,
 								gadget = true,
-								maxinteract = 1,
+								maxinteract = 10,
 								name = "Flag Pole",
 								oncepertarget = false,
 							},
@@ -2505,7 +2754,7 @@ local tbl =
 								closedialog = false,
 								contentid = 17223,
 								gadget = true,
-								maxinteract = 1,
+								maxinteract = 10,
 								name = "Flag Pole",
 								oncepertarget = false,
 							},
@@ -2515,7 +2764,7 @@ local tbl =
 								closedialog = false,
 								contentid = 5246,
 								gadget = true,
-								maxinteract = 1,
+								maxinteract = 10,
 								name = "Flag Pole",
 								oncepertarget = false,
 							},
@@ -2525,7 +2774,7 @@ local tbl =
 								closedialog = false,
 								contentid = 12904,
 								gadget = true,
-								maxinteract = 1,
+								maxinteract = 10,
 								name = "Flag Pole",
 								oncepertarget = false,
 							},
@@ -2535,7 +2784,7 @@ local tbl =
 								closedialog = false,
 								contentid = 23246,
 								gadget = true,
-								maxinteract = 1,
+								maxinteract = 10,
 								name = "Flag Pole",
 								oncepertarget = false,
 							},
@@ -2617,7 +2866,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 29,
+			order = 31,
 			posttasks = 
 			{
 			},
@@ -2692,7 +2941,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 29,
-				maxduration = 0,
+				maxduration = 180,
 				maxlevel = 0,
 				minlevel = 0,
 				name = "Ritual Tribal Paint (Hero)",
@@ -2717,7 +2966,7 @@ local tbl =
 				hqid = 79,
 			},
 			lastrun = 0,
-			order = 30,
+			order = 32,
 			posttasks = 
 			{
 			},
@@ -2877,7 +3126,7 @@ local tbl =
 				waypointid = 587,
 			},
 			lastrun = 0,
-			order = 31,
+			order = 33,
 			posttasks = 
 			{
 			},
@@ -2920,7 +3169,7 @@ local tbl =
 				waypointid = 596,
 			},
 			lastrun = 0,
-			order = 32,
+			order = 34,
 			posttasks = 
 			{
 			},
@@ -2962,7 +3211,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 33,
+			order = 35,
 			posttasks = 
 			{
 			},
@@ -3032,6 +3281,30 @@ local tbl =
 						type = "tm_st_talk",
 					},
 				},
+				
+				{
+					customProperties = 
+					{
+						talkagent = 
+						{
+							character = false,
+							contentid = 2508,
+							gadget = true,
+							name = "Urals Delve",
+						},
+						talksteps = 
+						{
+							0,
+						},
+						talktype = "Index",
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Talk",
+						type = "tm_st_talk",
+					},
+				},
 			},
 			taskProperties = 
 			{
@@ -3041,7 +3314,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 29,
-				maxduration = 0,
+				maxduration = 180,
 				maxlevel = 0,
 				minlevel = 0,
 				name = "Urals Delve (Hero)",
@@ -3066,7 +3339,7 @@ local tbl =
 				hqid = 78,
 			},
 			lastrun = 0,
-			order = 34,
+			order = 36,
 			posttasks = 
 			{
 			},
@@ -3336,7 +3609,7 @@ local tbl =
 				waypointid = 580,
 			},
 			lastrun = 0,
-			order = 35,
+			order = 37,
 			posttasks = 
 			{
 			},
@@ -3378,7 +3651,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 36,
+			order = 38,
 			posttasks = 
 			{
 			},
@@ -3402,12 +3675,12 @@ local tbl =
 				name = "Caer Evermore (POI)",
 				pos = 
 				{
-					hx = -0.064933352172375,
-					hy = 0.65535497665405,
-					hz = 0.7525247335434,
-					x = -10710.729492188,
-					y = -32089.7421875,
-					z = -427.23306274414,
+					hx = 0.15986493229866,
+					hy = -0.94371062517166,
+					hz = 0.28957462310791,
+					x = -10926.671875,
+					y = -31481.392578125,
+					z = -71.859306335449,
 				},
 				radius = 0,
 				type = "tm_moveto",
@@ -3421,7 +3694,7 @@ local tbl =
 				waypointid = 581,
 			},
 			lastrun = 0,
-			order = 37,
+			order = 39,
 			posttasks = 
 			{
 			},
@@ -3464,7 +3737,7 @@ local tbl =
 				waypointid = 585,
 			},
 			lastrun = 0,
-			order = 38,
+			order = 40,
 			posttasks = 
 			{
 			},
@@ -3504,10 +3777,10 @@ local tbl =
 		{
 			customProperties = 
 			{
-				waypointid = 1094,
+				waypointid = 586,
 			},
 			lastrun = 0,
-			order = 39,
+			order = 41,
 			posttasks = 
 			{
 			},
@@ -3550,7 +3823,7 @@ local tbl =
 				hqid = 73,
 			},
 			lastrun = 0,
-			order = 40,
+			order = 42,
 			posttasks = 
 			{
 			},
@@ -3713,7 +3986,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 41,
+			order = 43,
 			posttasks = 
 			{
 			},
@@ -3753,9 +4026,52 @@ local tbl =
 		{
 			customProperties = 
 			{
+				fightaggro = true,
 			},
 			lastrun = 0,
-			order = 42,
+			order = 44,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = true,
+				mapid = 29,
+				maxduration = 180,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Naui Waters (Vista)",
+				pos = 
+				{
+					hx = 0.061487440019846,
+					hy = -0.91048640012741,
+					hz = 0.40894225239754,
+					x = 16093.500976563,
+					y = -1566.9674072266,
+					z = -1498.0694580078,
+				},
+				radius = 0,
+				type = "tm_vista",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 45,
 			posttasks = 
 			{
 			},
@@ -3835,7 +4151,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "Cooroo & Hermit Crab (Nav Position Fixed) (Hero)",
+				name = "Cooroo & Hermit Crab (Hero)",
 				pos = 
 				{
 					hx = -0.95318782329559,
@@ -3857,7 +4173,7 @@ local tbl =
 				waypointid = 583,
 			},
 			lastrun = 0,
-			order = 43,
+			order = 46,
 			posttasks = 
 			{
 			},
@@ -3875,7 +4191,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 29,
-				maxduration = 0,
+				maxduration = 20,
 				maxlevel = 0,
 				minlevel = 0,
 				name = "Scale Strand (Waypoint)",
@@ -3900,7 +4216,7 @@ local tbl =
 				waypointid = 583,
 			},
 			lastrun = 0,
-			order = 44,
+			order = 47,
 			posttasks = 
 			{
 			},
@@ -3918,7 +4234,7 @@ local tbl =
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
 				mapid = 29,
-				maxduration = 0,
+				maxduration = 20,
 				maxlevel = 0,
 				minlevel = 0,
 				name = "Coil (Waypoint)",
@@ -3943,7 +4259,7 @@ local tbl =
 				fightaggro = true,
 			},
 			lastrun = 0,
-			order = 45,
+			order = 48,
 			posttasks = 
 			{
 			},
@@ -3964,7 +4280,7 @@ local tbl =
 				maxduration = 180,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "Nonmoa Lake (Nav Mesh Fixed) (Vista)",
+				name = "Nonmoa Lake (Vista)",
 				pos = 
 				{
 					hx = 0.9919655919075,
@@ -3986,7 +4302,7 @@ local tbl =
 				hqid = 74,
 			},
 			lastrun = 0,
-			order = 46,
+			order = 49,
 			posttasks = 
 			{
 			},
@@ -4061,48 +4377,6 @@ local tbl =
 								gadget = false,
 								name = "Krait Damoss",
 							},
-							
-							{
-								character = false,
-								contentid = 32738,
-								gadget = true,
-								name = "Krait Cage",
-							},
-							
-							{
-								character = false,
-								contentid = 1247,
-								gadget = true,
-								name = "Krait Cage",
-							},
-							
-							{
-								character = false,
-								contentid = 29961,
-								gadget = true,
-								name = "Krait Cage",
-							},
-							
-							{
-								character = false,
-								contentid = 25972,
-								gadget = true,
-								name = "Krait Cage",
-							},
-							
-							{
-								character = false,
-								contentid = 360,
-								gadget = true,
-								name = "Krait Cage",
-							},
-							
-							{
-								character = false,
-								contentid = 23946,
-								gadget = true,
-								name = "Krait Cage",
-							},
 						},
 					},
 					taskProperties = 
@@ -4173,7 +4447,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 47,
+			order = 50,
 			posttasks = 
 			{
 			},
@@ -4216,7 +4490,7 @@ local tbl =
 				waypointid = 582,
 			},
 			lastrun = 0,
-			order = 48,
+			order = 51,
 			posttasks = 
 			{
 			},
@@ -4258,7 +4532,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 49,
+			order = 52,
 			posttasks = 
 			{
 			},
@@ -4300,7 +4574,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 50,
+			order = 53,
 			posttasks = 
 			{
 			},
@@ -4368,7 +4642,7 @@ local tbl =
 			{
 			},
 			lastrun = 0,
-			order = 51,
+			order = 54,
 			posttasks = 
 			{
 			},
@@ -4408,10 +4682,9 @@ local tbl =
 		{
 			customProperties = 
 			{
-				fightaggro = true,
 			},
 			lastrun = 0,
-			order = 52,
+			order = 55,
 			posttasks = 
 			{
 			},
@@ -4427,109 +4700,23 @@ local tbl =
 				enabled = true,
 				gw2_failondeath = false,
 				gw2_failondeathcount = 4,
-				gw2_trytosurvive = true,
+				gw2_trytosurvive = false,
 				mapid = 29,
-				maxduration = 180,
+				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "Naui Waters (Vista)",
+				name = "Move to Complete",
 				pos = 
 				{
-					hx = 0.061487440019846,
-					hy = -0.91048640012741,
-					hz = 0.40894225239754,
-					x = 16093.500976563,
-					y = -1566.9674072266,
-					z = -1498.0694580078,
+					hx = -0.037323255091906,
+					hy = -0.98221153020859,
+					hz = 0.18403120338917,
+					x = -13721.140625,
+					y = -31856.619140625,
+					z = -107.87784576416,
 				},
 				radius = 0,
-				type = "tm_vista",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-				fightaggro = true,
-			},
-			lastrun = 0,
-			order = 53,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = true,
-				mapid = 29,
-				maxduration = 180,
-				maxlevel = 0,
-				minlevel = 0,
-				name = "Fisher's Eye Bridges (Vista)",
-				pos = 
-				{
-					hx = 0.90519058704376,
-					hy = 0.25706958770752,
-					hz = 0.33844524621964,
-					x = -16848.322265625,
-					y = 4795.5546875,
-					z = -1980.4517822266,
-				},
-				radius = 0,
-				type = "tm_vista",
-			},
-			version = 0,
-		},
-		
-		{
-			customProperties = 
-			{
-				fightaggro = true,
-			},
-			lastrun = 0,
-			order = 54,
-			posttasks = 
-			{
-			},
-			pretasks = 
-			{
-			},
-			subtasks = 
-			{
-			},
-			taskProperties = 
-			{
-				cooldown = 0,
-				enabled = true,
-				gw2_failondeath = false,
-				gw2_failondeathcount = 4,
-				gw2_trytosurvive = true,
-				mapid = 29,
-				maxduration = 180,
-				maxlevel = 0,
-				minlevel = 0,
-				name = "Gyre Rapids (Vista)",
-				pos = 
-				{
-					hx = 0.98268115520477,
-					hy = 0.17614242434502,
-					hz = 0.057546842843294,
-					x = -12311.255859375,
-					y = -1014.1973876953,
-					z = -2316.9240722656,
-				},
-				radius = 0,
-				type = "tm_vista",
+				type = "tm_moveto",
 			},
 			version = 0,
 		},

@@ -2390,7 +2390,7 @@ local tbl =
 					},
 					taskProperties = 
 					{
-						enabled = true,
+						enabled = false,
 						name = "transform to raven",
 						type = "tm_st_talk",
 					},
@@ -2405,7 +2405,7 @@ local tbl =
 					},
 					taskProperties = 
 					{
-						enabled = true,
+						enabled = false,
 						name = "Fight aggro",
 						type = "tm_st_fightaggro",
 					},
@@ -2741,7 +2741,7 @@ local tbl =
 			taskProperties = 
 			{
 				cooldown = 0,
-				enabled = false,
+				enabled = true,
 				gw2_failondeath = false,
 				gw2_failondeathcount = 4,
 				gw2_trytosurvive = true,
@@ -2749,7 +2749,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "Scholar Olenn (Needs Raven Skills) (Heart)",
+				name = "Scholar Olenn (Heart)",
 				pos = 
 				{
 					hx = 0.30657586455345,

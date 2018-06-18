@@ -1910,6 +1910,32 @@ local tbl =
 			order = 22,
 			posttasks = 
 			{
+				
+				{
+					customProperties = 
+					{
+						useskills = 
+						{
+							[14349] = 
+							{
+								oncepertarget = true,
+								pos = 
+								{
+								},
+								skillid = 14349,
+								skillname = "Return",
+								target = 0,
+								useat = "Self",
+							},
+						},
+					},
+					taskProperties = 
+					{
+						enabled = true,
+						name = "Use skill",
+						type = "tm_st_useskill",
+					},
+				},
 			},
 			pretasks = 
 			{
@@ -2237,7 +2263,7 @@ local tbl =
 					},
 					taskProperties = 
 					{
-						enabled = false,
+						enabled = true,
 						name = "Kill specific targets",
 						type = "tm_st_killspecific",
 					},
@@ -6855,7 +6881,6 @@ local tbl =
 						},
 						talktype = "Index",
 					},
-					order = 2,
 					taskProperties = 
 					{
 						enabled = true,
