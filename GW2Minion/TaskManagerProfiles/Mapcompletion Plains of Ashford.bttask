@@ -4100,7 +4100,6 @@ local tbl =
 					customProperties = 
 					{
 					},
-					order = 0,
 					taskProperties = 
 					{
 						enabled = true,
@@ -5600,12 +5599,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 5,
+			order = 72,
 			posttasks = 
 			{
 			},
@@ -5687,12 +5687,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 24,
+			order = 73,
 			posttasks = 
 			{
 			},
@@ -5786,12 +5787,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 28,
+			order = 74,
 			posttasks = 
 			{
 			},
@@ -5892,12 +5894,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 30,
+			order = 75,
 			posttasks = 
 			{
 			},
@@ -5991,12 +5994,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 50,
+			order = 76,
 			posttasks = 
 			{
 			},
@@ -6080,12 +6084,13 @@ local tbl =
 			},
 			version = 0,
 		},
+		
 		{
 			customProperties = 
 			{
 			},
 			lastrun = 0,
-			order = 56,
+			order = 77,
 			posttasks = 
 			{
 			},
@@ -6154,6 +6159,48 @@ local tbl =
 				},
 				radius = 0,
 				type = "tm_heropoint",
+			},
+			version = 0,
+		},
+		
+		{
+			customProperties = 
+			{
+			},
+			lastrun = 0,
+			order = 78,
+			posttasks = 
+			{
+			},
+			pretasks = 
+			{
+			},
+			subtasks = 
+			{
+			},
+			taskProperties = 
+			{
+				cooldown = 0,
+				enabled = true,
+				gw2_failondeath = false,
+				gw2_failondeathcount = 4,
+				gw2_trytosurvive = false,
+				mapid = 19,
+				maxduration = 0,
+				maxlevel = 0,
+				minlevel = 0,
+				name = "Move to Complete",
+				pos = 
+				{
+					hx = 0.42167666554451,
+					hy = 0.9067462682724,
+					hz = 0,
+					x = -42373.1328125,
+					y = 9269.1650390625,
+					z = -2034.3054199219,
+				},
+				radius = 0,
+				type = "tm_moveto",
 			},
 			version = 0,
 		},

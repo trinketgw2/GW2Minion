@@ -5218,7 +5218,7 @@ local tbl =
 				maxduration = 0,
 				maxlevel = 0,
 				minlevel = 0,
-				name = "Move to Safety",
+				name = "Move to Complete",
 				pos = 
 				{
 					hx = 1,
