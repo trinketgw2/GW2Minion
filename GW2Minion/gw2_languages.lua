@@ -1,8 +1,8 @@
-﻿gCurrentLanguage = "us"
+﻿gCurrentLanguage = "en"
 
 gw2_strings =
 {
-    ["us"] =
+    ["en"] =
     {
         aLogin    		                = "LoginName",
 		aPassword  		                = "Password",
@@ -4147,4 +4147,16 @@ for language,data in pairs(gw2_strings) do
 			end
 		end
 	end
+	
+	-- add them to the new ml_miniondbstrings as well
+	for skey,str in pairs(data) do
+		if ( ml_miniondbstrings[skey] == nil ) then
+			ml_miniondbstrings[skey] = { [language] = str }
+			
+		else
+			if ( ml_miniondbstrings[skey][language] == nil ) then
+				ml_miniondbstrings[skey][language] = str
+			end
+		end
+	end	
 end
