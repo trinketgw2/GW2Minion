@@ -190,10 +190,12 @@ function gw2minion.DrawCall(event, ticks )
 	if (not gw2minion.versionchecked) then
 		local v1,v2 = GetGameVersion()
 		if(v1 ~= v2) then
-			GUI:OpenPopup(GetString("Bot Update Required"))
+			if(not GUI:IsPopupOpen(GetString("Bot Update Required"))) then
+				GUI:OpenPopup(GetString("Bot Update Required"))
+			end
 			
 			GUI:SetNextWindowSize(600,200)
-			if (GUI:BeginPopupModal("Game Update Information",true,GUI.WindowFlags_NoResize+GUI.WindowFlags_NoMove+GUI.WindowFlags_ShowBorders)) then
+			if (GUI:BeginPopupModal("Bot Update Required",true,GUI.WindowFlags_NoResize+GUI.WindowFlags_NoMove+GUI.WindowFlags_ShowBorders)) then
 				GUI:Spacing()
 				GUI:SameLine(25)
 				GUI:Text(GetString("GW2 was updated and we need to update GW2Minion as well."))
