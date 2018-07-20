@@ -1,6 +1,4 @@
-﻿gCurrentLanguage = "en"
-
-gw2_strings =
+﻿gw2_strings =
 {
     ["en"] =
     {
