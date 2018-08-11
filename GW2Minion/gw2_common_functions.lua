@@ -130,13 +130,18 @@ function gw2_common_functions.FinishEnemy()
 	return false
 end
 
-function gw2_common_functions.GetClosestWaypointToPos(mapID,pos)
+-- Get the nearest waypoint to a certain position
+-- mapid = the map you want to get a waypoint for
+-- pos = near this position
+-- mapid_pos = if the position is in another map then the target mapid, set this to the mapid of the position
+-- For example if you want to get the nearest waypoint from your current position to another map
+function gw2_common_functions.GetClosestWaypointToPos(mapid,pos,mapid_pos)
 	local waypoint = nil
-	local mapData = gw2_datamanager.GetLocalWaypointListByDistance(mapID,pos)
+	local mapData = gw2_datamanager.GetLocalWaypointListByDistance(mapid,pos,mapid_pos)
 	if (table.valid(mapData)) then
 		local i,wdata = next(mapData)
 		while wdata and not waypoint do
-			if (not wdata.contested and wdata.onmesh) then
+			if (not wdata.contested and wdata.onmesh and wdata.discovered) then
 				waypoint = wdata
 			end
 			
@@ -146,6 +151,7 @@ function gw2_common_functions.GetClosestWaypointToPos(mapID,pos)
 	return waypoint
 end
 
+-- Traverse the map navigation path (in reverse) and find the closest available waypoint to your intended target
 function gw2_common_functions.GetClosestWaypointToMap(targetMapID, currentMapID)
 
 	currentMapID = currentMapID ~= nil and currentMapID or ml_global_information.CurrentMapID
@@ -170,7 +176,7 @@ function gw2_common_functions.GetClosestWaypointToMap(targetMapID, currentMapID)
 						local _,nextNode = next(navPath, i)
 						if(nextNode and nextNode.neighbors and table.valid(nextNode.neighbors[node.id])) then
 							local entryPos = nextNode.neighbors[node.id][1]
-							local waypointlist = gw2_datamanager.GetLocalWaypointListByDistance(node.id, entryPos)
+							local waypointlist = gw2_datamanager.GetLocalWaypointListByDistance(node.id, entryPos, nextNode.id)
 							if (table.valid(waypointlist)) then
 								closestWaypoint = select(2,next(waypointlist))
 							end
@@ -178,7 +184,7 @@ function gw2_common_functions.GetClosestWaypointToMap(targetMapID, currentMapID)
 					else
 						if(node.neighbors and table.valid(node.neighbors[prevNode.id])) then
 							local exitPos = node.neighbors[prevNode.id][1]
-							local waypointlist = gw2_datamanager.GetLocalWaypointListByDistance(node.id,exitPos)
+							local waypointlist = gw2_datamanager.GetLocalWaypointListByDistance(node.id, exitPos)
 							if (table.valid(waypointlist)) then
 								closestWaypoint = select(2,next(waypointlist))
 							end

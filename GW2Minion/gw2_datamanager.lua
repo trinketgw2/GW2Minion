@@ -4,7 +4,6 @@ gw2_datamanager.path = GetStartupPath().. [[\LuaMods\GW2Minion\map_data.lua]]
 gw2_datamanager.mapData = {}
 gw2_datamanager.levelmap = {} -- Create a "2D - Levelmap/Table" which provides us an avg. level for all other entries in the zone, also for random navigation
 
-
 function gw2_datamanager.ModuleInit()
 	if(FileExists(gw2_datamanager.path)) then
 		local mdata = FileLoad(gw2_datamanager.path)
@@ -69,41 +68,52 @@ end
 
 function gw2_datamanager.GetLocalWaypointList(mapid)
 	local wdata = {}
-	local mdata = gw2_datamanager.GetLocalMapData(mapid)
-	
-	if (table.valid(mdata) and table.valid(mdata["floors"]) and table.valid(mdata["floors"])) then
-		for _,floorData in pairs(mdata["floors"]) do
-			if (table.valid(floorData)) then
-				local poiData = floorData["points_of_interest"]
-				if (table.valid(poiData)) then
-					for id,data in pairs(poiData) do
-						local wInfo = WaypointList()[id]
-						if (not table.valid(wInfo)) then
-							wInfo = WorldMap:WaypointList()[id]
-						end
-						if (table.valid(data) and table.valid(wInfo) and data["type"] == "waypoint") then
-						
-							local pos = table.valid(wInfo.pos) and wInfo.pos or {
-								x = gw2_datamanager.recalc_coords(mdata["continent_rect"],mdata["map_rect"],data["coord"])[1],
-								y = gw2_datamanager.recalc_coords(mdata["continent_rect"],mdata["map_rect"],data["coord"])[2],
-								z = 0,
-							}
+	if(mapid) then
 
-							local newWdata = {
-								id = id,
-								name = data["name"],
-								pos = pos,
-								discovered = table.valid(wInfo),
-								unlocked = table.valid(wInfo) and wInfo.unlocked == true or false,
-								contested =  wInfo.contested == true,
-								onmesh = not (wInfo.onmesh == false),
-								distance = wInfo.distance or nil,
-								mapid = mapid
-							}
-							
-							table.insert(wdata,newWdata)
-						end
+		local mdata = gw2_datamanager.GetLocalMapData(mapid)
+		
+		if (table.valid(mdata) and table.valid(mdata["waypoints"])) then
+			local WList = WaypointList()
+			local WMWList = WorldMap:WaypointList()
+			
+			for id,data in pairs(mdata["waypoints"]) do
+				local wInfo = WList[id]
+				local worldmap = false
+				
+				if (not table.valid(wInfo)) then
+					wInfo = WMWList[id]
+					worldmap = true
+				end
+			
+				if (table.valid(data) and table.valid(wInfo)) then
+					local pos
+					if(worldmap) then
+						-- Pos is wrong until map is opened, so use precalculated pos
+						pos = data["pos"]
+					else
+						pos = wInfo.pos
 					end
+					
+					data["global_pos"].z = pos.z or 0
+					
+					local newWdata = {
+						id = id,
+						name = data["name"],
+						pos = pos,
+						discovered = worldmap or wInfo.unlocked, -- Data in WorldMap is discovered
+						unlocked = wInfo.unlocked == true,
+						contested =  wInfo.contested == true,
+						onmesh = not (wInfo.onmesh == false),
+						distance = wInfo.distance or nil,
+						mapid = mapid,
+						coord = data["coord"],
+						map_rect = mdata["map_rect"],
+						continent_rect = mdata["continent_rect"],
+						global_pos = data["global_pos"],
+						mapname = mdata["map_name"]
+					}
+					
+					table.insert(wdata,newWdata)
 				end
 			end
 		end
@@ -112,21 +122,36 @@ function gw2_datamanager.GetLocalWaypointList(mapid)
 	return table.valid(wdata) and wdata or nil
 end
 
-function gw2_datamanager.GetLocalWaypointListByDistance(mapID, pos)
+-- Get a maps waypoints sorted by distance
+-- mapid = the map you want to get waypoints for
+-- pos = nearest this position
+-- mapid_pos = if the position is in another map then the target mapid, set this to the mapid of the position
+-- For example if you want to get the nearest waypoint from your current position to another map
+function gw2_datamanager.GetLocalWaypointListByDistance(mapid, pos, mapid_pos)
 	pos = table.valid(pos) and pos or ml_global_information.Player_Position
-	mapID = mapID ~= nil and mapID or ml_global_information.CurrentMapID
-	local mapData = gw2_datamanager.GetLocalWaypointList(mapID)
-	
-	if (table.valid(mapData)) then
-		for _,waypoint in pairs(mapData) do
-			waypoint.distance2D = math.distance2d(waypoint.pos.x,waypoint.pos.y,pos.x,pos.y)
+	mapid = mapid ~= nil and mapid or ml_global_information.CurrentMapID
+	mapid_pos = mapid_pos ~= nil and mapid_pos or mapid
+	local waypointData = gw2_datamanager.GetLocalWaypointList(mapid)
+
+	if (table.valid(waypointData)) then
+		local mdata = gw2_datamanager.GetLocalMapData(mapid_pos)
+		
+		-- Convert the local input pos to a world coordinate so it works for both local and world waypoints
+		local convertedpos = gw2_datamanager.to_world(mdata.continent_rect, mdata.map_rect, pos)
+		local globalpos = {x = convertedpos[1]; y = convertedpos[2]; z = pos.z or 0}
+
+		for _,waypoint in pairs(waypointData) do
+			-- 1 unit = 24 inches in game
+			waypoint.distance2D = math.distance2d(waypoint.global_pos,globalpos) * 24
+			
 			-- Update distance to use input pos
+			-- Only local waypoints have distance, so use normal pos
 			if(waypoint.distance) then
 				waypoint.distance = math.distance3d(waypoint.pos,pos)
 			end
 		end
 		
-		table.sort(mapData, function(a,b)
+		table.sort(waypointData, function(a,b)
 			if(a.distance and b.distance) then
 				return a.distance < b.distance
 			else
@@ -135,7 +160,7 @@ function gw2_datamanager.GetLocalWaypointListByDistance(mapID, pos)
 		end)
 	end
 	
-	return mapData
+	return waypointData
 end
 
 -- converts the coordinates from the data file to ingame coordinates
@@ -146,25 +171,9 @@ function gw2_datamanager.recalc_coords(continent_rect, map_rect, coords)
 	for word in string.gmatch(tostring(map_rect), '[%-]?%d+.%d+') do table.insert(maprec,word) end
 	local coord = {}
 	for word in string.gmatch(tostring(coords), '[%-]?%d+.%d+') do table.insert(coord,word) end
-	
-	--[[d(continent_rect)
-	d(contrec[1])
-	d(contrec[2])
-	d(contrec[3])
-	d(contrec[4])
-		
-	d(map_rect)
-	d(maprec[1])
-	d(maprec[2])
-	d(maprec[3])
-	d(maprec[4])
-		
-	d(coords)
-	d(coord[1])
-	d(coord[2])]]
-	
+
 	if ( table.size(contrec) ~= 4 or table.size(maprec)~=4 or table.size(coord)~= 2) then
-		d("Error in reading mapcoords!")
+		d("Error in reading mapcoords in recalc_coords!")
 	end
 
    return {
@@ -173,10 +182,27 @@ function gw2_datamanager.recalc_coords(continent_rect, map_rect, coords)
     }
 end
 
+-- converts the coordinates from local position to world position (reverse of recalc_coords)
+function gw2_datamanager.to_world(continent_rect, map_rect, pos)
+	local contrec = {}
+	for word in string.gmatch(tostring(continent_rect), '[%-]?%d+.%d+') do table.insert(contrec,word) end
+	local maprec = {}
+	for word in string.gmatch(tostring(map_rect), '[%-]?%d+.%d+') do table.insert(maprec,word) end
+
+	if ( table.size(contrec) ~= 4 or table.size(maprec)~=4 or table.size(pos) < 2) then
+		d("Error in reading mapcoords in to_world!")
+	end
+
+	return {
+		contrec[1]+(contrec[3]-contrec[1])*(pos.x-maprec[1])/(maprec[3]-maprec[1]),
+		contrec[2]+(contrec[4]-contrec[2])*(1-(pos.y-maprec[2])/(maprec[4]-maprec[2]))
+	}
+end
+
 -- Needs to be called when a new zone is beeing entered!
 function gw2_datamanager.UpdateLevelMap()
 	gw2_datamanager.levelmap = {}
-	
+
 	local mdata = gw2_datamanager.GetLocalMapData(Player:GetLocalMapID())
 	
 	if(table.valid(mdata) and table.valid(mdata["floors"])) then
