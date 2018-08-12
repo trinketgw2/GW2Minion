@@ -48,7 +48,7 @@ local tbl =
 								finishcode = "",
 								info = "",
 								monitorcode = "GUI:Text('Last State: '..tostring(self:getState()))",
-								runcode = "if(context.movetomap_targetmapid > 0 and ml_global_information.CurrentMapID ~= context.movetomap_targetmapid) then\n\t\tself:success()\n\t\treturn\nelseif(ml_global_information.CurrentMapID == context.movetomap_targetmapid) then\n\t\td(\"[MoveToMap]: Target map reached\")\n\t\tBehaviorManager:Stop()\nend\nself:fail()",
+								runcode = "if(context.movetomap_targetmapid > 0 and ml_global_information.CurrentMapID ~= context.movetomap_targetmapid) then\n\t\tself:success()\n\t\treturn\nelseif(not context.map_reached and ml_global_information.CurrentMapID == context.movetomap_targetmapid) then\n\t\td(\"[MoveToMap]: Target map reached\")\n\t\tcontext.map_reached = true\n\t\t--Stopping causes a stack overflow\n\t\t--BehaviorManager:Stop()\nend\nself:fail()",
 								startcode = "",
 							},
 						},
@@ -99,7 +99,7 @@ local tbl =
 		menucode = "if(Settings.GW2Minion.movetomap_selectedmapindex == nil) then Settings.GW2Minion.movetomap_selectedmapindex = 1 end\nif(Settings.GW2Minion.movetomap_targetmapid == nil) then Settings.GW2Minion.movetomap_targetmapid = 0 end\nif(Settings.GW2Minion.usewaypoints == nil) then Settings.GW2Minion.usewaypoints = false end\n\nGUI:SetNextTreeNodeOpened(true,GUI.SetCond_Appearing)\nif(GUI:TreeNode(GetString(\"movetomap\"))) then\n\t\tlocal maplist, mapnamelist = gw2_datamanager.GetMapNameList()\n\t\tif(table.valid(maplist) and table.valid(mapnamelist)) then\n\t\t\tlocal selectedIndex,changed = GUI:Combo(\"Select map\", Settings.GW2Minion.movetomap_selectedmapindex, mapnamelist)\n\t\t\tif(changed) then\n\t\t\t\t\tSettings.GW2Minion.movetomap_selectedmapindex = selectedIndex\n\t\t\t\t\tSettings.GW2Minion.movetomap_targetmapid = maplist[selectedIndex].id\n\t\t\tend\n\t\t\t\n\t\t\tlocal checked,pressed = GUI:Checkbox(\"Use waypoints\", Settings.GW2Minion.usewaypoints or false)\n\t\t\tif(pressed) then\n\t\t\t\tSettings.GW2Minion.usewaypoints = checked\n\t\t\tend\n\t\telse\n\t\t\tGUI:Text(\"No map data available\")\n\t\tend\n\t\tGUI:TreePop()\nend",
 		monitorcode = "GUI:Text('Last State: '..tostring(self:getState())) GUI:Text('Filename: '..self.variables.filename) GUI:Text('Filepath: '..self.filepath)",
 		runcode = "context.movetomap_targetmapid = Settings.GW2Minion.movetomap_targetmapid\ncontext.movetomap_usewaypoints = Settings.GW2Minion.usewaypoints",
-		startcode = "d(\"MoveToMap on\")\nml_global_information.Start()",
+		startcode = "d(\"MoveToMap on\")\nml_global_information.Start()\ncontext.map_reached = false",
 		subtreeuicode = "",
 	},
 }
