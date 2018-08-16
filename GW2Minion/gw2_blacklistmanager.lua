@@ -225,7 +225,7 @@ function gw2_blacklistmanager:DrawVendor()
 	GUI:Text(GetString("These are temporary items. They will be removed when you change maps."))
 	GUI:Separator();
 	
-	gw2_blacklistmanager.temporaryVendorEntryDuration = GUI:InputInt(GetString("Duration").." (s)", gw2_blacklistmanager.temporaryCombatEntryDuration)
+	gw2_blacklistmanager.temporaryVendorEntryDuration = GUI:InputInt(GetString("Duration").." (s)", gw2_blacklistmanager.temporaryVendorEntryDuration)
 	if(type(gw2_blacklistmanager.temporaryVendorEntryDuration) ~= "number" or gw2_blacklistmanager.temporaryVendorEntryDuration < 0) then
 		gw2_blacklistmanager.temporaryVendorEntryDuration = 3600
 	end
