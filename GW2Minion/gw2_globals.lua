@@ -89,6 +89,7 @@ ml_global_information.VendorSell = {
 	GW2.MAPMARKER.ExaltedVendor,
 	GW2.MAPMARKER.NuhochVendor,
 	305607,  -- Priory Historian Bandit Chest Seller
+	887588, -- Gathering Merchant
 }
 
 ml_global_information.VendorBuy = {

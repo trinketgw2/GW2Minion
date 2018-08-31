@@ -185,55 +185,19 @@ RegisterEventHandler("RefreshBehaviorFiles", gw2minion.LoadBehaviorFiles)
 
 
 function gw2minion.DrawCall(event, ticks )
+	-- Check for player name change and queue the PlayerChanged event
+	gw2minion.PlayerChanged()
+	gw2minion.MapChanged()
 	
 	-- Version check, this will popup a window informing about the "might work, but can crash or worse" after a MINOR game update and when the bot auto updated
 	if (not gw2minion.versionchecked) then
 		local v1,v2 = GetGameVersion()
 		if(v1 ~= v2) then
-			if(not GUI:IsPopupOpen(GetString("Bot Update Required"))) then
-				GUI:OpenPopup(GetString("Bot Update Required"))
-			end
-			
-			GUI:SetNextWindowSize(600,200)
-			if (GUI:BeginPopupModal("Bot Update Required",true,GUI.WindowFlags_NoResize+GUI.WindowFlags_NoMove+GUI.WindowFlags_ShowBorders)) then
-				GUI:Spacing()
-				GUI:SameLine(25)
-				GUI:Text(GetString("GW2 was updated and we need to update GW2Minion as well."))
-				GUI:Spacing()
-				GUI:SameLine(25)
-				GUI:Text(GetString("Until that happens, GW2Minion 'can' continue to work."))
-				GUI:Spacing()
-				GUI:SameLine(25)
-				GUI:Text(GetString("Some features are NOT available in this mode ( No Hacks.. )."))
-				GUI:Spacing()
-				GUI:SameLine(25)
-				GUI:Text(GetString("Be aware that in this mode the game MAY CRASH at any given time !"))
-				GUI:Spacing()
-				GUI:SameLine(25)
-				GUI:Text(GetString("If that happens, there is nothing you can do but to wait for the Bot update."))
-				GUI:Spacing()
-				GUI:SameLine(25)
-				GUI:SetWindowFontScale(0.8)
-				GUI:Text("Enjoy the No-Downtime-Mode ;)")
-				GUI:SetWindowFontScale(1)
-				
-				GUI:Spacing()
-				GUI:Separator()
-				GUI:Dummy(100,10)
-				GUI:Spacing()
-				GUI:SameLine(80)
-				if (GUI:Button(GetString("I UNDERSTAND THE TEXT ABOVE AND WANT TO CONTINUE"),450,30)) then
-					GUI:CloseCurrentPopup()
-					gw2minion.versionchecked = true
-				end
-				GUI:EndPopup()
-			end
-			
+			gw2_gui_manager.QueueMessage(gw2minion.DrawVersionChanged)
 		else
 			gw2minion.versionchecked = true
 		end			
 	end
-	
 	
 	if ( BehaviorManager:Ready() == true ) then
 		if ( gw2minion.mainbtreeinstance ) then
@@ -251,6 +215,65 @@ function gw2minion.DrawCall(event, ticks )
 end
 RegisterEventHandler("Gameloop.Draw", gw2minion.DrawCall)
 
+function gw2minion.DrawVersionChanged()
+	if(not GUI:IsPopupOpen(GetString("Bot Update Required"))) then
+		GUI:OpenPopup(GetString("Bot Update Required"))
+	end
+	
+	GUI:SetNextWindowSize(600,200)
+	if (GUI:BeginPopupModal("Bot Update Required",true,GUI.WindowFlags_NoResize+GUI.WindowFlags_NoMove+GUI.WindowFlags_ShowBorders)) then
+		GUI:Spacing()
+		GUI:SameLine(25)
+		GUI:Text(GetString("GW2 was updated and we need to update GW2Minion as well."))
+		GUI:Spacing()
+		GUI:SameLine(25)
+		GUI:Text(GetString("Until that happens, GW2Minion 'can' continue to work."))
+		GUI:Spacing()
+		GUI:SameLine(25)
+		GUI:Text(GetString("Some features are NOT available in this mode ( No Hacks.. )."))
+		GUI:Spacing()
+		GUI:SameLine(25)
+		GUI:Text(GetString("Be aware that in this mode the game MAY CRASH at any given time !"))
+		GUI:Spacing()
+		GUI:SameLine(25)
+		GUI:Text(GetString("If that happens, there is nothing you can do but to wait for the Bot update."))
+		GUI:Spacing()
+		GUI:SameLine(25)
+		GUI:SetWindowFontScale(0.8)
+		GUI:Text("Enjoy the No-Downtime-Mode ;)")
+		GUI:SetWindowFontScale(1)
+		
+		GUI:Spacing()
+		GUI:Separator()
+		GUI:Dummy(100,10)
+		GUI:Spacing()
+		GUI:SameLine(80)
+		if (GUI:Button(GetString("I UNDERSTAND THE TEXT ABOVE AND WANT TO CONTINUE"),450,30)) then
+			GUI:CloseCurrentPopup()
+			gw2minion.versionchecked = true
+		end
+		GUI:EndPopup()
+	end
+	return gw2minion.versionchecked == false
+end
+
+-- Queue an event when the player name changes
+gw2minion.e_currentplayer = nil
+function gw2minion.PlayerChanged()
+	if(gw2minion.e_currentplayer ~= ml_global_information.Player_Name) then
+		QueueEvent("gw2minion.PlayerChanged","")
+		gw2minion.e_currentplayer = ml_global_information.Player_Name
+	end
+end
+
+-- Queue an event when the map changes
+gw2minion.e_currentmap = nil
+function gw2minion.MapChanged()
+	if(gw2minion.e_currentmap ~= ml_global_information.CurrentMapID) then
+		QueueEvent("gw2minion.MapChanged","")
+		gw2minion.e_currentmap = ml_global_information.CurrentMapID
+	end
+end
 
 function gw2minion.RefreshGuestServers()
 	ml_global_information.GuestServerList = { [0] = "None" }

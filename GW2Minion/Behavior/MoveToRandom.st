@@ -27,7 +27,7 @@ local tbl =
 								finishcode = "",
 								info = "",
 								monitorcode = "GUI:Text('Last State: '..tostring(self:getState()))",
-								runcode = "if (context.movetorandom_randompoint == nil) then\n\t\tif(ml_global_information.Player_OnMesh) then\n\t\t\t\t\t\tPlayer:StopMovement()\n\t\t\t\t\t\tcontext.movetorandom_randompoint = gw2_common_functions.GetRandomPoint()\n\t\telse\n\t\t\t\t-- Select the nearest waypoint so we at least have somewhere to go if we start offmesh\n\t\t\t\tlocal WPList = WaypointList()\n\t\t\t\tlocal nearesst = nil\n    local nearestdist = 99999999\n    for wid,wpentry in pairs(WPList) do\n       if(not wpentry.contested and wpentry.onmesh and ( not nearesst or (wpentry.distance < nearestdist))) then\n          nearestdist = wpentry.distance\n          nearesst = wpentry\n       end\n    end\n\t\t\t\tif(nearesst and nearesst.pos) then\n\t\t\t\t\t\tcontext.movetorandom_randompoint = nearesst.pos\n\t\t\t\tend\n\t\tend\nend\n\nif(table.valid(context.movetorandom_randompoint)) then\n\t\tself:success()\nelse\n\t\tself:fail()\nend",
+								runcode = "if (context.movetorandom_randompoint == nil) then\n\t\tif(ml_global_information.Player_OnMesh) then\n\t\t\t\t\t\tPlayer:StopMovement()\n\t\t\t\t\t\tcontext.movetorandom_randompoint = gw2_common_functions.GetRandomPoint()\n\t\telse\n\t\t\t\t-- Select the nearest waypoint so we at least have somewhere to go if we start offmesh\n\t\t\t\tlocal WPList = WaypointList()\n\t\t\t\tlocal nearesst = nil\n    local nearestdist = 99999999\n    for wid,wpentry in pairs(WPList) do\n       if(not wpentry.contested and wpentry.onmesh and ( not nearesst or (wpentry.distance < nearestdist))) then\n          nearestdist = wpentry.distance\n          nearesst = wpentry\n       end\n    end\n\t\t\t\tif(nearesst and nearesst.pos) then\n\t\t\t\t\t\tcontext.movetorandom_randompoint = nearesst.pos\n\t\t\t\tend\n\t\tend\n\n\t\tif(table.valid(context.movetorandom_randompoint)) then\n\t\t\t\tcontext.movetorandom_lastrandompointfetched = ml_global_information.Now\n\t\tend\nend\n\nif(table.valid(context.movetorandom_randompoint)) then\n\t\tself:success()\nelse\n\t\tself:fail()\nend",
 								startcode = "",
 							},
 						},
@@ -49,8 +49,26 @@ local tbl =
 									{
 										finishcode = "",
 										info = "",
+										monitorcode = "",
+										runcode = "if(context.movetorandom_lastrandompointfetched) then\n\t\tself.rndtimer = self.rndtimer or math.random(1000,3500)\n\t\tlocal ts = TimeSince(context.movetorandom_lastrandompointfetched)\n\t\tif(ts < self.rndtimer) then\n\t\t\t\tPlayer:StopMovement()\n\t\t\t\td(\"We just got a new random point. Waiting a bit.\")\n\t\t\t\tself:running()\n\t\t\t\treturn\n\t\tend\n\t\tself.rndtimer = nil\nend\nself:fail()",
+										startcode = "",
+									},
+								},
+								
+								{
+									class = "Action",
+									nodes = 
+									{
+									},
+									settings = 
+									{
+									},
+									variables = 
+									{
+										finishcode = "",
+										info = "",
 										monitorcode = "GUI:Text('Last State: '..tostring(self:getState()))",
-										runcode = "if(table.valid(context.movetorandom_randompoint) and context.moveto_stoppingdistance) then\n\t\tlocal dist = math.distance3d(context.movetorandom_randompoint,ml_global_information.Player_Position)\n\t\tif(dist <= context.moveto_stoppingdistance or dist < 150) then\n\t\t\t\tcontext.movetorandom_randompoint = nil\n\t\t\t\tself:success()\n\t\t\t\treturn\n\t\tend\nend\nself:fail()",
+										runcode = "if(table.valid(context.movetorandom_randompoint)) then\n\t\tif(context.moveto_stoppingdistance) then\n\t\t\t\tlocal dist = math.distance3d(context.movetorandom_randompoint,ml_global_information.Player_Position)\n\t\t\t\tif(dist <= context.moveto_stoppingdistance or dist < 150) then\n\t\t\t\t\t\tcontext.movetorandom_randompoint = nil\n\t\t\t\t\t\tself:success()\n\t\t\t\t\t\treturn\n\t\t\t\tend\n\t\tend\n\n\t\tif(not NavigationManager:IsReachable(context.movetorandom_randompoint)) then\n\t\t\t\td(\"Random point no longer reachable, resetting\")\n\t\t\t\tcontext.movetorandom_randompoint = nil\n\t\t\t\tself:success()\n\t\t\t\treturn\n\t\tend\nend\nself:fail()",
 										startcode = "",
 									},
 								},

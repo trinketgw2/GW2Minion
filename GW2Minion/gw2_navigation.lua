@@ -20,9 +20,6 @@ function Player:MoveTo(x, y, z, targetid, stoppingdistance, randommovement, smoo
 	ml_navigation.targetid = targetid or 0
 	ml_navigation.debug = nil
 	
-	if ( ml_navigation.targetposition and math.distance3d(ml_navigation.targetposition, { x=x, y=y, z=z }) > 10 ) then
-		gw2_unstuck.SoftReset()
-	end
 	ml_navigation.targetposition = { x=x, y=y, z=z }
 	
 	if( not ml_navigation.navconnection or ml_navigation.navconnection.type == 5) then	-- We are not currently handling a NavConnection / ignore MacroMesh Connections, these have to be replaced with a proper path by calling this exact function here
@@ -30,7 +27,15 @@ function Player:MoveTo(x, y, z, targetid, stoppingdistance, randommovement, smoo
 			gw2_unstuck.Reset()
 		end
 		ml_navigation.navconnection = nil
-		return ml_navigation:MoveTo(x, y, z, targetID)
+		local status = ml_navigation:MoveTo(x, y, z, targetID)
+		
+		-- Handle stuck if we start off mesh
+		if(status == -1 or status == -7) then
+			-- We're starting off the mesh, so return 0 (valid) to let unstuck handle moving without failing the moveto
+			gw2_unstuck.HandleStuck()
+			return 0
+		end
+		return status
 	else
 		return table.size(ml_navigation.path)
 	end
@@ -309,7 +314,7 @@ function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 				if( navcon) then
 					d("[Navigation] -  Arrived at NavConnection ID: "..tostring(nextnode.navconnectionid))
 					ml_navigation:ResetOMCHandler()
-					gw2_unstuck.Reset()
+					gw2_unstuck.SoftReset()
 					ml_navigation.navconnection = navcon
 					if( not ml_navigation.navconnection ) then 
 						ml_error("[Navigation] -  No NavConnection Data found for ID: "..tostring(nextnode.navconnectionid))
@@ -347,7 +352,7 @@ function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 				if( navcon) then
 					d("[Navigation] -  Arrived at NavConnection ID: "..tostring(nextnode.navconnectionid))
 					ml_navigation:ResetOMCHandler()
-					gw2_unstuck.Reset()
+					gw2_unstuck.SoftReset()
 					ml_navigation.navconnection = navcon
 					if( not ml_navigation.navconnection ) then 
 						ml_error("[Navigation] -  No NavConnection Data found for ID: "..tostring(nextnode.navconnectionid))
@@ -621,7 +626,7 @@ function Player:StopMovement()
 	ml_navigation.pathindex = 0	
 	ml_navigation:ResetCurrentPath()
 	ml_navigation:ResetOMCHandler()	
-	gw2_unstuck.Reset()
+	gw2_unstuck.SoftReset()
 	Player:Stop()
 	NavigationManager:ResetPath()	
 	gw2_common_functions:StopCombatMovement()

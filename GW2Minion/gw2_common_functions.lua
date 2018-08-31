@@ -807,7 +807,7 @@ function gw2_common_functions.GetRandomPoint()
 			if(TimeSince(existing.time) > 1800000) then table.remove(randompointsused, i) end
 			
 			-- The position is too close to a recently used randompos, ignore it.
-			if(math.distance3d(existing.pos,pos) < 500) then
+			if(math.distance3d(existing.pos,pos) < 2000) then
 				return false
 			end
 		end
@@ -827,27 +827,30 @@ function gw2_common_functions.GetRandomPoint()
 	
 	-- 1st try
 	if (table.valid(gw2_datamanager.levelmap)) then
-		d("Trying to find a random point from the level map")
+		d("[gw2_common_functions]: Trying to find a random point from the level map")
 		local pos = gw2_datamanager.GetRandomPositionInLevelRange(ml_global_information.Player_Level)
 		if(_validpos(pos)) then
 			if(_validpath(pos)) then
+				d(string.format("[gw2_common_functions]: Random point found in level map. Distance: %s, pos = {x=%s;y=%s;z=%s}", math.round(math.distance3d(pos,ml_global_information.Player_Position)), math.round(pos.x,2), math.round(pos.y,2), math.round(pos.z,2)))
 				randompos = pos
 			else
 				table.insert(randompointsused, {pos = pos, time = ml_global_information.Now, status = "no valid path", type = "levelmap"})
 			end
 		end
 	end
-	
+
 	-- 2nd try
 	if(randompos == nil) then
-		d("Trying to find a random point from markers")
+		d("[gw2_common_functions]: Trying to find a random point from markers")
 		local MList = MapMarkerList("onmesh,mindistance=5000")
 		if(table.valid(MList)) then
+			-- Only try a few markers
 			local i, MList_n = 0, table.size(MList)
 			while not randompos and i < (MList_n > 10 and 10 or MList_n) do
 				local marker = table.randomvalue(MList)
 				if(table.valid(marker) and _validpos(marker.pos)) then
 					if(_validpath(marker.pos)) then
+						d(string.format("[gw2_common_functions]: Random point found in markers. Distance: %s, pos = {x=%s;y=%s;z=%s}", math.round(math.distance3d(marker.pos,ml_global_information.Player_Position)), math.round(marker.pos.x,2), math.round(marker.pos.y,2), math.round(marker.pos.z,2)))
 						randompos = marker.pos
 					else
 						table.insert(randompointsused, {pos = marker.pos, time = ml_global_information.Now, status = "no valid path", type = "marker"})
@@ -860,12 +863,13 @@ function gw2_common_functions.GetRandomPoint()
 	
 	-- 3rd try
 	if (randompos == nil) then
-		d("Trying to find a random point anywhere on the mesh")
+		d("[gw2_common_functions]: Trying to find a random point anywhere on the mesh")
 		local i = 0
 		while not randompos and i < 10 do
 			local pos = NavigationManager:GetRandomPoint(5000) -- 5000 beeing mindistance to player
 			if (_validpos(pos)) then
 				if(_validpath(pos)) then
+					d(string.format("[gw2_common_functions]: Random point found on the mesh. Distance: %s, pos = {x=%s;y=%s;z=%s}", math.round(math.distance3d(pos,ml_global_information.Player_Position)), math.round(pos.x,2), math.round(pos.y,2), math.round(pos.z,2)))
 					randompos = pos
 				else
 					table.insert(randompointsused, {pos = pos, time = ml_global_information.Now, status = "no valid path", type = "randompoint"})
@@ -874,7 +878,7 @@ function gw2_common_functions.GetRandomPoint()
 			i = i + 1
 		end
 	end
-	
+
 	if (table.valid(randompos)) then
 		table.insert(randompointsused, {pos = randompos, time = ml_global_information.Now, status = "used", type = "valid"})
 		return randompos
