@@ -497,7 +497,7 @@ function gw2_blacklistmanager:DrawEvent()
 				GUI:Text(entry.name); GUI:NextColumn();
 				GUI:Text(entry.mapid); GUI:NextColumn();
 				GUI:Text(entry.id); GUI:NextColumn();
-				if (GUI:Button(GetString("Delete"))) then
+				if (GUI:Button(GetString("Delete").."##"..i)) then
 					self:DeleteEntry(i); 
 				end
 				GUI:NextColumn();

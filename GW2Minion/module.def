@@ -2,5 +2,5 @@
 Name=GW2Minion
 Dependencies=minionlib
 Version=1
-Files=gw2_globals.lua,gw2_languages.lua,gw2.lua,gw2_navigation.lua,gw2_nav_manager.lua,gw2_blacklistmanager.lua,gw2_radar.lua,gw2_datamanager.lua,gw2_common_functions.lua,gw2_repair_manager.lua,gw2_salvage_manager.lua,gw2_buy_manager.lua,gw2_sell_manager.lua,gw2_obstacle_manager.lua,gw2_unstuck.lua,gw2_taskmanager.lua,gw2_vendorassistant.lua,gw2_combatdata.lua
+Files=gw2_globals.lua,gw2_languages.lua,gw2.lua,gw2_navigation.lua,gw2_nav_manager.lua,gw2_blacklistmanager.lua,gw2_radar.lua,gw2_datamanager.lua,gw2_common_functions.lua,gw2_repair_manager.lua,gw2_salvage_manager.lua,gw2_buy_manager.lua,gw2_sell_manager.lua,gw2_obstacle_manager.lua,gw2_unstuck.lua,gw2_taskmanager.lua,gw2_vendorassistant.lua,gw2_combatdata.lua,gw2_gui_manager.lua
 Enabled=1
