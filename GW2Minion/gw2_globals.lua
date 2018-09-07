@@ -88,7 +88,7 @@ ml_global_information.VendorSell = {
 	GW2.MAPMARKER.ItzelVendor,
 	GW2.MAPMARKER.ExaltedVendor,
 	GW2.MAPMARKER.NuhochVendor,
-	305607,  -- Priory Historian Bandit Chest Seller
+	--305607,  -- Priory Historian Bandit Chest Seller (Vendors in forts do not have sell option)
 	887588, -- Gathering Merchant
 }
 

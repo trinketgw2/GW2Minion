@@ -23,6 +23,7 @@ function gw2_obstacle_manager.MLAddAvoidanceArea(self, pos, radius)
 end
 ml_navigation.AddAvoidanceArea = gw2_obstacle_manager.MLAddAvoidanceArea
 
+-- Pass a table of AvoidanceAreaOptions values eg. {pos = {xyz}, radius = 50, duration = 5000}
 function gw2_obstacle_manager.AddAvoidanceArea(opt)
 	local options = AvoidanceAreaOptions:new(opt)
 	
@@ -62,10 +63,13 @@ function gw2_obstacle_manager.AddAvoidanceArea(opt)
 			end
 			
 			gw2_obstacle_manager.SetupAvoidanceAreas()
+			return options.id
 		end
 	end
+	return nil
 end
 
+-- Add an avoidance area at a target Character, Agent or Gadget. Pass options for additional properties like duration
 function gw2_obstacle_manager.AddAvoidanceAreaAtTarget(target, options)
 	if(table.valid(target) and table.valid(target.pos)) then
 		options = AvoidanceAreaOptions:new(options)
@@ -76,10 +80,12 @@ function gw2_obstacle_manager.AddAvoidanceAreaAtTarget(target, options)
 end
 
 -- Remove an avoidance area by position
-function gw2_obstacle_manager.RemoveAvoidanceArea(options)
+function gw2_obstacle_manager.RemoveAvoidanceArea(options,mapid)
 	options = AvoidanceAreaOptions:new(options)
+	mapid = mapid and "mapid="..mapid or ""
+	
 	if(table.valid(options.pos)) then
-		local entries = ml_list_mgr.FindEntries(GetString("Avoidance areas"), "mapid="..ml_global_information.CurrentMapID)
+		local entries = ml_list_mgr.FindEntries(GetString("Avoidance areas"), mapid)
 		if(table.valid(entries)) then
 			for i,avoidancearea in pairs(entries) do
 				if(avoidancearea.pos.x == avoidancearea.pos.x and avoidancearea.pos.y == options.pos.y and avoidancearea.pos.z == options.pos.z) then
@@ -92,9 +98,11 @@ function gw2_obstacle_manager.RemoveAvoidanceArea(options)
 end
 
 -- Remove an avoidance area by the id given when added
-function gw2_obstacle_manager.RemoveAvoidanceAreaByID(id)
+function gw2_obstacle_manager.RemoveAvoidanceAreaByID(id,mapid)
 	if(id ~= nil) then
-		local entries = ml_list_mgr.FindEntries(GetString("Avoidance areas"), "mapid="..ml_global_information.CurrentMapID)
+		mapid = mapid and "mapid="..mapid or ""
+		
+		local entries = ml_list_mgr.FindEntries(GetString("Avoidance areas"), mapid)
 		if(table.valid(entries)) then
 			for i,avoidancearea in pairs(entries) do
 				if(avoidancearea.id == id) then
@@ -106,13 +114,16 @@ function gw2_obstacle_manager.RemoveAvoidanceAreaByID(id)
 	end
 end
 
+-- Call to pass avoidance areas over to the NavigationManager
 function gw2_obstacle_manager.SetupAvoidanceAreas()
 	ml_navigation.avoidanceareas = {}
 	local entries = ml_list_mgr.FindEntries(GetString("Avoidance areas"), "mapid="..ml_global_information.CurrentMapID)
 	if(table.valid(entries)) then
 		for _,entry in pairs(entries) do
 			local pos = entry.pos
-			table.insert(ml_navigation.avoidanceareas, { x = math.round(pos.x,0),  y = math.round(pos.y,0), z = math.round(pos.z,0), r = entry.radius  })
+			if(NavigationManager:IsOnMesh(pos.x,pos.y,pos.z)) then
+				table.insert(ml_navigation.avoidanceareas, { x = math.round(pos.x,0),  y = math.round(pos.y,0), z = math.round(pos.z,0), r = entry.radius  })
+			end
 		end
 	else
 		NavigationManager:ClearAvoidanceAreas()
@@ -134,6 +145,7 @@ function gw2_obstacle_manager.OnUpdateHandler(_,tick)
 	if(TimeSince(gw2_obstacle_manager.ticks) > BehaviorManager:GetTicksThreshold()) then
 		gw2_obstacle_manager.ticks = tick
 		
+		-- Remove areas that are on a timer
 		local entries = ml_list_mgr.FindEntries(GetString("Avoidance areas"), "mapid="..ml_global_information.CurrentMapID)
 		local avoidanceRemoved = false
 		if(table.valid(entries)) then
@@ -184,7 +196,7 @@ function gw2_obstacle_manager:DrawAvoidanceAreas()
 	
 	GUI:Separator();
 	GUI:Separator();
-		-- Draw the list entries
+	-- Draw the list entries
 	
 	GUI:Spacing(4);
 	GUI:Columns(4, "##listdetail-view", true)
@@ -210,7 +222,7 @@ function gw2_obstacle_manager:DrawAvoidanceAreas()
 			
 			GUI:Text(tostring(duration)); GUI:NextColumn();
 			if (GUI:Button(GetString("Delete").."##"..i)) then
-				gw2_obstacle_manager.RemoveAvoidanceAreaByID(entry.id)
+				gw2_obstacle_manager.RemoveAvoidanceAreaByID(entry.id,entry.mapid)
 			end
 			GUI:NextColumn();
 		end

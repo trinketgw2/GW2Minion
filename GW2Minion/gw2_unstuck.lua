@@ -8,8 +8,27 @@ gw2_unstuck.statuscodes = {
 	ENTRY_NOT_HANDLED = 1;
 	ENTRY_HANDLED = 2;
 	STOP_BOT = 3;
+	WAYPOINT_USED = 4;
+	WAYPOINT_NOT_USED = 5;
+	PVP_MATCH = 6;
 }
 gw2_unstuck.version = 1
+gw2_unstuck.tickdelay = 150
+gw2_unstuck.pvpmatch = false
+
+gw2_unstuck.usedwaypointlasttick = {}
+function gw2_unstuck.usedwaypointlasttick:reset()
+	self.id = nil
+	self.pos = nil
+	self.lastplayerpos = nil
+	self.timestamp = 0
+	self.mapid = nil
+	self.count = 0
+	self.maxwait = math.random(20*60*1000, 35*60*1000)
+	self.rndwait = math.random(5000, 10000)
+	self.timestampnewwaypoint = 0
+	self.timestamptotal = 0
+end
 
 function gw2_unstuck.Start()
 	d("[Unstuck]: Started")
@@ -20,12 +39,7 @@ end
 function gw2_unstuck.Stop()
 	gw2_unstuck.laststuckentry = nil
 	gw2_unstuck.laststuckposition = nil
-	gw2_unstuck.usedwaypointlasttick = {
-		id = nil;
-		pos = nil;
-		lastplayerpos = nil;
-		timestamp = 0;
-	}
+	gw2_unstuck.usedwaypointlasttick:reset()
 
 	gw2_unstuck.lastposition = nil
 	gw2_unstuck.lastonmeshposition = nil
@@ -65,7 +79,7 @@ function gw2_unstuck.Reset()
 	gw2_unstuck.unstuck_mode = nil
 end
 
--- Only reset position for now
+-- Reset position to be above the stuck threshold
 function gw2_unstuck.SoftReset()
 	-- Set position to be over the current threshold so it doesn't trigger unstuck next tick
 	local threshold = gw2_unstuck.ActiveThreshold() + 1
@@ -78,11 +92,12 @@ end
 
 function gw2_unstuck.HandleStuck()
 	-- Throttle
-	if(gw2_unstuck.stucktick > 0 and TimeSince(gw2_unstuck.stucktick) < 150 ) then
+	if(gw2_unstuck.stucktick > 0 and TimeSince(gw2_unstuck.stucktick) < gw2_unstuck.tickdelay ) then
 		return gw2_unstuck.lastresult
 	end
 	
 	gw2_unstuck.stucktick = ml_global_information.Now
+	gw2_unstuck.pvpmatch = PvPManager:IsInMatch()
 	
 	-- Don't handle unstuck
 	if(gw2_unstuck.manualcontrolmode) then
@@ -126,42 +141,10 @@ function gw2_unstuck.HandleStuck()
 		return gw2_unstuck.lastresult
 	end
 	
-	-- Check if we used a waypoint last time, then wait a bit.
-	if(gw2_unstuck.usedwaypointlasttick.id) then
-		
-		if(not ml_global_information.Player_InCombat) then
-			if(Player:IsMoving()) then Player:StopMovement() end
-			
-			local dist = math.distance3d(Player.pos,gw2_unstuck.usedwaypointlasttick.lastplayerpos)
-			local timestamp = TimeSince(gw2_unstuck.usedwaypointlasttick.timestamp)
-
-			if(dist < 500) then
-				d("[Unstuck]: Waiting for waypointing to finish.")
-				if(timestamp > 7000) then
-					gw2_unstuck.Reset()
-					local wpdist = math.distance3d(Player.pos,gw2_unstuck.usedwaypointlasttick.pos)
-					if(dist > 200) then
-						d("[Unstuck]: Failed to use waypoint. (Distance > " .. math.round(dist,2) ..")")
-						gw2_unstuck.stuckhandlers.stop()
-					end
-					gw2_unstuck.usedwaypointlasttick.id = nil
-				end
-				gw2_unstuck.stucktick = ml_global_information.Now + 1000
-				
-				gw2_unstuck.lastresult = true
-				return gw2_unstuck.lastresult
-			else
-				if(timestamp > 2000) then
-					gw2_unstuck.usedwaypointlasttick.id = nil
-				else
-					d("[Unstuck]: Waypointing finished, but we wait a bit.")
-					gw2_unstuck.lastresult = true
-					return gw2_unstuck.lastresult
-				end
-			end
-		else
-			gw2_unstuck.usedwaypointlasttick.id = nil
-		end
+	-- Waiting to use a waypoint
+	if(gw2_unstuck.Handle_Waypoint_Usage()) then
+		gw2_unstuck.lastresult = true
+		return gw2_unstuck.lastresult
 	end
 	
 	if(gw2_unstuck.OnMesh()) then
@@ -210,9 +193,8 @@ function gw2_unstuck.HandleOffMesh()
 	local maxwptrycount = 10
 	
 	d("[Unstuck]: Player not on mesh at (X: "..tostring(math.round(ppos.x,1)).." Y: "..tostring(math.round(ppos.y,1)).." Z: "..tostring(math.round(ppos.z,1)).." MAPID: "..tostring( ml_global_information.CurrentMapID).." - ("..tostring(math.round(offmeshtime / 1000)).."s)")
-	d("[Unstuck]: Waypoint try count: " .. gw2_unstuck.offmeshwptrycount .. " of " .. maxwptrycount)
-	
-	if(offmeshtime > 2000) then
+
+	if(offmeshtime > 2000 and (gw2_unstuck.pvpmatch == false or offmeshtime < 15000) ) then
 		local p = NavigationManager:GetClosestPointOnMesh(ppos)
 		if(table.valid(p) and p.distance > 0 and p.distance < 500) then
 			d("[Unstuck]: Moving blindly to nearby mesh.")
@@ -222,18 +204,29 @@ function gw2_unstuck.HandleOffMesh()
 		end
 	end
 	
-	if(gw2_unstuck.lasttimeonmesh > 0 and offmeshtime > 15000 and TimeSince(gw2_unstuck.offmeshwptrytime) > 5000) then
-		if(table.valid(gw2_unstuck.lastonmeshposition)) then
+	if(gw2_unstuck.pvpmatch and offmeshtime > 15000) then
+		d("[Unstuck]: We are in a PVP match and have done all we can. Waiting to die or disconnect.")
+		if(gw2_unstuck.offmeshwptrycount == 0 and table.valid(gw2_unstuck.lastonmeshposition)) then
+			gw2_obstacle_manager.AddAvoidanceArea({pos = gw2_unstuck.lastonmeshposition, radius = 50})
+		end
+		gw2_unstuck.offmeshwptrycount = 1
+		Player:StopMovement()
+		return true
+	elseif(gw2_unstuck.lasttimeonmesh > 0 and offmeshtime > 15000 and TimeSince(gw2_unstuck.offmeshwptrytime) > 5000) then
+		d("[Unstuck]: Waypoint try count: " .. gw2_unstuck.offmeshwptrycount .. " of " .. maxwptrycount)
+	
+		if(gw2_unstuck.offmeshwptrycount == 0 and table.valid(gw2_unstuck.lastonmeshposition)) then
 			gw2_obstacle_manager.AddAvoidanceArea({pos = gw2_unstuck.lastonmeshposition, radius = 50})
 		end
 		
-		if(not gw2_unstuck.stuckhandlers.waypoint()) then
+		if(gw2_unstuck.stuckhandlers.waypoint() ~= gw2_unstuck.statuscodes.WAYPOINT_USED) then
 			Player:StopMovement()
 
 			gw2_unstuck.offmeshwptrycount = gw2_unstuck.offmeshwptrycount + 1
 			gw2_unstuck.offmeshwptrytime = ml_global_information.Now
 			if(gw2_unstuck.offmeshwptrycount > maxwptrycount) then
 				gw2_unstuck.stuckhandlers.stop()
+				return true
 			else
 				d("[Unstuck]: In combat or no waypoint found. Try count: " .. gw2_unstuck.offmeshwptrycount .. " of 10")
 			end
@@ -272,11 +265,14 @@ function gw2_unstuck.HandleStuck_MovedDistanceCheck()
 				local lastaction = gw2_unstuck.HandleStuckEntry(stuckentry)
 
 				if(lastaction > gw2_unstuck.statuscodes.ENTRY_NOT_HANDLED) then
-					-- If stop code is recieved return true to prevent moving, else return false
-					return lastaction == gw2_unstuck.statuscodes.STOP_BOT
+					-- Prevent moving any more after certain status codes
+					if(lastaction == gw2_unstuck.statuscodes.STOP_BOT or lastaction == gw2_unstuck.statuscodes.WAYPOINT_USED or gw2_unstuck.statuscodes.PVP_MATCH) then
+						return true
+					end
+					return false
 				end
 			end
-
+			
 			if(ml_global_information.Player_SwimState ~= GW2.SWIMSTATE.NotInWater) then
 				if(gw2_unstuck.HandleStuck_Swimming(mincount)) then
 					return true
@@ -284,7 +280,8 @@ function gw2_unstuck.HandleStuck_MovedDistanceCheck()
 			elseif(gw2_unstuck.stuckcount > mincount+10) then
 				gw2_obstacle_manager.AddAvoidanceArea({pos = Player.pos, radius = 25})
 				gw2_unstuck.stuckhandlers.movebackward()
-				gw2_unstuck.threshold = 200
+				 -- Set the threshold to be a percentage of backwards movement
+				gw2_unstuck.threshold = 220-(220*((gw2_unstuck.ActiveThreshold() - 1)/220))
 				gw2_unstuck.stucktick = ml_global_information.Now + 2000
 				return true
 			elseif(gw2_unstuck.stuckcount > mincount+8) then
@@ -294,7 +291,7 @@ function gw2_unstuck.HandleStuck_MovedDistanceCheck()
 				return true
 			elseif(gw2_unstuck.stuckcount > mincount+6) then
 				local hit,hitx,hity,hitz,a,b,c
-			
+				
 				hit,hitx,hity,hitz,a,b,c = RayCast(ppos.x, ppos.y, ppos.z, ppos.x+(ppos.hx*400), ppos.y+(ppos.hy*400), ppos.z-55, 0)
 				if(hit) then
 					d("[Unstuck]: Something is in front of us.")
@@ -385,21 +382,25 @@ function gw2_unstuck.HandleStuck_MovedDistanceCheck()
 		end
 				
 		-- If something is right in front of us and there is nothing in front and above us, just jump.
-		--[[ NOT READY YET
+		
 		if(ml_global_information.Player_SwimState == GW2.SWIMSTATE.NotInWater and gw2_unstuck.stuckcount < mincount) then
 			local distmoved = math.distance2d(gw2_unstuck.lastposition,Player.pos)
+			local heightdiff = math.round(ppos.z - gw2_unstuck.lastposition.z,0)
 
-			-- raycast almost at ground level in front of bot (area ahead blocked)
-			local rpos1_hit, rpos1_x, rpos1_y, rpos1_z = RayCast(ppos.x, ppos.y, ppos.z-25, ppos.x+(ppos.hx*60), ppos.y+(ppos.hy*60), ppos.z-25)
-			
-			-- raycast above the bot in a straight line (area ahead above clear)
-			local rpos2_hit, rpos2_x, rpos2_y, rpos2_z = RayCast(ppos.x, ppos.y, ppos.z-70, ppos.x+(ppos.hx*110), ppos.y+(ppos.hy*110), ppos.z-70) 
-			
-			if(rpos1_hit and not rpos2_hit) then
-				d("[Unstuck]: Something is right in front of us, but there is free space above us.")
-				gw2_unstuck.stuckhandlers.simplejump()
+			-- Not going up a hill
+			if(heightdiff < -25) then
+				-- raycast almost at ground level in front of bot (area ahead blocked)
+				local rpos1_hit, rpos1_x, rpos1_y, rpos1_z = RayCast(ppos.x, ppos.y, ppos.z-25, ppos.x+(ppos.hx*60), ppos.y+(ppos.hy*60), ppos.z-25)
+				
+				-- raycast above the bot in a straight line (area ahead above clear)
+				local rpos2_hit, rpos2_x, rpos2_y, rpos2_z = RayCast(ppos.x, ppos.y, ppos.z-70, ppos.x+(ppos.hx*110), ppos.y+(ppos.hy*110), ppos.z-70) 
+				
+				if(rpos1_hit and not rpos2_hit) then
+					d("[Unstuck]: Something is right in front of us, but there is free space above us.")
+					gw2_unstuck.stuckhandlers.simplejump()
+				end
 			end
-		end]]
+		end
 		
 		-- If an action was performed at the last tick that got us freed, decrease the stuckcount on the stored stuck entry
 		if(gw2_unstuck.laststuckentry and gw2_unstuck.lastaction) then
@@ -419,7 +420,8 @@ end
 
 -- Swimming unstuck
 function gw2_unstuck.HandleStuck_Swimming(mincount)
-	if(Player.movementstate == GW2.MOVEMENTSTATE.AboveWaterMoving or Player.movementstate == GW2.MOVEMENTSTATE.AboveWaterNotMoving) then
+	local movementstate = Player.movementstate
+	if(movementstate == GW2.MOVEMENTSTATE.AboveWaterMoving or movementstate == GW2.MOVEMENTSTATE.AboveWaterNotMoving) then
 		-- Swimming on surface
 		if(gw2_unstuck.stuckcount > mincount+5) then
 			gw2_unstuck.stuckhandlers.swimdown()
@@ -432,6 +434,7 @@ function gw2_unstuck.HandleStuck_Swimming(mincount)
 			return true
 		end
 	else
+		-- In cubes
 		if(gw2_unstuck.stuckcount > mincount+5) then
 			gw2_unstuck.stuckhandlers.swimdown()
 			gw2_unstuck.stuckhandlers.moveforward()
@@ -459,18 +462,31 @@ function gw2_unstuck.HandleStuckEntry(entry)
 			entry.stuckcount = entry.stuckcount + 1
 			entry.modified = ml_global_information.Now
 		end
-
-		if(entry.stuckcount > 25) then
+		
+		if(gw2_unstuck.pvpmatch and entry.stuckcount > 15) then
+			d("[Unstuck]: We are in a PVP Match and can't really do much more then we already have.")
+			d("[Unstuck]: Waiting to die or disconnect.")
+			gw2_obstacle_manager.AddAvoidanceArea({pos = Player.pos, radius = 25})
+			status = gw2_unstuck.statuscodes.PVP_MATCH
+		elseif(entry.stuckcount > 25) then
 			d("[Unstuck]: We have been stuck at this location 25 times.")
 			gw2_unstuck.stuckhandlers.stop()
 			status = gw2_unstuck.statuscodes.STOP_BOT
-		elseif(entry.stuckcount > 15) then
+		elseif(entry.stuckcount > 10) then
 			d("[Unstuck]: We have been stuck at this location " .. entry.stuckcount .. " times.")
 			gw2_obstacle_manager.AddAvoidanceArea({pos = Player.pos, radius = 50})
-			entry.waypointcount = entry.waypointcount + 1
-			status = gw2_unstuck.statuscodes.ENTRY_HANDLED
+			-- Don't count up the wp timer too fast.
+			if(TimeSince(entry.waypointtimer) > 5000) then
+				entry.waypointtimer = ml_global_information.Now
+				entry.waypointcount = entry.waypointcount + 1
+				gw2_unstuck.stuckcount = 3
+			end
+			
+			status = gw2_unstuck.statuscodes.ENTRY_NOT_HANDLED
 			if(entry.waypointcount < 5) then
-				gw2_unstuck.stuckhandlers.waypoint()
+				if(gw2_unstuck.stuckhandlers.waypoint() == gw2_unstuck.statuscodes.WAYPOINT_USED) then
+					status = gw2_unstuck.statuscodes.WAYPOINT_USED
+				end
 			else
 				d("[Unstuck]: We have waypointed away or tried to waypoint away from this location more then 5 times.")
 				gw2_unstuck.stuckhandlers.stop()
@@ -489,6 +505,7 @@ function gw2_unstuck.HandleStuckEntry(entry)
 	return status
 end
 
+-- Add a new entry or return the old one
 function gw2_unstuck.AddStuckEntry(pos)
 	local k,entry = gw2_unstuck.GetStuckEntry(pos)
 	
@@ -503,6 +520,7 @@ function gw2_unstuck.AddStuckEntry(pos)
 			modified = now;
 			inwater = ml_global_information.Player_SwimState ~= GW2.SWIMSTATE.NotInWater;
 			waypointcount = 0;
+			waypointtimer = ml_global_information.Now;
 			mode = gw2_unstuck.unstuck_mode;
 			type = gw2_unstuck.STUCKTYPE;
 		}
@@ -512,6 +530,7 @@ function gw2_unstuck.AddStuckEntry(pos)
 	return k,entry
 end
 
+-- Get the entry closest to the current position or nil
 function gw2_unstuck.GetStuckEntry(pos)
 	if(table.valid(gw2_unstuck.stuckhistory)) then
 		for k,stuckentry in pairs(gw2_unstuck.stuckhistory) do
@@ -521,6 +540,92 @@ function gw2_unstuck.GetStuckEntry(pos)
 		end
 	end
 	return nil
+end
+
+-- Handle waypointing after the initial check
+function gw2_unstuck.Handle_Waypoint_Usage()
+	-- Check if we used a waypoint last time, then wait a bit.
+	if(gw2_unstuck.usedwaypointlasttick.id) then
+		if(Player:IsMoving()) then Player:StopMovement() end
+
+		
+		if(gw2_unstuck.usedwaypointlasttick.mapid ~= ml_global_information.CurrentMapID) then
+			d("[Unstuck]: Map changed. Resetting waypoint data.")
+			gw2_unstuck.usedwaypointlasttick:reset()
+			return false
+		end
+		
+		local waypoint = WaypointList()[gw2_unstuck.usedwaypointlasttick.id]
+		
+		if(not table.valid(waypoint)) then
+			d("[Unstuck]: Waypoint not found. This shouldn't really happen.")
+			gw2_unstuck.usedwaypointlasttick.id = nil
+			return false
+		end
+		
+		local maxwait = math.ceil(gw2_unstuck.usedwaypointlasttick.maxwait / 60 / 1000)
+		local timestamptotal = TimeSince(gw2_unstuck.usedwaypointlasttick.timestamptotal)
+		
+		-- Waited for longer then 20-35 minutes
+		if(gw2_unstuck.usedwaypointlasttick.timestamp > 0 and timestamptotal > gw2_unstuck.usedwaypointlasttick.maxwait) then
+			d("[Unstuck]: We have tried to use a waypoint for " .. maxwait+1 .. " minutes.")
+			gw2_unstuck.stuckhandlers.stop()
+			return true
+		end
+			
+		if(not ml_global_information.Player_InCombat) then
+			if(gw2_unstuck.usedwaypointlasttick.timestampnewwaypoint > 0 and TimeSince(gw2_unstuck.usedwaypointlasttick.timestampnewwaypoint) > gw2_unstuck.usedwaypointlasttick.rndwait*4) then
+				d("[Unstuck]: We have tried to use this waypoint (" .. gw2_unstuck.usedwaypointlasttick.id .. ") for around " .. math.round((gw2_unstuck.usedwaypointlasttick.rndwait*4)/1000,0) .. " seconds. Trying to find a new one.")		
+				local wp = gw2_common_functions.GetClosestWaypointToPos(ml_global_information.CurrentMapID,Player.pos)
+				
+				gw2_unstuck.usedwaypointlasttick.timestampnewwaypoint = ml_global_information.Now
+				
+				if(table.valid(wp) and wp.id ~= gw2_unstuck.usedwaypointlasttick.id and wp.distance > 500) then
+					gw2_unstuck.usedwaypointlasttick.id = wp.id
+					gw2_unstuck.usedwaypointlasttick.pos = wp.pos
+				else
+					d("[Unstuck]: Could not find a different waypoint.")
+				end
+				return true
+			end
+		end
+			
+		if(Inventory:GetInventoryMoney() < 200) then
+			d("[Unstuck]: Not enough gold to use a waypoint. We are truly stuck.")
+			gw2_unstuck.stuckhandlers.stop()
+			return true
+		elseif( ml_global_information.Player_InCombat or waypoint.contested) then
+			d("[Unstuck]: We are in combat or the waypoint is contested. Waiting.")		
+			gw2_unstuck.stucktick = ml_global_information.Now + 5000
+			return true
+		else
+			local dist = math.distance3d(Player.pos,gw2_unstuck.usedwaypointlasttick.lastplayerpos)
+			local timestamp = TimeSince(gw2_unstuck.usedwaypointlasttick.timestamp)
+			
+			if(dist < 500) then
+				d("[Unstuck]: Waiting for waypointing to finish. " .. (math.round(maxwait-(timestamptotal/60/1000),0)+1) .. " minutes until we stop the bot.")
+				
+				if(timestamp > gw2_unstuck.usedwaypointlasttick.rndwait) then
+					d("[Unstuck]: It's been over " .. math.ceil(gw2_unstuck.usedwaypointlasttick.rndwait/1000) .. " seconds since we tried to use the waypoint. Trying again.")
+					Player:TeleportToWaypoint(gw2_unstuck.usedwaypointlasttick.id)
+					gw2_unstuck.usedwaypointlasttick.rndwait = math.random(5000,10000)
+					gw2_unstuck.usedwaypointlasttick.timestamp = ml_global_information.Now
+				end
+				
+				gw2_unstuck.stucktick = ml_global_information.Now + 1000
+				return true
+			else
+				if(timestamp > gw2_unstuck.usedwaypointlasttick.rndwait-2000) then
+					gw2_unstuck.usedwaypointlasttick:reset()
+				else
+					d("[Unstuck]: Waypointing finished, but we wait a bit.")
+					gw2_unstuck.stucktick = ml_global_information.Now + 1000
+					return true
+				end
+			end
+		end
+	end
+	return false
 end
 
 function gw2_unstuck.ActiveThreshold()
@@ -586,6 +691,10 @@ end
 function gw2_unstuck.stuckhandlers.movebackward()
 	d("[Unstuck]: Trying to move backward.")
 	gw2_unstuck.movementtype.backward = GW2.MOVEMENTTYPE.Backward
+	if(gw2_unstuck.movementtype.forward) then
+		Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward)
+		gw2_unstuck.movementtype.forward = false
+	end
 	Player:SetMovement(GW2.MOVEMENTTYPE.Backward)
 	return true
 end
@@ -607,34 +716,50 @@ function gw2_unstuck.stuckhandlers.swimdown()
 end
 
 function gw2_unstuck.stuckhandlers.waypoint()
-	d("[Unstuck]: Trying to use a waypoint.")
-	if(gw2_unstuck.usedwaypointlasttick and gw2_unstuck.usedwaypointlasttick.timestamp > 0 and TimeSince(gw2_unstuck.usedwaypointlasttick.timestamp) < 30000) then
-		d("[Unstuck]: Used a waypoint less then 30 seconds ago.")
-		gw2_unstuck.stuckhandlers.stop()
-		gw2_unstuck.usedwaypointlasttick.id = nil
-	elseif (Inventory:GetInventoryMoney() > 200 and not ml_global_information.Player_InCombat) then
-		local wp = gw2_common_functions.GetClosestWaypointToPos(ml_global_information.CurrentMapID,Player.pos)
-		if(table.valid(wp)) then
-			if (wp.distance > 500) then
-				Player:StopMovement()
-				Player:TeleportToWaypoint(wp.id)
-				gw2_unstuck.Reset()
-				gw2_unstuck.usedwaypointlasttick = {id = wp.id; pos = wp.pos, timestamp = ml_global_information.Now, lastplayerpos = Player.pos}
-				
-				return true
-			else
-				d("[Unstuck]: We are too close to a Waypoint to Teleport again.")
-				gw2_unstuck.usedwaypointlasttick.id = nil
-				return false
-			end
-		end
-		gw2_unstuck.usedwaypointlasttick.id = nil
-		d("[Unstuck]: No Waypoint to teleport to nearby found.")
+	if(gw2_unstuck.pvpmatch) then
+		d("[Unstuck]: We are in a PVP Match, we cannot use waypoints here.")
+		return gw2_unstuck.statuscodes.PVP_MATCH
 	else
-		gw2_unstuck.usedwaypointlasttick.id = nil
-		d("[Unstuck]: Not enough gold or in combat, cannot use waypoint.")
+		d("[Unstuck]: Trying to use a waypoint.")
+		if(gw2_unstuck.usedwaypointlasttick.id and gw2_unstuck.usedwaypointlasttick.timestamp > 0 and TimeSince(gw2_unstuck.usedwaypointlasttick.timestamp) < 30000) then
+			d("[Unstuck]: Tried to use a waypoint less then 30 seconds ago.")
+			gw2_unstuck.stuckhandlers.stop()
+			gw2_unstuck.usedwaypointlasttick.id = nil
+			return gw2_unstuck.statuscodes.STOP_BOT
+		elseif (Inventory:GetInventoryMoney() > 200) then
+			local wp = gw2_common_functions.GetClosestWaypointToPos(ml_global_information.CurrentMapID,Player.pos)
+			if(table.valid(wp)) then
+				if (wp.distance > 500) then
+					d("[Unstuck]: Waypoint found, trying to use it.")
+					Player:StopMovement()
+					if(not ml_global_information.Player_InCombat) then
+						Player:TeleportToWaypoint(wp.id)
+					end
+					gw2_unstuck.Reset()
+					gw2_unstuck.usedwaypointlasttick:reset()
+					gw2_unstuck.usedwaypointlasttick.id = wp.id
+					gw2_unstuck.usedwaypointlasttick.pos = wp.pos
+					gw2_unstuck.usedwaypointlasttick.timestamp = ml_global_information.Now
+					gw2_unstuck.usedwaypointlasttick.timestampnewwaypoint = ml_global_information.Now
+					gw2_unstuck.usedwaypointlasttick.timestamptotal = ml_global_information.Now
+					gw2_unstuck.usedwaypointlasttick.lastplayerpos = Player.pos
+					gw2_unstuck.usedwaypointlasttick.mapid = ml_global_information.CurrentMapID
+
+					return gw2_unstuck.statuscodes.WAYPOINT_USED
+				else
+					d("[Unstuck]: We are too close to a Waypoint to Teleport again.")
+					gw2_unstuck.usedwaypointlasttick.id = nil
+					return gw2_unstuck.statuscodes.WAYPOINT_NOT_USED
+				end
+			end
+			gw2_unstuck.usedwaypointlasttick.id = nil
+			d("[Unstuck]: No Waypoint to teleport to nearby found.")
+		else
+			gw2_unstuck.usedwaypointlasttick.id = nil
+			d("[Unstuck]: Not enough gold or in combat, cannot use waypoint.")
+		end
 	end
-	return false
+	return gw2_unstuck.statuscodes.WAYPOINT_NOT_USED
 end
 
 function gw2_unstuck.stuckhandlers.attack(object)
