@@ -4,8 +4,9 @@
 ml_navigation.NavPointReachedDistances = 			{ 	["Walk"] = 32,		["Diving"] = 48,}		-- Distance to the next node in the path at which the ml_navigation.pathindex is iterated 
 ml_navigation.PathDeviationDistances = 				{ 	["Walk"] = 50,		["Diving"] = 150, }		-- The max. distance the playerposition can be away from the current path. (The Point-Line distance between player and the last & next pathnode)
 
+-- gw2_obstacle_manager has control over this now
 ml_navigation.avoidanceareasize = 50
-ml_navigation.avoidanceareas = { }	-- TODO: make a proper API in c++ for handling a list and accessing single entries 
+ml_navigation.avoidanceareas = { }	-- TODO: make a proper API in c++ for handling a list and accessing single entries
 
 
 
