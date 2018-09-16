@@ -972,44 +972,6 @@ local tbl =
 		},
 		
 		{
-			activationtime = 2.25,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 1500,
-					},
-					
-					{
-						healthtype = 3,
-						operator = 1,
-						target = 2,
-						uid = "Health",
-						value = 66,
-					},
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "CombatState",
-					}, 
-					casttarget = 2,
-				},
-			},
-			id = 28571,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "Revenant_Sword_Offhand",
-		},
-		
-		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
 			conditions = 
