@@ -744,24 +744,7 @@ end
 -- Check if there is a valid path between startpos and targetpos.
 function gw2_common_functions.ValidPath(startpos,targetpos,allowpartialpath)
 	if(table.valid(startpos) and table.valid(targetpos)) then
-		local path = NavigationManager:GetPath(startpos.x,startpos.y,startpos.z,targetpos.x,targetpos.y,targetpos.z,false)
-		if(table.valid(path)) then
-			
-			if(allowpartialpath) then
-				return true
-			end
-			
-			-- No partial path allowed, so check if the last entry is at the target position
-			local n_path = table.size(path)
-			if(n_path > 1) then
-				if(path[n_path-1].type == "PARTIAL_PATH") then
-					return false
-				end
-			end
-			
-			return true
-		end
-
+		return NavigationManager:IsReachable(startpos,targetpos)
 	end
 	
 	return false

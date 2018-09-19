@@ -5,6 +5,7 @@ gw2_obstacle_manager = {}
 gw2_obstacle_manager.ticks = 0
 gw2_obstacle_manager.obstacles = {}
 gw2_obstacle_manager.avoidanceareas = {} -- Set in init
+gw2_obstacle_manager.avoidanceareaschanged = false
 
 local AvoidanceAreaOptions = class("AvoidanceAreaOptions")
 function AvoidanceAreaOptions:initialize(options)
@@ -34,7 +35,7 @@ function gw2_obstacle_manager.AddAvoidanceArea(opt)
 		end
 
 		if(options.id == nil) then
-			options.id = options.pos.x.."_"..options.pos.y.."_"..options.pos.z.."_"..options.mapid
+			options.id = string.hash(options.pos.x.."_"..options.pos.y.."_"..options.pos.z.."_"..options.mapid)
 		end
 		
 		local add = true
@@ -55,14 +56,14 @@ function gw2_obstacle_manager.AddAvoidanceArea(opt)
 			gw2_obstacle_manager.avoidanceareas:AddEntry(options)
 
 			if(options.showaddmessage) then
-				if(type(options.duration) == "number") then
+				if(type(options.duration) == "number" and options.duration > 0) then
 					d("[gw2_obstacle_manager]: Avoidance area added with duration : "..math.ceil(options.duration/1000).."s")
 				else
 					d("[gw2_obstacle_manager]: Avoidance area added.")
 				end
 			end
 			
-			gw2_obstacle_manager.SetupAvoidanceAreas()
+			gw2_obstacle_manager.avoidanceareaschanged = true
 			return options.id
 		end
 	end
@@ -90,7 +91,7 @@ function gw2_obstacle_manager.RemoveAvoidanceArea(options,mapid)
 			for i,avoidancearea in pairs(entries) do
 				if(avoidancearea.pos.x == avoidancearea.pos.x and avoidancearea.pos.y == options.pos.y and avoidancearea.pos.z == options.pos.z) then
 					gw2_obstacle_manager.avoidanceareas:DeleteEntry(i)
-					gw2_obstacle_manager.SetupAvoidanceAreas()
+					gw2_obstacle_manager.avoidanceareaschanged = true
 				end
 			end
 		end
@@ -107,7 +108,7 @@ function gw2_obstacle_manager.RemoveAvoidanceAreaByID(id,mapid)
 			for i,avoidancearea in pairs(entries) do
 				if(avoidancearea.id == id) then
 					gw2_obstacle_manager.avoidanceareas:DeleteEntry(i)
-					gw2_obstacle_manager.SetupAvoidanceAreas()
+					gw2_obstacle_manager.avoidanceareaschanged = true
 				end
 			end
 		end
@@ -116,6 +117,7 @@ end
 
 -- Call to pass avoidance areas over to the NavigationManager
 function gw2_obstacle_manager.SetupAvoidanceAreas()
+	NavigationManager:ClearAvoidanceAreas()
 	ml_navigation.avoidanceareas = {}
 	local entries = ml_list_mgr.FindEntries(GetString("Avoidance areas"), "mapid="..ml_global_information.CurrentMapID)
 	if(table.valid(entries)) then
@@ -125,10 +127,9 @@ function gw2_obstacle_manager.SetupAvoidanceAreas()
 				table.insert(ml_navigation.avoidanceareas, { x = math.round(pos.x,0),  y = math.round(pos.y,0), z = math.round(pos.z,0), r = entry.radius  })
 			end
 		end
-	else
-		NavigationManager:ClearAvoidanceAreas()
 	end
 	NavigationManager:SetAvoidanceAreas(ml_navigation.avoidanceareas)
+	gw2_obstacle_manager.avoidanceareaschanged = false
 end
 
 function gw2_obstacle_manager.ModuleInit()
@@ -137,6 +138,7 @@ end
 RegisterEventHandler("Module.Initalize",gw2_obstacle_manager.ModuleInit)
 
 function gw2_obstacle_manager.MapChanged()
+	d("[gw2_obstacle_manager]: Map changed, loading stored avoidance areas.")
 	gw2_obstacle_manager.SetupAvoidanceAreas()
 end
 RegisterEventHandler("gw2minion.MapChanged",gw2_obstacle_manager.MapChanged)
@@ -145,12 +147,16 @@ function gw2_obstacle_manager.OnUpdateHandler(_,tick)
 	if(TimeSince(gw2_obstacle_manager.ticks) > BehaviorManager:GetTicksThreshold()) then
 		gw2_obstacle_manager.ticks = tick
 		
+		if(gw2_obstacle_manager.avoidanceareaschanged) then
+			gw2_obstacle_manager.SetupAvoidanceAreas()
+		end
+		
 		-- Remove areas that are on a timer
 		local entries = ml_list_mgr.FindEntries(GetString("Avoidance areas"), "mapid="..ml_global_information.CurrentMapID)
 		local avoidanceRemoved = false
 		if(table.valid(entries)) then
 			for i,avoidancearea in pairs(entries) do
-				if(type(avoidancearea.time) == "number" and type(avoidancearea.duration) == "number" and avoidancearea.duration > 0 and TimeSince(avoidancearea.time) > avoidancearea.duration) then
+				if(type(avoidancearea.time) == "number" and type(avoidancearea.duration) == "number" and avoidancearea.duration > 0 and avoidancearea.time+avoidancearea.duration < ml_global_information.Now) then
 					avoidanceRemoved = true
 					gw2_obstacle_manager.avoidanceareas:DeleteEntry(i)
 				end
@@ -158,7 +164,7 @@ function gw2_obstacle_manager.OnUpdateHandler(_,tick)
 		end
 		
 		if(avoidanceRemoved) then
-			gw2_obstacle_manager.SetupAvoidanceAreas()
+			gw2_obstacle_manager.avoidanceareaschanged = true
 		end
 	end
 end
@@ -188,15 +194,16 @@ function gw2_obstacle_manager:DrawAvoidanceAreas()
 		
 		local duration = 0
 		if(gw2_obstacle_manager.blAvoidanceAreaEntryDuration > 0) then
-			duration = ml_global_information.Now + gw2_obstacle_manager.blAvoidanceAreaEntryDuration*1000
+			duration = gw2_obstacle_manager.blAvoidanceAreaEntryDuration*1000
 		end
 		local newentry = {pos = ml_global_information.Player_Position, mapid = ml_global_information.CurrentMapID, duration = duration, radius = gw2_obstacle_manager.blAvoidanceAreaEntryRadius}
 		gw2_obstacle_manager.AddAvoidanceArea(newentry)
+		gw2_obstacle_manager.blAvoidanceAreaEntryDuration = 0
+		gw2_obstacle_manager.blAvoidanceAreaEntryRadius = 50
 	end
 	
 	GUI:Separator();
 	GUI:Separator();
-	-- Draw the list entries
 	
 	GUI:Spacing(4);
 	GUI:Columns(4, "##listdetail-view", true)
@@ -206,25 +213,40 @@ function gw2_obstacle_manager:DrawAvoidanceAreas()
 	GUI:Text(GetString("Duration")); GUI:NextColumn(); GUI:NextColumn();
 	GUI:Separator();
 
-	local entries = self.entries
-	if (table.valid(entries)) then
-		for i, entry in pairs(entries) do
-			GUI:Text(entry.id); GUI:NextColumn();
-			GUI:Text(entry.mapid); GUI:NextColumn();
-			local expiration = tonumber(entry.duration)
-			if(type(duration) ~= "number") then
-				duration = 0
+	-- Draw the list entries
+	-- Draw current map first
+	local mapentries = self:FindAll(ml_global_information.CurrentMapID,"mapid")
+	if(table.valid(mapentries)) then
+		gw2_obstacle_manager:DrawEntryTable(mapentries)
+	end
+	-- Draw everything else
+	gw2_obstacle_manager:DrawEntryTable(self.entries,ml_global_information.CurrentMapID)
+end
+
+function gw2_obstacle_manager:DrawEntryTable(entries,excludemapid)
+	if(table.valid(entries)) then
+
+		if (table.valid(entries)) then
+			for i, entry in pairs(entries) do
+				if(excludemapid == nil or excludemapid ~= entry.mapid) then
+					GUI:Text(entry.id); GUI:NextColumn();
+					GUI:Text(entry.mapid); GUI:NextColumn();
+					local duration = tonumber(entry.duration)
+					if(type(duration) ~= "number") then
+						duration = 0
+					end
+					
+					if(duration > 0) then
+						duration = math.ceil(((entry.time+duration)-ml_global_information.Now)/1000)
+					end
+					
+					GUI:Text(tostring(duration)); GUI:NextColumn();
+					if (GUI:Button(GetString("Delete").."##"..i)) then
+						gw2_obstacle_manager.RemoveAvoidanceAreaByID(entry.id,entry.mapid)
+					end
+					GUI:NextColumn();
+				end
 			end
-			
-			if(duration > 0) then
-				duration = math.ceil((duration-ml_global_information.Now)/1000)
-			end
-			
-			GUI:Text(tostring(duration)); GUI:NextColumn();
-			if (GUI:Button(GetString("Delete").."##"..i)) then
-				gw2_obstacle_manager.RemoveAvoidanceAreaByID(entry.id,entry.mapid)
-			end
-			GUI:NextColumn();
 		end
 	end
 end
