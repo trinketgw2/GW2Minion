@@ -84,8 +84,12 @@ function gw2_unstuck.SoftReset()
 	-- Set position to be over the current threshold so it doesn't trigger unstuck next tick
 	local threshold = gw2_unstuck.ActiveThreshold() + 1
 	local ppos = Player.pos
-	
-	gw2_unstuck.lastposition = {x=ppos.x + threshold; y = ppos.y; z = ppos.z} 
+	if(table.valid(ppos)) then	
+		gw2_unstuck.lastposition = {x=ppos.x + threshold; y = ppos.y; z = ppos.z}
+	else
+		d("[Unstuck]: SoftReset, no valid player position!")
+		gw2_unstuck.lastposition = nil
+	end
 	gw2_unstuck.lastaction = nil
 	--gw2_unstuck.stucktick = ml_global_information.Now
 end
