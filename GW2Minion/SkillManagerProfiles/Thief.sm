@@ -2499,7 +2499,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Thief_sword",
+			skillpaletteuid = "Thief_sword_stealth",
 		},
 		
 		{
@@ -2643,7 +2643,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Thief_staff",
+			skillpaletteuid = "Thief_staff_stealth",
 		},
 		
 		{
@@ -2667,7 +2667,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Thief_rifle_kneel",
+			skillpaletteuid = "Thief_rifle_stealth",
 		},
 		
 		{
@@ -2728,7 +2728,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Thief_dagger_mh",
+			skillpaletteuid = "Thief_dagger_stealth",
 		},
 		
 		{
@@ -2802,31 +2802,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "Thief_dagger_mh",
 		},
-		
-		{
-			activationtime = 0.75,
-			condition_luacode = "return true",
-			conditions = 
-			{
 				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 1500,
-					}, 
-					casttarget = 1,
-				},
-			},
-			id = 44087,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "Thief_rifle_freeaction",
-		},
-		
 		{
 			activationtime = 0.75,
 			condition_luacode = "return true",
@@ -2968,7 +2944,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Thief_spear",
+			skillpaletteuid = "Thief_spear_stealth",
 		},
 		
 		{
@@ -3016,7 +2992,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Thief_harpoongun",
+			skillpaletteuid = "Thief_harpoongun_stealth",
 		},
 		
 		{
@@ -3040,7 +3016,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Thief_pistol_mh",
+			skillpaletteuid = "Thief_pistol_stealth",
 		},
 		
 		{
@@ -3112,7 +3088,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Thief_shortbow",
+			skillpaletteuid = "Thief_shortbow_stealth",
 		},
 		
 		{

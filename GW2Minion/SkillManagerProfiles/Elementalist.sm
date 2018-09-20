@@ -1180,7 +1180,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Sword_Fire",
+			skillpaletteuid = "Elementalist",
 		},
 		
 		{
@@ -1300,7 +1300,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Sword_Earth",
+			skillpaletteuid = "Elementalist",
 		},
 		
 		{
@@ -1539,7 +1539,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Sword_Air",
+			skillpaletteuid = "Elementalist",
 		},
 		
 		{
@@ -1911,7 +1911,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Sword_Water",
+			skillpaletteuid = "Elementalist",
 		},
 		
 		{
