@@ -282,7 +282,7 @@ function gw2_unstuck.HandleStuck_MovedDistanceCheck()
 					return true
 				end
 			elseif(gw2_unstuck.stuckcount > mincount+10) then
-				gw2_obstacle_manager.AddAvoidanceArea({pos = Player.pos, radius = 25})
+				gw2_obstacle_manager.AddAvoidanceArea({pos = Player.pos, radius = 50})
 				gw2_unstuck.stuckhandlers.movebackward()
 				 -- Set the threshold to be a percentage of backwards movement
 				gw2_unstuck.threshold = 220-(220*((gw2_unstuck.ActiveThreshold() - 1)/220))
@@ -351,7 +351,7 @@ function gw2_unstuck.HandleStuck_MovedDistanceCheck()
 					d("[Unstuck]: Free space on the left.")
 					gw2_unstuck.lastaction = "moveto"
 					stuckentry.handlevars = posleft
-					gw2_obstacle_manager.AddAvoidanceArea({pos = Player.pos, radius = 25})
+					gw2_obstacle_manager.AddAvoidanceArea({pos = Player.pos, radius = 50})
 					if(gw2_unstuck.stuckhandlers.moveto(posleft)) then
 						return true
 					end
@@ -364,7 +364,7 @@ function gw2_unstuck.HandleStuck_MovedDistanceCheck()
 					d("[Unstuck]: Free space on the right.")
 					gw2_unstuck.lastaction = "moveto"
 					stuckentry.handlevars = posright
-					gw2_obstacle_manager.AddAvoidanceArea({pos = Player.pos, radius = 25})
+					gw2_obstacle_manager.AddAvoidanceArea({pos = Player.pos, radius = 50})
 					if(gw2_unstuck.stuckhandlers.moveto(posright)) then
 						return true
 					end
@@ -470,7 +470,7 @@ function gw2_unstuck.HandleStuckEntry(entry)
 		if(gw2_unstuck.pvpmatch and entry.stuckcount > 15) then
 			d("[Unstuck]: We are in a PVP Match and can't really do much more then we already have.")
 			d("[Unstuck]: Waiting to die or disconnect.")
-			gw2_obstacle_manager.AddAvoidanceArea({pos = Player.pos, radius = 25})
+			gw2_obstacle_manager.AddAvoidanceArea({pos = Player.pos, radius = 50})
 			status = gw2_unstuck.statuscodes.PVP_MATCH
 		elseif(entry.stuckcount > 25) then
 			d("[Unstuck]: We have been stuck at this location 25 times.")
