@@ -772,7 +772,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Fire",
+			skillpaletteuid = "Elementalist_Staff_Fire_2",
 		},
 		
 		{
@@ -796,7 +796,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Fire",
+			skillpaletteuid = "Elementalist_Staff_Fire_2",
 		},
 		
 		{
@@ -819,7 +819,7 @@ local tbl =
 			id = 5548,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Fire",
+			skillpaletteuid = "Elementalist_Staff_Fire_1",
 		},
 		
 		{
@@ -843,7 +843,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Fire",
+			skillpaletteuid = "Elementalist_Staff_Fire_1",
 		},
 		
 		{
@@ -1443,7 +1443,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Earth",
+			skillpaletteuid = "Elementalist_Staff_Earth_2",
 		},
 		
 		{
@@ -1466,7 +1466,7 @@ local tbl =
 			id = 5683,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Earth",
+			skillpaletteuid = "Elementalist_Staff_Earth_2",
 		},
 		
 		{
@@ -1491,7 +1491,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Earth",
+			skillpaletteuid = "Elementalist_Staff_Earth_1",
 		},
 		
 		{
@@ -1515,7 +1515,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Earth",
+			skillpaletteuid = "Elementalist_Staff_Earth_1",
 		},
 		
 		{
@@ -1815,7 +1815,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Water",
+			skillpaletteuid = "Elementalist_Staff_Water_1",
 		},
 		
 		{
@@ -1839,7 +1839,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Water",
+			skillpaletteuid = "Elementalist_Staff_Water_1",
 		},
 		
 		{
@@ -1863,7 +1863,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Water",
+			skillpaletteuid = "Elementalist_Staff_Water_2",
 		},
 		
 		{
@@ -1887,7 +1887,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Water",
+			skillpaletteuid = "Elementalist_Staff_Water_2",
 		},
 		
 		{
@@ -2351,7 +2351,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Air",
+			skillpaletteuid = "Elementalist_Staff_Air_1",
 		},
 		
 		{
@@ -2376,7 +2376,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Air",
+			skillpaletteuid = "Elementalist_Staff_Air_2",
 		},
 		
 		{
@@ -2400,7 +2400,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Air",
+			skillpaletteuid = "Elementalist_Staff_Air_2",
 		},
 		
 		{
@@ -2424,7 +2424,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Air",
+			skillpaletteuid = "Elementalist_Staff_Air_1",
 		},
 		
 		{
@@ -3688,7 +3688,7 @@ local tbl =
 			id = 5519,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Earth",
+			skillpaletteuid = "Elementalist_Staff_Earth_1",
 		},
 		
 		{
@@ -3851,7 +3851,7 @@ local tbl =
 			id = 5549,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Water",
+			skillpaletteuid = "Elementalist_Staff_Water_1",
 		},
 		
 		{
@@ -4015,7 +4015,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Air",
+			skillpaletteuid = "Elementalist_Staff_Air_1",
 		},
 		
 		{
@@ -4107,7 +4107,7 @@ local tbl =
 			id = 5491,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Staff_Fire",
+			skillpaletteuid = "Elementalist_Staff_Fire_1",
 		},
 		
 		{
