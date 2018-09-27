@@ -141,14 +141,19 @@ end
 
 -- Remove all entires that have been added by the bot
 function gw2_obstacle_manager.ClearAutomatic()
+	local removed = false
 	local entries = gw2_obstacle_manager.avoidanceareas:GetList()
 	if(table.valid(entries)) then
 		for i,entry in pairs(entries) do
 			if(not entry.manual) then
 				d("[gw2_obstacle_manager]: Removing avoidance area " .. tostring(entry.id))
 				gw2_obstacle_manager.avoidanceareas:DeleteEntry(i)
+				removed = true
 			end
 		end
+	end
+	if(removed) then
+		gw2_obstacle_manager.avoidanceareaschanged = true
 	end
 end
 
@@ -181,7 +186,7 @@ function gw2_obstacle_manager.OnUpdateHandler(_,tick)
 		if(gw2_obstacle_manager.avoidanceareaschanged) then
 			gw2_obstacle_manager.SetupAvoidanceAreas()
 		end
-		
+
 		-- Remove areas that are on a timer
 		local entries = ml_list_mgr.FindEntries(GetString("Avoidance areas"), "mapid="..ml_global_information.CurrentMapID)
 		local avoidanceRemoved = false
