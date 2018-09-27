@@ -867,7 +867,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Water",
+			skillpaletteuid = "Elementalist_Trident_Water_1",
 		},
 		
 		{
@@ -891,7 +891,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Water",
+			skillpaletteuid = "Elementalist_Trident_Water_2",
 		},
 		
 		{
@@ -915,7 +915,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Water",
+			skillpaletteuid = "Elementalist_Trident_Water_1",
 		},
 		
 		{
@@ -939,7 +939,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Water",
+			skillpaletteuid = "Elementalist_Trident_Water_2",
 		},
 		
 		{
@@ -1649,7 +1649,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Earth",
+			skillpaletteuid = "Elementalist_Trident_Earth_1",
 		},
 		
 		{
@@ -1673,7 +1673,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Earth",
+			skillpaletteuid = "Elementalist_Trident_Earth_1",
 		},
 		
 		{
@@ -1697,7 +1697,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Earth",
+			skillpaletteuid = "Elementalist_Trident_Earth_2",
 		},
 		
 		{
@@ -1721,7 +1721,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Earth",
+			skillpaletteuid = "Elementalist_Trident_Earth_2",
 		},
 		
 		{
@@ -2161,7 +2161,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Fire",
+			skillpaletteuid = "Elementalist_Trident_Fire_1",
 		},
 		
 		{
@@ -2185,7 +2185,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Fire",
+			skillpaletteuid = "Elementalist_Trident_Fire_2",
 		},
 		
 		{
@@ -2208,7 +2208,7 @@ local tbl =
 			id = 5566,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Fire",
+			skillpaletteuid = "Elementalist_Trident_Fire_1",
 		},
 		
 		{
@@ -2232,7 +2232,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Fire",
+			skillpaletteuid = "Elementalist_Trident_Fire_2",
 		},
 		
 		{
@@ -2613,7 +2613,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Air",
+			skillpaletteuid = "Elementalist_Trident_Air_1",
 		},
 		
 		{
@@ -2637,7 +2637,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Air",
+			skillpaletteuid = "Elementalist_Trident_Air_2",
 		},
 		
 		{
@@ -2661,7 +2661,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Air",
+			skillpaletteuid = "Elementalist_Trident_Air_1",
 		},
 		
 		{
@@ -2685,7 +2685,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Air",
+			skillpaletteuid = "Elementalist_Trident_Air_2",
 		},
 		
 		{
@@ -3455,7 +3455,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Water",
+			skillpaletteuid = "Elementalist_Trident_Water_1",
 		},
 		
 		{
@@ -3805,7 +3805,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Earth",
+			skillpaletteuid = "Elementalist_Trident_Earth_1",
 		},
 		
 		{
@@ -3968,7 +3968,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Fire",
+			skillpaletteuid = "Elementalist_Trident_Fire_1",
 		},
 		
 		{
@@ -4084,7 +4084,7 @@ local tbl =
 			id = 5656,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Elementalist_Trident_Air",
+			skillpaletteuid = "Elementalist_Trident_Air_1",
 		},
 		
 		{
