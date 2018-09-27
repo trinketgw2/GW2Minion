@@ -845,7 +845,7 @@ function gw2_common_functions.GetRandomPoint()
 	end
 	
 	-- 3rd try
-	if (randompos == nil) then
+	if (randompos == nil and ml_global_information.Player_SwimState == GW2.SWIMSTATE.NotInWater) then
 		d("[gw2_common_functions]: Trying to find a random point anywhere on the mesh")
 		local i = 0
 		while not randompos and i < 10 do
@@ -867,7 +867,7 @@ function gw2_common_functions.GetRandomPoint()
 		return randompos
 	end
 	
-	d("No random point found")
+	d("[gw2_common_functions]: No random point found")
 	
 	return nil
 end
