@@ -254,4 +254,4 @@ function gw2_datamanager.GetRandomPositionInLevelRange(level)
 end
 
 RegisterEventHandler("Module.Initalize",gw2_datamanager.ModuleInit)
-RegisterEventHandler("Gameloop.MeshReady",gw2_datamanager.UpdateLevelMap)
+RegisterEventHandler("gw2minion.MapChanged",gw2_datamanager.UpdateLevelMap)
