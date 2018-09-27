@@ -14,21 +14,16 @@ local tbl =
 					{
 						operator = 1,
 						target = 1,
+						uid = "Distance",
+						value = 240,
+					},
+					
+					{
+						operator = 1,
+						target = 1,
 						uid = "CombatState",
 					}, 
 					casttarget = 2,
-				},
-				
-				{
-					
-					{
-						healthtype = 3,
-						operator = 1,
-						target = 1,
-						uid = "Health",
-						value = 100,
-					}, 
-					casttarget = 1,
 				},
 			},
 			id = 30435,
@@ -47,25 +42,20 @@ local tbl =
 				{
 					
 					{
+						healthtype = 3,
+						operator = 1,
+						target = 2,
+						uid = "Health",
+						value = 80,
+					},
+					
+					{
 						operator = 1,
 						target = 1,
 						uid = "Distance",
-						value = 300,
+						value = 240,
 					}, 
-					casttarget = 1,
-				},
-				
-				{
-					
-					{
-						count = 3,
-						distance = 300,
-						operator = 1,
-						target = 1,
-						type = 1,
-						uid = "Entities In Range",
-					}, 
-					casttarget = 1,
+					casttarget = 2,
 				},
 			},
 			id = 44165,
@@ -141,19 +131,6 @@ local tbl =
 					}, 
 					casttarget = 2,
 				},
-				
-				{
-					
-					{
-						count = 4,
-						distance = 200,
-						operator = 1,
-						target = 1,
-						type = 1,
-						uid = "Entities In Range",
-					}, 
-					casttarget = 1,
-				},
 			},
 			id = 14362,
 			instantcast = false,
@@ -171,6 +148,13 @@ local tbl =
 				{
 					
 					{
+						buff = 1122,
+						operator = 2,
+						target = 1,
+						uid = "Buff (Name)",
+					},
+					
+					{
 						operator = 1,
 						target = 1,
 						uid = "Distance",
@@ -182,11 +166,16 @@ local tbl =
 				{
 					
 					{
-						bufftype = 5,
+						operator = 1,
+						target = 1,
+						uid = "CombatState",
+					},
+					
+					{
+						buff = 872,
 						operator = 1,
 						target = 2,
-						uid = "Buffs (Count)",
-						value = 1,
+						uid = "Buff (Name)",
 					}, 
 					casttarget = 1,
 				},
@@ -205,6 +194,13 @@ local tbl =
 			{
 				
 				{
+					
+					{
+						buff = 1122,
+						operator = 2,
+						target = 1,
+						uid = "Buff (Name)",
+					},
 					
 					{
 						operator = 1,
@@ -235,7 +231,18 @@ local tbl =
 						operator = 1,
 						target = 2,
 						uid = "Health",
-						value = 30,
+						value = 40,
+					}, 
+					casttarget = 2,
+				},
+				
+				{
+					
+					{
+						buff = 872,
+						operator = 1,
+						target = 2,
+						uid = "Buff (Name)",
 					}, 
 					casttarget = 2,
 				},
@@ -260,7 +267,7 @@ local tbl =
 						operator = 1,
 						target = 2,
 						uid = "Health",
-						value = 40,
+						value = 70,
 					}, 
 					casttarget = 2,
 				},
@@ -282,12 +289,12 @@ local tbl =
 					
 					{
 						bufftype = 2,
-						operator = 1,
+						operator = 4,
 						target = 2,
 						uid = "Buffs (Count)",
 						value = 3,
 					}, 
-					casttarget = 1,
+					casttarget = 2,
 				},
 			},
 			id = 45380,
@@ -310,7 +317,7 @@ local tbl =
 						operator = 1,
 						target = 2,
 						uid = "Health",
-						value = 30,
+						value = 20,
 					}, 
 					casttarget = 2,
 				},
@@ -332,7 +339,7 @@ local tbl =
 					
 					{
 						bufftype = 2,
-						operator = 1,
+						operator = 4,
 						target = 2,
 						uid = "Buffs (Count)",
 						value = 5,
@@ -364,18 +371,6 @@ local tbl =
 					}, 
 					casttarget = 2,
 				},
-				
-				{
-					
-					{
-						bufftype = 2,
-						operator = 5,
-						target = 2,
-						uid = "Buffs (Count)",
-						value = 3,
-					}, 
-					casttarget = 2,
-				},
 			},
 			id = 30189,
 			instantcast = false,
@@ -397,7 +392,7 @@ local tbl =
 						operator = 1,
 						target = 2,
 						uid = "Health",
-						value = 50,
+						value = 40,
 					}, 
 					casttarget = 2,
 				},
@@ -431,10 +426,10 @@ local tbl =
 					
 					{
 						bufftype = 2,
-						operator = 1,
+						operator = 4,
 						target = 2,
 						uid = "Buffs (Count)",
-						value = 7,
+						value = 4,
 					}, 
 					casttarget = 2,
 				},
@@ -459,7 +454,7 @@ local tbl =
 						operator = 1,
 						target = 2,
 						uid = "Health",
-						value = 75,
+						value = 25,
 					}, 
 					casttarget = 2,
 				},
@@ -468,7 +463,7 @@ local tbl =
 					
 					{
 						bufftype = 2,
-						operator = 5,
+						operator = 4,
 						target = 2,
 						uid = "Buffs (Count)",
 						value = 5,
@@ -505,10 +500,10 @@ local tbl =
 					
 					{
 						bufftype = 2,
-						operator = 1,
+						operator = 4,
 						target = 2,
 						uid = "Buffs (Count)",
-						value = 3,
+						value = 2,
 					}, 
 					casttarget = 2,
 				},
@@ -674,13 +669,12 @@ local tbl =
 				{
 					
 					{
-						bufftype = 5,
+						buff = 872,
 						operator = 1,
 						target = 2,
-						uid = "Buffs (Count)",
-						value = 1,
+						uid = "Buff (Name)",
 					}, 
-					casttarget = 1,
+					casttarget = 2,
 				},
 			},
 			id = 30258,
@@ -699,13 +693,18 @@ local tbl =
 				{
 					
 					{
-						healthtype = 3,
 						operator = 1,
 						target = 1,
-						uid = "Health",
-						value = 70,
+						uid = "CombatState",
+					},
+					
+					{
+						operator = 1,
+						target = 1,
+						uid = "Distance",
+						value = 450,
 					}, 
-					casttarget = 1,
+					casttarget = 2,
 				},
 			},
 			id = 14368,
@@ -724,11 +723,17 @@ local tbl =
 				{
 					
 					{
+						operator = 1,
+						target = 1,
+						uid = "CombatState",
+					},
+					
+					{
 						healthtype = 3,
 						operator = 1,
 						target = 2,
 						uid = "Health",
-						value = 50,
+						value = 30,
 					}, 
 					casttarget = 2,
 				},
@@ -747,6 +752,15 @@ local tbl =
 			{
 				
 				{
+					
+					{
+						count = 1,
+						distance = 450,
+						operator = 4,
+						target = 2,
+						type = 1,
+						uid = "Entities In Range",
+					},
 					
 					{
 						healthtype = 3,
@@ -799,14 +813,14 @@ local tbl =
 				{
 					
 					{
-						count = 5,
-						distance = 500,
-						operator = 1,
+						count = 2,
+						distance = 600,
+						operator = 4,
 						target = 2,
 						type = 1,
 						uid = "Entities In Range",
 					}, 
-					casttarget = 1,
+					casttarget = 2,
 				},
 			},
 			id = 14409,
@@ -825,13 +839,19 @@ local tbl =
 				{
 					
 					{
-						healthtype = 3,
 						operator = 1,
 						target = 1,
+						uid = "CombatState",
+					},
+					
+					{
+						healthtype = 3,
+						operator = 1,
+						target = 2,
 						uid = "Health",
 						value = 40,
 					}, 
-					casttarget = 1,
+					casttarget = 2,
 				},
 			},
 			id = 14410,
@@ -1051,18 +1071,6 @@ local tbl =
 					}, 
 					casttarget = 1,
 				},
-				
-				{
-					
-					{
-						bufftype = 5,
-						operator = 1,
-						target = 2,
-						uid = "Buffs (Count)",
-						value = 1,
-					}, 
-					casttarget = 1,
-				},
 			},
 			id = 14366,
 			instantcast = false,
@@ -1104,25 +1112,19 @@ local tbl =
 				{
 					
 					{
-						bufftype = 5,
-						operator = 1,
+						bufftype = 2,
+						operator = 4,
 						target = 2,
 						uid = "Buffs (Count)",
-						value = 1,
-					}, 
-					casttarget = 1,
-				},
-				
-				{
+						value = 2,
+					},
 					
 					{
-						bufftype = 4,
 						operator = 1,
-						target = 2,
-						uid = "Buffs (Count)",
-						value = 1,
+						target = 1,
+						uid = "CombatState",
 					}, 
-					casttarget = 1,
+					casttarget = 2,
 				},
 			},
 			id = 14393,
@@ -1141,25 +1143,13 @@ local tbl =
 				{
 					
 					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 600,
+						bufftype = 2,
+						operator = 4,
+						target = 2,
+						uid = "Buffs (Count)",
+						value = 3,
 					}, 
-					casttarget = 1,
-				},
-				
-				{
-					
-					{
-						count = 2,
-						distance = 600,
-						operator = 1,
-						target = 1,
-						type = 1,
-						uid = "Entities In Range",
-					}, 
-					casttarget = 1,
+					casttarget = 2,
 				},
 			},
 			id = 14394,
@@ -1346,19 +1336,8 @@ local tbl =
 				{
 					
 					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 180,
-					}, 
-					casttarget = 1,
-				},
-				
-				{
-					
-					{
 						bufftype = 2,
-						operator = 1,
+						operator = 4,
 						target = 2,
 						uid = "Buffs (Count)",
 						value = 2,
@@ -1413,19 +1392,6 @@ local tbl =
 					}, 
 					casttarget = 1,
 				},
-				
-				{
-					
-					{
-						count = 2,
-						distance = 130,
-						operator = 1,
-						target = 1,
-						type = 1,
-						uid = "Entities In Range",
-					}, 
-					casttarget = 1,
-				},
 			},
 			id = 14360,
 			instantcast = false,
@@ -1447,18 +1413,6 @@ local tbl =
 						target = 1,
 						uid = "Distance",
 						value = 1200,
-					}, 
-					casttarget = 1,
-				},
-				
-				{
-					
-					{
-						bufftype = 5,
-						operator = 5,
-						target = 1,
-						uid = "Buffs (Count)",
-						value = 1,
 					}, 
 					casttarget = 1,
 				},
@@ -1507,19 +1461,6 @@ local tbl =
 						target = 1,
 						uid = "Distance",
 						value = 130,
-					}, 
-					casttarget = 1,
-				},
-				
-				{
-					
-					{
-						count = 2,
-						distance = 130,
-						operator = 1,
-						target = 1,
-						type = 1,
-						uid = "Entities In Range",
 					}, 
 					casttarget = 1,
 				},
@@ -1715,18 +1656,6 @@ local tbl =
 					}, 
 					casttarget = 1,
 				},
-				
-				{
-					
-					{
-						bufftype = 5,
-						operator = 5,
-						target = 1,
-						uid = "Buffs (Count)",
-						value = 1,
-					}, 
-					casttarget = 1,
-				},
 			},
 			id = 14467,
 			instantcast = false,
@@ -1853,7 +1782,7 @@ local tbl =
 					{
 						count = 2,
 						distance = 150,
-						operator = 1,
+						operator = 4,
 						target = 1,
 						type = 1,
 						uid = "Entities In Range",
@@ -1889,7 +1818,7 @@ local tbl =
 					
 					{
 						bufftype = 5,
-						operator = 1,
+						operator = 4,
 						target = 2,
 						uid = "Buffs (Count)",
 						value = 1,
@@ -1906,7 +1835,7 @@ local tbl =
 		
 		{
 			activationtime = 0.5,
-			condition_luacode = "return true",
+			condition_luacode = "if ( context.attack_target and context.attack_target.castinfo.skillid > 0) then \n\t\treturn true \nelse \n\t\treturn false \nend",
 			conditions = 
 			{
 				
@@ -2012,7 +1941,7 @@ local tbl =
 						operator = 1,
 						target = 1,
 						uid = "Distance",
-						value = 0,
+						value = 240,
 					}, 
 					casttarget = 1,
 				},
@@ -2155,7 +2084,7 @@ local tbl =
 					{
 						count = 2,
 						distance = 150,
-						operator = 1,
+						operator = 4,
 						target = 1,
 						type = 1,
 						uid = "Entities In Range",
@@ -2227,6 +2156,12 @@ local tbl =
 				{
 					
 					{
+						operator = 2,
+						target = 1,
+						uid = "Movement",
+					},
+					
+					{
 						operator = 1,
 						target = 1,
 						uid = "Distance",
@@ -2279,7 +2214,7 @@ local tbl =
 						operator = 1,
 						target = 2,
 						uid = "Health",
-						value = 50,
+						value = 80,
 					}, 
 					casttarget = 2,
 				},
@@ -2304,7 +2239,7 @@ local tbl =
 						operator = 1,
 						target = 2,
 						uid = "Health",
-						value = 50,
+						value = 80,
 					}, 
 					casttarget = 2,
 				},
@@ -2329,7 +2264,7 @@ local tbl =
 						operator = 1,
 						target = 2,
 						uid = "Health",
-						value = 50,
+						value = 80,
 					}, 
 					casttarget = 2,
 				},
@@ -2597,18 +2532,6 @@ local tbl =
 					}, 
 					casttarget = 1,
 				},
-				
-				{
-					
-					{
-						bufftype = 5,
-						operator = 1,
-						target = 1,
-						uid = "Buffs (Count)",
-						value = 1,
-					}, 
-					casttarget = 1,
-				},
 			},
 			id = 14428,
 			instantcast = false,
@@ -2630,18 +2553,6 @@ local tbl =
 						target = 1,
 						uid = "Distance",
 						value = 130,
-					}, 
-					casttarget = 1,
-				},
-				
-				{
-					
-					{
-						bufftype = 5,
-						operator = 1,
-						target = 1,
-						uid = "Buffs (Count)",
-						value = 1,
 					}, 
 					casttarget = 1,
 				},
@@ -2669,18 +2580,6 @@ local tbl =
 					}, 
 					casttarget = 1,
 				},
-				
-				{
-					
-					{
-						bufftype = 5,
-						operator = 1,
-						target = 1,
-						uid = "Buffs (Count)",
-						value = 1,
-					}, 
-					casttarget = 1,
-				},
 			},
 			id = 14430,
 			instantcast = false,
@@ -2699,7 +2598,7 @@ local tbl =
 					
 					{
 						bufftype = 1,
-						operator = 1,
+						operator = 5,
 						target = 1,
 						uid = "Buffs (Count)",
 						value = 2,
@@ -2719,18 +2618,6 @@ local tbl =
 			condition_luacode = "return true",
 			conditions = 
 			{
-				
-				{
-					
-					{
-						bufftype = 5,
-						operator = 1,
-						target = 1,
-						uid = "Buffs (Count)",
-						value = 1,
-					}, 
-					casttarget = 1,
-				},
 				
 				{
 					
@@ -3047,22 +2934,18 @@ local tbl =
 				{
 					
 					{
+						bufftype = 5,
+						operator = 3,
+						target = 1,
+						uid = "Buffs (Count)",
+						value = 0,
+					},
+					
+					{
 						operator = 1,
 						target = 1,
 						uid = "Distance",
 						value = 900,
-					}, 
-					casttarget = 1,
-				},
-				
-				{
-					
-					{
-						bufftype = 5,
-						operator = 1,
-						target = 1,
-						uid = "Buffs (Count)",
-						value = 1,
 					}, 
 					casttarget = 1,
 				},
@@ -3085,7 +2968,7 @@ local tbl =
 					{
 						healthtype = 3,
 						operator = 1,
-						target = 1,
+						target = 2,
 						uid = "Health",
 						value = 50,
 					}, 
@@ -3112,18 +2995,6 @@ local tbl =
 						target = 1,
 						uid = "Distance",
 						value = 450,
-					}, 
-					casttarget = 1,
-				},
-				
-				{
-					
-					{
-						bufftype = 1,
-						operator = 1,
-						target = 1,
-						uid = "Buffs (Count)",
-						value = 2,
 					}, 
 					casttarget = 1,
 				},
@@ -3175,18 +3046,6 @@ local tbl =
 					}, 
 					casttarget = 1,
 				},
-				
-				{
-					
-					{
-						bufftype = 5,
-						operator = 1,
-						target = 1,
-						uid = "Buffs (Count)",
-						value = 1,
-					}, 
-					casttarget = 1,
-				},
 			},
 			id = 14367,
 			instantcast = false,
@@ -3229,6 +3088,15 @@ local tbl =
 				{
 					
 					{
+						count = 1,
+						distance = 240,
+						operator = 4,
+						target = 2,
+						type = 1,
+						uid = "Entities In Range",
+					},
+					
+					{
 						operator = 1,
 						target = 1,
 						uid = "CombatState",
@@ -3250,6 +3118,13 @@ local tbl =
 			{
 				
 				{
+					
+					{
+						operator = 1,
+						target = 1,
+						uid = "Distance",
+						value = 600,
+					},
 					
 					{
 						operator = 1,
@@ -3326,18 +3201,6 @@ local tbl =
 						target = 1,
 						uid = "Distance",
 						value = 1200,
-					}, 
-					casttarget = 1,
-				},
-				
-				{
-					
-					{
-						bufftype = 5,
-						operator = 1,
-						target = 1,
-						uid = "Buffs (Count)",
-						value = 1,
 					}, 
 					casttarget = 1,
 				},
@@ -3550,11 +3413,10 @@ local tbl =
 				{
 					
 					{
-						bufftype = 2,
+						buff = 720,
 						operator = 1,
 						target = 2,
-						uid = "Buffs (Count)",
-						value = 1,
+						uid = "Buff (Name)",
 					}, 
 					casttarget = 2,
 				},
@@ -3606,18 +3468,6 @@ local tbl =
 					}, 
 					casttarget = 1,
 				},
-				
-				{
-					
-					{
-						bufftype = 5,
-						operator = 1,
-						target = 1,
-						uid = "Buffs (Count)",
-						value = 1,
-					}, 
-					casttarget = 1,
-				},
 			},
 			id = 14549,
 			instantcast = false,
@@ -3639,18 +3489,6 @@ local tbl =
 						target = 1,
 						uid = "Distance",
 						value = 150,
-					}, 
-					casttarget = 1,
-				},
-				
-				{
-					
-					{
-						bufftype = 5,
-						operator = 1,
-						target = 1,
-						uid = "Buffs (Count)",
-						value = 1,
 					}, 
 					casttarget = 1,
 				},
@@ -3726,18 +3564,6 @@ local tbl =
 					}, 
 					casttarget = 1,
 				},
-				
-				{
-					
-					{
-						bufftype = 5,
-						operator = 1,
-						target = 1,
-						uid = "Buffs (Count)",
-						value = 1,
-					}, 
-					casttarget = 1,
-				},
 			},
 			id = 14551,
 			instantcast = false,
@@ -3807,7 +3633,7 @@ local tbl =
 						operator = 1,
 						target = 1,
 						uid = "Distance",
-						value = 130,
+						value = 1200,
 					}, 
 					casttarget = 1,
 				},
@@ -4119,7 +3945,7 @@ local tbl =
 						operator = 1,
 						target = 1,
 						uid = "Distance",
-						value = 1200,
+						value = 130,
 					}, 
 					casttarget = 1,
 				},
@@ -4512,128 +4338,8 @@ local tbl =
 			requireslos = true,
 			setsattackrange = false,
 			skillpaletteuid = "Warrior",
-		},
-
-		{
-			activationtime = 0.5,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 1100,
-					}, 
-					casttarget = 1,
-				},
-			},
-			id = 6479,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "zBugSpray",
-		},
-		
-		{
-			activationtime = 0.5,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 1100,
-					}, 
-					casttarget = 1,
-				},
-			},
-			id = 6480,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "zBugSpray",
-		},
-		
-		{
-			activationtime = 0.5,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 130,
-					}, 
-					casttarget = 1,
-				},
-			},
-			id = 6764,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "zImpGun",
-		},
-		
-		{
-			activationtime = 0.5,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 800,
-					}, 
-					casttarget = 1,
-				},
-			},
-			id = 6762,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "zImpGun",
-		},
-		
-		{
-			activationtime = 0.5,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 800,
-					}, 
-					casttarget = 1,
-				},
-			},
-			id = 6763,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "zImpGun",
-		},
-		
+		}, 
+		[178] = 
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4657,7 +4363,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zRaven",
 		},
-		
+		[179] = 
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4681,7 +4387,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zRaven",
 		},
-		
+		[180] = 
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4705,7 +4411,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zRaven",
 		},
-		
+		[181] = 
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4729,7 +4435,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zRaven",
 		},
-		
+		[182] = 
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4753,79 +4459,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zRaven",
 		},
-		
-		{
-			activationtime = 0.5,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 130,
-					}, 
-					casttarget = 1,
-				},
-			},
-			id = 6652,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "zLeopard",
-		},
-		
-		{
-			activationtime = 0.5,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 400,
-					}, 
-					casttarget = 1,
-				},
-			},
-			id = 6654,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "zLeopard",
-		},
-		
-		{
-			activationtime = 0.5,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 130,
-					}, 
-					casttarget = 1,
-				},
-			},
-			id = 6655,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "zLeopard",
-		},
-		
+		[186] = 
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4849,7 +4483,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zBranch",
 		},
-		
+		[187] = 
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4873,7 +4507,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zBranch",
 		},
-		
+		[188] = 
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4897,104 +4531,9 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zBranch",
 		},
-		
-		{
-			activationtime = 0.5,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 425,
-					}, 
-					casttarget = 1,
-				},
-			},
-			id = 8721,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "zFlamethrower",
-		},
-		
-		{
-			activationtime = 0.5,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 125,
-					}, 
-					casttarget = 1,
-				},
-			},
-			id = 8761,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "zBird",
-		},
-		
-		{
-			activationtime = 0.5,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 130,
-					}, 
-					casttarget = 1,
-				},
-			},
-			id = 8762,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "zBird",
-		},
-		
-		{
-			activationtime = 0.5,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 125,
-					}, 
-					casttarget = 1,
-				},
-			},
-			id = 8764,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "zBird",
-		},
 	},
 	fightrangetype = 1,
+	networklatency = 0,
 	profession = 2,
 	version = 1,
 	weaponswapmode = 1,
