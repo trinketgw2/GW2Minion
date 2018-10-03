@@ -100,6 +100,7 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(1041,"DragonStand")
 		ml_mesh_mgr.SetDefaultMesh(1045,"TangledDepths")
 		ml_mesh_mgr.SetDefaultMesh(1155,"Lions Arch Aerodrome")
+		--ml_mesh_mgr.SetDefaultMesh(1154,"Special Forces Training Area")
 		
 		--LS3
 		ml_mesh_mgr.SetDefaultMesh(1165,"Bloodstone Fen")
@@ -185,15 +186,20 @@ RegisterEventHandler("RefreshBehaviorFiles", gw2minion.LoadBehaviorFiles)
 
 
 function gw2minion.DrawCall(event, ticks )
-	-- Check for player name change and queue the PlayerChanged event
+	-- Check for player name change and queue the gw2minion.PlayerChanged event
 	gw2minion.PlayerChanged()
+	-- Check for map change and queue the gw2minion.MapChanged event
 	gw2minion.MapChanged()
 	
 	-- Version check, this will popup a window informing about the "might work, but can crash or worse" after a MINOR game update and when the bot auto updated
 	if (not gw2minion.versionchecked) then
 		local v1,v2 = GetGameVersion()
 		if(v1 ~= v2) then
-			gw2_gui_manager.QueueMessage(gw2minion.DrawVersionChanged)
+			if(not gw2minion.versioncheckqueued) then
+				-- Only queue it once
+				gw2minion.versioncheckqueued = true
+				gw2_gui_manager.QueueMessage(gw2minion.DrawVersionChanged)
+			end
 		else
 			gw2minion.versionchecked = true
 		end			
@@ -254,7 +260,7 @@ function gw2minion.DrawVersionChanged()
 		end
 		GUI:EndPopup()
 	end
-	return gw2minion.versionchecked == false
+	return gw2minion.versionchecked ~= true
 end
 
 -- Queue an event when the player name changes
@@ -270,8 +276,11 @@ end
 gw2minion.e_currentmap = nil
 function gw2minion.MapChanged()
 	if(gw2minion.e_currentmap ~= ml_global_information.CurrentMapID) then
-		QueueEvent("gw2minion.MapChanged","")
-		gw2minion.e_currentmap = ml_global_information.CurrentMapID
+		local meshstate = NavigationManager:GetNavMeshState()
+		if(ml_global_information.CurrentMapID == nil or meshstate == GLOBAL.MESHSTATE.MESHREADY or meshstate == GLOBAL.MESHSTATE.MESHEMPTY) then
+			QueueEvent("gw2minion.MapChanged","")
+			gw2minion.e_currentmap = ml_global_information.CurrentMapID
+		end
 	end
 end
 
