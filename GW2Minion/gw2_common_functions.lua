@@ -882,7 +882,9 @@ function gw2_common_functions:DoCombatMovement(target)
 	
 	local fightdistance = ml_global_information.AttackRange or 154
 	
-	if (self.combatmovement.range and (target == nil or ( target.distance < fightdistance and target.los))) then d("CombatMovement: InRange, Stopping..") Player:StopMovement() self.combatmovement.range = false end  -- "range" is "moving into combat range"
+	
+
+	if (self.combatmovement.range and (target == nil or ( not target.isplayer and target.distance < fightdistance and target.los))) then d("CombatMovement: InRange, Stopping..") Player:StopMovement() self.combatmovement.range = false end  -- "range" is "moving into combat range"
 	
 	if ( table.valid(target) and target.distance <= fightdistance and target.alive and ml_global_information.Player_Alive and ml_global_information.Player_OnMesh) then -- and ml_global_information.Player_Health.percent < 99
 		local isimmobilized	= gw2_common_functions.BufflistHasBuffs(ml_global_information.Player_Buffs, ml_global_information.ImmobilizeConditions)
