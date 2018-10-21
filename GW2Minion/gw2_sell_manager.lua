@@ -626,7 +626,7 @@ function gw2_sell_manager.sellItems()
 	
 	if(not gw2_sell_manager.VendorSellHistroy.sellingjunk) then
 		gw2_sell_manager.VendorSellHistroy.sellingjunk = 0
-		d("Selling junk...")
+		d("[gw2_sell_manager]: Selling junk...")
 		Inventory:SellJunk()
 		return true
 	end
