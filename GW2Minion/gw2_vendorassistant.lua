@@ -103,7 +103,7 @@ end
 -- Sell items
 function gw2_vendorassistant.SellItems()
 	if((Settings.GW2Minion.autosell or gw2_vendorassistant.selling) and gw2_vendorassistant.vendoropen) then
-		local junkitems = Inventory("rarity="..GW2.ITEMRARITY.Junk)
+		local junkitems = Inventory("rarity="..GW2.ITEMRARITY.Junk..",exclude_contentid="..gw2_blacklistmanager.GetExcludeString(GetString("Sell items")))
 		if(gw2_sell_manager.haveItemToSell() or table.valid(junkitems)) then
 			if(gw2_common_functions.handleConversation("sell") == nil) then return end
 			

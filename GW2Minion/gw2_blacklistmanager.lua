@@ -222,7 +222,7 @@ gw2_blacklistmanager.temporaryVendorEntryDuration = 3600
 function gw2_blacklistmanager:DrawVendor()
 	GUI:Separator();
 	GUI:Text(GetString("Blacklist") .. " " .. self.name)
-	GUI:Text(GetString("These are temporary items. They will be removed when you change maps."))
+	GUI:TextWrapped(GetString("These are temporary items. They will be removed when you change maps."))
 	GUI:Separator();
 	
 	gw2_blacklistmanager.temporaryVendorEntryDuration = GUI:InputInt(GetString("Duration").." (s)", gw2_blacklistmanager.temporaryVendorEntryDuration)
@@ -351,7 +351,7 @@ function gw2_blacklistmanager:DrawInventory()
 	
 	GUI:Separator();
 	GUI:Text(GetString("Blacklist") .. " " .. self.name)
-	GUI:Text(GetString("Select an item in your inventory to blacklist from selling to vendors"))
+	GUI:TextWrapped(GetString("Select an item in your inventory to blacklist from selling to vendors"))
 	GUI:Separator();
 	
 	local useditems = {}
@@ -367,7 +367,7 @@ function gw2_blacklistmanager:DrawInventory()
 
 		local IList = Inventory("")
 		
-
+		gw2_blacklistmanager.inventoryList = {}
 		if(table.valid(IList)) then
 			local i = 1
 			for _,item in pairs(IList) do	
@@ -420,7 +420,7 @@ function gw2_blacklistmanager:DrawInventory()
 	
 	GUI:Spacing(4);
 	GUI:Columns(4, "##listdetail-view", true)
-	GUI:SetColumnOffset(1,100); GUI:SetColumnOffset(2,160); GUI:SetColumnOffset(3,260); GUI:SetColumnOffset(4,360);
+	GUI:SetColumnOffset(1,200); GUI:SetColumnOffset(2,260); GUI:SetColumnOffset(3,360); GUI:SetColumnOffset(4,460);
 	GUI:Text(GetString("Name")); GUI:NextColumn();
 	GUI:Text(GetString("Item ID")); GUI:NextColumn();
 	GUI:Text(GetString("Duration")); GUI:NextColumn(); GUI:NextColumn();
@@ -428,12 +428,33 @@ function gw2_blacklistmanager:DrawInventory()
 	
 	local entries = self.entries
 	if (table.valid(entries)) then
+	
+		local sortedentires = {}
 		for i, entry in pairs(entries) do
+			table.insert(sortedentires, {index = i, name = entry.name})
+		end
+		table.sort(sortedentires, function(a,b) return a.name < b.name end)
+		
+		for i, sortedentry in pairs(sortedentires) do
+			local entry = entries[sortedentry.index]
 			GUI:Text(entry.name); GUI:NextColumn();
 			GUI:Text(entry.id); GUI:NextColumn();
-			GUI:Text(tostring(entry.expiration)); GUI:NextColumn();
+			
+			local expiration = tonumber(entry.expiration)
+			if(type(expiration) ~= "number") then
+				expiration = 0
+			end
+			
+			if(expiration > 0) then
+				expiration = math.round((expiration-ml_global_information.Now)/1000,0)
+				
+				expiration = expiration .. "s"
+			end
+			
+			
+			GUI:Text(tostring(expiration)); GUI:NextColumn();
 			if (GUI:Button(GetString("Delete").."##"..i)) then
-				self:DeleteEntry(i);
+				self:DeleteEntry(sortedentry.index);
 				gw2_blacklistmanager.inventoryLastCheck = 0
 			end
 			GUI:NextColumn();

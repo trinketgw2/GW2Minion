@@ -571,12 +571,12 @@ function gw2_sell_manager.sellAtVendor(vendor)
 		end
 		
 		if(gw2_sell_manager.VendorSellHistroy.interactcount > 15) then
-			d("Vendor blacklisted: Tried interacting multiple times.")
+			d("[gw2_sell_manager]: Vendor blacklisted: Tried interacting multiple times.")
 			gw2_blacklistmanager.AddBlacklistEntry(GetString("Vendor sell"), vendor.id, vendor.name, true)			
 		end
 		
 		if (Inventory:IsVendorOpened() == false and Player:IsConversationOpen() == false) then
-			d("Opening Vendor... ")
+			d("[gw2_sell_manager]: Opening Vendor... ")
 			Player:Interact(vendor.id)
 			gw2_sell_manager.VendorSellHistroy.interactcount = gw2_sell_manager.VendorSellHistroy.interactcount + 1
 			ml_global_information.Wait(1500)
@@ -584,7 +584,7 @@ function gw2_sell_manager.sellAtVendor(vendor)
 		else
 			local result = gw2_common_functions.handleConversation("sell")
 			if (result == false) then
-				d("Vendor blacklisted: Could not handle conversation.")
+				d("[gw2_sell_manager]: Vendor blacklisted: Could not handle conversation.")
 				gw2_blacklistmanager.AddBlacklistEntry(GetString("Vendor sell"), vendor.id, vendor.name, true)
 				return false
 			elseif (result == nil) then
@@ -607,7 +607,7 @@ function gw2_sell_manager.sellItems()
 	if ( table.valid(iList) ) then
 		if ( slowdown == 0 ) then
 			for _,item in pairs(iList) do
-				d("Selling: "..item.name)
+				d("[gw2_sell_manager]: Selling: "..item.name)
 				item:Sell()
 				local uniqueItemID = item.itemid .. item.slot
 				if (not gw2_sell_manager.VendorSellHistroy[uniqueItemID]) then
@@ -615,7 +615,7 @@ function gw2_sell_manager.sellItems()
 				elseif (gw2_sell_manager.VendorSellHistroy[uniqueItemID] < 5) then
 					gw2_sell_manager.VendorSellHistroy[uniqueItemID] = gw2_sell_manager.VendorSellHistroy[uniqueItemID] + 1
 				else
-					d("Could not sell "..item.name..", blacklisting it")
+					d("[gw2_sell_manager]: Could not sell "..item.name..", blacklisting it")
 					gw2_blacklistmanager.AddBlacklistEntry(GetString("Sell items"), item.itemID, item.name, true)
 				end
 				return true
@@ -624,18 +624,39 @@ function gw2_sell_manager.sellItems()
 		return true
 	end
 	
-	d("Selling junk...")
-	Inventory:SellJunk()
+	if(not gw2_sell_manager.VendorSellHistroy.sellingjunk) then
+		gw2_sell_manager.VendorSellHistroy.sellingjunk = 0
+		d("Selling junk...")
+		Inventory:SellJunk()
+		return true
+	end
+	
+	if(gw2_sell_manager.VendorSellHistroy.sellingjunk) then
+		-- Throttle it a little bit
+		if(gw2_sell_manager.VendorSellHistroy.sellingjunk > 1) then
+			local junkitems = Inventory("rarity="..GW2.ITEMRARITY.Junk..",exclude_contentid="..gw2_blacklistmanager.GetExcludeString(GetString("Sell items")))
+			if(table.valid(junkitems)) then
+				d("[gw2_sell_manager]: There were junk items left over from last tick. Blacklisting them.")
+				for _,item in pairs(junkitems) do
+					d("[gw2_sell_manager]: Junk item "..item.name..", blacklisting it for 15 minutes")
+					gw2_blacklistmanager.AddBlacklistEntry(GetString("Sell items"), item.itemID, item.name or "junk item", 15*60*1000)				
+				end
+			end
+		else
+			gw2_sell_manager.VendorSellHistroy.sellingjunk = gw2_sell_manager.VendorSellHistroy.sellingjunk + 1
+			return true
+		end
+	end
 	
 	-- No more items to sell
-	d("Selling finished...")
+	d("[gw2_sell_manager]: Selling finished...")
 	gw2_sell_manager.VendorSellHistroy = {}
 	gw2_sell_manager.VendorSellHistroy.interactcount = 0
 end
 
 --needtosell.
 function gw2_sell_manager.needToSell(nearby)
-	local junkitems = Inventory("rarity="..GW2.ITEMRARITY.Junk)
+	local junkitems = Inventory("rarity="..GW2.ITEMRARITY.Junk..",exclude_contentid="..gw2_blacklistmanager.GetExcludeString(GetString("Sell items")))
 	local selljunk = table.size(junkitems) > 3 or (table.valid(junkitems) and ((ml_global_information.Player_Inventory_SlotsFree*100)/Inventory.slotcount) < 15)
 	
 	if (table.valid(gw2_sell_manager.createItemList()) or selljunk) then
