@@ -196,8 +196,9 @@ function gw2_unstuck.HandleOffMesh()
 	local ppos = Player.pos	
 	local maxwptrycount = 10
 	
-	d("[Unstuck]: Player not on mesh at (X: "..tostring(math.round(ppos.x,1)).." Y: "..tostring(math.round(ppos.y,1)).." Z: "..tostring(math.round(ppos.z,1)).." MAPID: "..tostring( ml_global_information.CurrentMapID).." - ("..tostring(math.round(offmeshtime / 1000)).."s)")
-
+	d("[Unstuck]: Player not on mesh for "..tostring(math.round(offmeshtime / 1000)).."s")
+	gw2_unstuck.PrintLocation(ppos)
+	
 	if(offmeshtime > 2000 and (gw2_unstuck.pvpmatch == false or offmeshtime < 15000) ) then
 		local p = NavigationManager:GetClosestPointOnMesh(ppos)
 		if(table.valid(p) and p.distance > 0 and p.distance < 500) then
@@ -258,8 +259,9 @@ function gw2_unstuck.HandleStuck_MovedDistanceCheck()
 
 		if(gw2_unstuck.distmoved < threshold) then
 			gw2_unstuck.lastaction = nil
-			if(gw2_unstuck.stuckcount >= mincount) then
+			if(gw2_unstuck.stuckcount >= mincount) then			
 				d(string.format("[Unstuck]: Distance moved: %s. Threshold: %s. Stuckcount: %s.", math.floor(gw2_unstuck.distmoved), math.floor(threshold), gw2_unstuck.stuckcount))
+				gw2_unstuck.PrintLocation(ppos)
 			end
 			gw2_unstuck.stuckcount = gw2_unstuck.stuckcount + 1
 
@@ -470,6 +472,7 @@ function gw2_unstuck.HandleStuckEntry(entry)
 		if(gw2_unstuck.pvpmatch and entry.stuckcount > 15) then
 			d("[Unstuck]: We are in a PVP Match and can't really do much more then we already have.")
 			d("[Unstuck]: Waiting to die or disconnect.")
+			gw2_unstuck.PrintLocation()
 			gw2_obstacle_manager.AddAvoidanceArea({pos = Player.pos, radius = 50})
 			status = gw2_unstuck.statuscodes.PVP_MATCH
 		elseif(entry.stuckcount > 25) then
@@ -645,6 +648,18 @@ function gw2_unstuck.ActiveThreshold()
 	end
 	
 	return threshold
+end
+
+function gw2_unstuck.PrintLocation(ppos)
+	ppos = table.valid(ppos) and ppos or Player.pos
+	
+	if(table.valid(ppos)) then
+		local mapid = Player:GetLocalMapID() or 0
+		local mapname = gw2_datamanager.GetMapName(mapid)
+		
+		d("[Unstuck]: Current map: ".. string.format("%s (%s)", mapname, mapid))
+		d("[Unstuck]: Current position: ".. string.format("{x=%s;y=%s;z=%s;}", math.round(ppos.x,2), math.round(ppos.y,2), math.round(ppos.z,2)))
+	end
 end
 
 -- Stuck handlers for reuse
@@ -840,6 +855,7 @@ end
 
 function gw2_unstuck.stuckhandlers.stop()
 	d("[Unstuck]: Stopping the bot.")
+	gw2_unstuck.PrintLocation()
 	Player:StopMovement()
 	ml_global_information.Stop()
 	BehaviorManager:Stop()
