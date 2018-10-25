@@ -35,9 +35,9 @@ gw2_combatdata.buffLog				= { -- WIP.
 	boon = {
 		[743]		= "Aegis",
 		[17675]		= "Aegis",
-		[9286]		= "Blooslust",
-		[9285]		= "Blooslust",
-		[9281]		= "Blooslust",
+		[9286]		= "Bloodlust",
+		[9285]		= "Bloodlust",
+		[9281]		= "Bloodlust",
 		[725]		= "Fury",
 		[740]		= "Might",
 		[717]		= "Protection",
@@ -70,8 +70,9 @@ gw2_combatdata.buffLog				= { -- WIP.
 
 
 function gw2_combatdata.Init()
-	
-	Settings.gw2_combatdata.active2 = Settings.gw2_combatdata.active2 or true
+	if(Settings.gw2_combatdata.active2 == nil) then
+		Settings.gw2_combatdata.active2 = true
+	end
 	gw2_combatdata.active2 = Settings.gw2_combatdata.active2
 	
 	Settings.gw2_combatdata.columns = Settings.gw2_combatdata.columns or {
