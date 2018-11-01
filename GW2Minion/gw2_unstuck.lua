@@ -145,6 +145,12 @@ function gw2_unstuck.HandleStuck()
 		return gw2_unstuck.lastresult
 	end
 	
+	if(SkillManager:SkillStopsMovement()) then
+		d("[Unstuck]: A skill is preventing movement.")
+		gw2_unstuck.lastresult = true
+		return gw2_unstuck.lastresult	
+	end
+	
 	-- Waiting to use a waypoint
 	if(gw2_unstuck.Handle_Waypoint_Usage()) then
 		gw2_unstuck.lastresult = true
