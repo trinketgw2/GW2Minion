@@ -630,5 +630,5 @@ function Player:StopMovement()
 	gw2_unstuck.SoftReset()
 	Player:Stop()
 	NavigationManager:ResetPath()	
-	gw2_common_functions:StopCombatMovement()
+	gw2_combat_movement:StopCombatMovement()
 end
