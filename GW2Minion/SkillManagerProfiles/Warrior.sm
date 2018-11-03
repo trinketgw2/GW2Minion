@@ -4339,7 +4339,7 @@ local tbl =
 			setsattackrange = false,
 			skillpaletteuid = "Warrior",
 		}, 
-		[178] = 
+ 
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4363,7 +4363,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zRaven",
 		},
-		[179] = 
+
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4387,7 +4387,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zRaven",
 		},
-		[180] = 
+
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4411,7 +4411,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zRaven",
 		},
-		[181] = 
+
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4435,7 +4435,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zRaven",
 		},
-		[182] = 
+
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4459,7 +4459,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zRaven",
 		},
-		[186] = 
+
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4483,7 +4483,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zBranch",
 		},
-		[187] = 
+
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4507,7 +4507,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zBranch",
 		},
-		[188] = 
+
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
