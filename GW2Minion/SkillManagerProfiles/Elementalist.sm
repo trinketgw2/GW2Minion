@@ -4252,8 +4252,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "zFlame Axe",
-		},
-		[179] = 
+		}, 
 		{
 			activationtime = 0.75,
 			condition_luacode = "return true",
@@ -4277,7 +4276,6 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zLightning Hammer",
 		},
-		[180] = 
 		{
 			activationtime = 1.25,
 			condition_luacode = "return true",
@@ -4301,7 +4299,6 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zLightning Hammer",
 		},
-		[181] = 
 		{
 			activationtime = 1,
 			condition_luacode = "return true",
@@ -4324,8 +4321,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "zLightning Hammer",
-		},
-		[182] = 
+		}, 
 		{
 			activationtime = 0.75,
 			condition_luacode = "return true",
@@ -4349,7 +4345,6 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zLightning Hammer",
 		},
-		[183] = 
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
@@ -4421,7 +4416,6 @@ local tbl =
 			},
 			skillpaletteuid = "zLightning Hammer",
 		},
-		[184] = 
 		{
 			activationtime = 3,
 			condition_luacode = "return true",
@@ -4446,7 +4440,6 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zEarth Shield",
 		},
-		[185] = 
 		{
 			activationtime = 1.5,
 			condition_luacode = "return true",
@@ -4470,7 +4463,6 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zEarth Shield",
 		},
-		[186] = 
 		{
 			activationtime = 0.75,
 			condition_luacode = "return true",
@@ -4494,7 +4486,6 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zEarth Shield",
 		},
-		[187] = 
 		{
 			activationtime = 2.25,
 			condition_luacode = "return true",
@@ -4519,7 +4510,6 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "zEarth Shield",
 		},
-		[188] = 
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
