@@ -94,9 +94,11 @@ local tbl =
 				},
 			},
 			id = 5857,
+			instantcast = false,
 			requireslos = true,
 			setsattackrange = false,
 			skillpaletteuid = "Engineer",
+			stopsmovement = false,
 		},
 		
 		{
@@ -505,6 +507,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "zFlamethrower",
+			stopsmovement = false,
 		},
 		
 		{
@@ -817,16 +820,25 @@ local tbl =
 					{
 						operator = 1,
 						target = 1,
-						uid = "Distance",
-						value = 1500,
+						uid = "Aggro",
+					},
+					
+					{
+						healthtype = 3,
+						operator = 1,
+						target = 2,
+						uid = "Health",
+						value = 60,
 					}, 
-					casttarget = 1,
+					casttarget = 2,
 				},
 			},
 			id = 30032,
+			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Engi_MortarKit",
+			stopsmovement = false,
 		},
 		
 		{
@@ -1008,9 +1020,11 @@ local tbl =
 				},
 			},
 			id = 42521,
+			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Photon Forge",
+			stopsmovement = true,
 		},
 		
 		{
@@ -1077,9 +1091,11 @@ local tbl =
 				},
 			},
 			id = 30665,
+			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Engi_Hammer",
+			stopsmovement = true,
 		},
 		
 		{
@@ -1133,6 +1149,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Engi_Hammer",
+			stopsmovement = true,
 		},
 		
 		{
@@ -1924,9 +1941,11 @@ local tbl =
 				},
 			},
 			id = 5978,
+			instantcast = false,
 			requireslos = true,
 			setsattackrange = false,
 			skillpaletteuid = "Engineer",
+			stopsmovement = false,
 		},
 		
 		{
@@ -2101,9 +2120,11 @@ local tbl =
 				},
 			},
 			id = 5860,
+			instantcast = false,
 			requireslos = true,
 			setsattackrange = false,
 			skillpaletteuid = "Engineer",
+			stopsmovement = false,
 		},
 		
 		{
@@ -2194,6 +2215,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = false,
 			skillpaletteuid = "Engineer",
+			stopsmovement = false,
 		},
 		
 		{
@@ -3893,7 +3915,7 @@ local tbl =
 			skillpaletteuid = "Engi_Sword",
 		},
 	},
-	botmainmenu_luacode = "GUI:Separator()\nif ( not context.lockedtargetid ) then\n\t\tlocal target = Player:GetTarget()\n\t\tif ( target and target.attackable ) then\t\t\n\t\t\t\tif(GUI:Button(\"Lock : \"..target.name)) then\n\t\t\t\t\t\t\tcontext.lockedtargetid = target.id\n\t\t\t\t\t\t\tcontext.lockedtargetname = target.name\n\t\t\t\tend\n\t\telse\n\t\t\t\tGUI:Button(\"Lock Target: Select a valid Target\")\n\t\tend\n\nelse\n\t\tlocal validtarget = CharacterList:Get(context.lockedtargetid)\n\t\tif (validtarget) then\n\t\t\t\tPlayer:SetTarget(\tcontext.lockedtargetid )\n\t\t\t\tcontext.attack_target = validtarget\n\t\t\t\tcontext.attack_targetid\t= context.lockedtargetid\n\t\tend\n\t\tif( GUI:Button(\"UnLock: \"..context.lockedtargetname)) then\n\t\t\t\tcontext.lockedtargetid = nil\t\t\t\t\n\t\tend\nend\nGUI:Separator()\n\n\n\n",
+	botmainmenu_luacode = "if(context) then\n\t\tGUI:Separator()\n\t\tif ( not context.lockedtargetid ) then\n\t\t\t\tlocal target = Player:GetTarget()\n\t\t\t\tif ( target and target.attackable ) then\t\t\n\t\t\t\t\t\tif(GUI:Button(\"Lock : \"..target.name)) then\n\t\t\t\t\t\t\t\t\tcontext.lockedtargetid = target.id\n\t\t\t\t\t\t\t\t\tcontext.lockedtargetname = target.name\n\t\t\t\t\t\tend\n\t\t\t\telse\n\t\t\t\t\t\tGUI:Button(\"Lock Target: Select a valid Target\")\n\t\t\t\tend\n\n\t\telse\n\t\t\t\tlocal validtarget = CharacterList:Get(context.lockedtargetid)\n\t\t\t\tif (validtarget) then\n\t\t\t\t\t\tPlayer:SetTarget(\tcontext.lockedtargetid )\n\t\t\t\t\t\tcontext.attack_target = validtarget\n\t\t\t\t\t\tcontext.attack_targetid\t= context.lockedtargetid\n\t\t\t\tend\n\t\t\t\tif( GUI:Button(\"UnLock: \"..context.lockedtargetname)) then\n\t\t\t\t\t\tcontext.lockedtargetid = nil\t\t\t\t\n\t\t\t\tend\n\t\tend\n\t\tGUI:Separator()\nend\n\n",
 	fightrangetype = 1,
 	networklatency = 0,
 	profession = 3,

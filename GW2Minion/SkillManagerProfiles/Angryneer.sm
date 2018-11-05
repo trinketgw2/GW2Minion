@@ -158,17 +158,17 @@ local tbl =
 				{
 					
 					{
+						operator = 2,
+						target = 1,
+						uid = "CombatState",
+					},
+					
+					{
 						healthtype = 3,
 						operator = 3,
 						target = 2,
 						uid = "Health",
 						value = 100,
-					},
-					
-					{
-						operator = 2,
-						target = 1,
-						uid = "CombatState",
 					}, 
 					casttarget = 2,
 				},
@@ -285,16 +285,16 @@ local tbl =
 				{
 					
 					{
+						operator = 2,
+						target = 1,
+						uid = "Movement",
+					},
+					
+					{
 						operator = 1,
 						target = 1,
 						uid = "Distance",
 						value = 900,
-					},
-					
-					{
-						operator = 2,
-						target = 1,
-						uid = "Movement",
 					}, 
 					casttarget = 1,
 				},
@@ -387,11 +387,10 @@ local tbl =
 				{
 					
 					{
-						healthtype = 3,
-						operator = 4,
+						operator = 1,
 						target = 1,
-						uid = "Health",
-						value = 25,
+						uid = "Distance",
+						value = 600,
 					},
 					
 					{
@@ -403,10 +402,11 @@ local tbl =
 					},
 					
 					{
-						operator = 1,
+						healthtype = 3,
+						operator = 4,
 						target = 1,
-						uid = "Distance",
-						value = 600,
+						uid = "Health",
+						value = 25,
 					}, 
 					casttarget = 1,
 				},
@@ -476,6 +476,7 @@ local tbl =
 				skillpaletteuid = "Engi_Hammer",
 			},
 			skillpaletteuid = "Engi_Hammer",
+			stopsmovement = true,
 		},
 		
 		{
@@ -487,17 +488,17 @@ local tbl =
 				{
 					
 					{
-						operator = 1,
-						target = 1,
-						uid = "CombatState",
-					},
-					
-					{
 						healthtype = 3,
 						operator = 1,
 						target = 2,
 						uid = "Health",
 						value = 95,
+					},
+					
+					{
+						operator = 1,
+						target = 1,
+						uid = "CombatState",
 					}, 
 					casttarget = 2,
 				},
@@ -505,17 +506,17 @@ local tbl =
 				{
 					
 					{
-						operator = 1,
-						target = 1,
-						uid = "CombatState",
-					},
-					
-					{
 						healthtype = 3,
 						operator = 5,
 						target = 1,
 						uid = "Health",
 						value = 25,
+					},
+					
+					{
+						operator = 1,
+						target = 1,
+						uid = "CombatState",
 					}, 
 					casttarget = 1,
 				},
@@ -628,14 +629,14 @@ local tbl =
 					
 					{
 						operator = 1,
-						target = 1,
-						uid = "CombatState",
+						target = 2,
+						uid = "Movement",
 					},
 					
 					{
 						operator = 1,
-						target = 2,
-						uid = "Movement",
+						target = 1,
+						uid = "CombatState",
 					}, 
 					casttarget = 1,
 				},
@@ -678,16 +679,16 @@ local tbl =
 				{
 					
 					{
+						operator = 2,
+						target = 1,
+						uid = "Movement",
+					},
+					
+					{
 						operator = 1,
 						target = 1,
 						uid = "Distance",
 						value = 500,
-					},
-					
-					{
-						operator = 2,
-						target = 1,
-						uid = "Movement",
 					}, 
 					casttarget = 1,
 				},
@@ -784,6 +785,7 @@ local tbl =
 			setsattackrange = false,
 			skillpaletteuid = "Engineer",
 		},
+		
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",

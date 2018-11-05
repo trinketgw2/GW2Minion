@@ -187,17 +187,17 @@ local tbl =
 				{
 					
 					{
+						operator = 1,
+						target = 1,
+						uid = "CombatState",
+					},
+					
+					{
 						healthtype = 3,
 						operator = 1,
 						target = 2,
 						uid = "Health",
 						value = 75,
-					},
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "CombatState",
 					}, 
 					casttarget = 2,
 				},
@@ -218,17 +218,17 @@ local tbl =
 				{
 					
 					{
+						operator = 1,
+						target = 1,
+						uid = "CombatState",
+					},
+					
+					{
 						healthtype = 3,
 						operator = 1,
 						target = 2,
 						uid = "Health",
 						value = 75,
-					},
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "CombatState",
 					}, 
 					casttarget = 2,
 				},
@@ -261,6 +261,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Guardian_Shield",
+			stopsmovement = true,
 		},
 		
 		{
@@ -272,17 +273,17 @@ local tbl =
 				{
 					
 					{
+						operator = 1,
+						target = 1,
+						uid = "CombatState",
+					},
+					
+					{
 						healthtype = 3,
 						operator = 1,
 						target = 1,
 						uid = "Health",
 						value = 75,
-					},
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "CombatState",
 					}, 
 					casttarget = 2,
 				},
@@ -292,6 +293,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Guardian_Shield",
+			stopsmovement = true,
 		},
 		
 		{
@@ -328,17 +330,17 @@ local tbl =
 				{
 					
 					{
+						operator = 1,
+						target = 1,
+						uid = "CombatState",
+					},
+					
+					{
 						bufftype = 2,
 						operator = 4,
 						target = 2,
 						uid = "Buffs (Count)",
 						value = 2,
-					},
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "CombatState",
 					}, 
 					casttarget = 1,
 				},
@@ -359,17 +361,17 @@ local tbl =
 				{
 					
 					{
+						operator = 1,
+						target = 1,
+						uid = "CombatState",
+					},
+					
+					{
 						bufftype = 2,
 						operator = 4,
 						target = 2,
 						uid = "Buffs (Count)",
 						value = 2,
-					},
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "CombatState",
 					}, 
 					casttarget = 2,
 				},
@@ -410,6 +412,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Guardian_Tome_of_Resolve",
+			stopsmovement = false,
 		},
 		
 		{
@@ -514,17 +517,17 @@ local tbl =
 				{
 					
 					{
+						operator = 1,
+						target = 1,
+						uid = "CombatState",
+					},
+					
+					{
 						bufftype = 2,
 						operator = 4,
 						target = 2,
 						uid = "Buffs (Count)",
 						value = 2,
-					},
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "CombatState",
 					}, 
 					casttarget = 2,
 				},
@@ -545,17 +548,17 @@ local tbl =
 				{
 					
 					{
+						operator = 1,
+						target = 1,
+						uid = "CombatState",
+					},
+					
+					{
 						healthtype = 3,
 						operator = 1,
 						target = 1,
 						uid = "Health",
 						value = 75,
-					},
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "CombatState",
 					}, 
 					casttarget = 2,
 				},
@@ -565,6 +568,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = false,
 			skillpaletteuid = "Guardian",
+			stopsmovement = true,
 		},
 		
 		{
@@ -651,14 +655,14 @@ local tbl =
 					
 					{
 						operator = 1,
-						target = 3,
-						uid = "Downed",
+						target = 1,
+						uid = "CombatState",
 					},
 					
 					{
 						operator = 1,
-						target = 1,
-						uid = "CombatState",
+						target = 3,
+						uid = "Downed",
 					}, 
 					casttarget = 3,
 				},
@@ -758,14 +762,14 @@ local tbl =
 					{
 						operator = 1,
 						target = 1,
-						uid = "Distance",
-						value = 300,
+						uid = "CombatState",
 					},
 					
 					{
 						operator = 1,
 						target = 1,
-						uid = "CombatState",
+						uid = "Distance",
+						value = 300,
 					}, 
 					casttarget = 2,
 				},
@@ -786,16 +790,16 @@ local tbl =
 				{
 					
 					{
+						operator = 2,
+						target = 1,
+						uid = "CombatState",
+					},
+					
+					{
 						operator = 1,
 						target = 1,
 						uid = "Distance",
 						value = 300,
-					},
-					
-					{
-						operator = 2,
-						target = 1,
-						uid = "CombatState",
 					}, 
 					casttarget = 2,
 				},
@@ -818,14 +822,14 @@ local tbl =
 					{
 						operator = 1,
 						target = 1,
-						uid = "Distance",
-						value = 800,
+						uid = "CombatState",
 					},
 					
 					{
 						operator = 1,
 						target = 1,
-						uid = "CombatState",
+						uid = "Distance",
+						value = 800,
 					}, 
 					casttarget = 2,
 				},
@@ -971,14 +975,14 @@ local tbl =
 					{
 						operator = 1,
 						target = 1,
-						uid = "Distance",
-						value = 240,
+						uid = "CombatState",
 					},
 					
 					{
 						operator = 1,
 						target = 1,
-						uid = "CombatState",
+						uid = "Distance",
+						value = 240,
 					}, 
 					casttarget = 1,
 				},
@@ -1036,6 +1040,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Guardian_Axe",
+			stopsmovement = true,
 		},
 		
 		{
@@ -1127,14 +1132,14 @@ local tbl =
 					{
 						operator = 1,
 						target = 1,
-						uid = "Distance",
-						value = 900,
+						uid = "CombatState",
 					},
 					
 					{
 						operator = 1,
 						target = 1,
-						uid = "CombatState",
+						uid = "Distance",
+						value = 900,
 					}, 
 					casttarget = 2,
 				},
@@ -1187,14 +1192,14 @@ local tbl =
 					{
 						operator = 1,
 						target = 1,
-						uid = "Distance",
-						value = 300,
+						uid = "CombatState",
 					},
 					
 					{
 						operator = 1,
 						target = 1,
-						uid = "CombatState",
+						uid = "Distance",
+						value = 300,
 					}, 
 					casttarget = 2,
 				},
@@ -1247,14 +1252,14 @@ local tbl =
 					{
 						operator = 1,
 						target = 1,
-						uid = "Distance",
-						value = 180,
+						uid = "CombatState",
 					},
 					
 					{
 						operator = 1,
 						target = 1,
-						uid = "CombatState",
+						uid = "Distance",
+						value = 180,
 					}, 
 					casttarget = 2,
 				},
@@ -1307,14 +1312,14 @@ local tbl =
 					{
 						operator = 1,
 						target = 1,
-						uid = "Distance",
-						value = 180,
+						uid = "CombatState",
 					},
 					
 					{
 						operator = 1,
 						target = 1,
-						uid = "CombatState",
+						uid = "Distance",
+						value = 180,
 					}, 
 					casttarget = 2,
 				},
@@ -1425,6 +1430,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Guardian_Longbow",
+			stopsmovement = true,
 		},
 		
 		{
@@ -1662,6 +1668,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Guardian_Mace",
+			stopsmovement = true,
 		},
 		
 		{
@@ -1900,6 +1907,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Guardian_Hammer",
+			stopsmovement = true,
 		},
 		
 		{
@@ -1948,6 +1956,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Guardian_Hammer",
+			stopsmovement = true,
 		},
 		
 		{
@@ -2067,6 +2076,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Guardian_Staff",
+			stopsmovement = true,
 		},
 		
 		{
@@ -2264,6 +2274,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Guardian_GreatSword",
+			stopsmovement = true,
 		},
 		
 		{
@@ -2535,14 +2546,14 @@ local tbl =
 					{
 						operator = 1,
 						target = 1,
-						uid = "Distance",
-						value = 300,
+						uid = "CombatState",
 					},
 					
 					{
 						operator = 1,
 						target = 1,
-						uid = "CombatState",
+						uid = "Distance",
+						value = 300,
 					}, 
 					casttarget = 2,
 				},
@@ -2565,14 +2576,14 @@ local tbl =
 					{
 						operator = 1,
 						target = 1,
-						uid = "Distance",
-						value = 1200,
+						uid = "CombatState",
 					},
 					
 					{
 						operator = 1,
 						target = 1,
-						uid = "CombatState",
+						uid = "Distance",
+						value = 1200,
 					}, 
 					casttarget = 2,
 				},
@@ -2595,14 +2606,14 @@ local tbl =
 					{
 						operator = 1,
 						target = 1,
-						uid = "Distance",
-						value = 1200,
+						uid = "CombatState",
 					},
 					
 					{
 						operator = 1,
 						target = 1,
-						uid = "CombatState",
+						uid = "Distance",
+						value = 1200,
 					}, 
 					casttarget = 2,
 				},
@@ -2793,14 +2804,14 @@ local tbl =
 					{
 						operator = 1,
 						target = 1,
-						uid = "Distance",
-						value = 1200,
+						uid = "CombatState",
 					},
 					
 					{
 						operator = 1,
 						target = 1,
-						uid = "CombatState",
+						uid = "Distance",
+						value = 1200,
 					}, 
 					casttarget = 2,
 				},
@@ -2853,14 +2864,14 @@ local tbl =
 					{
 						operator = 1,
 						target = 1,
-						uid = "Distance",
-						value = 1200,
+						uid = "CombatState",
 					},
 					
 					{
 						operator = 1,
 						target = 1,
-						uid = "CombatState",
+						uid = "Distance",
+						value = 1200,
 					}, 
 					casttarget = 2,
 				},
@@ -3689,7 +3700,7 @@ local tbl =
 			setsattackrange = false,
 			skillpaletteuid = "Guardian",
 		},
-
+		
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
