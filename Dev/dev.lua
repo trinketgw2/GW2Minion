@@ -1416,6 +1416,19 @@ function dev.DrawGadgetDetails(c)
 	GUI:BulletText("IsCombatant") GUI:SameLine(200) GUI:InputText("##devg29", tostring(c.iscombatant),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 	GUI:BulletText("IsOurs") GUI:SameLine(200) GUI:InputText("##devg30", tostring(c.isours),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 	GUI:BulletText("IsTurret") GUI:SameLine(200) GUI:InputText("##devg45", tostring(c.isturret),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+	
+	local castinfo = c.castinfo
+	if ( table.size(castinfo) > 0 ) then
+		GUI:BulletText("AttackedTargetPtr") GUI:SameLine(200) GUI:InputText("##devg24",tostring(string.format( "%X",castinfo.ptr)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("AttackedTargetID") GUI:SameLine(200) GUI:InputText("##devg25", tostring(castinfo.targetid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("Current Skill ID") GUI:SameLine(200) GUI:InputText("##dev2g6", tostring(castinfo.skillid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("Last Skill ID") GUI:SameLine(200) GUI:InputText("##devg27", tostring(castinfo.lastskillid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("Skill Slot") GUI:SameLine(200) GUI:InputText("##dev28g", tostring(castinfo.slot),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("Skill Duration") GUI:SameLine(200) GUI:InputText("##dev2g9", tostring(castinfo.duration),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+	else
+		GUI:BulletText("castinfo MISSING!")
+	end
+	
 	-- Unknown0: 
 	GUI:BulletText("Unknown0") GUI:SameLine(200) GUI:InputText("##devg31", tostring(c.isunknown0),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 	-- Unknown1: 
