@@ -990,6 +990,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Mesmer_sword_mh",
+			stopsmovement = true,
 		},
 		
 		{
@@ -1594,6 +1595,7 @@ local tbl =
 			requireslos = true,
 			setsattackrange = true,
 			skillpaletteuid = "Mesmer_sword_ambush_mh",
+			stopsmovement = true,
 		},
 		
 		{
@@ -3339,7 +3341,7 @@ local tbl =
 			setsattackrange = true,
 			skillpaletteuid = "Mesmer_axe_ambush",
 		},
-
+		
 		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
