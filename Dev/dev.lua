@@ -1419,7 +1419,7 @@ function dev.DrawGadgetDetails(c)
 	
 	local castinfo = c.castinfo
 	if ( table.size(castinfo) > 0 ) then
-		GUI:BulletText("AttackedTargetPtr") GUI:SameLine(200) GUI:InputText("##devg24",tostring(string.format( "%X",castinfo.ptr)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("AttackedTargetPtr") GUI:SameLine(200) GUI:InputText("##devg254",tostring(string.format( "%X",castinfo.ptr)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 		GUI:BulletText("AttackedTargetID") GUI:SameLine(200) GUI:InputText("##devg25", tostring(castinfo.targetid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 		GUI:BulletText("Current Skill ID") GUI:SameLine(200) GUI:InputText("##dev2g6", tostring(castinfo.skillid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 		GUI:BulletText("Last Skill ID") GUI:SameLine(200) GUI:InputText("##devg27", tostring(castinfo.lastskillid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
@@ -1442,7 +1442,7 @@ function dev.DrawGadgetDetails(c)
 	-- Unknown5: 
 	GUI:BulletText("Unknown5") GUI:SameLine(200) GUI:InputText("##devg36", tostring(c.isunknown5),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 	-- Unknown6: Set/Script ID. This seems to link gadgets that perform the same action.
-	GUI:BulletText("Unknown6") GUI:SameLine(200) GUI:InputText("##devg37", tostring(c.isunknown6),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+	GUI:BulletText("Level") GUI:SameLine(200) GUI:InputText("##devg37", tostring(c.isunknown6),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 	-- Unknown7: 
 	GUI:BulletText("Unknown7") GUI:SameLine(200) GUI:InputText("##devg38", tostring(c.isunknown7),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 	-- Unknown8: 
