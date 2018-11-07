@@ -547,7 +547,7 @@ end
 function gw2_unstuck.GetStuckEntry(pos)
 	if(table.valid(gw2_unstuck.stuckhistory)) then
 		for k,stuckentry in pairs(gw2_unstuck.stuckhistory) do
-			if(math.distance3d(pos,stuckentry.pos) < 40) then
+			if(stuckentry.mapid == ml_global_information.CurrentMapID and math.distance3d(pos,stuckentry.pos) < 40) then
 				return k,stuckentry
 			end
 		end

@@ -183,36 +183,36 @@ end
 
 -- Draw selected target info.
 function gw2_combatdata.DrawSelectedTargetInfo(ticks)
-	if (table.valid(gw2_combatdata.selectedTargetData)) then
-		-- Create invisible window as draw region.
-		local screenSizeX, screenSizeY = GUI:GetScreenSize()
-		GUI:SetNextWindowSize(screenSizeX,screenSizeY,GUI.SetCond_Always)
-		GUI:SetNextWindowPosCenter(GUI.SetCond_Always)
-		GUI:PushStyleColor(GUI.Col_WindowBg, 0, 0, 0, 0)
-		GUI:Begin("DPS Free Draw Space", true, GUI.WindowFlags_NoInputs + GUI.WindowFlags_NoBringToFrontOnFocus + GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoCollapse)
-		GUI:PopStyleColor(1)
-			
-			-- DPS.
-			local playerCombatData = gw2_combatdata.combatLog[ml_global_information.Player_ID]
-			if (table.valid(playerCombatData)) then
-				GUI:AddRectFilled((screenSizeX / 2) - 178, 38, (screenSizeX / 2) + 70, 53, 2533359615)
-				GUI:AddRect((screenSizeX / 2) - 178, 38, (screenSizeX / 2) + 70, 53, 4278190080)
-				if (playerCombatData.targetid == gw2_combatdata.selectedTargetData.id) then
-					GUI:AddText((screenSizeX / 2) - 176, 39, 4278190080, "DPS: " .. playerCombatData.dps .. " | TTK: " .. string.format('%.2d:%.2d', math.mod(playerCombatData.ttk/60,60), math.mod(playerCombatData.ttk,60)))
-				else
-					GUI:AddText((screenSizeX / 2) - 176, 39, 4278190080, "DPS:0 TTK:00:00")
+	if(Settings.gw2_combatdata.active2) then
+		if (table.valid(gw2_combatdata.selectedTargetData)) then
+			-- Create invisible window as draw region.
+			local screenSizeX, screenSizeY = GUI:GetScreenSize()
+			GUI:SetNextWindowSize(screenSizeX,screenSizeY,GUI.SetCond_Always)
+			GUI:SetNextWindowPosCenter(GUI.SetCond_Always)
+			GUI:PushStyleColor(GUI.Col_WindowBg, 0, 0, 0, 0)
+			GUI:Begin("DPS Free Draw Space", true, GUI.WindowFlags_NoInputs + GUI.WindowFlags_NoBringToFrontOnFocus + GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoCollapse)
+			GUI:PopStyleColor(1)
+				
+				-- DPS.
+				local playerCombatData = gw2_combatdata.combatLog[ml_global_information.Player_ID]
+				if (table.valid(playerCombatData)) then
+					GUI:AddRectFilled((screenSizeX / 2) - 178, 38, (screenSizeX / 2) + 70, 53, 2533359615)
+					GUI:AddRect((screenSizeX / 2) - 178, 38, (screenSizeX / 2) + 70, 53, 4278190080)
+					if (playerCombatData.targetid == gw2_combatdata.selectedTargetData.id) then
+						GUI:AddText((screenSizeX / 2) - 176, 39, 4278190080, "DPS: " .. playerCombatData.dps .. " | TTK: " .. string.format('%.2d:%.2d', math.mod(playerCombatData.ttk/60,60), math.mod(playerCombatData.ttk,60)))
+					else
+						GUI:AddText((screenSizeX / 2) - 176, 39, 4278190080, "DPS:0 TTK:00:00")
+					end
 				end
-			end
-			
-			-- Draw Selected target Health.
-			local sPos = {
-				x = (screenSizeX / 2) - 175,
-				y = 86,
-			}
-			GUI:AddText(sPos.x, sPos.y, 4294967295, math.round(gw2_combatdata.selectedTargetData.health.current) .. "/" .. gw2_combatdata.selectedTargetData.health.max)
-		GUI:End()
-		
-		
+				
+				-- Draw Selected target Health.
+				local sPos = {
+					x = (screenSizeX / 2) - 175,
+					y = 86,
+				}
+				GUI:AddText(sPos.x, sPos.y, 4294967295, math.round(gw2_combatdata.selectedTargetData.health.current) .. "/" .. gw2_combatdata.selectedTargetData.health.max)
+			GUI:End()
+		end
 	end
 end
 
@@ -771,20 +771,23 @@ end
 
 -- Selected target functions.
 function gw2_combatdata.updateSelectedTargetData()
-	local target = Player:GetTarget()
-	if (table.valid(target) and target.attackable and table.valid(target.health)) then
-		gw2_combatdata.selectedTargetData = {
-			id = target.id,
-			health = {
-				current	= target.health.current,
-				max		= target.health.max,
-				percent	= target.health.percent,
-			},
-			
-		}
-	else
-		gw2_combatdata.selectedTargetData = {}
+	gw2_combatdata.selectedTargetData = {}
+	if(Settings.gw2_combatdata.active2) then
+		local target = Player:GetTarget()
+		if (table.valid(target) and target.attackable and table.valid(target.health)) then
+			gw2_combatdata.selectedTargetData = {
+				id = target.id,
+				health = {
+					current	= target.health.current,
+					max		= target.health.max,
+					percent	= target.health.percent,
+				},
+				
+			}
+			return
+		end
 	end
+	
 end
 
 -- Buff log functions.
