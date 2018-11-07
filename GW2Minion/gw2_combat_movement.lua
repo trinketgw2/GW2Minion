@@ -181,7 +181,7 @@ for k,v in pairs(gw2_combat_movement) do
 	if(type(v) == "function") then
 		gw2_common_functions[k] = function(...)
 			d("gw2_common_functions:"..k.."(...) is deprecated, please change your code to use gw2_combat_movement:"..k.."(...)")
-			v(...)
+			return v(...)
 		end
 	else
 		gw2_common_functions[k] = v
