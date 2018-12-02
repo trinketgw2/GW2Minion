@@ -121,6 +121,8 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(1011,"sPvP Battle of Champions")
 		ml_mesh_mgr.SetDefaultMesh(1163,"sPvP Revenge of the Capricorn")		
 		ml_mesh_mgr.SetDefaultMesh(1171,"sPvp Coloseum")
+		ml_mesh_mgr.SetDefaultMesh(1305,"sPvP Djinns Dominion")
+		
 		
 		--PoF
 		ml_mesh_mgr.SetDefaultMesh(1210,"Crystal Oasis")
