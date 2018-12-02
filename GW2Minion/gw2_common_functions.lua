@@ -364,7 +364,7 @@ function gw2_common_functions.GetBestEventTarget(marker,objectivedetails,radius)
 		-- If the target can be found in the objective details, use that (event is target)
 		if(table.valid(objectivedetails) and objectivedetails.value1) then
 			local target = CharacterList:Get(objectivedetails.value1) or GadgetList:Get(objectivedetails.value1)
-			if(table.valid(target) and target.alive and target.attackable and not gw2_blacklistmanager.IsMonsterBlacklisted(target) and target.pathdistance < 9999999) then
+			if(table.valid(target) and target.alive and target.attackable and not gw2_blacklistmanager.IsMonsterBlacklisted(target) and target.isreachable) then
 				return target
 			end
 		end
@@ -378,10 +378,8 @@ function gw2_common_functions.GetBestEventTarget(marker,objectivedetails,radius)
 				if((target.alive or target.downed) and target.isreachable) then
 					local dist = math.distance3d(target.pos,marker.pos)
 					if(dist <= radius) then
-						local path = NavigationManager:GetPath(marker.pos.x,marker.pos.y,marker.pos.z,target.pos.x,target.pos.y,target.pos.z)
-						local pdist = math.huge
-						if(table.valid(path)) then pdist = PathDistance(path) end
-						
+						local pdist = NavigationManager:GetPathDistance(marker.pos,target.pos)
+
 						if(pdist <= radius) then
 							return target
 						end
@@ -405,13 +403,11 @@ function gw2_common_functions.GetBestEventTarget(marker,objectivedetails,radius)
 		if(table.valid(GList)) then
 			local _,gagdet = next(GList)
 			if(table.valid(gadget)) then
-				if(gagdet.alive and gadget.pathdistance < 9999999) then
+				if(gagdet.alive and gadget.isreachable) then
 					local dist = math.distance3d(gagdet.pos,marker.pos)
 					if(dist <= radius) then
-						local path = NavigationManager:GetPath(marker.pos.x,marker.pos.y,marker.pos.z,gagdet.pos.x,gagdet.pos.y,gagdet.pos.z)
-						local pdist = math.huge
-						if(table.valid(path)) then pdist = PathDistance(path) end
-						
+						local pdist = NavigationManager:GetPathDistance(marker.pos,gagdet.pos)
+
 						if(pdist <= radius) then
 							return gagdet
 						end

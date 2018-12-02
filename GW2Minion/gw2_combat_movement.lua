@@ -6,6 +6,8 @@ gw2_combat_movement.combatmovement = {
 	allowed = true,
 }
 
+gw2_combat_movement.previoushealth = {time = 0; health = 100;}
+
 function gw2_combat_movement:DoCombatMovement(target)
 	
 	local fightdistance = ml_global_information.AttackRange or 154
@@ -19,10 +21,33 @@ function gw2_combat_movement:DoCombatMovement(target)
 		self.combatmovement.allowed = true
 		return false
 	end
+
+	if (self.combatmovement.range and (target == nil or ( not target.isplayer and target.distance < fightdistance and target.los))) then
+		d("[gw2_combat_movement]: In range, stopping..") 
+		Player:StopMovement()
+		self.combatmovement.range = false
+	end  -- "range" is "moving into combat range"
 	
-	if (self.combatmovement.range and (target == nil or ( not target.isplayer and target.distance < fightdistance and target.los))) then d("[gw2_combat_movement]: In range, stopping..") Player:StopMovement() self.combatmovement.range = false end  -- "range" is "moving into combat range"
+	local allowed = table.valid(target) and ml_global_information.Player_Alive and target.los and target.alive
+
+	if(allowed) then
+		if(TimeSince(self.previoushealth.time) > 1000) then
+			self.previoushealth.time = ml_global_information.Now
+			
+			-- No need to do movement if we aren't losing health and far away
+			if(target.distance > 300 and self.previoushealth.health < ml_global_information.Player_Health.percent and self.previoushealth.health > 0) then
+				local healthdiff = (ml_global_information.Player_Health.percent / self.previoushealth.health) * 100
+				
+				if(healthdiff < 100 and 100 - healthdiff < 15) then
+					allowed = false
+				end
+			end
+			
+			self.previoushealth.health = ml_global_information.Player_Health.Current
+		end
+	end
 	
-	if ( table.valid(target) and target.distance <= fightdistance and target.alive and ml_global_information.Player_Alive and ml_global_information.Player_OnMesh) then -- and ml_global_information.Player_Health.percent < 99
+	if (allowed and target.distance <= fightdistance and ml_global_information.Player_OnMesh) then -- and ml_global_information.Player_Health.percent < 99
 		local isimmobilized	= gw2_common_functions.BufflistHasBuffs(ml_global_information.Player_Buffs, ml_global_information.ImmobilizeConditions)
 
 		if (not isimmobilized) then		
