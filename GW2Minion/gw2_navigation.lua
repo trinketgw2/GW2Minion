@@ -606,6 +606,24 @@ function ml_navigation:EnsurePosition(playerpos)
 	return false
 end
 
+-- lookahead, number of nodes to look ahead for an omc
+-- returns true if there is an omc on our path
+function ml_navigation:OMCOnPath(lookahead)
+	lookahead = lookahead or 3
+	
+	local pathsize = table.size(ml_navigation.path)
+	
+	lookahead = lookahead > pathsize and pathsize or lookahead
+	
+	if(pathsize > 0) then
+		for i=1,lookahead do
+			local path = ml_navigation.path[i]
+			if(path.navconnectionid ~= 0) then return true end
+		end
+	end
+	
+	return false
+end
 
 -- Resets all OMC related variables
 function ml_navigation:ResetOMCHandler()

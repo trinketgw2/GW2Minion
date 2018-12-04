@@ -11,7 +11,11 @@ gw2_combat_movement.previoushealth = {time = 0; health = 100;}
 function gw2_combat_movement:DoCombatMovement(target)
 	
 	local fightdistance = ml_global_information.AttackRange or 154
-
+	
+	if(ml_navigation:OMCOnPath()) then
+		self.combatmovement.allowed = false
+	end
+	
 	-- Combat movement is disabled
 	if(not self.combatmovement.allowed) then
 		if(self.combatmovement.combat or self.combatmovement.range) then
