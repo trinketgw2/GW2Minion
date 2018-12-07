@@ -625,8 +625,13 @@ function ml_navigation:OMCOnPath(lookahead)
 	return false
 end
 
+
+-- param = {mindist, raycast, path, startpos}
 -- mindist, minimum distance to get a position
--- returns a pos nearest to the minimum distance
+-- raycast, set to false to disable los checks
+-- path, provide an alternate path then the current navigation path
+-- startpos, provide an alternate starting position. player position by default
+-- returns a pos nearest to the minimum distance or nil
 function ml_navigation:GetPointOnPath(param)
 	local startpos = param.startpos ~= nil and param.startpos or ml_global_information.Player_Position
 	
