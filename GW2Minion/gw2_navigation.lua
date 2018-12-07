@@ -617,13 +617,68 @@ function ml_navigation:OMCOnPath(lookahead)
 	
 	if(pathsize > 0) then
 		for i=1,lookahead do
-			local path = ml_navigation.path[i]
-			if(path.navconnectionid ~= 0) then return true end
+			local node = ml_navigation.path[i]
+			if(node.navconnectionid ~= 0) then return true end
 		end
 	end
 	
 	return false
 end
+
+-- mindist, minimum distance to get a position
+-- returns a pos nearest to the minimum distance
+function ml_navigation:GetPointOnPath(mindist,startpos,noraycast)
+	startpos = startpos or ml_global_information.Player_Position
+	
+	local pathsize = table.size(ml_navigation.path)
+
+	if(pathsize > 0 and mindist > 0) then
+		local traversed
+		for i=1,pathsize do
+			local node = ml_navigation.path[i]
+			local dist = math.distance3d(node,startpos)
+
+			if(dist >= mindist) then
+				local disttoprev = math.distance3d(prevnode,node)
+				local newpos = {
+					x = prevnode.x + (traversed/disttoprev) * (node.x - prevnode.x);
+					y = prevnode.y + (traversed/disttoprev) * (node.y - prevnode.y);
+					z = prevnode.z + (traversed/disttoprev) * (node.z - prevnode.z);			
+				}
+
+				if(noraycast) then return newpos end
+				
+				local hit, hitx, hity, hitz = RayCast(startpos.x,startpos.y,startpos.z, newpos.x, newpos.y, newpos.z)
+				if(not hit) then return newpos end
+			end
+			
+			prevnode = node
+			traversed = mindist - dist 
+		end
+	end
+
+	return nil
+end
+
+-- Get a node that is further away then min distance
+function ml_navigation:GetNearestNodeToDistance(mindist,startpos)
+	startpos = startpos or ml_global_information.Player_Position
+	
+	local pathsize = table.size(ml_navigation.path)
+
+	if(pathsize > 0) then
+		for i=1,pathsize do
+			local node = ml_navigation.path[i]
+			local pos = {x = node.x, y = node.y, z = node.z}
+			if(math.distance3d(startpos,pos) >= mindist) then
+				return pos,i
+			end
+		end
+	end
+	
+	return nil
+end
+
 
 -- Resets all OMC related variables
 function ml_navigation:ResetOMCHandler()
