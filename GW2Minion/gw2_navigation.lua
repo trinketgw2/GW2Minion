@@ -627,15 +627,20 @@ end
 
 -- mindist, minimum distance to get a position
 -- returns a pos nearest to the minimum distance
-function ml_navigation:GetPointOnPath(mindist,startpos,noraycast)
-	startpos = startpos or ml_global_information.Player_Position
+function ml_navigation:GetPointOnPath(param)
+	local startpos = param.startpos ~= nil and param.startpos or ml_global_information.Player_Position
 	
-	local pathsize = table.size(ml_navigation.path)
+	local raycast = true
+	if(param.raycast ~= nil) then raycast = param.raycast end
+	
+	local mindist = param.mindist ~= nil and param.mindist or 0
+	local path = param.path ~= nil and param.path or ml_navigation.path
+	local pathsize = table.size(path)
 
 	if(pathsize > 0 and mindist > 0) then
 		local traversed
 		for i=1,pathsize do
-			local node = ml_navigation.path[i]
+			local node = path[i]
 			local dist = math.distance3d(node,startpos)
 
 			if(dist >= mindist) then
@@ -646,7 +651,7 @@ function ml_navigation:GetPointOnPath(mindist,startpos,noraycast)
 					z = prevnode.z + (traversed/disttoprev) * (node.z - prevnode.z);			
 				}
 
-				if(noraycast) then return newpos end
+				if(not raycast) then return newpos end
 				
 				local hit, hitx, hity, hitz = RayCast(startpos.x,startpos.y,startpos.z, newpos.x, newpos.y, newpos.z)
 				if(not hit) then return newpos end
