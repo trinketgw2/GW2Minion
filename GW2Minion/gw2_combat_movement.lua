@@ -29,19 +29,24 @@ function gw2_combat_movement:DoCombatMovement(target)
 		self.combatmovement.allowed = true
 		return false
 	end
-
-	if (self.combatmovement.range and (target == nil or ( not target.isplayer and target.distance < fightdistance and target.los))) then
+	
+	local dist = math.huge
+	if(table.valid(target)) then
+		 local pos,dist = ml_global_information.GetPredictedPosition(target)
+	end
+	
+	if (self.combatmovement.range and (target == nil or ( not target.isplayer and dist < fightdistance and target.los))) then
 		d("[gw2_combat_movement]: In range, stopping..") 
 		Player:StopMovement()
 		self.combatmovement.range = false   -- "range" is "moving into combat range"
 	end
 		
 	
-	local domovement = target ~= nil and ml_global_information.Player_Alive and target.los and target.alive
+	local domovement = target ~= nil and dist and ml_global_information.Player_Alive and target.los and target.alive
 
 	if(domovement) then
 		-- No need to do movement if we aren't losing health and far away
-		if(target.distance > 600 and self.previoushealth.health > 0) then
+		if(dist > 600 and self.previoushealth.health > 0) then
 			local healthdiff = (ml_global_information.Player_Health.percent / self.previoushealth.health) * 100
 			if(healthdiff > 80) then
 				domovement = false

@@ -104,11 +104,11 @@ ml_global_information.VendorRepair = {
 }
 
 -- Moved this here so it's easier to look at and easier to copy paste
-function ml_global_information.OnUpdate(Event,ticks)
+function ml_global_information.OnUpdate(Event,ticks)	
+	ml_global_information.GameState = GetGameState()
+
 	if(TimeSince(ml_global_information.Lasttick) > BehaviorManager:GetTicksThreshold()) then
 		ml_global_information.Lasttick = ticks
-		
-		ml_global_information.GameState = GetGameState()
 
 		if(Player) then
 			ml_global_information.Player_ID = Player.id or 0
@@ -147,7 +147,7 @@ function ml_global_information.OnUpdate(Event,ticks)
 		end
 	end
 end
-RegisterEventHandler("Gameloop.Update", ml_global_information.OnUpdate)
+RegisterEventHandler("Gameloop.Draw", ml_global_information.OnUpdate)
 
 function ml_global_information.Start()
 	gw2_unstuck.Start()
