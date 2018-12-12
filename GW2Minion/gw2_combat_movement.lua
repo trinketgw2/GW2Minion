@@ -30,11 +30,11 @@ function gw2_combat_movement:DoCombatMovement(target)
 		return false
 	end
 	
-	local dist = math.huge
+	local _,dist = nil,math.huge
 	if(table.valid(target)) then
-		 local pos,dist = ml_global_information.GetPredictedPosition(target)
+		 _,dist = SkillManager:PredictedPositionAndDistance(target)
 	end
-	
+
 	if (self.combatmovement.range and (target == nil or ( not target.isplayer and dist < fightdistance and target.los))) then
 		d("[gw2_combat_movement]: In range, stopping..") 
 		Player:StopMovement()
