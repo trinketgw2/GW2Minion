@@ -644,11 +644,17 @@ end
 function gw2_unstuck.ActiveThreshold()
 	local threshold = gw2_unstuck.threshold * (gw2_common_functions.HasBuffs(Player, ml_global_information.SpeedBoons) and 1.33 or 1) -- Increased threshold with swiftness
 	
-	if ( Player.swimming == GW2.SWIMSTATE.Diving ) then
+	if (ml_global_information.Player_InCombat or gw2_unstuck.movementtype.backward) then
+		-- combat and backwards movement is slower 
 		threshold = threshold / 2
 	end
-	
-	if (ml_global_information.Player_InCombat or gw2_common_functions.HasBuffs(Player, ml_global_information.SlowConditions) or gw2_unstuck.movementtype.backward) then
+		
+	if ( Player.swimming == GW2.SWIMSTATE.Diving ) then
+		-- swimming is slow
+		threshold = threshold / 2
+	end
+
+	if(gw2_common_functions.HasBuffs(Player, ml_global_information.SlowConditions)) then
 		-- We only move half (or less) the distance with conditions that slow movement
 		threshold = threshold / 2
 	end
