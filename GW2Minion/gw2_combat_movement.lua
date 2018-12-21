@@ -19,6 +19,14 @@ function gw2_combat_movement:DoCombatMovement(target)
 	if(ml_navigation:OMCOnPath()) then
 		self.combatmovement.allowed = false
 	end
+
+	local _,dist = SkillManager:PredictedPositionAndDistance(target)
+
+	if (self.combatmovement.range and (target == nil or ( not target.isplayer and dist < fightdistance and target.los))) then
+		d("[gw2_combat_movement]: In range, stopping..") 
+		Player:StopMovement()
+		self.combatmovement.range = false   -- "range" is "moving into combat range"
+	end
 	
 	-- Combat movement is disabled
 	if(not self.combatmovement.allowed) then
@@ -27,20 +35,8 @@ function gw2_combat_movement:DoCombatMovement(target)
 		end
 		-- Make sure it's reset so it doesn't stick around for too long
 		self.combatmovement.allowed = true
-		return false
+		return
 	end
-	
-	local _,dist = nil,math.huge
-	if(table.valid(target)) then
-		 _,dist = SkillManager:PredictedPositionAndDistance(target)
-	end
-
-	if (self.combatmovement.range and (target == nil or ( not target.isplayer and dist < fightdistance and target.los))) then
-		d("[gw2_combat_movement]: In range, stopping..") 
-		Player:StopMovement()
-		self.combatmovement.range = false   -- "range" is "moving into combat range"
-	end
-		
 	
 	local domovement = target ~= nil and dist and ml_global_information.Player_Alive and target.los and target.alive
 
