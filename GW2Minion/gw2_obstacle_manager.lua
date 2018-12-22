@@ -174,6 +174,8 @@ end
 RegisterEventHandler("Module.Initalize",gw2_obstacle_manager.ModuleInit)
 
 function gw2_obstacle_manager.MapChanged()
+	d("[gw2_obstacle_manager]: Map changed, clearing old automatic avoidance areas.")
+	gw2_obstacle_manager.ClearAutomatic()
 	d("[gw2_obstacle_manager]: Map changed, loading stored avoidance areas.")
 	gw2_obstacle_manager.SetupAvoidanceAreas()
 end
