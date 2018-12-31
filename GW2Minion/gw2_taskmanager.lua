@@ -142,7 +142,6 @@ function gw2_taskmanager.Init()
 		ml_task_mgr.AddTaskType("tm_hq", "tm_HeartQuest.st", gw2_tm_heartquest, {allowpretasks = true; allowposttasks = true; allowsubtasks = true; displayname = GetString("Heartquest")})
 		ml_task_mgr.AddTaskType("tm_discoverwaypoint", "tm_Discoverwaypoint.st", gw2_tm_waypoint, {displayname = GetString("Discover waypoint")})
 		ml_task_mgr.AddTaskType("tm_buy", "tm_Buy.st", nil, {allowpretasks = true; allowposttasks = true;displayname = GetString("Buy kits and tools")})
-		ml_task_mgr.AddTaskType("tm_sell", "Sell.st", nil, {allowpretasks = true; allowposttasks = true;displayname = GetString("Sell junk and items")})
 		ml_task_mgr.AddTaskType("tm_usewaypoint", "tm_Usewaypoint.st", nil, {displayname = GetString("Use waypoint")})
 		
 		-- Sub task types

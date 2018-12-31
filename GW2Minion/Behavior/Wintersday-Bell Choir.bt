@@ -22,24 +22,6 @@ local tbl =
 						finishcode = "",
 						info = "",
 						monitorcode = "",
-						runcode = "if \tSettings.GW2Minion.bellremain <= 0 then\n\t\td(\"0 remaning attempts for bell choir\")\n\t\tif(Settings.GW2Minion.autostartbot) then\n\t\t\t\tSettings.GW2Minion.autostartbot = false\n\t\tend\n\t\tself:success()\n\t\treturn\nend\t\nself:fail()",
-						startcode = "",
-					},
-				},
-				
-				{
-					class = "Action",
-					nodes = 
-					{
-					},
-					settings = 
-					{
-					},
-					variables = 
-					{
-						finishcode = "",
-						info = "",
-						monitorcode = "",
 						runcode = "if(ml_global_information.GameState == GW2.GAMESTATE.GAMEPLAY) then\n\t\tself:fail()\nelse\n\t\tself:success()\nend",
 						startcode = "",
 					},
@@ -58,7 +40,25 @@ local tbl =
 						finishcode = "",
 						info = "",
 						monitorcode = "",
-						runcode = "local meshstate = NavigationManager:GetNavMeshState()\n\nif(meshstate ~= GLOBAL.MESHSTATE.MESHREADY) then\n\t\td(\"[NavToMap]: Waiting for the mesh to load.\")\n\t\tself:running()\n\t\treturn\nend\nself:fail()",
+						runcode = "local meshstate = NavigationManager:GetNavMeshState()\n\nif(meshstate ~= GLOBAL.MESHSTATE.MESHREADY) then\nd(\"test\")\n\t\td(\"[NavToMap]: Waiting for the mesh to load.\")\n\t\tself:running()\n\t\treturn\nend\n\t\tself:fail()",
+						startcode = "",
+					},
+				},
+				
+				{
+					class = "Action",
+					nodes = 
+					{
+					},
+					settings = 
+					{
+					},
+					variables = 
+					{
+						finishcode = "",
+						info = "",
+						monitorcode = "",
+						runcode = "if \tSettings.GW2Minion.bellremain == 0 then\n\tPlayer:StopMovement()\n\tPlayer:Logout()\t\n\tSettings.GW2Minion.autostartbot = false\n\t\n\t\tself:success()\n\t\treturn\nend\t\n\t\tself:fail()",
 						startcode = "",
 					},
 				},
@@ -136,24 +136,6 @@ local tbl =
 										info = "Move into the Bell Choir Map",
 										monitorcode = "",
 										runcode = "if ( Player.localmapid == 18 ) then\n\t\t\n\t\tcontext.moveto_position = { x = -10375, y =3385, z = -2361 }\n  self:success()\n  context.status = \"Joining Bell Choir Event\"\n\t\treturn\n\nend\nself:fail()",
-										startcode = "",
-									},
-								},
-								
-								{
-									class = "Action",
-									nodes = 
-									{
-									},
-									settings = 
-									{
-									},
-									variables = 
-									{
-										finishcode = "",
-										info = "",
-										monitorcode = "",
-										runcode = "local meshstate = NavigationManager:GetNavMeshState()\n\nif(meshstate ~= GLOBAL.MESHSTATE.MESHREADY) then\n\t\td(\"[NavToMap]: Waiting for the mesh to load.\")\n\t\tPlayer:StopMovement()\n\t\tself:running()\n\t\treturn\nend\nself:success()",
 										startcode = "",
 									},
 								},
@@ -296,9 +278,9 @@ local tbl =
 	variables = 
 	{
 		filename = "Wintersday-Bell Choir.bt",
-		finishcode = "ml_global_information.Stop()",
+		finishcode = "",
 		info = "",
-		menucode = "--Settings.GW2Minion.bellremain = nil\nGUI:SetNextTreeNodeOpened(true,GUI.SetCond_Always)\n\nif Settings.GW2Minion.bellremain == nil then Settings.GW2Minion.bellremain = math.random(40,60) end\nif Settings.GW2Minion.bellday == nil then Settings.GW2Minion.bellday = os.date(\"%d\") end\n\nif Settings.GW2Minion.bellday ~= os.date(\"%d\") then \n\tSettings.GW2Minion.bellremain = math.random(40,60)\n\tSettings.GW2Minion.bellday = os.date(\"%d\")\n\tSettings.GW2Minion.bellwarning = 0\nend\n\nif context.nowkarma ~= Player.karma then\n\tcontext.nowkarma = Player.karma\n\tSettings.GW2Minion.bellremain = Settings.GW2Minion.bellremain - 1\nend\n\nif(context.bellwarning == nil) then context.bellwarning = 0 end\n\nif (GUI:TreeNode(GetString(\"Bell Choir Stats\"))) then\n\t\tGUI:TextWrapped(\"Remaining attempts for today: \"..tostring(Settings.GW2Minion.bellremain))\n\t\tif (context and context.status) then\t\t\n\t\t\t\tGUI:Text(\"Status: \"..tostring(context.status))\n\t\telse\n\t\t\t\tGUI:Text(\"Status: None\")\n\t\tend\n\t\t\n\t\tGUI:TreePop()\nend\n\nif(GUI:BeginPopupModal(\"##bell-warning-1\",false)) then\n\t\tGUI:SetWindowSize(600,230)\n\t\tlocal warning = string.gsub([[\n\t\t\tYou have hit the account protection limit for the day\n\t\t\t\n\t\t\tIf you are willing to risk your account, type:\n\t\t\tI AM WILLING TO TAKE THE RISK\n\t\t\t\n\t\t\tClick cancel if you wish to stop playing.\n\t\t\t\n\t\t\tKnow that playing an abnormal amount of bells is a high risk action.\n\t\t\tThis warning will reset once per day\n\t\t]], \"\\t\", \"\")\n\t\t\n\t\tGUI:TextWrapped(warning)\n\t\t\n\t\tGUI:NewLine()\n\t\t\n\t\tlocal val,changed = GUI:InputText(\"\",\"\",GUI.InputTextFlags_EnterReturnsTrue)\n\n\t\tif(val == \"I AM WILLING TO TAKE THE RISK\") then\n\t\t\tcontext.bellwarning = 2\n\t\t\tSettings.GW2Minion.bellremain = math.huge\n\t\t\tGUI:CloseCurrentPopup()\n\t\tend\n\t\tGUI:SameLine()\n\t\tif(GUI:Button(GetString(\"Cancel\"), 150, 0)) then\n\t\t\tBehaviorManager:Stop()\n\t\t\tcontext.bellwarning = 3\n\t\t\tGUI:CloseCurrentPopup()\n\t\tend\n\t\t\n\tGUI:EndPopup()\nend\n\ncontext.bellshowingwarning = false\nif Settings.GW2Minion.bellremain <= 0 and context.bellwarning == 0 then\n\tcontext.bellshowingwarning = true\n\tGUI:OpenPopup(\"##bell-warning-1\")\nend",
+		menucode = "--Settings.GW2Minion.bellremain = 0\nGUI:SetNextTreeNodeOpened(true,GUI.SetCond_Appearing)\nif Settings.GW2Minion.bellremain == nil then Settings.GW2Minion.bellremain = math.random(40,60) end\nif Settings.GW2Minion.bellday == nil then Settings.GW2Minion.bellday = os.date(\"%d\") end\n\nif Settings.GW2Minion.bellday ~= os.date(\"%d\") then \n\tSettings.GW2Minion.bellremain = 10\n\tSettings.GW2Minion.bellday = os.date(\"%d\")\nend\n\nif context.nowkarma ~= Player.karma then\n\tcontext.nowkarma = Player.karma\n\tSettings.GW2Minion.bellremain = Settings.GW2Minion.bellremain - 1\n\td(\"karma gained    max play - 1 \")\nend\n\n\nif (GUI:TreeNode(GetString(\"Bell Choir Stats\"))) then\n\t\tGUI:Text(\"IF YOU USE KARMA DRIP DURING THIS MODE\")\n\t\tGUI:Text(\"the count will get progress\")\n\t\tGUI:Text(\"\")\n\t\tGUI:Text(\"and BELL and YAK are Death Trap\")\n\t\tGUI:Text(\"so here is REMOVAL limit\")\n\t\tGUI:Text(\"\")\n\t\tGUI:Text(\"REMAINING ATTEMPT OF TODAY : \"..tostring(Settings.GW2Minion.bellremain))\n\t\tif (context and context.status) then\t\t\n\t\t\t\tGUI:Text(\"Status: \"..tostring(context.status))\n\t\telse\n\t\t\t\tGUI:Text(\"Status: None\")\n\t\tend\n\t\t\n\t\tGUI:TreePop()\nend\n\n\n\n\n\n--GUI.SetCond_Always\nif context.iread == nil then context.iread = 0 end\n\nif Settings.GW2Minion.iread == \"ok i stop today\" then\n\tcontext.iread = 15\n\tSettings.GW2Minion.iread = nil\nend\nif Settings.GW2Minion.iread == \"I WILL RUN THIS ADDON HOURS AND GET SUSPEND\" then\n\tcontext.iread = 1\n\tSettings.GW2Minion.iread = nil\nend\n\nif Settings.GW2Minion.iread == \"I WILL NOT COMPLAIN IF I GET SUSPEND\" then\n\tcontext.iread = 2\n\tSettings.GW2Minion.iread = nil\nend\n\nif Settings.GW2Minion.iread == \"I AM TOTALY SURE! SUSPEND MY ASS!\" then\n\tcontext.iread = nil\n\tSettings.GW2Minion.bellremain = 99999999\n\tSettings.GW2Minion.iread = nil\nend\n\nif context.iread ~= 15 then\n\tif Settings.GW2Minion.bellremain <= 0 and context.iread == 0 then\n\t\tGUI:Begin(\"Banana\", true,GUI.WindowFlags_NoTitleBar)\n\t\tGUI:SetWindowFontScale(3)\n\t\tGUI:SetWindowPos(0,0)\n\t\tGUI:SetWindowSize(1200, 700)\n\n\t\tGUI:Text(\"YOU HIT MAX PLAYED OF TODAY\")\n\t\tGUI:Text(\"YOU WILL GET BANNED IF YOU RUN THIS MODE LIKE ROBOT\")\n\t\tGUI:Text(\"SO MINION DADDY IS GONNA STOP YOUR BEHAVIOR\")\n\t\tGUI:Text(\"\")\n\t\tGUI:Text(\"BUT\")\n\t\tGUI:Text(\"If you insist to keep playing. There is a way \")\n\t\tGUI:Text(\"\")\n\t\tGUI:Text(\"Type words bellow\")\n\t\tGUI:Text(\"ok i stop today\")\n\t\tGUI:Text(\"or\")\n\t\tGUI:Text(\"I WILL RUN THIS ADDON HOURS AND GET SUSPEND\")\n\t\tSettings.GW2Minion.iread = GUI:InputText(\"\",\"\",GUI.InputTextFlags_EnterReturnsTrue)\n\t\tGUI:End()\n\tend\n\n\tif context.iread == 1 then\n\t\tGUI:Begin(\"Bananaman\", true,GUI.WindowFlags_NoTitleBar)\n\t\tGUI:SetWindowFontScale(3)\n\t\tGUI:SetWindowPos(0,0)\n\t\tGUI:SetWindowSize(1200, 700)\n\t\tGUI:Text(\"ok you understand risk of suspension or perm ban\")\n\t\tGUI:Text(\"do you still wanna procees?\")\n\t\tGUI:Text(\"\")\n\t\tGUI:Text(\"\")\n\t\tGUI:Text(\"Ok. Type words bellow again\")\n\t\tGUI:Text(\"ok i stop today\")\n\t\tGUI:Text(\"or\")\n\t\tGUI:Text(\"I WILL NOT COMPLAIN IF I GET SUSPEND\")\n\t\tSettings.GW2Minion.iread = GUI:InputText(\"\",\"\",GUI.InputTextFlags_EnterReturnsTrue)\n\t\tGUI:End()\n\tend\n\n\tif context.iread == 2 then\n\t\tGUI:Begin(\"Bananatarou\", true,GUI.WindowFlags_NoTitleBar)\n\t\tGUI:SetWindowFontScale(3)\n\t\tGUI:SetWindowPos(0,0)\n\t\tGUI:SetWindowSize(1200, 700)\n\t\tGUI:Text(\"ARE YOU SURE????\")\n\t\tGUI:Text(\"Incase you still not sure what your doing.\")\n\t\tGUI:Text(\"You will get suspend for sure.\")\n\t\tGUI:Text(\"\")\n\t\tGUI:Text(\"Ok. Type words bellow again\")\n\t\tGUI:Text(\"ok i stop today\")\n\t\tGUI:Text(\"or\")\n\t\tGUI:Text(\"I AM TOTALY SURE! SUSPEND MY ASS!\")\n\t\tSettings.GW2Minion.iread = GUI:InputText(\"\",\"\",GUI.InputTextFlags_EnterReturnsTrue)\n\t\tGUI:End()\n\tend\nend",
 		monitorcode = "GUI:Text('Last State: '..tostring(self:getState())) GUI:Text('Filename: '..self.variables.filename) GUI:Text('Filepath: '..self.filepath)",
 		runcode = "",
 		startcode = "if not context.Bell1 then context.Bell1 = 0 end\nif not context.Bell2 then context.Bell2 = 0 end\nif not context.Bell3 then context.Bell3 = 0 end\nif not context.Bell4 then context.Bell4 = 0 end\n\nif not context.Bell5 then context.Bell5 = 0 end\nif not context.Bell6 then context.Bell6 = 0 end\nif not context.Bell7 then context.Bell7 = 0 end\nif not context.Bell8 then context.Bell8 = 0 end\n\ncontext.nowkarma = Player.karma",
