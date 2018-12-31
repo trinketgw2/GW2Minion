@@ -407,7 +407,7 @@ function gw2_unstuck.HandleStuck_MovedDistanceCheck()
 				-- raycast above the bot in a straight line (area ahead above clear)
 				local rpos2_hit, rpos2_x, rpos2_y, rpos2_z = RayCast(ppos.x, ppos.y, ppos.z-70, ppos.x+(ppos.hx*110), ppos.y+(ppos.hy*110), ppos.z-70) 
 				
-				if(rpos1_hit and not rpos2_hit) then
+				if(rpos1_hit and not rpos2_hit and not ml_navigation:OMCOnPath()) then
 					d("[Unstuck]: Something is right in front of us, but there is free space above us.")
 					gw2_unstuck.stuckhandlers.simplejump()
 				end
