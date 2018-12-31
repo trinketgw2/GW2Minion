@@ -783,7 +783,8 @@ function gw2_common_functions.GetRandomPoint()
 		if (not table.valid(pos)) then return false end
 		
 		for i,existing in ipairs(randompointsused) do
-			if(TimeSince(existing.time) > 1800000) then table.remove(randompointsused, i) end
+			local maxblacklistduration = existing.pvp and 300000 or 1800000 -- 5 min, 30 min
+			if(TimeSince(existing.time) > maxblacklistduration) then table.remove(randompointsused, i) end
 			
 			-- The position is too close to a recently used randompos, ignore it.
 			if(math.distance3d(existing.pos,pos) < 2000) then
@@ -813,7 +814,7 @@ function gw2_common_functions.GetRandomPoint()
 				d(string.format("[gw2_common_functions]: Random point found in level map. Distance: %s, pos = {x=%s;y=%s;z=%s}", math.round(math.distance3d(pos,ml_global_information.Player_Position)), math.round(pos.x,2), math.round(pos.y,2), math.round(pos.z,2)))
 				randompos = pos
 			else
-				table.insert(randompointsused, {pos = pos, time = ml_global_information.Now, status = "no valid path", type = "levelmap"})
+				table.insert(randompointsused, {pos = pos, pvp = ml_global_information.Player_InPVPArea, time = ml_global_information.Now, status = "no valid path", type = "levelmap"})
 			end
 		end
 	end
@@ -832,7 +833,7 @@ function gw2_common_functions.GetRandomPoint()
 						d(string.format("[gw2_common_functions]: Random point found in markers. Distance: %s, pos = {x=%s;y=%s;z=%s}", math.round(math.distance3d(marker.pos,ml_global_information.Player_Position)), math.round(marker.pos.x,2), math.round(marker.pos.y,2), math.round(marker.pos.z,2)))
 						randompos = marker.pos
 					else
-						table.insert(randompointsused, {pos = marker.pos, time = ml_global_information.Now, status = "no valid path", type = "marker"})
+						table.insert(randompointsused, {pos = marker.pos, pvp = ml_global_information.Player_InPVPArea, time = ml_global_information.Now, status = "no valid path", type = "marker"})
 					end
 				end
 				i = i + 1
@@ -851,7 +852,7 @@ function gw2_common_functions.GetRandomPoint()
 					d(string.format("[gw2_common_functions]: Random point found on the mesh. Distance: %s, pos = {x=%s;y=%s;z=%s}", math.round(math.distance3d(pos,ml_global_information.Player_Position)), math.round(pos.x,2), math.round(pos.y,2), math.round(pos.z,2)))
 					randompos = pos
 				else
-					table.insert(randompointsused, {pos = pos, time = ml_global_information.Now, status = "no valid path", type = "randompoint"})
+					table.insert(randompointsused, {pos = pos, pvp = ml_global_information.Player_InPVPArea, time = ml_global_information.Now, status = "no valid path", type = "randompoint"})
 				end
 			end
 			i = i + 1
@@ -859,7 +860,7 @@ function gw2_common_functions.GetRandomPoint()
 	end
 
 	if (table.valid(randompos)) then
-		table.insert(randompointsused, {pos = randompos, time = ml_global_information.Now, status = "used", type = "valid"})
+		table.insert(randompointsused, {pos = randompos, pvp = ml_global_information.Player_InPVPArea, time = ml_global_information.Now, status = "used", type = "valid"})
 		return randompos
 	end
 	
