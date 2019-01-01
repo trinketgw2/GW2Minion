@@ -18,6 +18,7 @@ gw2_salvage_manager.salvageKitList = {
 		-- special kits
 		{name = GetString("mysticKit"),			id = "mystickit",		itemid = 23045,		rarity = 4,},	-- Mystic Kit (rarity 4)
 		{name = GetString("copperfedKit"),		id = "copperfedkit",	itemid = 44602,		rarity = 1,},	-- Copper-Fed Kit (rarity 1)
+		{name = GetString("runecrafterkit"),	id = "runecrafterkit",	itemid = 89409,		rarity = 5,},	-- Runecrafter Kit (rarity 1)
 		{name = GetString("silverfedKit"),		id = "silverfedkit",	itemid = 67027,		rarity = 4,},	-- Silver-Fed Kit (rarity 4)
 		{name = GetString("blacklionKit"),		id = "blacklionkit",	itemid = 19986,		rarity = 5,},	-- Black Lion Kit (Rarity 5)
 	},
