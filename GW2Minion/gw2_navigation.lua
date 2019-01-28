@@ -153,7 +153,7 @@ function ml_navigation.Navigate(event, ticks )
 										-- We are after the Jump and landed already
 										local nodedist = ml_navigation:GetRaycast_Player_Node_Distance(playerpos,nextnode)
 										if ( (nodedist - ml_navigation.navconnection.radius*32 ) < ml_navigation.NavPointReachedDistances["Walk"]) then
-											d("[Navigation] - We reached the OMC END Node. ("..tostring(math.round(nodedist,2)).." < "..tostring(ml_navigation.NavPointReachedDistances["Walk"])..")")
+											d("[Navigation] - We reached the OMC END Node (Jump). ("..tostring(math.round(nodedist,2)).." < "..tostring(ml_navigation.NavPointReachedDistances["Walk"])..")")
 											local nextnode = nextnextnode
 											local nextnextnode = ml_navigation.path[ ml_navigation.pathindex + 2]
 											if ( ml_navigation.navconnection.radius < 1.0  ) then
@@ -177,6 +177,14 @@ function ml_navigation.Navigate(event, ticks )
 								lastnode = nextnode		-- OMC start
 								nextnode = ml_navigation.path[ ml_navigation.pathindex + 1]	-- OMC end
 								
+								local nodedist = ml_navigation:GetRaycast_Player_Node_Distance(playerpos,nextnode)
+								local enddist = nodedist - ml_navigation.navconnection.radius*32
+								if (enddist < ml_navigation.NavPointReachedDistances["Walk"]) then
+									d("[Navigation] - We reached the OMC END Node (Walk). ("..tostring(math.round(enddist,2)).." < "..tostring(ml_navigation.NavPointReachedDistances["Walk"])..")")
+									ml_navigation.pathindex = ml_navigation.pathindex + 1
+									NavigationManager.NavPathNode = ml_navigation.pathindex
+									ml_navigation.navconnection = nil									
+								end
 							elseif(ml_navigation.navconnection.subtype == 3 ) then
 								-- TELEPORT
 								nextnode = ml_navigation.path[ ml_navigation.pathindex + 1]
