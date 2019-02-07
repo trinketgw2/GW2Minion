@@ -19,6 +19,20 @@ function gw2minion.Init()
 		ml_mesh_mgr.GetPlayerPos = function () return Player.pos end
 
 		-- Set worldnavigation data
+		ml_mesh_mgr.navData = {} -- Holds the data for world navigation
+		function ml_mesh_mgr.SetupNavNodes()
+			ml_nav_manager.nodes = {}
+			for id, neighbors in pairs(ml_mesh_mgr.navData) do
+				local node = ml_node:Create()
+				if (table.valid(node)) then
+					node.id = id
+					for nid, posTable in pairs(neighbors) do
+						node:AddNeighbor(nid, posTable)
+					end
+					ml_nav_manager.AddNode(node)
+				end
+			end
+		end
 		ml_mesh_mgr.navData = persistence.load(GetLuaModsPath()..[[GW2Minion\]].."worldnav_data.lua")
 		if ( not table.valid(ml_mesh_mgr.navData)) then 
 			ml_mesh_mgr.navData = {} 
