@@ -15,7 +15,7 @@ function gw2minion.Init()
 	-- setup meshmanager
 	if ( ml_mesh_mgr ) then 
 		ml_mesh_mgr.GetMapID = function () return Player:GetLocalMapID() end
-		ml_mesh_mgr.GetMapName = function () return ml_global_information.CurrentMapName end
+		ml_mesh_mgr.GetMapName = function () return gw2_datamanager.GetMapName(Player:GetLocalMapID())  end
 		ml_mesh_mgr.GetPlayerPos = function () return Player.pos end
 
 		-- Set worldnavigation data
