@@ -28,7 +28,7 @@ function Player:MoveTo(x, y, z, targetid, stoppingdistance, randommovement, smoo
 			gw2_unstuck.Reset()
 		end
 		ml_navigation.navconnection = nil
-		local status = ml_navigation:MoveTo(x, y, z, targetID)
+		local status = ml_navigation:MoveTo(x, y, z, targetid)
 		
 		-- Handle stuck if we start off mesh
 		if(status == -1 or status == -7) then
