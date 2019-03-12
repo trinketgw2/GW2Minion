@@ -309,7 +309,12 @@ function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 		local navcon = nil
 		local navconradius = 0
 		if( nextnode.navconnectionid and nextnode.navconnectionid ~= 0) then
-			navcon = ml_mesh_mgr.navconnections[nextnode.navconnectionid]
+			-- new && old nav code
+			if (NavigationManager.ShowCells == nil ) then
+				navcon = ml_mesh_mgr.navconnections[nextnode.navconnectionid]
+			else
+				navcon = NavigationManager:GetNavConnection(nextnode.navconnectionid)
+			end			
 			if ( navcon ) then
 				navconradius = navcon.radius *32 -- meshspace to gamespace is *32 in GW2
 			end
