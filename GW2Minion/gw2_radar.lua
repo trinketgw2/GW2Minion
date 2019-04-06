@@ -133,7 +133,7 @@ function gw2_radar.Draw(_, ticks )
 			
 			-- Delay parsing entities.
 			-- Checks all required entity lists. Delay this function as much as possible to reduce system load.
-			if (ticks - gw2_radar.parseTicks >= gw2_radar.parseTickDelay) then
+			if (ticks - gw2_radar.parseTicks >= gw2_radar.parseTickDelay and PvPManager:IsMatchFinished() == false) then
 				gw2_radar.parseTicks = ticks
 				gw2_radar.parseEntities()
 				gw2_radar.parseCompassPath()
@@ -374,7 +374,10 @@ end
 
 -- Update Loop
 function gw2_radar.Update(_,ticks)
-	
+	if (ticks - gw2_radar.computeTicks >= gw2_radar.computeTickDelay) then
+		gw2_radar.parseEntities()
+		gw2_radar.parseCompassPath()
+	end
 end
 
 -- Functional Code.
