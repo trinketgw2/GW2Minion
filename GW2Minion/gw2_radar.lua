@@ -133,24 +133,28 @@ function gw2_radar.Draw(_, ticks )
 			
 			-- Delay parsing entities.
 			-- Checks all required entity lists. Delay this function as much as possible to reduce system load.
-			if (PvPManager:IsMatchFinished() ~= false and GetGameState() == GW2.GAMESTATE.GAMEPLAY) then -- checking gamestate once more, I have the feeling we are fucked by multithreading...
-				if (ticks - gw2_radar.parseTicks >= gw2_radar.parseTickDelay ) then
-					gw2_radar.parseTicks = ticks
-					gw2_radar.parseEntities()
-					gw2_radar.parseCompassPath()
-				end
-				-- Delay updating compass and position data.
-				-- Delay this function as much as possible to reduce system load.
-				if (ticks - gw2_radar.computeTicks >= gw2_radar.computeTickDelay) then
-					gw2_radar.computeTicks = ticks
-					gw2_radar.updateCompassData()
-					gw2_radar.updateScreenPositionData()
-				end
+			if (GetGameState() == GW2.GAMESTATE.GAMEPLAY) then -- checking gamestate once more, I have the feeling we are fucked by multithreading...
+				-- crashes after coming out of spvp..maybe this fixes it:
+				if (PvPManager:IsInMatch() == false or PvPManager:IsMatchFinished() == false) then
 				
-				-- 3D radar.
-				gw2_radar.draw3DRadar()
-				-- Compass.
-				gw2_radar.drawCompass()
+					if (ticks - gw2_radar.parseTicks >= gw2_radar.parseTickDelay ) then
+						gw2_radar.parseTicks = ticks
+						gw2_radar.parseEntities()
+						gw2_radar.parseCompassPath()
+					end
+					-- Delay updating compass and position data.
+					-- Delay this function as much as possible to reduce system load.
+					if (ticks - gw2_radar.computeTicks >= gw2_radar.computeTickDelay) then
+						gw2_radar.computeTicks = ticks
+						gw2_radar.updateCompassData()
+						gw2_radar.updateScreenPositionData()
+					end
+					
+					-- 3D radar.
+					gw2_radar.draw3DRadar()
+					-- Compass.
+					gw2_radar.drawCompass()
+				end
 			end
 		-- end
 	end
