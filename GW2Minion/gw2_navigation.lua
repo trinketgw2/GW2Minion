@@ -103,10 +103,10 @@ function ml_navigation.Navigate(event, ticks )
 								if (ml_navigation.navconnection.details) then
 									ncsubtype = ml_navigation.navconnection.details.subtype
 									if(nextnode.navconnectionsideA == true) then
-										ncradius = ml_navigation.navconnection.sideA.radius
+										ncradius = ml_navigation.navconnection.sideB.radius -- yes , B , not A
 										ncdirectionFromA =  true
 									else
-										ncradius = ml_navigation.navconnection.sideB.radius
+										ncradius = ml_navigation.navconnection.sideA.radius
 										ncdirectionFromA =  false
 									end
 								end
@@ -120,7 +120,7 @@ function ml_navigation.Navigate(event, ticks )
 									if ( not ml_navigation.omc_startheight ) then ml_navigation.omc_startheight = playerpos.z end
 									-- Additionally check if we are "above" the target point already, in that case, stop moving forward
 									local nodedist = ml_navigation:GetRaycast_Player_Node_Distance(playerpos,nextnode)
-									if ( (nodedist)  < ml_navigation.NavPointReachedDistances["Walk"] or (playerpos.z < nextnode.z and math.distance2d(playerpos,nextnode) < ml_navigation.NavPointReachedDistances["Walk"]) ) then
+									if ( (nodedist)  < ml_navigation.NavPointReachedDistances["Walk"] or (playerpos.z < nextnode.z and (math.distance2d(playerpos,nextnode)-ncradius*32) < ml_navigation.NavPointReachedDistances["Walk"]) ) then
 										d("[Navigation] - We are above the OMC_END Node, stopping movement. ("..tostring(math.round(nodedist,2)).." < "..tostring(ml_navigation.NavPointReachedDistances["Walk"])..")")
 										Player:Stop()
 										if ( ncradius < 1.0  ) then
@@ -145,7 +145,7 @@ function ml_navigation.Navigate(event, ticks )
 									else
 										-- Additionally check if we are "above" the target point already, in that case, stop moving forward
 										local nodedist = ml_navigation:GetRaycast_Player_Node_Distance(playerpos,nextnode)
-										if ( (nodedist)  < ml_navigation.NavPointReachedDistances["Walk"] or (playerpos.z < nextnode.z and math.distance2d(playerpos,nextnode) < ml_navigation.NavPointReachedDistances["Walk"])) then
+										if ( (nodedist)  < ml_navigation.NavPointReachedDistances["Walk"] or (playerpos.z < nextnode.z and (math.distance2d(playerpos,nextnode)-ncradius*32) < ml_navigation.NavPointReachedDistances["Walk"])) then
 											d("[Navigation] - We are above the OMC END Node, stopping movement. ("..tostring(math.round(nodedist,2)).." < "..tostring(ml_navigation.NavPointReachedDistances["Walk"])..")")
 											Player:Stop()
 											if ( ncradius < 1.0  ) then
@@ -293,7 +293,9 @@ function ml_navigation.Navigate(event, ticks )
 											if ( func ) then
 												result = func()(ml_navigation.navconnection, lastnode, nextnode)
 												if ( ml_navigation.navconnection ) then -- yeah happens, crazy, riught ?
-													ml_navigation.navconnection.luacode_compiled = func	
+													ml_navigation.navconnection.luacode_compiled = func
+												else
+													--ml_error("[Navigation] - Cannot set luacode_compiled, ml_navigation.navconnection is nil !?")
 												end
 											else
 												ml_navigation.navconnection.luacode_compiled = nil
@@ -303,7 +305,9 @@ function ml_navigation.Navigate(event, ticks )
 											end
 										else
 											--executing the already loaded function
-											result = ml_navigation.navconnection.luacode_compiled()(ml_navigation.navconnection, lastnode, nextnode)
+											if(ml_navigation.navconnection.luacode_compiled) then
+												result = ml_navigation.navconnection.luacode_compiled()(ml_navigation.navconnection, lastnode, nextnode)
+											end
 										end									
 										
 									else
@@ -372,15 +376,15 @@ function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 			if (NavigationManager.ShowCells == nil ) then
 				navcon = ml_mesh_mgr.navconnections[nextnode.navconnectionid]
 				if ( navcon ) then
-					navconradius = navcon.radius *32 -- meshspace to gamespace is *32 in GW2
+					navconradius = navcon.radius -- meshspace to gamespace is *32 in GW2
 				end
 			else
 				navcon = NavigationManager:GetNavConnection(nextnode.navconnectionid)
 				if ( navcon ) then
 					if(nextnode.navconnectionsideA == true) then											
-						navconradius = navcon.sideA.radius *32 -- meshspace to gamespace is *32 in GW2
+						navconradius = navcon.sideA.radius -- meshspace to gamespace is *32 in GW2
 					else
-						navconradius = navcon.sideB.radius *32 -- meshspace to gamespace is *32 in GW2
+						navconradius = navcon.sideB.radius -- meshspace to gamespace is *32 in GW2
 					end
 				end
 			end			
@@ -388,8 +392,8 @@ function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 			
 		if (Player.swimming ~= GW2.SWIMSTATE.Diving) then		
 			local nodedist = ml_navigation:GetRaycast_Player_Node_Distance(playerpos,nextnode)
-			if ( (nodedist - navconradius) < ml_navigation.NavPointReachedDistances["Walk"] ) then
-				d("[Navigation] - Node reached. ("..tostring(math.round(nodedist - navconradius,2)).." < "..tostring(ml_navigation.NavPointReachedDistances["Walk"])..")")
+			if ( (nodedist - navconradius*32) < ml_navigation.NavPointReachedDistances["Walk"] ) then
+				d("[Navigation] - Node reached. ("..tostring(math.round(nodedist - navconradius*32,2)).." < "..tostring(ml_navigation.NavPointReachedDistances["Walk"])..")")
 				-- We arrived at a NavConnection Node
 				if( navcon) then
 					d("[Navigation] -  Arrived at NavConnection ID: "..tostring(nextnode.navconnectionid))
@@ -424,9 +428,9 @@ function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 		-- Handle underwater movement
 			-- Check if the next Cubenode is reached:
 			local dist3D = math.distance3d(nextnode,playerpos)
-			if ( (dist3D - navconradius) < ml_navigation.NavPointReachedDistances["Diving"]) then
+			if ( (dist3D - navconradius*32) < ml_navigation.NavPointReachedDistances["Diving"]) then
 				-- We reached the node
-				d("[Navigation] - Cube Node reached. ("..tostring(math.round(dist3D - navconradius,2)).." < "..tostring(ml_navigation.NavPointReachedDistances["Diving"])..")")
+				d("[Navigation] - Cube Node reached. ("..tostring(math.round(dist3D - navconradius*32,2)).." < "..tostring(ml_navigation.NavPointReachedDistances["Diving"])..")")
 					
 				-- We arrived at a NavConnection Node
 				if( navcon) then

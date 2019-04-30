@@ -584,10 +584,10 @@ function gw2_combatdata.cleanLog()
 			for targetid,targetLog in pairs(targets) do
 				if (targetLog.timeOfDeath > 0) then
 					if ((targetLog.timeOfDeath + 60000) < GetSystemTime()) then
-						if (gw2_combatdata.damageLog[sourceID][targetid]) then
+						if (gw2_combatdata.damageLog[sourceID] and gw2_combatdata.damageLog[sourceID][targetid]) then
 							gw2_combatdata.damageLog[sourceID][targetid] = nil
 						end
-						gw2_combatdata.damageLog[targetid] = nil
+						--gw2_combatdata.damageLog[targetid] = nil
 					end
 				elseif ((targetLog.timeOfLastHit + 30000) < GetSystemTime() and gw2_combatdata.damageLog[sourceID]) then
 					gw2_combatdata.damageLog[sourceID][targetid] = nil
