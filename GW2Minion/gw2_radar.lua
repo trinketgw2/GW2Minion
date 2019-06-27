@@ -499,7 +499,7 @@ function gw2_radar.parseEntities()
 			for _,entity in pairs(entityList) do
 				if (table.valid(entity)) then
 					for _,radarType in pairs(radarTypes) do
-						if (table.valid(radarType)) then
+						if (table.valid(radarType) and (radarType.variables.compass.value or radarType.variables.radar3D.value)) then
 							if (gw2_radar.matchFilterEntity(entity,radarType.filter)) then
 								local currEntity = gw2_radar.trackEntities[entity.id]
 								newTrackEntities[entity.id] = {
