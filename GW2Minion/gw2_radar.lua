@@ -483,7 +483,7 @@ end
 -- Create Filter list.
 function gw2_radar.updateFilterList()
 	for _,radarType in pairs(gw2_radar.radarTypes) do
-		if (table.valid(radarType) and (radarType.variables.compass.value or radarType.variables.radar3D.value)) then
+		if (table.valid(radarType)) then
 			gw2_radar.filterList[radarType.list] = gw2_radar.filterList[radarType.list] or {}
 			table.insert(gw2_radar.filterList[radarType.list],radarType)
 		end
