@@ -120,6 +120,6 @@ function gw2_vendorassistant.SellItems()
 	return false
 end
  
-RegisterEventHandler("Module.Initalize",gw2_vendorassistant.Init)
-RegisterEventHandler("Gameloop.Draw", gw2_vendorassistant.Draw)
-RegisterEventHandler("Gameloop.Draw", gw2_vendorassistant.Update)
+RegisterEventHandler("Module.Initalize", gw2_vendorassistant.Init, "gw2_vendorassistant.Init")
+RegisterEventHandler("Gameloop.Draw", gw2_vendorassistant.Draw, "gw2_vendorassistant.Draw")
+RegisterEventHandler("Gameloop.Draw", gw2_vendorassistant.Update, "gw2_vendorassistant.Update")

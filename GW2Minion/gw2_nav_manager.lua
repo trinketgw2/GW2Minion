@@ -30,4 +30,4 @@ function gw2_nav_manager.NodeDistanceTo(self,id)
 	return 1
 end
 
-RegisterEventHandler("Module.Initalize",gw2_nav_manager.ModuleInit)
+RegisterEventHandler("Module.Initalize", gw2_nav_manager.ModuleInit, "gw2_nav_manager.ModuleInit")

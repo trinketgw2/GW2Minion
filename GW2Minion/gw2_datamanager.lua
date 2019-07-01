@@ -253,5 +253,5 @@ function gw2_datamanager.GetRandomPositionInLevelRange(level)
 	return nil
 end
 
-RegisterEventHandler("Module.Initalize",gw2_datamanager.ModuleInit)
-RegisterEventHandler("gw2minion.MapChanged",gw2_datamanager.UpdateLevelMap)
+RegisterEventHandler("Module.Initalize", gw2_datamanager.ModuleInit, "gw2_datamanager.ModuleInit")
+RegisterEventHandler("gw2minion.MapChanged", gw2_datamanager.UpdateLevelMap, "gw2_datamanager.UpdateLevelMap")

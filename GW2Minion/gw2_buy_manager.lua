@@ -429,5 +429,5 @@ function gw2_buy_manager.buyItems()
 	return false
 end
 
-RegisterEventHandler("Module.Initalize",gw2_buy_manager.ModuleInit)
-RegisterEventHandler("Gameloop.Draw", gw2_buy_manager.mainWindow.Draw)
+RegisterEventHandler("Module.Initalize", gw2_buy_manager.ModuleInit, "gw2_buy_manager.ModuleInit")
+RegisterEventHandler("Gameloop.Draw", gw2_buy_manager.mainWindow.Draw, "gw2_buy_manager.mainWindow.Draw")

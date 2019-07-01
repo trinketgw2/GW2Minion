@@ -171,7 +171,7 @@ function gw2_obstacle_manager.ModuleInit()
 		end
 	end
 end
-RegisterEventHandler("Module.Initalize",gw2_obstacle_manager.ModuleInit)
+RegisterEventHandler("Module.Initalize", gw2_obstacle_manager.ModuleInit, "gw2_obstacle_manager.ModuleInit")
 
 function gw2_obstacle_manager.MapChanged()
 	d("[gw2_obstacle_manager]: Map changed, clearing old automatic avoidance areas.")
@@ -179,7 +179,7 @@ function gw2_obstacle_manager.MapChanged()
 	d("[gw2_obstacle_manager]: Map changed, loading stored avoidance areas.")
 	gw2_obstacle_manager.SetupAvoidanceAreas()
 end
-RegisterEventHandler("gw2minion.MapChanged",gw2_obstacle_manager.MapChanged)
+RegisterEventHandler("gw2minion.MapChanged", gw2_obstacle_manager.MapChanged, "gw2_obstacle_manager.MapChanged")
 
 function gw2_obstacle_manager.OnUpdateHandler(_,tick)
 	if(TimeSince(gw2_obstacle_manager.ticks) > BehaviorManager:GetTicksThreshold()) then
@@ -206,7 +206,7 @@ function gw2_obstacle_manager.OnUpdateHandler(_,tick)
 		end
 	end
 end
-RegisterEventHandler("Gameloop.Update",gw2_obstacle_manager.OnUpdateHandler)
+RegisterEventHandler("Gameloop.Update", gw2_obstacle_manager.OnUpdateHandler, "gw2_obstacle_manager.OnUpdateHandler")
 
 gw2_obstacle_manager.blAvoidanceAreaEntryDuration = 0
 gw2_obstacle_manager.blAvoidanceAreaEntryRadius = 50

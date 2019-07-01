@@ -149,7 +149,7 @@ function ml_global_information.OnUpdate(Event,ticks)
 		end
 	end
 end
-RegisterEventHandler("Gameloop.Draw", ml_global_information.OnUpdate)
+RegisterEventHandler("Gameloop.Draw", ml_global_information.OnUpdate, "ml_global_information.OnUpdate")
 
 function ml_global_information.Start()
 	gw2_unstuck.Start()

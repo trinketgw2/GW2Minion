@@ -27,7 +27,7 @@ function gw2_blacklistmanager.ModuleInit()
 		end
 	end
 end
-RegisterEventHandler("Module.Initalize",gw2_blacklistmanager.ModuleInit)
+RegisterEventHandler("Module.Initalize",gw2_blacklistmanager.ModuleInit, "gw2_blacklistmanager.ModuleInit")
 
 function gw2_blacklistmanager.OnUpdate(_,ticks)
 	if(TimeSince(gw2_blacklistmanager.ticks) > 1000) then
@@ -66,7 +66,7 @@ function gw2_blacklistmanager.OnUpdate(_,ticks)
 		end
 	end
 end
-RegisterEventHandler("Gameloop.Update", gw2_blacklistmanager.OnUpdate)
+RegisterEventHandler("Gameloop.Update", gw2_blacklistmanager.OnUpdate, "gw2_blacklistmanager.OnUpdate")
 
 -- COMMON FUNCTIONS 
 

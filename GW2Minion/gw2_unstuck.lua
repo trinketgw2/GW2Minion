@@ -903,7 +903,7 @@ function gw2_unstuck.Init()
 	
 	gw2_unstuck.Stop()
 end
-RegisterEventHandler("Module.Initalize",gw2_unstuck.Init)
+RegisterEventHandler("Module.Initalize", gw2_unstuck.Init, "gw2_unstuck.Init")
 
 function gw2_unstuck.Update(_, tick)
 	if(TimeSince(gw2_unstuck.updatetick) > 1000) then
@@ -925,7 +925,7 @@ function gw2_unstuck.Update(_, tick)
 		end
 	end
 end
-RegisterEventHandler("Gameloop.Update",gw2_unstuck.Update)
+RegisterEventHandler("Gameloop.Update", gw2_unstuck.Update, "gw2_unstuck.Update")
 
 ---- GUI
 function gw2_unstuck.Draw()
@@ -1009,4 +1009,4 @@ function gw2_unstuck.Draw()
 		GUI:End()
 	end
 end
-RegisterEventHandler("Gameloop.Draw",gw2_unstuck.Draw)
+RegisterEventHandler("Gameloop.Draw", gw2_unstuck.Draw, "gw2_unstuck.Draw")

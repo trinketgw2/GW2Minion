@@ -16,4 +16,4 @@ function gw2_gui_manager.Draw()
 		end
 	end
 end
-RegisterEventHandler("Gameloop.Draw", gw2_gui_manager.Draw)
+RegisterEventHandler("Gameloop.Draw", gw2_gui_manager.Draw, "gw2_gui_manager.Draw")

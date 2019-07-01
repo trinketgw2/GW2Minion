@@ -556,10 +556,10 @@ end
 
 
 
-RegisterEventHandler("Module.Initalize",gw2_radar.Init)
-RegisterEventHandler("Gameloop.Draw", gw2_radar.Draw)
--- RegisterEventHandler("Gameloop.Update",gw2_radar.Update)
-RegisterEventHandler("Radar.toggle", gw2_radar.ToggleWindow)
+RegisterEventHandler("Module.Initalize", gw2_radar.Init, "gw2_radar.Init")
+RegisterEventHandler("Gameloop.Draw", gw2_radar.Draw, "gw2_radar.Draw")
+-- RegisterEventHandler("Gameloop.Update", gw2_radar.Update, "gw2_radar.Update")
+RegisterEventHandler("Radar.toggle", gw2_radar.ToggleWindow, "gw2_radar.ToggleWindow")
 
 
 

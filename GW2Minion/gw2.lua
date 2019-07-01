@@ -153,7 +153,7 @@ function gw2minion.Init()
 	end
 	
 end
-RegisterEventHandler("Module.Initalize",gw2minion.Init)
+RegisterEventHandler("Module.Initalize",gw2minion.Init, "gw2minion.Init")
 
 -- Get's called internally in ml_bt_mgr.lua by the :run() of the gw2minion.mainbtreeinstance. This draws UI code for ther internal GW2_Main btree here.
 -- This is to add always the same "core" functions and UI elements to the Main Menu
@@ -198,7 +198,7 @@ function gw2minion.LoadBehaviorFiles()
 	--Load the "GW2 Main/Core tree" which is a local one and gets called from in here	
 	gw2minion.ReloadBTree()
  end
-RegisterEventHandler("RefreshBehaviorFiles", gw2minion.LoadBehaviorFiles)
+RegisterEventHandler("RefreshBehaviorFiles", gw2minion.LoadBehaviorFiles, "gw2minion.LoadBehaviorFiles")
 
 
 function gw2minion.DrawCall(event, ticks )
@@ -235,7 +235,7 @@ function gw2minion.DrawCall(event, ticks )
 		d("[GW2Minion] - Automatically starting bot")
 	end
 end
-RegisterEventHandler("Gameloop.Draw", gw2minion.DrawCall)
+RegisterEventHandler("Gameloop.Draw", gw2minion.DrawCall, "gw2minion.DrawCall")
 
 function gw2minion.DrawVersionChanged()
 	if(not GUI:IsPopupOpen(GetString("Bot Update Required"))) then

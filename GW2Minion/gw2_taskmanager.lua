@@ -187,4 +187,4 @@ function gw2_taskmanager.DrawBotProperties(taskProperties)
 	end
 end
 
-RegisterEventHandler("Module.Initalize",gw2_taskmanager.Init)
+RegisterEventHandler("Module.Initalize", gw2_taskmanager.Init, "gw2_taskmanager.Init")

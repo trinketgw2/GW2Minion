@@ -675,5 +675,5 @@ function gw2_sell_manager.ToggleMenu()
 end
 
 -- Register Events here.
-RegisterEventHandler("Module.Initalize",gw2_sell_manager.ModuleInit)
-RegisterEventHandler("Gameloop.Draw", gw2_sell_manager.mainWindow.Draw)
+RegisterEventHandler("Module.Initalize", gw2_sell_manager.ModuleInit, "gw2_sell_manager.ModuleInit")
+RegisterEventHandler("Gameloop.Draw", gw2_sell_manager.mainWindow.Draw, "gw2_sell_manager.mainWindow.Draw")

@@ -652,5 +652,5 @@ function gw2_salvage_manager.ToggleMenu()
 end
 
 -- Register Events here.
-RegisterEventHandler("Module.Initalize",gw2_salvage_manager.ModuleInit)
-RegisterEventHandler("Gameloop.Draw", gw2_salvage_manager.mainWindow.Draw)
+RegisterEventHandler("Module.Initalize", gw2_salvage_manager.ModuleInit, "gw2_salvage_manager.ModuleInit")
+RegisterEventHandler("Gameloop.Draw", gw2_salvage_manager.mainWindow.Draw, "gw2_salvage_manager.mainWindow.Draw")

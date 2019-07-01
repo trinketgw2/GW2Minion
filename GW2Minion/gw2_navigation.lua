@@ -363,7 +363,7 @@ function ml_navigation.Navigate(event, ticks )
 		end
 	end
 end
-RegisterEventHandler("Gameloop.Draw", ml_navigation.Navigate, "GW2Minion")
+RegisterEventHandler("Gameloop.Draw", ml_navigation.Navigate, "ml_navigation.Navigate") -- TODO: navigate on draw loop?
 
 -- Checks if the next node in our path was reached, takes differen movements into account ( swimming, walking, riding etc. )
 function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
