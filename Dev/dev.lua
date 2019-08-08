@@ -1223,6 +1223,8 @@ function dev.DrawCall(event, ticks )
 						GUI:PushItemWidth(250)
 						GUI:BulletText("Game Time") GUI:SameLine(200) GUI:InputText("##devuf2",tostring(GetGameTime()))
 						GUI:BulletText("Computer ID") GUI:SameLine(200) GUI:InputText("##devuf1",tostring(GetComputerID()))
+						GUI:BulletText("Is Map Open") GUI:SameLine(200) GUI:InputText("##devuf7",tostring(IsMapOpen()))
+						
 						local p = GetMouseInWorldPos()
 						if ( table.valid(p)) then
 							GUI:BulletText("MousePosition") GUI:SameLine(200)  GUI:InputFloat3( "##devuf5", p.x, p.y, p.z, 2, GUI.InputTextFlags_ReadOnly)
@@ -1254,38 +1256,60 @@ function dev.DrawCall(event, ticks )
 								Player:EnterGameWorld(dev.logincharname,dev.loginserverid)
 							end
 						end
+						
+						GUI:PopItemWidth()
+						GUI:PushItemWidth(100)
+						GUI:BulletText("GetUISize") GUI:SameLine(200) GUI:InputText("##devuxf2",tostring(GetUISize()))
+						GUI:BulletText("SetUISize") GUI:SameLine(200) dev.uisize = GUI:InputInt("##devufx6",dev.uisize or 1 ,1,1)
+						GUI:SameLine()
+						if (GUI:Button("SetSize",75,15) ) then
+							SetUISize(dev.uisize)
+						end
+						
+						if(dev.uioptionOnOff == nil) then dev.uioptionOnOff = true end
+						if(dev.uioption == nil) then dev.uioption = 0 end
+						GUI:BulletText("ToggleUIOption") GUI:SameLine(200) dev.uioption = GUI:InputInt("##devufx7",dev.uioption,1,1) GUI:SameLine() dev.uioptionOnOff = GUI:Checkbox("##devufxx7",dev.uioptionOnOff) 
+						GUI:SameLine()
+						if (GUI:Button("Toggle",75,15) ) then
+							ToggleUIOption(dev.uioption, dev.uioptionOnOff == true and 1 or 0)
+						end
+						
 						GUI:PopItemWidth()
 						GUI:TreePop()
 					end
 
 -- END Utility Functions & Other Infos
-				if ( GUI:TreeNode("Installed Addons") ) then
-					local alist = GetAddonList()					
-					table.sort(alist, function(a,b) return a.average > b.average end)
-					GUI:PushItemWidth(250)
-					GUI:Columns( 6, "#beer", true )
-					GUI:SetColumnWidth(0, 250)
-					GUI:SetColumnWidth(1, 125)
-					GUI:SetColumnWidth(2, 75)
-					GUI:SetColumnWidth(3, 75)
-					GUI:SetColumnWidth(4, 75)
-					GUI:SetColumnWidth(5, 75)
-					GUI:Text("Addon")
-					GUI:NextColumn()
-					GUI:Text("Event")
-					GUI:NextColumn()
-					GUI:Text("lasttick")						
-					GUI:NextColumn()						
-					GUI:Text("highest (ms)")
-					GUI:NextColumn()
-					GUI:Text("lowest (ms)")
-					GUI:NextColumn()
-					GUI:Text("average (ms)")
-					GUI:NextColumn()
-					GUI:Separator()
-					local tick = GetTickCount()
-					for i, e in pairs(alist) do
-						if(e.average ~= 0) then
+					if ( GUI:TreeNode("Installed Addons") ) then
+				dev.showInitAddons = GUI:Checkbox("Include Initialize Events", dev.showInitAddons or false)
+				if(not dev.lastaddontick or ticks - dev.lastaddontick > 200) then
+					dev.lastaddontick = ticks
+					dev.addonlist = GetAddonList()
+					table.sort(dev.addonlist, function(a,b) return a.average > b.average end)					
+				end
+				GUI:PushItemWidth(250)
+				GUI:Columns( 6, "#beer", true )
+				GUI:SetColumnWidth(0, 250)
+				GUI:SetColumnWidth(1, 125)
+				GUI:SetColumnWidth(2, 100)
+				GUI:SetColumnWidth(3, 100)
+				GUI:SetColumnWidth(4, 100)
+				GUI:SetColumnWidth(5, 100)
+				GUI:Text("Addon")
+				GUI:NextColumn()
+				GUI:Text("Event")
+				GUI:NextColumn()
+				GUI:Text("lasttick")						
+				GUI:NextColumn()						
+				GUI:Text("highest (ms)")
+				GUI:NextColumn()
+				GUI:Text("lowest (ms)")
+				GUI:NextColumn()
+				GUI:Text("average (ms)")
+				GUI:NextColumn()
+				GUI:Separator()					
+				for i, e in pairs(dev.addonlist) do
+					if(e.highest ~= 0) then
+						if(dev.showInitAddons or ( e.lasttick < 10000 and e.event ~= "Module.Initialize"))then
 							GUI:Text(e.name)
 							GUI:NextColumn()
 							GUI:Text(e.event)
@@ -1300,10 +1324,11 @@ function dev.DrawCall(event, ticks )
 							GUI:NextColumn()
 						end
 					end
-					GUI:Columns(1)
-					GUI:PopItemWidth()
-					GUI:TreePop()
 				end
+				GUI:Columns(1)
+				GUI:PopItemWidth()
+				GUI:TreePop()
+			end
 -- 	END INSTALLED ADDONS
 					
 				end
@@ -1673,3 +1698,33 @@ function dev.DrawSpellInfo(b)
 	GUI:BulletText("CastAnim9") GUI:SameLine(200) GUI:InputText("##devsk32",tostring(b.isunknown9),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 									
 end
+
+function drawTest() 
+	GUI:SetNextWindowPos(0, 0, GUI.SetCond_Always) 
+	local screenWidth, screenHeight = GUI:GetScreenSize() 
+	GUI:SetNextWindowSize(screenWidth, screenHeight) 
+	GUI:PushStyleVar(GUI.StyleVar_WindowRounding, 0) 
+	GUI:PushStyleVar(GUI.StyleVar_WindowPadding, 0,0) 
+	GUI:PushStyleColor(GUI.Col_WindowBg, 0, 0, 0, 0) 
+	GUI:Begin("test", true, GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoMove + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoScrollWithMouse + GUI.WindowFlags_NoCollapse + GUI.WindowFlags_NoSavedSettings + GUI.WindowFlags_NoInputs + GUI.WindowFlags_NoFocusOnAppearing + GUI.WindowFlags_NoBringToFrontOnFocus) 
+	GUI:PopStyleVar(2) 
+	GUI:PopStyleColor(1) 
+
+	local playerScreenpos = RenderManager:WorldToScreen(Player.pos) 
+	if (playerScreenpos) then 
+		GUI:AddCircle(playerScreenpos.x, playerScreenpos.y, 5, 4278190335, 12) 
+	end 
+
+	local target = Player:GetTarget()
+	if (target) then
+		local targetScreenpos = RenderManager:WorldToScreen(target.pos) 
+		if (targetScreenpos) then 
+			GUI:AddCircle(targetScreenpos.x, targetScreenpos.y, 5, 4278190335, 12) 
+		end 
+	end
+
+	GUI:End() 
+end 
+
+RegisterEventHandler("Gameloop.Draw", drawTest, "test")
+
