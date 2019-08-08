@@ -1698,33 +1698,3 @@ function dev.DrawSpellInfo(b)
 	GUI:BulletText("CastAnim9") GUI:SameLine(200) GUI:InputText("##devsk32",tostring(b.isunknown9),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 									
 end
-
-function drawTest() 
-	GUI:SetNextWindowPos(0, 0, GUI.SetCond_Always) 
-	local screenWidth, screenHeight = GUI:GetScreenSize() 
-	GUI:SetNextWindowSize(screenWidth, screenHeight) 
-	GUI:PushStyleVar(GUI.StyleVar_WindowRounding, 0) 
-	GUI:PushStyleVar(GUI.StyleVar_WindowPadding, 0,0) 
-	GUI:PushStyleColor(GUI.Col_WindowBg, 0, 0, 0, 0) 
-	GUI:Begin("test", true, GUI.WindowFlags_NoTitleBar + GUI.WindowFlags_NoResize + GUI.WindowFlags_NoMove + GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoScrollWithMouse + GUI.WindowFlags_NoCollapse + GUI.WindowFlags_NoSavedSettings + GUI.WindowFlags_NoInputs + GUI.WindowFlags_NoFocusOnAppearing + GUI.WindowFlags_NoBringToFrontOnFocus) 
-	GUI:PopStyleVar(2) 
-	GUI:PopStyleColor(1) 
-
-	local playerScreenpos = RenderManager:WorldToScreen(Player.pos) 
-	if (playerScreenpos) then 
-		GUI:AddCircle(playerScreenpos.x, playerScreenpos.y, 5, 4278190335, 12) 
-	end 
-
-	local target = Player:GetTarget()
-	if (target) then
-		local targetScreenpos = RenderManager:WorldToScreen(target.pos) 
-		if (targetScreenpos) then 
-			GUI:AddCircle(targetScreenpos.x, targetScreenpos.y, 5, 4278190335, 12) 
-		end 
-	end
-
-	GUI:End() 
-end 
-
-RegisterEventHandler("Gameloop.Draw", drawTest, "test")
-
