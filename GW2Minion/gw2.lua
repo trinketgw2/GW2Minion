@@ -9,6 +9,11 @@ function gw2minion.Init()
 	} 
 	ml_gui.ui_mgr:AddComponent(gw2mainmenu)
 	
+	-- Set UI / Options	 
+	ToggleUIOption(1,true)	-- AOE Loot in interact
+	ToggleUIOption(2,true)-- AOE Autoloot
+	ToggleUIOption(36,false) -- Evade on double tab direction keys
+
 	-- Setup GuestServerList
 	gw2minion.RefreshGuestServers()	
 	
@@ -53,7 +58,7 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(26,"Dredgehaunt Cliffs")
 		ml_mesh_mgr.SetDefaultMesh(27,"LonarsPass")
 		ml_mesh_mgr.SetDefaultMesh(28,"Wayfarer Foothills")		
-		ml_mesh_mgr.SetDefaultMesh(29,"TimberlineFalls")
+		ml_mesh_mgr.SetDefaultMesh(29,"Timberline Falls")
 		ml_mesh_mgr.SetDefaultMesh(30,"FrostGorge Sound")
 		ml_mesh_mgr.SetDefaultMesh(31,"Snowden Drifts")		
 		ml_mesh_mgr.SetDefaultMesh(32,"DiessaPlateau")
@@ -143,7 +148,14 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(1228,"Elon Riverlands")
 		ml_mesh_mgr.SetDefaultMesh(1211,"Desert Highlands")
 		ml_mesh_mgr.SetDefaultMesh(1226,"The Desolation")
-		
+		ml_mesh_mgr.SetDefaultMesh(1301,"Jahai Bluffs")
+		ml_mesh_mgr.SetDefaultMesh(1263,"Domain of Istan")
+		ml_mesh_mgr.SetDefaultMesh(1271,"Sandswept Isles")
+		ml_mesh_mgr.SetDefaultMesh(1288,"Domain of Kourna")
+		ml_mesh_mgr.SetDefaultMesh(1294,"Sun's Refuge")
+		ml_mesh_mgr.SetDefaultMesh(1310,"Thunderhead Peaks")
+		ml_mesh_mgr.SetDefaultMesh(1317,"Dragonfall")
+		ml_mesh_mgr.SetDefaultMesh(1248,"Domain of Vabbi")
 		
 		--Instances
 		ml_mesh_mgr.SetDefaultMesh(896,"North Noland Hatchery") -- Diessa Plateau

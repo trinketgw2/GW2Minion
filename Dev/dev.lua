@@ -674,6 +674,8 @@ function dev.DrawCall(event, ticks )
 						GUI:BulletText("CanMove") GUI:SameLine(200) GUI:InputText("##devmm1",tostring(Player:CanMove()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 						GUI:BulletText("IsMoving") GUI:SameLine(200) GUI:InputText("##devmm2",tostring(Player:IsMoving()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 						GUI:BulletText("MovementState") GUI:SameLine(200) GUI:InputText("##devmm3",tostring(Player:GetMovementState()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+						GUI:BulletText("Mounted") GUI:SameLine(200) GUI:InputText("##devmm43",tostring(Player.mounted),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+						if (GUI:Button("Mount",150,15) ) then Player:Mount() end GUI:SameLine()if (GUI:Button("Dismount",150,15) ) then Player:Dismount() end
 						local movstr = ""
 						local movdirs = Player:GetMovement()
 						if (movdirs.forward) then movstr = "forward" end
@@ -1698,3 +1700,10 @@ function dev.DrawSpellInfo(b)
 	GUI:BulletText("CastAnim9") GUI:SameLine(200) GUI:InputText("##devsk32",tostring(b.isunknown9),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 									
 end
+
+
+
+
+
+
+

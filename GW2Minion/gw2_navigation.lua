@@ -1,8 +1,8 @@
 -- Extends minionlib's ml_navigation.lua by adding the game specific navigation handler
 
 -- Since we have different "types" of movement, add all types and assign a value to them. Make sure to include one entry for each of the 4 kinds below per movement type!
-ml_navigation.NavPointReachedDistances = 			{ 	["Walk"] = 32,		["Diving"] = 48,}		-- Distance to the next node in the path at which the ml_navigation.pathindex is iterated 
-ml_navigation.PathDeviationDistances = 				{ 	["Walk"] = 50,		["Diving"] = 150, }		-- The max. distance the playerposition can be away from the current path. (The Point-Line distance between player and the last & next pathnode)
+ml_navigation.NavPointReachedDistances = 			{ 	["Walk"] = 32,		["Diving"] = 48,	["Mounted"] = 50,}		-- Distance to the next node in the path at which the ml_navigation.pathindex is iterated 
+ml_navigation.PathDeviationDistances = 				{ 	["Walk"] = 50,		["Diving"] = 150, 	["Mounted"] = 150,}		-- The max. distance the playerposition can be away from the current path. (The Point-Line distance between player and the last & next pathnode)
 
 -- gw2_obstacle_manager has control over this now
 ml_navigation.avoidanceareasize = 50
@@ -10,7 +10,7 @@ ml_navigation.avoidanceareas = { }	-- TODO: make a proper API in c++ for handlin
 
 
 
-ml_navigation.GetMovementType = function() if ( Player.swimming ~= GW2.SWIMSTATE.Diving ) then return "Walk" else return "Diving" end end	-- Return the EXACT NAMES you used above in the 4 tables for movement type keys
+ml_navigation.GetMovementType = function() if ( Player.swimming ~= GW2.SWIMSTATE.Diving ) then if (Player.mounted) then return "Mounted" else return "Walk" end else return "Diving" end end	-- Return the EXACT NAMES you used above in the 4 tables for movement type keys
 ml_navigation.StopMovement = function() Player:StopMovement() end
 
 -- Main function to move the player. 'targetid' is optional but should be used as often as possible, if there is no target, use 0
