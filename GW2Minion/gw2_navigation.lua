@@ -252,7 +252,6 @@ function ml_navigation.Navigate(event, ticks )
 											Player:SetFacingH(ml_navigation.navconnection.details.headingB_x, ml_navigation.navconnection.details.headingB_y, ml_navigation.navconnection.details.headingB_z)
 										end
 									end
-									ml_navigation:MoveToNextNode(playerpos, lastnode, nextnode, true)
 								end
 								return
 
