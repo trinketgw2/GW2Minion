@@ -136,7 +136,8 @@ function ml_global_information.OnUpdate(Event,ticks)
 			ml_global_information.Player_InPVPMatch = PvPManager:IsInMatch()
 			ml_global_information.Player_InPVPLobby = PvPManager:IsInPvPLobby()
 			ml_global_information.Player_InPVPArea = ml_global_information.Player_InPVPMatch or ml_global_information.Player_InPVPLobby
-			
+			ml_global_information.Player_IsMounted = Player.mounted
+
 			ml_global_information.CurrentMapID = Player:GetLocalMapID() or 0
 			if (gw2_datamanager and ml_global_information.CurrentMapID ~= 0) then  
 				ml_global_information.CurrentMapName = gw2_datamanager.GetMapName(ml_global_information.CurrentMapID) 

@@ -369,7 +369,7 @@ function ml_navigation.Navigate(event, ticks )
 									l_dist = math.distance3d(l_lastnode,nextnode)
 								end
 							end
-							if(l_dist ~= 0 and l_dist < 200)then 
+							if(l_dist ~= 0 and l_dist < 400)then 
 								Player:Dismount()
 							end
 						end
