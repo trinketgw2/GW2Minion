@@ -1,3 +1,24 @@
-/gw2minion/settings.lua
-.gitignore
-mmoalt_FollowCommander/storage/
+*/
+!/Dev/
+!Dev/*
+!/gw2minion/
+!gw2minion/*
+*.gitignore
+GW2Minion/Behavior/tm_Discoverwaypoint.bt
+GW2Minion/SkillManagerProfiles/BurningHolo.sm
+GW2Minion/SkillManagerProfiles/MPB_Placeholder_Elementalist.sm
+GW2Minion/SkillManagerProfiles/MPB_Placeholder_Engineer.sm
+GW2Minion/SkillManagerProfiles/MPB_Placeholder_Guardian.sm
+GW2Minion/SkillManagerProfiles/MPB_Placeholder_Mesmer.sm
+GW2Minion/SkillManagerProfiles/MPB_Placeholder_Necromancer.sm
+GW2Minion/SkillManagerProfiles/MPB_Placeholder_Ranger.sm
+GW2Minion/SkillManagerProfiles/MPB_Placeholder_Revenant.sm
+GW2Minion/SkillManagerProfiles/MPB_Placeholder_Thief.sm
+GW2Minion/SkillManagerProfiles/MPB_Placeholder_Warrior.sm
+settings.db
+new 1.lua
+Angryneer.zip
+btree.zip
+JP.7z
+LuaMods.7z
+mdb_language.zip

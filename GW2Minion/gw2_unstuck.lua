@@ -153,6 +153,13 @@ function gw2_unstuck.HandleStuck()
 	
 	-- Waiting to use a waypoint
 	if(gw2_unstuck.Handle_Waypoint_Usage()) then
+		gw2_unstuck.Reset()
+		gw2_unstuck.lastresult = true
+		return gw2_unstuck.lastresult
+	end
+
+	-- On our Mount and trying to turn without moving forward
+	if(ml_navigation.turningOnMount)then
 		gw2_unstuck.lastresult = true
 		return gw2_unstuck.lastresult
 	end

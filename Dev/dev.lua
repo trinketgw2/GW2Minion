@@ -675,6 +675,7 @@ function dev.DrawCall(event, ticks )
 						GUI:BulletText("IsMoving") GUI:SameLine(200) GUI:InputText("##devmm2",tostring(Player:IsMoving()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 						GUI:BulletText("MovementState") GUI:SameLine(200) GUI:InputText("##devmm3",tostring(Player:GetMovementState()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 						GUI:BulletText("Mounted") GUI:SameLine(200) GUI:InputText("##devmm43",tostring(Player.mounted),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+						GUI:BulletText("CanMount") GUI:SameLine(200) GUI:InputText("##devmm43",tostring(Player.canmount),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 						if (GUI:Button("Mount",150,15) ) then Player:Mount() end GUI:SameLine()if (GUI:Button("Dismount",150,15) ) then Player:Dismount() end
 						local movstr = ""
 						local movdirs = Player:GetMovement()
