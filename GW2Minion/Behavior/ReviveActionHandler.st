@@ -94,8 +94,10 @@ local tbl =
 							settings = 
 							{
 								randomMovement = true,
+								randomizestoppingdistance = false,
 								smoothturns = true,
 								stoppingdistance = 120,
+								stoppingidstancemaxrange = 240,
 								usewaypoints = false,
 							},
 							variables = 
