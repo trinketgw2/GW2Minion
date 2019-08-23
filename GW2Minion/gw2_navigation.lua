@@ -353,11 +353,32 @@ function ml_navigation.Navigate(event, ticks )
 						ml_navigation.pathindex = ml_navigation.pathindex + 1
 						NavigationManager.NavPathNode = ml_navigation.pathindex
 					else
+						-- Dismount when we are close to our target position, so we can get to the actual point and not overshooting it or similiar unprecise stuff
+						if (pathsize - ml_navigation.pathindex < 5 and Player.mounted)then
+							-- calculate remaining distance to the path end
+							local l_dist = 0
+							local l_lastnode = playerpos
+							if(ml_navigation.pathindex < pathsize) then
+								for i = ml_navigation.pathindex+1, pathsize do
+									local l_node = ml_navigation.path[ i ]
+									l_dist = l_dist + math.distance3d(l_lastnode,l_node)
+									l_lastnode = l_node
+								end
+							else
+								if (ml_navigation.pathindex == pathsize)then
+									l_dist = math.distance3d(l_lastnode,nextnode)
+								end
+							end
+							if(l_dist ~= 0 and l_dist < 200)then 
+								Player:Dismount()
+							end
+						end
 						ml_navigation:MoveToNextNode(playerpos, lastnode, nextnode )
 					end
 					return
 				else
 					d("[Navigation] - Path end reached.")
+					if(Player.mounted) then Player:Dismount() end
 					Player:StopMovement()
 					gw2_unstuck.Reset()
 
