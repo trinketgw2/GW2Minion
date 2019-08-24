@@ -407,8 +407,8 @@ function gw2_unstuck.HandleStuck_MovedDistanceCheck()
 			local heightdiff = math.round(ppos.z - gw2_unstuck.lastposition.z,0)
 
 			-- Not going up a hill
-			if(heightdiff < -25) then
-				-- raycast almost at ground level in front of bot (area ahead blocked)
+			if(heightdiff < -40 and not Player.mounted) then
+				-- raycast almost at ground level in front of bot (area ahead blocked) -- lol this is height level for those tiny asura, and weist for normal size, knees for big guys.
 				local rpos1_hit, rpos1_x, rpos1_y, rpos1_z = RayCast(ppos.x, ppos.y, ppos.z-25, ppos.x+(ppos.hx*60), ppos.y+(ppos.hy*60), ppos.z-25)
 				
 				-- raycast above the bot in a straight line (area ahead above clear)
