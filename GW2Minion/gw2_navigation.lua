@@ -219,11 +219,13 @@ function ml_navigation.Navigate(event, ticks )
 
 							elseif(ncsubtype == 4 ) then
 								-- INTERACT
-								Player:Interact()
-								ml_navigation.lastupdate = ml_navigation.lastupdate + 1000
-								ml_navigation.pathindex = ml_navigation.pathindex + 1
-								NavigationManager.NavPathNode = ml_navigation.pathindex
-								ml_navigation.navconnection = nil
+								if (not Player.mounted) then
+									Player:Interact()
+									ml_navigation.lastupdate = ml_navigation.lastupdate + 1000
+									ml_navigation.pathindex = ml_navigation.pathindex + 1
+									NavigationManager.NavPathNode = ml_navigation.pathindex
+									ml_navigation.navconnection = nil
+								end
 								return
 
 							elseif(ncsubtype == 5 ) then
