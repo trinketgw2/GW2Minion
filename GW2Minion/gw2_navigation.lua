@@ -343,9 +343,20 @@ function ml_navigation.Navigate(event, ticks )
 						end
 
 					else
-						if(totalpathdistance > 2000 and Player.canmount)then
+						if((Settings.GW2Minion.usemount == nil or Settings.GW2Minion.usemount) and not Player.mounted and totalpathdistance > 2000 and Player.canmount)then
 							if((not lastnode or lastnode.navconnectionid == 0) and nextnode.navconnectionid == 0 and (not nextnextnode or nextnextnode.navconnectionid == 0)) then
-								Player:Mount()
+								local distanceToNextNode = math.distance3d(playerpos, {x = nextnode.x, y = nextnode.y, z = nextnode.z,})
+								local anglediffPlayerNextNode = math.angle({x = playerpos.hx, y = playerpos.hy,  z = 0}, {x = nextnode.x-playerpos.x, y = nextnode.y-playerpos.y, z = 0,})
+								local anglediffNextNodeNextNextNode = nextnextnode and math.angle({x = nextnode.x-playerpos.x, y = nextnode.y-playerpos.y, z = 0}, {x = nextnextnode.x-nextnode.x, y = nextnextnode.y-nextnode.y, z = 0,}) or 0
+								if (distanceToNextNode >= 500) then
+									if (anglediffPlayerNextNode < 30) then
+										Player:Mount()
+									end
+								else
+									if (anglediffPlayerNextNode < 30 and anglediffNextNodeNextNextNode < 45) then
+										Player:Mount()
+									end
+								end
 							end
 						end
 					end
