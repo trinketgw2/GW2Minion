@@ -219,12 +219,16 @@ function ml_navigation.Navigate(event, ticks )
 
 							elseif(ncsubtype == 4 ) then
 								-- INTERACT
-								if (not Player.mounted) then
+								local movementstate = Player:GetMovementState()
+								if (not Player.mounted and movementstate ~= GW2.MOVEMENTSTATE.Jumping and movementstate ~= GW2.MOVEMENTSTATE.Falling) then
 									Player:Interact()
 									ml_navigation.lastupdate = ml_navigation.lastupdate + 1000
 									ml_navigation.pathindex = ml_navigation.pathindex + 1
 									NavigationManager.NavPathNode = ml_navigation.pathindex
 									ml_navigation.navconnection = nil
+								elseif (Player.mounted) then
+									Player:Dismount()
+									Player:Stop()
 								end
 								return
 
@@ -343,6 +347,7 @@ function ml_navigation.Navigate(event, ticks )
 						end
 
 					else
+						-- TODO: check if water surface node, dont try to mount if so.
 						if((Settings.GW2Minion.usemount == nil or Settings.GW2Minion.usemount) and not Player.mounted and totalpathdistance > 2000 and Player.canmount)then
 							if((not lastnode or lastnode.navconnectionid == 0) and nextnode.navconnectionid == 0 and (not nextnextnode or nextnextnode.navconnectionid == 0)) then
 								local distanceToNextNode = math.distance3d(playerpos, {x = nextnode.x, y = nextnode.y, z = nextnode.z,})
@@ -436,7 +441,7 @@ function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 		if (Player.swimming ~= GW2.SWIMSTATE.Diving) then
 			local nodedist = ml_navigation:GetRaycast_Player_Node_Distance(playerpos,nextnode)
 			if ( (nodedist - navconradius*32) < ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()] ) then
-				d("[Navigation] - Node reached. ("..tostring(math.round(nodedist - navconradius*32,2)).." < "..tostring(ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()])..")")
+				-- d("[Navigation] - Node reached. ("..tostring(math.round(nodedist - navconradius*32,2)).." < "..tostring(ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()])..")")
 				-- We arrived at a NavConnection Node
 				if( navcon) then
 					d("[Navigation] -  Arrived at NavConnection ID: "..tostring(nextnode.navconnectionid))
@@ -473,7 +478,7 @@ function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 			local dist3D = math.distance3d(nextnode,playerpos)
 			if ( (dist3D - navconradius*32) < ml_navigation.NavPointReachedDistances["Diving"]) then
 				-- We reached the node
-				d("[Navigation] - Cube Node reached. ("..tostring(math.round(dist3D - navconradius*32,2)).." < "..tostring(ml_navigation.NavPointReachedDistances["Diving"])..")")
+				-- d("[Navigation] - Cube Node reached. ("..tostring(math.round(dist3D - navconradius*32,2)).." < "..tostring(ml_navigation.NavPointReachedDistances["Diving"])..")")
 
 				-- We arrived at a NavConnection Node
 				if( navcon) then
