@@ -71,15 +71,6 @@ function gw2_common_functions.CountBoons(bufflist)
 	return count
 end
 
-function gw2_common_functions.Dismount()
-	if(Player.mounted) then
-		Player:Dismount()
-		return true
-	end
-	return false
-end
-
-
 function gw2_common_functions.NecroLeaveDeathshroud()
 	if (Player.profession == 8 ) then
 		local deathshroud = Player:GetSpellInfo(GW2.SKILLBARSLOT.Slot_13)
