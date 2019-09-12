@@ -130,17 +130,17 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(1203,"Siren's Landing")
 
 		--sPVP
-		ml_mesh_mgr.SetDefaultMesh(549,"sPvP Battle of Kyhlo")
-		ml_mesh_mgr.SetDefaultMesh(554,"sPvP Forest of Niflhel")
-		ml_mesh_mgr.SetDefaultMesh(795,"sPvP Legacy of the Foefire")
-		ml_mesh_mgr.SetDefaultMesh(875,"sPvP Temple of the Silent Storm")
-		ml_mesh_mgr.SetDefaultMesh(894,"sPvP Spirit Watch")
-		ml_mesh_mgr.SetDefaultMesh(900,"sPvP Skyhammer")
-		ml_mesh_mgr.SetDefaultMesh(984,"sPvP Courtyard")
-		ml_mesh_mgr.SetDefaultMesh(1011,"sPvP Battle of Champions")
-		ml_mesh_mgr.SetDefaultMesh(1163,"sPvP Revenge of the Capricorn")
-		ml_mesh_mgr.SetDefaultMesh(1171,"sPvp Coloseum")
-		ml_mesh_mgr.SetDefaultMesh(1305,"sPvP Djinns Dominion")
+		ml_mesh_mgr.SetDefaultMesh(549,"Battle of Kyhlo", true)
+		ml_mesh_mgr.SetDefaultMesh(554,"Forest of Niflhel", true)
+		ml_mesh_mgr.SetDefaultMesh(795,"Legacy of the Foefire", true)
+		ml_mesh_mgr.SetDefaultMesh(875,"Temple of the Silent Storm", true)
+		ml_mesh_mgr.SetDefaultMesh(894,"Spirit Watch", true)
+		ml_mesh_mgr.SetDefaultMesh(900,"Skyhammer", true)
+		ml_mesh_mgr.SetDefaultMesh(984,"Courtyard", true)
+		ml_mesh_mgr.SetDefaultMesh(1011,"Battle of Champion's Dusk", true)
+		ml_mesh_mgr.SetDefaultMesh(1163,"Revenge of the Capricorn", true)
+		ml_mesh_mgr.SetDefaultMesh(1171,"Eternal Coliseum", true)
+		ml_mesh_mgr.SetDefaultMesh(1305,"Djinns Dominion", true)
 		
 		
 		--PoF
