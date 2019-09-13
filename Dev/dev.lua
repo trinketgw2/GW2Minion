@@ -1237,6 +1237,7 @@ function dev.DrawCall(event, ticks )
 						
 						GUI:BulletText("Pulse Duration") GUI:SameLine(200) GUI:InputText("##devuf2",tostring(GetBotPerformance()))
 						GUI:BulletText("Local MapID") GUI:SameLine(200) GUI:InputText("##devff1",tostring(Player:GetLocalMapID()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+						GUI:BulletText("Local MapType") GUI:SameLine(200) GUI:InputText("##devff66",tostring(Player.maptype),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 						GUI:BulletText("Player Endurance") GUI:SameLine(200) GUI:InputText("##devuf3",tostring(Player.endurance))
 						GUI:BulletText("Player Karma") GUI:SameLine(200) GUI:InputText("##devuf4",tostring(Player.karma))
 						
