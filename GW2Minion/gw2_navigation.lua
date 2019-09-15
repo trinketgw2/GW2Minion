@@ -357,10 +357,12 @@ function ml_navigation.Navigate(event, ticks )
 								local anglediffNextNodeNextNextNode = nextnextnode and math.angle({x = nextnode.x-playerpos.x, y = nextnode.y-playerpos.y, z = 0}, {x = nextnextnode.x-nextnode.x, y = nextnextnode.y-nextnode.y, z = 0,}) or 0
 								if (distanceToNextNode >= 500) then
 									if (anglediffPlayerNextNode < 30) then
+										gw2_common_functions.NecroLeaveDeathshroud()
 										Player:Mount()
 									end
 								else
 									if (anglediffPlayerNextNode < 30 and anglediffNextNodeNextNextNode < 45) then
+										gw2_common_functions.NecroLeaveDeathshroud()
 										Player:Mount()
 									end
 								end
