@@ -348,9 +348,7 @@ function ml_navigation.Navigate(event, ticks )
 
 					else
 						-- TODO: check if water surface node, dont try to mount if so.
-						-- TODO: Player.maptype solution used here is temporary, fix this when enum is ready.
-						local acceptedMapTypes = {[5] = true, [9] = true, [10] = true, [11] = true, [12] = true, [14] = true,}
-						if(acceptedMapTypes[Player.maptype] and (Settings.GW2Minion.usemount == nil or Settings.GW2Minion.usemount) and not Player.mounted and totalpathdistance > 2000 and Player.canmount)then
+						if((Settings.GW2Minion.usemount == nil or Settings.GW2Minion.usemount) and not Player.mounted and totalpathdistance > 2000 and Player.canmount)then
 							if((not lastnode or lastnode.navconnectionid == 0) and nextnode.navconnectionid == 0 and (not nextnextnode or nextnextnode.navconnectionid == 0)) then
 								local distanceToNextNode = math.distance3d(playerpos, {x = nextnode.x, y = nextnode.y, z = nextnode.z,})
 								local anglediffPlayerNextNode = math.angle({x = playerpos.hx, y = playerpos.hy,  z = 0}, {x = nextnode.x-playerpos.x, y = nextnode.y-playerpos.y, z = 0,})

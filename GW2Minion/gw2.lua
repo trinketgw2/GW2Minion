@@ -168,7 +168,12 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(866,"Mad King's Labyrinth",enforce)
 		ml_mesh_mgr.SetDefaultMesh(881,"Bell Choir Ensemble",enforce)
 		
+		-- Wvwvw
 		ml_mesh_mgr.SetDefaultMesh(95,"Alpine Borderlands",enforce)
+		ml_mesh_mgr.SetDefaultMesh(96,"Alpine Borderlands",enforce)
+		ml_mesh_mgr.SetDefaultMesh(1099,"Desert Borderlands",enforce)
+		ml_mesh_mgr.SetDefaultMesh(38,"Eternal Battlegrounds",enforce)
+		
 						
 	end
 	
