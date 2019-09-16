@@ -543,7 +543,15 @@ function ml_navigation:MoveToNextNode( playerpos, lastnode, nextnode, overridefa
 
 				if(res > 0.75 or res < -0.75)then
 					self.turningOnMount = true
-					Player:UnSetMovement(0) -- stopping forward movement until we are facing the node
+					local mountSpeed = HackManager:GetSpeed()
+					if (mountSpeed > 450) then
+						Player:SetMovement(GW2.MOVEMENTTYPE.Backward)
+					elseif (mountSpeed > 400) then
+						Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward) -- stopping forward movement until we are facing the node
+						Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
+					elseif (mountSpeed > 350) then
+						Player:SetMovement(GW2.MOVEMENTTYPE.Forward)
+					end
 					--d("TURNING : "..tostring(res))
 					gw2_unstuck.stucktick = ml_global_information.Now + 500 -- the unstuck kicks in too often when we are still turning on our sluggish slow mount...
 				else
