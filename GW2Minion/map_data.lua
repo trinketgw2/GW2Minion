@@ -93762,18 +93762,18 @@ local tbl =
 	{
 		continent_id = 1,
 		continent_name = "Tyria",
-		continent_rect = "5888, 14464], [9344, 17152",
+		continent_rect = "9728, 20096], [11136, 22144",
 		continent_rect_table = 
 		{
 			
 			{
-				5888,
-				14464,
+				9728,
+				20096,
 			},
 			
 			{
-				9344,
-				17152,
+				11136,
+				22144,
 			},
 		},
 		default_floor = 1,
@@ -93796,8 +93796,8 @@ local tbl =
 						poi_id = 102,
 						pos = 
 						{
-							19253,
-							-26056.8,
+							-120864.7,
+							132648.4,
 						},
 						type = "landmark",
 					},
@@ -93816,8 +93816,8 @@ local tbl =
 						name = "Venlin Vale",
 						pos = 
 						{
-							13516.6,
-							-21741.6,
+							-134945.2,
+							138312.1,
 						},
 						sector_id = 133,
 					},
@@ -117005,18 +117005,18 @@ local tbl =
 	{
 		continent_id = 2,
 		continent_name = "Mists",
-		continent_rect = "2176, 7296], [3456, 9856",
+		continent_rect = "2304, 6912], [3584, 9472",
 		continent_rect_table = 
 		{
 			
 			{
-				2176,
-				7296,
+				2304,
+				6912,
 			},
 			
 			{
-				3456,
-				9856,
+				3584,
+				9472,
 			},
 		},
 		default_floor = 21,
@@ -118728,18 +118728,18 @@ local tbl =
 	{
 		continent_id = 2,
 		continent_name = "Mists",
-		continent_rect = "3978, 4664], [5258, 7224",
+		continent_rect = "6028, 4066], [7308, 6626",
 		continent_rect_table = 
 		{
 			
 			{
-				3978,
-				4664,
+				6028,
+				4066,
 			},
 			
 			{
-				5258,
-				7224,
+				7308,
+				6626,
 			},
 		},
 		default_floor = 28,
@@ -119325,7 +119325,7 @@ local tbl =
 	{
 		continent_id = 2,
 		continent_name = "Mists",
-		continent_rect = "10880, 3328], [13952, 6400",
+		continent_rect = "10880, 3328], [11648, 4096",
 		continent_rect_table = 
 		{
 			
@@ -119335,8 +119335,8 @@ local tbl =
 			},
 			
 			{
-				13952,
-				6400,
+				11648,
+				4096,
 			},
 		},
 		default_floor = 24,
@@ -119348,18 +119348,18 @@ local tbl =
 				{
 					[1085] = 
 					{
-						coord = "12051, 6049.34",
+						coord = "11219, 3743.25",
 						global_pos = 
 						{
-							x = 12051,
-							y = 6049.34,
+							x = 11219,
+							y = 3743.25,
 						},
 						level = 80,
 						name = "Aquatic Ruins Fractal",
 						pos = 
 						{
-							-8760,
-							-28448.2,
+							-1080,
+							-750,
 						},
 						sector_id = 1085,
 					},
@@ -119368,18 +119368,18 @@ local tbl =
 		},
 		map_id = 951,
 		map_name = "Fractals of the Mists",
-		map_rect = "-36864, -36864], [36864, 36864",
+		map_rect = "-9216, -9216], [9216, 9216",
 		map_rect_table = 
 		{
 			
 			{
-				-36864,
-				-36864,
+				-9216,
+				-9216,
 			},
 			
 			{
-				36864,
-				36864,
+				9216,
+				9216,
 			},
 		},
 		max_level = 80,
@@ -119628,18 +119628,18 @@ local tbl =
 				{
 					[1151] = 
 					{
-						coord = "12201.9, 4770.84",
+						coord = "12203.6, 4780.95",
 						global_pos = 
 						{
-							x = 12201.9,
-							y = 4770.84,
+							x = 12203.6,
+							y = 4780.95,
 						},
 						level = 80,
 						name = "Molten Furnace",
 						pos = 
 						{
-							-2.4,
-							651.8,
+							38.4,
+							409.2,
 						},
 						sector_id = 1151,
 					},
@@ -204912,7 +204912,7 @@ local tbl =
 							y = 6047.51,
 						},
 						level = 0,
-						name = "Beta Djinn's Dominion",
+						name = "Djinn's Dominion",
 						pos = 
 						{
 							-1617.6,
@@ -204924,7 +204924,7 @@ local tbl =
 			},
 		},
 		map_id = 1305,
-		map_name = "Beta Djinn's Dominion",
+		map_name = "Djinn's Dominion",
 		map_rect = "-24576, -12288], [24576, 12288",
 		map_rect_table = 
 		{
@@ -210010,6 +210010,5895 @@ local tbl =
 		min_level = 80,
 		region_id = 1,
 		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1328] = 
+	{
+		continent_id = 2,
+		continent_name = "Mists",
+		continent_rect = "9104, 4834], [10640, 6370",
+		continent_rect_table = 
+		{
+			
+			{
+				9104,
+				4834,
+			},
+			
+			{
+				10640,
+				6370,
+			},
+		},
+		default_floor = 41,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1747] = 
+					{
+						coord = "10175.2, 5182.41",
+						global_pos = 
+						{
+							x = 10175.2,
+							y = 5182.41,
+						},
+						level = 80,
+						name = "Auric Span",
+						pos = 
+						{
+							7276.8,
+							10070.2,
+						},
+						sector_id = 1747,
+					},
+				},
+			},
+		},
+		map_id = 1328,
+		map_name = "Auric Span",
+		map_rect = "-18432, -18432], [18432, 18432",
+		map_rect_table = 
+		{
+			
+			{
+				-18432,
+				-18432,
+			},
+			
+			{
+				18432,
+				18432,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 6,
+		region_name = "Player vs. Player",
+		type = "Pvp",
+		waypoints = 
+		{
+		},
+	},
+	[1329] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "26624, 1120], [29824, 3680",
+		continent_rect_table = 
+		{
+			
+			{
+				26624,
+				1120,
+			},
+			
+			{
+				29824,
+				3680,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				points_of_interest = 
+				{
+					[3057] = 
+					{
+						coord = "29559.2, 2591.29",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29559.2,
+							y = 2591.29,
+						},
+						name = "Priory Research Station",
+						poi_id = 3057,
+						pos = 
+						{
+							33580.8,
+							-4591,
+						},
+						type = "landmark",
+					},
+					[3058] = 
+					{
+						coord = "28176.1, 2543.53",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28176.1,
+							y = 2543.53,
+						},
+						name = "Santia's Forge",
+						poi_id = 3058,
+						pos = 
+						{
+							386.4,
+							-3444.7,
+						},
+						type = "landmark",
+					},
+					[3059] = 
+					{
+						coord = "27319.9, 1984.5",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27319.9,
+							y = 1984.5,
+						},
+						name = "Blood Dam",
+						poi_id = 3059,
+						pos = 
+						{
+							-20162.4,
+							9972,
+						},
+						type = "landmark",
+					},
+					[3060] = 
+					{
+						coord = "27688.4, 2523.86",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27688.4,
+							y = 2523.86,
+						},
+						name = "Auris's Workshop",
+						poi_id = 3060,
+						pos = 
+						{
+							-11318.4,
+							-2972.6,
+						},
+						type = "landmark",
+					},
+					[3061] = 
+					{
+						coord = "28546.2, 2397.25",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28546.2,
+							y = 2397.25,
+						},
+						name = "Ash Legion Camp",
+						poi_id = 3061,
+						pos = 
+						{
+							9268.8,
+							66,
+						},
+						type = "landmark",
+					},
+					[3062] = 
+					{
+						coord = "27442.5, 2851.79",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27442.5,
+							y = 2851.79,
+						},
+						name = "Imperator Ruinbringer's Office",
+						poi_id = 3062,
+						pos = 
+						{
+							-17220,
+							-10843,
+						},
+						type = "landmark",
+					},
+					[3065] = 
+					{
+						coord = "27602.2, 2198.31",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27602.2,
+							y = 2198.31,
+						},
+						name = "Stockade",
+						poi_id = 3065,
+						pos = 
+						{
+							-13387.2,
+							4840.6,
+						},
+						type = "landmark",
+					},
+					[3067] = 
+					{
+						coord = "27496.6, 2436.76",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27496.6,
+							y = 2436.76,
+						},
+						name = "Keep Kitchen",
+						poi_id = 3067,
+						pos = 
+						{
+							-15921.6,
+							-882.2,
+						},
+						type = "landmark",
+					},
+					[3068] = 
+					{
+						coord = "29339.2, 1582.73",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29339.2,
+							y = 1582.73,
+						},
+						name = "Cathedral of Flames Gate",
+						poi_id = 3068,
+						pos = 
+						{
+							28300.8,
+							19614.5,
+						},
+						type = "landmark",
+					},
+					[3069] = 
+					{
+						coord = "28381.8, 3280.31",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28381.8,
+							y = 3280.31,
+						},
+						name = "Contender's Colosseum",
+						poi_id = 3069,
+						pos = 
+						{
+							5323.2,
+							-21127.4,
+						},
+						type = "landmark",
+					},
+					[3070] = 
+					{
+						coord = "29355.2, 3203.55",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29355.2,
+							y = 3203.55,
+						},
+						name = "Aurene's Grace",
+						poi_id = 3070,
+						pos = 
+						{
+							28684.8,
+							-19285.2,
+						},
+						type = "landmark",
+					},
+					[3071] = 
+					{
+						coord = "27352.6, 1758.31",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27352.6,
+							y = 1758.31,
+						},
+						name = "Soul's Hearth",
+						poi_id = 3071,
+						pos = 
+						{
+							-19377.6,
+							15400.6,
+						},
+						type = "landmark",
+					},
+					[3073] = 
+					{
+						coord = "29442, 1658.82",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29442,
+							y = 1658.82,
+						},
+						name = "Doomlore Shrine",
+						poi_id = 3073,
+						pos = 
+						{
+							30768,
+							17788.3,
+						},
+						type = "landmark",
+					},
+					[3074] = 
+					{
+						coord = "27720.1, 2186.19",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27720.1,
+							y = 2186.19,
+						},
+						name = "Warden's Office",
+						poi_id = 3074,
+						pos = 
+						{
+							-10557.6,
+							5131.4,
+						},
+						type = "landmark",
+					},
+					[3075] = 
+					{
+						coord = "27856.5, 1669.02",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27856.5,
+							y = 1669.02,
+						},
+						name = "Fangstorm's Farmhouse",
+						poi_id = 3075,
+						pos = 
+						{
+							-7284,
+							17543.5,
+						},
+						type = "landmark",
+					},
+					[3076] = 
+					{
+						coord = "27613.9, 2658.18",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27613.9,
+							y = 2658.18,
+						},
+						name = "Rank 'n' File Pub",
+						poi_id = 3076,
+						pos = 
+						{
+							-13106.4,
+							-6196.3,
+						},
+						type = "landmark",
+					},
+					[3077] = 
+					{
+						coord = "28257.1, 2286.99",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28257.1,
+							y = 2286.99,
+						},
+						name = "Rally Pavilion",
+						poi_id = 3077,
+						pos = 
+						{
+							2330.4,
+							2712.2,
+						},
+						type = "landmark",
+					},
+					[3079] = 
+					{
+						coord = "28075.7, 2023.9",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28075.7,
+							y = 2023.9,
+						},
+						name = "Eternal Cauldron",
+						poi_id = 3079,
+						pos = 
+						{
+							-2023.2,
+							9026.4,
+						},
+						type = "landmark",
+					},
+					[3082] = 
+					{
+						coord = "27491.4, 2822.57",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27491.4,
+							y = 2822.57,
+						},
+						name = "Blood Legion Fahrar",
+						poi_id = 3082,
+						pos = 
+						{
+							-16046.4,
+							-10141.7,
+						},
+						type = "landmark",
+					},
+					[3085] = 
+					{
+						coord = "28817.4, 3323.45",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28817.4,
+							y = 3323.45,
+						},
+						name = "Blood Lagoon",
+						poi_id = 3085,
+						pos = 
+						{
+							15777.6,
+							-22162.8,
+						},
+						type = "landmark",
+					},
+					[3087] = 
+					{
+						coord = "28008.5, 2233.38",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28008.5,
+							y = 2233.38,
+						},
+						name = "All-Legion Commons",
+						poi_id = 3087,
+						pos = 
+						{
+							-3636,
+							3998.9,
+						},
+						type = "landmark",
+					},
+					[3089] = 
+					{
+						coord = "29124.7, 2593.24",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29124.7,
+							y = 2593.24,
+						},
+						name = "Recon Cove",
+						poi_id = 3089,
+						pos = 
+						{
+							23152.8,
+							-4637.8,
+						},
+						type = "landmark",
+					},
+					[3090] = 
+					{
+						coord = "28912.3, 1492.08",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28912.3,
+							y = 1492.08,
+						},
+						name = "Vault of the Khan-Ur",
+						poi_id = 3090,
+						pos = 
+						{
+							18055.2,
+							21790.1,
+						},
+						type = "landmark",
+					},
+					[3093] = 
+					{
+						coord = "27519.9, 3188.67",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27519.9,
+							y = 3188.67,
+						},
+						name = "Sniper's Square",
+						poi_id = 3093,
+						pos = 
+						{
+							-15362.4,
+							-18928.1,
+						},
+						type = "landmark",
+					},
+					[3095] = 
+					{
+						coord = "27345.2, 3299.9",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27345.2,
+							y = 3299.9,
+						},
+						name = "Shiver Gate",
+						poi_id = 3095,
+						pos = 
+						{
+							-19555.2,
+							-21597.6,
+						},
+						type = "landmark",
+					},
+					[3096] = 
+					{
+						coord = "27736.1, 2927.76",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27736.1,
+							y = 2927.76,
+						},
+						name = "Blood Keep Main Gate",
+						poi_id = 3096,
+						pos = 
+						{
+							-10173.6,
+							-12666.2,
+						},
+						type = "landmark",
+					},
+					[3097] = 
+					{
+						coord = "29146.3, 3086.17",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29146.3,
+							y = 3086.17,
+						},
+						name = "Blood Stand Stage",
+						poi_id = 3097,
+						pos = 
+						{
+							23671.2,
+							-16468.1,
+						},
+						type = "landmark",
+					},
+					[3098] = 
+					{
+						coord = "28769.4, 2789.22",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28769.4,
+							y = 2789.22,
+						},
+						name = "Band's Bivouac",
+						poi_id = 3098,
+						pos = 
+						{
+							14625.6,
+							-9341.3,
+						},
+						type = "landmark",
+					},
+					[3100] = 
+					{
+						coord = "27373.9, 2599.78",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27373.9,
+							y = 2599.78,
+						},
+						name = "Great Hall",
+						poi_id = 3100,
+						pos = 
+						{
+							-18866.4,
+							-4794.7,
+						},
+						type = "landmark",
+					},
+					[3101] = 
+					{
+						coord = "28427.5, 1748.75",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28427.5,
+							y = 1748.75,
+						},
+						name = "Unity's Beacon",
+						poi_id = 3101,
+						pos = 
+						{
+							6420,
+							15630,
+						},
+						type = "landmark",
+					},
+				},
+				sectors = 
+				{
+					[1748] = 
+					{
+						coord = "29268.1, 3135.62",
+						global_pos = 
+						{
+							x = 29268.1,
+							y = 3135.62,
+						},
+						level = 80,
+						name = "Kralkatorrik's Emergence Zone",
+						pos = 
+						{
+							26594.4,
+							-17654.9,
+						},
+						sector_id = 1748,
+					},
+					[1749] = 
+					{
+						coord = "29103.9, 1966.63",
+						global_pos = 
+						{
+							x = 29103.9,
+							y = 1966.63,
+						},
+						level = 80,
+						name = "Dalada Forest",
+						pos = 
+						{
+							22653.6,
+							10400.9,
+						},
+						sector_id = 1749,
+					},
+					[1750] = 
+					{
+						coord = "28386.9, 1848.01",
+						global_pos = 
+						{
+							x = 28386.9,
+							y = 1848.01,
+						},
+						level = 80,
+						name = "Burning Effigy",
+						pos = 
+						{
+							5445.6,
+							13247.8,
+						},
+						sector_id = 1750,
+					},
+					[1751] = 
+					{
+						coord = "28365.5, 3423.75",
+						global_pos = 
+						{
+							x = 28365.5,
+							y = 3423.75,
+						},
+						level = 80,
+						name = "The Ooze Pit",
+						pos = 
+						{
+							4932,
+							-24570,
+						},
+						sector_id = 1751,
+					},
+					[1752] = 
+					{
+						coord = "28087.8, 2014.54",
+						global_pos = 
+						{
+							x = 28087.8,
+							y = 2014.54,
+						},
+						level = 80,
+						name = "Flame Legion Camp",
+						pos = 
+						{
+							-1732.8,
+							9251,
+						},
+						sector_id = 1752,
+					},
+					[1753] = 
+					{
+						coord = "27004.3, 3198.95",
+						global_pos = 
+						{
+							x = 27004.3,
+							y = 3198.95,
+						},
+						level = 80,
+						name = "Shiverpeaks Pass",
+						pos = 
+						{
+							-27736.8,
+							-19174.8,
+						},
+						sector_id = 1753,
+					},
+					[1754] = 
+					{
+						coord = "29211.3, 2632.69",
+						global_pos = 
+						{
+							x = 29211.3,
+							y = 2632.69,
+						},
+						level = 80,
+						name = "Shattered Steppes",
+						pos = 
+						{
+							25231.2,
+							-5584.6,
+						},
+						sector_id = 1754,
+					},
+					[1755] = 
+					{
+						coord = "29068.3, 3057.66",
+						global_pos = 
+						{
+							x = 29068.3,
+							y = 3057.66,
+						},
+						level = 80,
+						name = "The Crag",
+						pos = 
+						{
+							21799.2,
+							-15783.8,
+						},
+						sector_id = 1755,
+					},
+					[1756] = 
+					{
+						coord = "28375.4, 2783.62",
+						global_pos = 
+						{
+							x = 28375.4,
+							y = 2783.62,
+						},
+						level = 80,
+						name = "The Wardowns",
+						pos = 
+						{
+							5169.6,
+							-9206.9,
+						},
+						sector_id = 1756,
+					},
+					[1757] = 
+					{
+						coord = "29035.9, 1617.39",
+						global_pos = 
+						{
+							x = 29035.9,
+							y = 1617.39,
+						},
+						level = 80,
+						name = "Cavern of the Khan-Ur",
+						pos = 
+						{
+							21021.6,
+							18782.6,
+						},
+						sector_id = 1757,
+					},
+					[1758] = 
+					{
+						coord = "28416.5, 1356.36",
+						global_pos = 
+						{
+							x = 28416.5,
+							y = 1356.36,
+						},
+						level = 80,
+						name = "Khan-Ur's Gauntlet",
+						pos = 
+						{
+							6156,
+							25047.4,
+						},
+						sector_id = 1758,
+					},
+					[1759] = 
+					{
+						coord = "27577.7, 3351.37",
+						global_pos = 
+						{
+							x = 27577.7,
+							y = 3351.37,
+						},
+						level = 80,
+						name = "Training Grounds",
+						pos = 
+						{
+							-13975.2,
+							-22832.9,
+						},
+						sector_id = 1759,
+					},
+					[1760] = 
+					{
+						coord = "27387.1, 2701.27",
+						global_pos = 
+						{
+							x = 27387.1,
+							y = 2701.27,
+						},
+						level = 80,
+						name = "Upper Blood Keep",
+						pos = 
+						{
+							-18549.6,
+							-7230.5,
+						},
+						sector_id = 1760,
+					},
+					[1761] = 
+					{
+						coord = "29600.5, 2518.82",
+						global_pos = 
+						{
+							x = 29600.5,
+							y = 2518.82,
+						},
+						level = 80,
+						name = "The Overlook",
+						pos = 
+						{
+							34572,
+							-2851.7,
+						},
+						sector_id = 1761,
+					},
+					[1762] = 
+					{
+						coord = "27664.6, 2250.63",
+						global_pos = 
+						{
+							x = 27664.6,
+							y = 2250.63,
+						},
+						level = 80,
+						name = "The Brig",
+						pos = 
+						{
+							-11889.6,
+							3584.9,
+						},
+						sector_id = 1762,
+					},
+					[1763] = 
+					{
+						coord = "28198.6, 2521.04",
+						global_pos = 
+						{
+							x = 28198.6,
+							y = 2521.04,
+						},
+						level = 80,
+						name = "Iron Legion Camp",
+						pos = 
+						{
+							926.4,
+							-2905,
+						},
+						sector_id = 1763,
+					},
+					[1764] = 
+					{
+						coord = "27575.8, 2637.21",
+						global_pos = 
+						{
+							x = 27575.8,
+							y = 2637.21,
+						},
+						level = 80,
+						name = "Lower Blood Keep",
+						pos = 
+						{
+							-14020.8,
+							-5693,
+						},
+						sector_id = 1764,
+					},
+					[1765] = 
+					{
+						coord = "27715.3, 1760.72",
+						global_pos = 
+						{
+							x = 27715.3,
+							y = 1760.72,
+						},
+						level = 80,
+						name = "Rusty Meadows",
+						pos = 
+						{
+							-10672.8,
+							15342.7,
+						},
+						sector_id = 1765,
+					},
+					[1766] = 
+					{
+						coord = "28083.2, 2261.62",
+						global_pos = 
+						{
+							x = 28083.2,
+							y = 2261.62,
+						},
+						level = 80,
+						name = "Festival Promenade",
+						pos = 
+						{
+							-1843.2,
+							3321.1,
+						},
+						sector_id = 1766,
+					},
+					[1767] = 
+					{
+						coord = "27215.7, 2162.89",
+						global_pos = 
+						{
+							x = 27215.7,
+							y = 2162.89,
+						},
+						level = 80,
+						name = "Longeye's Landslide",
+						pos = 
+						{
+							-22663.2,
+							5690.6,
+						},
+						sector_id = 1767,
+					},
+					[1768] = 
+					{
+						coord = "29443.3, 1591.09",
+						global_pos = 
+						{
+							x = 29443.3,
+							y = 1591.09,
+						},
+						level = 80,
+						name = "Doomlore Ruins",
+						pos = 
+						{
+							30799.2,
+							19413.8,
+						},
+						sector_id = 1768,
+					},
+					[1769] = 
+					{
+						coord = "26882.8, 2657.76",
+						global_pos = 
+						{
+							x = 26882.8,
+							y = 2657.76,
+						},
+						level = 80,
+						name = "Bitter Horn",
+						pos = 
+						{
+							-30652.8,
+							-6186.2,
+						},
+						sector_id = 1769,
+					},
+					[1770] = 
+					{
+						coord = "28845.2, 2930.95",
+						global_pos = 
+						{
+							x = 28845.2,
+							y = 2930.95,
+						},
+						level = 80,
+						name = "Sacnoth Stream",
+						pos = 
+						{
+							16444.8,
+							-12742.8,
+						},
+						sector_id = 1770,
+					},
+					[1771] = 
+					{
+						coord = "28565.6, 2193.56",
+						global_pos = 
+						{
+							x = 28565.6,
+							y = 2193.56,
+						},
+						level = 80,
+						name = "Devourer's Ridge",
+						pos = 
+						{
+							9734.4,
+							4954.6,
+						},
+						sector_id = 1771,
+					},
+					[1772] = 
+					{
+						coord = "27874.6, 3019.54",
+						global_pos = 
+						{
+							x = 27874.6,
+							y = 3019.54,
+						},
+						level = 80,
+						name = "Tribunes' Trench",
+						pos = 
+						{
+							-6849.6,
+							-14869,
+						},
+						sector_id = 1772,
+					},
+				},
+			},
+		},
+		map_id = 1329,
+		map_name = "Coming Home",
+		map_rect = "-36864, -30720], [39936, 30720",
+		map_rect_table = 
+		{
+			
+			{
+				-36864,
+				-30720,
+			},
+			
+			{
+				39936,
+				30720,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 2,
+		region_name = "Ascalon",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1330] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "26624, 1120], [29824, 3680",
+		continent_rect_table = 
+		{
+			
+			{
+				26624,
+				1120,
+			},
+			
+			{
+				29824,
+				3680,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				points_of_interest = 
+				{
+					[3057] = 
+					{
+						coord = "29559.2, 2591.29",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29559.2,
+							y = 2591.29,
+						},
+						name = "Priory Research Station",
+						poi_id = 3057,
+						pos = 
+						{
+							33580.8,
+							-4591,
+						},
+						type = "landmark",
+					},
+					[3058] = 
+					{
+						coord = "28176.1, 2543.53",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28176.1,
+							y = 2543.53,
+						},
+						name = "Santia's Forge",
+						poi_id = 3058,
+						pos = 
+						{
+							386.4,
+							-3444.7,
+						},
+						type = "landmark",
+					},
+					[3059] = 
+					{
+						coord = "27319.9, 1984.5",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27319.9,
+							y = 1984.5,
+						},
+						name = "Blood Dam",
+						poi_id = 3059,
+						pos = 
+						{
+							-20162.4,
+							9972,
+						},
+						type = "landmark",
+					},
+					[3060] = 
+					{
+						coord = "27688.4, 2523.86",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27688.4,
+							y = 2523.86,
+						},
+						name = "Auris's Workshop",
+						poi_id = 3060,
+						pos = 
+						{
+							-11318.4,
+							-2972.6,
+						},
+						type = "landmark",
+					},
+					[3061] = 
+					{
+						coord = "28546.2, 2397.25",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28546.2,
+							y = 2397.25,
+						},
+						name = "Ash Legion Camp",
+						poi_id = 3061,
+						pos = 
+						{
+							9268.8,
+							66,
+						},
+						type = "landmark",
+					},
+					[3062] = 
+					{
+						coord = "27442.5, 2851.79",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27442.5,
+							y = 2851.79,
+						},
+						name = "Imperator Ruinbringer's Office",
+						poi_id = 3062,
+						pos = 
+						{
+							-17220,
+							-10843,
+						},
+						type = "landmark",
+					},
+					[3063] = 
+					{
+						coord = "28790, 2784.15",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28790,
+							y = 2784.15,
+						},
+						poi_id = 3063,
+						pos = 
+						{
+							15120,
+							-9219.6,
+						},
+						type = "vista",
+					},
+					[3064] = 
+					{
+						coord = "28520.2, 3228.23",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28520.2,
+							y = 3228.23,
+						},
+						name = "Wardowns Waypoint",
+						poi_id = 3064,
+						pos = 
+						{
+							8644.8,
+							-19877.5,
+						},
+						type = "waypoint",
+					},
+					[3065] = 
+					{
+						coord = "27602.2, 2198.31",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27602.2,
+							y = 2198.31,
+						},
+						name = "Stockade",
+						poi_id = 3065,
+						pos = 
+						{
+							-13387.2,
+							4840.6,
+						},
+						type = "landmark",
+					},
+					[3066] = 
+					{
+						coord = "28215.4, 3293.59",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28215.4,
+							y = 3293.59,
+						},
+						poi_id = 3066,
+						pos = 
+						{
+							1329.6,
+							-21446.2,
+						},
+						type = "vista",
+					},
+					[3067] = 
+					{
+						coord = "27496.6, 2436.76",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27496.6,
+							y = 2436.76,
+						},
+						name = "Keep Kitchen",
+						poi_id = 3067,
+						pos = 
+						{
+							-15921.6,
+							-882.2,
+						},
+						type = "landmark",
+					},
+					[3068] = 
+					{
+						coord = "29339.2, 1582.73",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29339.2,
+							y = 1582.73,
+						},
+						name = "Cathedral of Flames Gate",
+						poi_id = 3068,
+						pos = 
+						{
+							28300.8,
+							19614.5,
+						},
+						type = "landmark",
+					},
+					[3069] = 
+					{
+						coord = "28381.8, 3280.31",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28381.8,
+							y = 3280.31,
+						},
+						name = "Contender's Colosseum",
+						poi_id = 3069,
+						pos = 
+						{
+							5323.2,
+							-21127.4,
+						},
+						type = "landmark",
+					},
+					[3070] = 
+					{
+						coord = "29355.2, 3203.55",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29355.2,
+							y = 3203.55,
+						},
+						name = "Aurene's Grace",
+						poi_id = 3070,
+						pos = 
+						{
+							28684.8,
+							-19285.2,
+						},
+						type = "landmark",
+					},
+					[3071] = 
+					{
+						coord = "27352.6, 1758.31",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27352.6,
+							y = 1758.31,
+						},
+						name = "Soul's Hearth",
+						poi_id = 3071,
+						pos = 
+						{
+							-19377.6,
+							15400.6,
+						},
+						type = "landmark",
+					},
+					[3072] = 
+					{
+						coord = "28130.6, 2610.84",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28130.6,
+							y = 2610.84,
+						},
+						poi_id = 3072,
+						pos = 
+						{
+							-705.6,
+							-5060.2,
+						},
+						type = "vista",
+					},
+					[3073] = 
+					{
+						coord = "29442, 1658.82",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29442,
+							y = 1658.82,
+						},
+						name = "Doomlore Shrine",
+						poi_id = 3073,
+						pos = 
+						{
+							30768,
+							17788.3,
+						},
+						type = "landmark",
+					},
+					[3074] = 
+					{
+						coord = "27720.1, 2186.19",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27720.1,
+							y = 2186.19,
+						},
+						name = "Warden's Office",
+						poi_id = 3074,
+						pos = 
+						{
+							-10557.6,
+							5131.4,
+						},
+						type = "landmark",
+					},
+					[3075] = 
+					{
+						coord = "27856.5, 1669.02",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27856.5,
+							y = 1669.02,
+						},
+						name = "Fangstorm's Farmhouse",
+						poi_id = 3075,
+						pos = 
+						{
+							-7284,
+							17543.5,
+						},
+						type = "landmark",
+					},
+					[3076] = 
+					{
+						coord = "27613.9, 2658.18",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27613.9,
+							y = 2658.18,
+						},
+						name = "Rank 'n' File Pub",
+						poi_id = 3076,
+						pos = 
+						{
+							-13106.4,
+							-6196.3,
+						},
+						type = "landmark",
+					},
+					[3077] = 
+					{
+						coord = "28257.1, 2286.99",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28257.1,
+							y = 2286.99,
+						},
+						name = "Rally Pavilion",
+						poi_id = 3077,
+						pos = 
+						{
+							2330.4,
+							2712.2,
+						},
+						type = "landmark",
+					},
+					[3078] = 
+					{
+						coord = "27553.1, 1695.97",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27553.1,
+							y = 1695.97,
+						},
+						poi_id = 3078,
+						pos = 
+						{
+							-14565.6,
+							16896.7,
+						},
+						type = "vista",
+					},
+					[3079] = 
+					{
+						coord = "28075.7, 2023.9",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28075.7,
+							y = 2023.9,
+						},
+						name = "Eternal Cauldron",
+						poi_id = 3079,
+						pos = 
+						{
+							-2023.2,
+							9026.4,
+						},
+						type = "landmark",
+					},
+					[3080] = 
+					{
+						coord = "28137, 2013.87",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28137,
+							y = 2013.87,
+						},
+						poi_id = 3080,
+						pos = 
+						{
+							-552,
+							9267.1,
+						},
+						type = "vista",
+					},
+					[3082] = 
+					{
+						coord = "27491.4, 2822.57",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27491.4,
+							y = 2822.57,
+						},
+						name = "Blood Legion Fahrar",
+						poi_id = 3082,
+						pos = 
+						{
+							-16046.4,
+							-10141.7,
+						},
+						type = "landmark",
+					},
+					[3083] = 
+					{
+						coord = "28367.1, 1709.35",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28367.1,
+							y = 1709.35,
+						},
+						poi_id = 3083,
+						pos = 
+						{
+							4970.4,
+							16575.6,
+						},
+						type = "vista",
+					},
+					[3084] = 
+					{
+						coord = "27357.9, 2737.64",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27357.9,
+							y = 2737.64,
+						},
+						name = "War Room",
+						poi_id = 3084,
+						pos = 
+						{
+							-19250.4,
+							-8103.4,
+						},
+						type = "landmark",
+					},
+					[3085] = 
+					{
+						coord = "28817.4, 3323.45",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28817.4,
+							y = 3323.45,
+						},
+						name = "Blood Lagoon",
+						poi_id = 3085,
+						pos = 
+						{
+							15777.6,
+							-22162.8,
+						},
+						type = "landmark",
+					},
+					[3086] = 
+					{
+						coord = "28958.3, 2129.39",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28958.3,
+							y = 2129.39,
+						},
+						name = "Dalada Forest Waypoint",
+						poi_id = 3086,
+						pos = 
+						{
+							19159.2,
+							6494.6,
+						},
+						type = "waypoint",
+					},
+					[3087] = 
+					{
+						coord = "28008.5, 2233.38",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28008.5,
+							y = 2233.38,
+						},
+						name = "All-Legion Commons",
+						poi_id = 3087,
+						pos = 
+						{
+							-3636,
+							3998.9,
+						},
+						type = "landmark",
+					},
+					[3088] = 
+					{
+						coord = "29531.7, 2677.77",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29531.7,
+							y = 2677.77,
+						},
+						poi_id = 3088,
+						pos = 
+						{
+							32920.8,
+							-6666.5,
+						},
+						type = "vista",
+					},
+					[3089] = 
+					{
+						coord = "29124.7, 2593.24",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29124.7,
+							y = 2593.24,
+						},
+						name = "Recon Cove",
+						poi_id = 3089,
+						pos = 
+						{
+							23152.8,
+							-4637.8,
+						},
+						type = "landmark",
+					},
+					[3090] = 
+					{
+						coord = "28912.3, 1492.08",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28912.3,
+							y = 1492.08,
+						},
+						name = "Vault of the Khan-Ur",
+						poi_id = 3090,
+						pos = 
+						{
+							18055.2,
+							21790.1,
+						},
+						type = "landmark",
+					},
+					[3091] = 
+					{
+						coord = "28243.2, 1203.89",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28243.2,
+							y = 1203.89,
+						},
+						poi_id = 3091,
+						pos = 
+						{
+							1996.8,
+							28706.6,
+						},
+						type = "vista",
+					},
+					[3092] = 
+					{
+						coord = "27769.8, 2668.91",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27769.8,
+							y = 2668.91,
+						},
+						poi_id = 3092,
+						pos = 
+						{
+							-9364.8,
+							-6453.8,
+						},
+						type = "vista",
+					},
+					[3093] = 
+					{
+						coord = "27519.9, 3188.67",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27519.9,
+							y = 3188.67,
+						},
+						name = "Sniper's Square",
+						poi_id = 3093,
+						pos = 
+						{
+							-15362.4,
+							-18928.1,
+						},
+						type = "landmark",
+					},
+					[3094] = 
+					{
+						coord = "29452.4, 1837.68",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29452.4,
+							y = 1837.68,
+						},
+						poi_id = 3094,
+						pos = 
+						{
+							31017.6,
+							13495.7,
+						},
+						type = "vista",
+					},
+					[3095] = 
+					{
+						coord = "27345.2, 3299.9",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27345.2,
+							y = 3299.9,
+						},
+						name = "Shiver Gate",
+						poi_id = 3095,
+						pos = 
+						{
+							-19555.2,
+							-21597.6,
+						},
+						type = "landmark",
+					},
+					[3096] = 
+					{
+						coord = "27736.1, 2927.76",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27736.1,
+							y = 2927.76,
+						},
+						name = "Blood Keep Main Gate",
+						poi_id = 3096,
+						pos = 
+						{
+							-10173.6,
+							-12666.2,
+						},
+						type = "landmark",
+					},
+					[3097] = 
+					{
+						coord = "29146.3, 3086.17",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29146.3,
+							y = 3086.17,
+						},
+						name = "Blood Stand Stage",
+						poi_id = 3097,
+						pos = 
+						{
+							23671.2,
+							-16468.1,
+						},
+						type = "landmark",
+					},
+					[3098] = 
+					{
+						coord = "28769.4, 2789.22",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28769.4,
+							y = 2789.22,
+						},
+						name = "Band's Bivouac",
+						poi_id = 3098,
+						pos = 
+						{
+							14625.6,
+							-9341.3,
+						},
+						type = "landmark",
+					},
+					[3099] = 
+					{
+						coord = "27658.8, 2464.36",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27658.8,
+							y = 2464.36,
+						},
+						name = "Blood Keep Waypoint",
+						poi_id = 3099,
+						pos = 
+						{
+							-12028.8,
+							-1544.6,
+						},
+						type = "waypoint",
+					},
+					[3100] = 
+					{
+						coord = "27373.9, 2599.78",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27373.9,
+							y = 2599.78,
+						},
+						name = "Great Hall",
+						poi_id = 3100,
+						pos = 
+						{
+							-18866.4,
+							-4794.7,
+						},
+						type = "landmark",
+					},
+					[3101] = 
+					{
+						coord = "28427.5, 1748.75",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28427.5,
+							y = 1748.75,
+						},
+						name = "Unity's Beacon",
+						poi_id = 3101,
+						pos = 
+						{
+							6420,
+							15630,
+						},
+						type = "landmark",
+					},
+				},
+				sectors = 
+				{
+					[1748] = 
+					{
+						coord = "29268.1, 3135.62",
+						global_pos = 
+						{
+							x = 29268.1,
+							y = 3135.62,
+						},
+						level = 80,
+						name = "Kralkatorrik's Emergence Zone",
+						pos = 
+						{
+							26594.4,
+							-17654.9,
+						},
+						sector_id = 1748,
+					},
+					[1749] = 
+					{
+						coord = "29103.9, 1966.63",
+						global_pos = 
+						{
+							x = 29103.9,
+							y = 1966.63,
+						},
+						level = 80,
+						name = "Dalada Forest",
+						pos = 
+						{
+							22653.6,
+							10400.9,
+						},
+						sector_id = 1749,
+					},
+					[1750] = 
+					{
+						coord = "28386.9, 1848.01",
+						global_pos = 
+						{
+							x = 28386.9,
+							y = 1848.01,
+						},
+						level = 80,
+						name = "Burning Effigy",
+						pos = 
+						{
+							5445.6,
+							13247.8,
+						},
+						sector_id = 1750,
+					},
+					[1751] = 
+					{
+						coord = "28365.5, 3423.75",
+						global_pos = 
+						{
+							x = 28365.5,
+							y = 3423.75,
+						},
+						level = 80,
+						name = "The Ooze Pit",
+						pos = 
+						{
+							4932,
+							-24570,
+						},
+						sector_id = 1751,
+					},
+					[1752] = 
+					{
+						coord = "28087.8, 2014.54",
+						global_pos = 
+						{
+							x = 28087.8,
+							y = 2014.54,
+						},
+						level = 80,
+						name = "Flame Legion Camp",
+						pos = 
+						{
+							-1732.8,
+							9251,
+						},
+						sector_id = 1752,
+					},
+					[1753] = 
+					{
+						coord = "27004.3, 3198.95",
+						global_pos = 
+						{
+							x = 27004.3,
+							y = 3198.95,
+						},
+						level = 80,
+						name = "Shiverpeaks Pass",
+						pos = 
+						{
+							-27736.8,
+							-19174.8,
+						},
+						sector_id = 1753,
+					},
+					[1754] = 
+					{
+						coord = "29211.3, 2632.69",
+						global_pos = 
+						{
+							x = 29211.3,
+							y = 2632.69,
+						},
+						level = 80,
+						name = "Shattered Steppes",
+						pos = 
+						{
+							25231.2,
+							-5584.6,
+						},
+						sector_id = 1754,
+					},
+					[1755] = 
+					{
+						coord = "29068.3, 3057.66",
+						global_pos = 
+						{
+							x = 29068.3,
+							y = 3057.66,
+						},
+						level = 80,
+						name = "The Crag",
+						pos = 
+						{
+							21799.2,
+							-15783.8,
+						},
+						sector_id = 1755,
+					},
+					[1756] = 
+					{
+						coord = "28375.4, 2783.62",
+						global_pos = 
+						{
+							x = 28375.4,
+							y = 2783.62,
+						},
+						level = 80,
+						name = "The Wardowns",
+						pos = 
+						{
+							5169.6,
+							-9206.9,
+						},
+						sector_id = 1756,
+					},
+					[1757] = 
+					{
+						coord = "29035.9, 1617.39",
+						global_pos = 
+						{
+							x = 29035.9,
+							y = 1617.39,
+						},
+						level = 80,
+						name = "Cavern of the Khan-Ur",
+						pos = 
+						{
+							21021.6,
+							18782.6,
+						},
+						sector_id = 1757,
+					},
+					[1758] = 
+					{
+						coord = "28416.5, 1356.36",
+						global_pos = 
+						{
+							x = 28416.5,
+							y = 1356.36,
+						},
+						level = 80,
+						name = "Khan-Ur's Gauntlet",
+						pos = 
+						{
+							6156,
+							25047.4,
+						},
+						sector_id = 1758,
+					},
+					[1759] = 
+					{
+						coord = "27577.7, 3351.37",
+						global_pos = 
+						{
+							x = 27577.7,
+							y = 3351.37,
+						},
+						level = 80,
+						name = "Training Grounds",
+						pos = 
+						{
+							-13975.2,
+							-22832.9,
+						},
+						sector_id = 1759,
+					},
+					[1760] = 
+					{
+						coord = "27387.1, 2701.27",
+						global_pos = 
+						{
+							x = 27387.1,
+							y = 2701.27,
+						},
+						level = 80,
+						name = "Upper Blood Keep",
+						pos = 
+						{
+							-18549.6,
+							-7230.5,
+						},
+						sector_id = 1760,
+					},
+					[1761] = 
+					{
+						coord = "29600.5, 2518.82",
+						global_pos = 
+						{
+							x = 29600.5,
+							y = 2518.82,
+						},
+						level = 80,
+						name = "The Overlook",
+						pos = 
+						{
+							34572,
+							-2851.7,
+						},
+						sector_id = 1761,
+					},
+					[1762] = 
+					{
+						coord = "27664.6, 2250.63",
+						global_pos = 
+						{
+							x = 27664.6,
+							y = 2250.63,
+						},
+						level = 80,
+						name = "The Brig",
+						pos = 
+						{
+							-11889.6,
+							3584.9,
+						},
+						sector_id = 1762,
+					},
+					[1763] = 
+					{
+						coord = "28198.6, 2521.04",
+						global_pos = 
+						{
+							x = 28198.6,
+							y = 2521.04,
+						},
+						level = 80,
+						name = "Iron Legion Camp",
+						pos = 
+						{
+							926.4,
+							-2905,
+						},
+						sector_id = 1763,
+					},
+					[1764] = 
+					{
+						coord = "27575.8, 2637.21",
+						global_pos = 
+						{
+							x = 27575.8,
+							y = 2637.21,
+						},
+						level = 80,
+						name = "Lower Blood Keep",
+						pos = 
+						{
+							-14020.8,
+							-5693,
+						},
+						sector_id = 1764,
+					},
+					[1765] = 
+					{
+						coord = "27715.3, 1760.72",
+						global_pos = 
+						{
+							x = 27715.3,
+							y = 1760.72,
+						},
+						level = 80,
+						name = "Rusty Meadows",
+						pos = 
+						{
+							-10672.8,
+							15342.7,
+						},
+						sector_id = 1765,
+					},
+					[1766] = 
+					{
+						coord = "28083.2, 2261.62",
+						global_pos = 
+						{
+							x = 28083.2,
+							y = 2261.62,
+						},
+						level = 80,
+						name = "Festival Promenade",
+						pos = 
+						{
+							-1843.2,
+							3321.1,
+						},
+						sector_id = 1766,
+					},
+					[1767] = 
+					{
+						coord = "27215.7, 2162.89",
+						global_pos = 
+						{
+							x = 27215.7,
+							y = 2162.89,
+						},
+						level = 80,
+						name = "Longeye's Landslide",
+						pos = 
+						{
+							-22663.2,
+							5690.6,
+						},
+						sector_id = 1767,
+					},
+					[1768] = 
+					{
+						coord = "29443.3, 1591.09",
+						global_pos = 
+						{
+							x = 29443.3,
+							y = 1591.09,
+						},
+						level = 80,
+						name = "Doomlore Ruins",
+						pos = 
+						{
+							30799.2,
+							19413.8,
+						},
+						sector_id = 1768,
+					},
+					[1769] = 
+					{
+						coord = "26882.8, 2657.76",
+						global_pos = 
+						{
+							x = 26882.8,
+							y = 2657.76,
+						},
+						level = 80,
+						name = "Bitter Horn",
+						pos = 
+						{
+							-30652.8,
+							-6186.2,
+						},
+						sector_id = 1769,
+					},
+					[1770] = 
+					{
+						coord = "28845.2, 2930.95",
+						global_pos = 
+						{
+							x = 28845.2,
+							y = 2930.95,
+						},
+						level = 80,
+						name = "Sacnoth Stream",
+						pos = 
+						{
+							16444.8,
+							-12742.8,
+						},
+						sector_id = 1770,
+					},
+					[1771] = 
+					{
+						coord = "28565.6, 2193.56",
+						global_pos = 
+						{
+							x = 28565.6,
+							y = 2193.56,
+						},
+						level = 80,
+						name = "Devourer's Ridge",
+						pos = 
+						{
+							9734.4,
+							4954.6,
+						},
+						sector_id = 1771,
+					},
+					[1772] = 
+					{
+						coord = "27874.6, 3019.54",
+						global_pos = 
+						{
+							x = 27874.6,
+							y = 3019.54,
+						},
+						level = 80,
+						name = "Tribunes' Trench",
+						pos = 
+						{
+							-6849.6,
+							-14869,
+						},
+						sector_id = 1772,
+					},
+				},
+			},
+		},
+		map_id = 1330,
+		map_name = "Grothmar Valley",
+		map_rect = "-36864, -30720], [39936, 30720",
+		map_rect_table = 
+		{
+			
+			{
+				-36864,
+				-30720,
+			},
+			
+			{
+				39936,
+				30720,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 2,
+		region_name = "Ascalon",
+		type = "Public",
+		waypoints = 
+		{
+			[3064] = 
+			{
+				coord = "28520.2, 3228.23",
+				floor = 1,
+				global_pos = 
+				{
+					x = 28520.2,
+					y = 3228.23,
+				},
+				name = "Wardowns Waypoint",
+				poi_id = 3064,
+				pos = 
+				{
+					8644.8,
+					-19877.5,
+				},
+				type = "waypoint",
+			},
+			[3086] = 
+			{
+				coord = "28958.3, 2129.39",
+				floor = 1,
+				global_pos = 
+				{
+					x = 28958.3,
+					y = 2129.39,
+				},
+				name = "Dalada Forest Waypoint",
+				poi_id = 3086,
+				pos = 
+				{
+					19159.2,
+					6494.6,
+				},
+				type = "waypoint",
+			},
+			[3099] = 
+			{
+				coord = "27658.8, 2464.36",
+				floor = 1,
+				global_pos = 
+				{
+					x = 27658.8,
+					y = 2464.36,
+				},
+				name = "Blood Keep Waypoint",
+				poi_id = 3099,
+				pos = 
+				{
+					-12028.8,
+					-1544.6,
+				},
+				type = "waypoint",
+			},
+		},
+	},
+	[1331] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "26624, 1120], [29824, 3680",
+		continent_rect_table = 
+		{
+			
+			{
+				26624,
+				1120,
+			},
+			
+			{
+				29824,
+				3680,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1748] = 
+					{
+						coord = "29268.1, 3135.62",
+						global_pos = 
+						{
+							x = 29268.1,
+							y = 3135.62,
+						},
+						level = 80,
+						name = "Kralkatorrik's Emergence Zone",
+						pos = 
+						{
+							26594.4,
+							-17654.9,
+						},
+						sector_id = 1748,
+					},
+					[1749] = 
+					{
+						coord = "29103.9, 1966.63",
+						global_pos = 
+						{
+							x = 29103.9,
+							y = 1966.63,
+						},
+						level = 80,
+						name = "Dalada Forest",
+						pos = 
+						{
+							22653.6,
+							10400.9,
+						},
+						sector_id = 1749,
+					},
+					[1750] = 
+					{
+						coord = "28386.9, 1848.01",
+						global_pos = 
+						{
+							x = 28386.9,
+							y = 1848.01,
+						},
+						level = 80,
+						name = "Burning Effigy",
+						pos = 
+						{
+							5445.6,
+							13247.8,
+						},
+						sector_id = 1750,
+					},
+					[1751] = 
+					{
+						coord = "28365.5, 3423.75",
+						global_pos = 
+						{
+							x = 28365.5,
+							y = 3423.75,
+						},
+						level = 80,
+						name = "The Ooze Pit",
+						pos = 
+						{
+							4932,
+							-24570,
+						},
+						sector_id = 1751,
+					},
+					[1752] = 
+					{
+						coord = "28087.8, 2014.54",
+						global_pos = 
+						{
+							x = 28087.8,
+							y = 2014.54,
+						},
+						level = 80,
+						name = "Flame Legion Camp",
+						pos = 
+						{
+							-1732.8,
+							9251,
+						},
+						sector_id = 1752,
+					},
+					[1753] = 
+					{
+						coord = "27004.3, 3198.95",
+						global_pos = 
+						{
+							x = 27004.3,
+							y = 3198.95,
+						},
+						level = 80,
+						name = "Shiverpeaks Pass",
+						pos = 
+						{
+							-27736.8,
+							-19174.8,
+						},
+						sector_id = 1753,
+					},
+					[1754] = 
+					{
+						coord = "29211.3, 2632.69",
+						global_pos = 
+						{
+							x = 29211.3,
+							y = 2632.69,
+						},
+						level = 80,
+						name = "Shattered Steppes",
+						pos = 
+						{
+							25231.2,
+							-5584.6,
+						},
+						sector_id = 1754,
+					},
+					[1755] = 
+					{
+						coord = "29068.3, 3057.66",
+						global_pos = 
+						{
+							x = 29068.3,
+							y = 3057.66,
+						},
+						level = 80,
+						name = "The Crag",
+						pos = 
+						{
+							21799.2,
+							-15783.8,
+						},
+						sector_id = 1755,
+					},
+					[1756] = 
+					{
+						coord = "28375.4, 2783.62",
+						global_pos = 
+						{
+							x = 28375.4,
+							y = 2783.62,
+						},
+						level = 80,
+						name = "The Wardowns",
+						pos = 
+						{
+							5169.6,
+							-9206.9,
+						},
+						sector_id = 1756,
+					},
+					[1758] = 
+					{
+						coord = "28416.5, 1356.36",
+						global_pos = 
+						{
+							x = 28416.5,
+							y = 1356.36,
+						},
+						level = 80,
+						name = "Khan-Ur's Gauntlet",
+						pos = 
+						{
+							6156,
+							25047.4,
+						},
+						sector_id = 1758,
+					},
+					[1759] = 
+					{
+						coord = "27577.7, 3351.37",
+						global_pos = 
+						{
+							x = 27577.7,
+							y = 3351.37,
+						},
+						level = 80,
+						name = "Training Grounds",
+						pos = 
+						{
+							-13975.2,
+							-22832.9,
+						},
+						sector_id = 1759,
+					},
+					[1760] = 
+					{
+						coord = "27387.1, 2701.27",
+						global_pos = 
+						{
+							x = 27387.1,
+							y = 2701.27,
+						},
+						level = 80,
+						name = "Upper Blood Keep",
+						pos = 
+						{
+							-18549.6,
+							-7230.5,
+						},
+						sector_id = 1760,
+					},
+					[1761] = 
+					{
+						coord = "29600.5, 2518.82",
+						global_pos = 
+						{
+							x = 29600.5,
+							y = 2518.82,
+						},
+						level = 80,
+						name = "The Overlook",
+						pos = 
+						{
+							34572,
+							-2851.7,
+						},
+						sector_id = 1761,
+					},
+					[1762] = 
+					{
+						coord = "27664.6, 2250.63",
+						global_pos = 
+						{
+							x = 27664.6,
+							y = 2250.63,
+						},
+						level = 80,
+						name = "The Brig",
+						pos = 
+						{
+							-11889.6,
+							3584.9,
+						},
+						sector_id = 1762,
+					},
+					[1763] = 
+					{
+						coord = "28198.6, 2521.04",
+						global_pos = 
+						{
+							x = 28198.6,
+							y = 2521.04,
+						},
+						level = 80,
+						name = "Iron Legion Camp",
+						pos = 
+						{
+							926.4,
+							-2905,
+						},
+						sector_id = 1763,
+					},
+					[1764] = 
+					{
+						coord = "27575.8, 2637.21",
+						global_pos = 
+						{
+							x = 27575.8,
+							y = 2637.21,
+						},
+						level = 80,
+						name = "Lower Blood Keep",
+						pos = 
+						{
+							-14020.8,
+							-5693,
+						},
+						sector_id = 1764,
+					},
+					[1765] = 
+					{
+						coord = "27715.3, 1760.72",
+						global_pos = 
+						{
+							x = 27715.3,
+							y = 1760.72,
+						},
+						level = 80,
+						name = "Rusty Meadows",
+						pos = 
+						{
+							-10672.8,
+							15342.7,
+						},
+						sector_id = 1765,
+					},
+					[1766] = 
+					{
+						coord = "28083.2, 2261.62",
+						global_pos = 
+						{
+							x = 28083.2,
+							y = 2261.62,
+						},
+						level = 80,
+						name = "Festival Promenade",
+						pos = 
+						{
+							-1843.2,
+							3321.1,
+						},
+						sector_id = 1766,
+					},
+					[1767] = 
+					{
+						coord = "27215.7, 2162.89",
+						global_pos = 
+						{
+							x = 27215.7,
+							y = 2162.89,
+						},
+						level = 80,
+						name = "Longeye's Landslide",
+						pos = 
+						{
+							-22663.2,
+							5690.6,
+						},
+						sector_id = 1767,
+					},
+					[1768] = 
+					{
+						coord = "29443.3, 1591.09",
+						global_pos = 
+						{
+							x = 29443.3,
+							y = 1591.09,
+						},
+						level = 80,
+						name = "Doomlore Ruins",
+						pos = 
+						{
+							30799.2,
+							19413.8,
+						},
+						sector_id = 1768,
+					},
+					[1769] = 
+					{
+						coord = "26882.8, 2657.76",
+						global_pos = 
+						{
+							x = 26882.8,
+							y = 2657.76,
+						},
+						level = 80,
+						name = "Bitter Horn",
+						pos = 
+						{
+							-30652.8,
+							-6186.2,
+						},
+						sector_id = 1769,
+					},
+					[1770] = 
+					{
+						coord = "28845.2, 2930.95",
+						global_pos = 
+						{
+							x = 28845.2,
+							y = 2930.95,
+						},
+						level = 80,
+						name = "Sacnoth Stream",
+						pos = 
+						{
+							16444.8,
+							-12742.8,
+						},
+						sector_id = 1770,
+					},
+					[1771] = 
+					{
+						coord = "28565.6, 2193.56",
+						global_pos = 
+						{
+							x = 28565.6,
+							y = 2193.56,
+						},
+						level = 80,
+						name = "Devourer's Ridge",
+						pos = 
+						{
+							9734.4,
+							4954.6,
+						},
+						sector_id = 1771,
+					},
+					[1772] = 
+					{
+						coord = "27874.6, 3019.54",
+						global_pos = 
+						{
+							x = 27874.6,
+							y = 3019.54,
+						},
+						level = 80,
+						name = "Tribunes' Trench",
+						pos = 
+						{
+							-6849.6,
+							-14869,
+						},
+						sector_id = 1772,
+					},
+				},
+			},
+		},
+		map_id = 1331,
+		map_name = "Strike Mission: Shiverpeaks Pass (Public)",
+		map_rect = "-36864, -30720], [39936, 30720",
+		map_rect_table = 
+		{
+			
+			{
+				-36864,
+				-30720,
+			},
+			
+			{
+				39936,
+				30720,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 2,
+		region_name = "Ascalon",
+		type = "Public",
+		waypoints = 
+		{
+		},
+	},
+	[1332] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "26624, 1120], [29824, 3680",
+		continent_rect_table = 
+		{
+			
+			{
+				26624,
+				1120,
+			},
+			
+			{
+				29824,
+				3680,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1748] = 
+					{
+						coord = "29268.1, 3135.62",
+						global_pos = 
+						{
+							x = 29268.1,
+							y = 3135.62,
+						},
+						level = 80,
+						name = "Kralkatorrik's Emergence Zone",
+						pos = 
+						{
+							26594.4,
+							-17654.9,
+						},
+						sector_id = 1748,
+					},
+					[1749] = 
+					{
+						coord = "29103.9, 1966.63",
+						global_pos = 
+						{
+							x = 29103.9,
+							y = 1966.63,
+						},
+						level = 80,
+						name = "Dalada Forest",
+						pos = 
+						{
+							22653.6,
+							10400.9,
+						},
+						sector_id = 1749,
+					},
+					[1750] = 
+					{
+						coord = "28386.9, 1848.01",
+						global_pos = 
+						{
+							x = 28386.9,
+							y = 1848.01,
+						},
+						level = 80,
+						name = "Burning Effigy",
+						pos = 
+						{
+							5445.6,
+							13247.8,
+						},
+						sector_id = 1750,
+					},
+					[1751] = 
+					{
+						coord = "28365.5, 3423.75",
+						global_pos = 
+						{
+							x = 28365.5,
+							y = 3423.75,
+						},
+						level = 80,
+						name = "The Ooze Pit",
+						pos = 
+						{
+							4932,
+							-24570,
+						},
+						sector_id = 1751,
+					},
+					[1752] = 
+					{
+						coord = "28087.8, 2014.54",
+						global_pos = 
+						{
+							x = 28087.8,
+							y = 2014.54,
+						},
+						level = 80,
+						name = "Flame Legion Camp",
+						pos = 
+						{
+							-1732.8,
+							9251,
+						},
+						sector_id = 1752,
+					},
+					[1753] = 
+					{
+						coord = "27004.3, 3198.95",
+						global_pos = 
+						{
+							x = 27004.3,
+							y = 3198.95,
+						},
+						level = 80,
+						name = "Shiverpeaks Pass",
+						pos = 
+						{
+							-27736.8,
+							-19174.8,
+						},
+						sector_id = 1753,
+					},
+					[1754] = 
+					{
+						coord = "29211.3, 2632.69",
+						global_pos = 
+						{
+							x = 29211.3,
+							y = 2632.69,
+						},
+						level = 80,
+						name = "Shattered Steppes",
+						pos = 
+						{
+							25231.2,
+							-5584.6,
+						},
+						sector_id = 1754,
+					},
+					[1755] = 
+					{
+						coord = "29068.3, 3057.66",
+						global_pos = 
+						{
+							x = 29068.3,
+							y = 3057.66,
+						},
+						level = 80,
+						name = "The Crag",
+						pos = 
+						{
+							21799.2,
+							-15783.8,
+						},
+						sector_id = 1755,
+					},
+					[1756] = 
+					{
+						coord = "28375.4, 2783.62",
+						global_pos = 
+						{
+							x = 28375.4,
+							y = 2783.62,
+						},
+						level = 80,
+						name = "The Wardowns",
+						pos = 
+						{
+							5169.6,
+							-9206.9,
+						},
+						sector_id = 1756,
+					},
+					[1758] = 
+					{
+						coord = "28416.5, 1356.36",
+						global_pos = 
+						{
+							x = 28416.5,
+							y = 1356.36,
+						},
+						level = 80,
+						name = "Khan-Ur's Gauntlet",
+						pos = 
+						{
+							6156,
+							25047.4,
+						},
+						sector_id = 1758,
+					},
+					[1759] = 
+					{
+						coord = "27577.7, 3351.37",
+						global_pos = 
+						{
+							x = 27577.7,
+							y = 3351.37,
+						},
+						level = 80,
+						name = "Training Grounds",
+						pos = 
+						{
+							-13975.2,
+							-22832.9,
+						},
+						sector_id = 1759,
+					},
+					[1760] = 
+					{
+						coord = "27387.1, 2701.27",
+						global_pos = 
+						{
+							x = 27387.1,
+							y = 2701.27,
+						},
+						level = 80,
+						name = "Upper Blood Keep",
+						pos = 
+						{
+							-18549.6,
+							-7230.5,
+						},
+						sector_id = 1760,
+					},
+					[1761] = 
+					{
+						coord = "29600.5, 2518.82",
+						global_pos = 
+						{
+							x = 29600.5,
+							y = 2518.82,
+						},
+						level = 80,
+						name = "The Overlook",
+						pos = 
+						{
+							34572,
+							-2851.7,
+						},
+						sector_id = 1761,
+					},
+					[1762] = 
+					{
+						coord = "27664.6, 2250.63",
+						global_pos = 
+						{
+							x = 27664.6,
+							y = 2250.63,
+						},
+						level = 80,
+						name = "The Brig",
+						pos = 
+						{
+							-11889.6,
+							3584.9,
+						},
+						sector_id = 1762,
+					},
+					[1763] = 
+					{
+						coord = "28198.6, 2521.04",
+						global_pos = 
+						{
+							x = 28198.6,
+							y = 2521.04,
+						},
+						level = 80,
+						name = "Iron Legion Camp",
+						pos = 
+						{
+							926.4,
+							-2905,
+						},
+						sector_id = 1763,
+					},
+					[1764] = 
+					{
+						coord = "27575.8, 2637.21",
+						global_pos = 
+						{
+							x = 27575.8,
+							y = 2637.21,
+						},
+						level = 80,
+						name = "Lower Blood Keep",
+						pos = 
+						{
+							-14020.8,
+							-5693,
+						},
+						sector_id = 1764,
+					},
+					[1765] = 
+					{
+						coord = "27715.3, 1760.72",
+						global_pos = 
+						{
+							x = 27715.3,
+							y = 1760.72,
+						},
+						level = 80,
+						name = "Rusty Meadows",
+						pos = 
+						{
+							-10672.8,
+							15342.7,
+						},
+						sector_id = 1765,
+					},
+					[1766] = 
+					{
+						coord = "28083.2, 2261.62",
+						global_pos = 
+						{
+							x = 28083.2,
+							y = 2261.62,
+						},
+						level = 80,
+						name = "Festival Promenade",
+						pos = 
+						{
+							-1843.2,
+							3321.1,
+						},
+						sector_id = 1766,
+					},
+					[1767] = 
+					{
+						coord = "27215.7, 2162.89",
+						global_pos = 
+						{
+							x = 27215.7,
+							y = 2162.89,
+						},
+						level = 80,
+						name = "Longeye's Landslide",
+						pos = 
+						{
+							-22663.2,
+							5690.6,
+						},
+						sector_id = 1767,
+					},
+					[1768] = 
+					{
+						coord = "29443.3, 1591.09",
+						global_pos = 
+						{
+							x = 29443.3,
+							y = 1591.09,
+						},
+						level = 80,
+						name = "Doomlore Ruins",
+						pos = 
+						{
+							30799.2,
+							19413.8,
+						},
+						sector_id = 1768,
+					},
+					[1769] = 
+					{
+						coord = "26882.8, 2657.76",
+						global_pos = 
+						{
+							x = 26882.8,
+							y = 2657.76,
+						},
+						level = 80,
+						name = "Bitter Horn",
+						pos = 
+						{
+							-30652.8,
+							-6186.2,
+						},
+						sector_id = 1769,
+					},
+					[1770] = 
+					{
+						coord = "28845.2, 2930.95",
+						global_pos = 
+						{
+							x = 28845.2,
+							y = 2930.95,
+						},
+						level = 80,
+						name = "Sacnoth Stream",
+						pos = 
+						{
+							16444.8,
+							-12742.8,
+						},
+						sector_id = 1770,
+					},
+					[1771] = 
+					{
+						coord = "28565.6, 2193.56",
+						global_pos = 
+						{
+							x = 28565.6,
+							y = 2193.56,
+						},
+						level = 80,
+						name = "Devourer's Ridge",
+						pos = 
+						{
+							9734.4,
+							4954.6,
+						},
+						sector_id = 1771,
+					},
+					[1772] = 
+					{
+						coord = "27874.6, 3019.54",
+						global_pos = 
+						{
+							x = 27874.6,
+							y = 3019.54,
+						},
+						level = 80,
+						name = "Tribunes' Trench",
+						pos = 
+						{
+							-6849.6,
+							-14869,
+						},
+						sector_id = 1772,
+					},
+				},
+			},
+		},
+		map_id = 1332,
+		map_name = "Strike Mission: Shiverpeaks Pass (Squad)",
+		map_rect = "-36864, -30720], [39936, 30720",
+		map_rect_table = 
+		{
+			
+			{
+				-36864,
+				-30720,
+			},
+			
+			{
+				39936,
+				30720,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 2,
+		region_name = "Ascalon",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1334] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "26624, 1120], [29824, 3680",
+		continent_rect_table = 
+		{
+			
+			{
+				26624,
+				1120,
+			},
+			
+			{
+				29824,
+				3680,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				points_of_interest = 
+				{
+					[3084] = 
+					{
+						coord = "27357.9, 2737.64",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27357.9,
+							y = 2737.64,
+						},
+						name = "War Room",
+						poi_id = 3084,
+						pos = 
+						{
+							-19250.4,
+							-8103.4,
+						},
+						type = "landmark",
+					},
+				},
+				sectors = 
+				{
+					[1748] = 
+					{
+						coord = "29268.1, 3135.62",
+						global_pos = 
+						{
+							x = 29268.1,
+							y = 3135.62,
+						},
+						level = 80,
+						name = "Kralkatorrik's Emergence Zone",
+						pos = 
+						{
+							26594.4,
+							-17654.9,
+						},
+						sector_id = 1748,
+					},
+					[1749] = 
+					{
+						coord = "29103.9, 1966.63",
+						global_pos = 
+						{
+							x = 29103.9,
+							y = 1966.63,
+						},
+						level = 80,
+						name = "Dalada Forest",
+						pos = 
+						{
+							22653.6,
+							10400.9,
+						},
+						sector_id = 1749,
+					},
+					[1750] = 
+					{
+						coord = "28386.9, 1848.01",
+						global_pos = 
+						{
+							x = 28386.9,
+							y = 1848.01,
+						},
+						level = 80,
+						name = "Burning Effigy",
+						pos = 
+						{
+							5445.6,
+							13247.8,
+						},
+						sector_id = 1750,
+					},
+					[1751] = 
+					{
+						coord = "28365.5, 3423.75",
+						global_pos = 
+						{
+							x = 28365.5,
+							y = 3423.75,
+						},
+						level = 80,
+						name = "The Ooze Pit",
+						pos = 
+						{
+							4932,
+							-24570,
+						},
+						sector_id = 1751,
+					},
+					[1752] = 
+					{
+						coord = "28087.8, 2014.54",
+						global_pos = 
+						{
+							x = 28087.8,
+							y = 2014.54,
+						},
+						level = 80,
+						name = "Flame Legion Camp",
+						pos = 
+						{
+							-1732.8,
+							9251,
+						},
+						sector_id = 1752,
+					},
+					[1753] = 
+					{
+						coord = "27004.3, 3198.95",
+						global_pos = 
+						{
+							x = 27004.3,
+							y = 3198.95,
+						},
+						level = 80,
+						name = "Shiverpeaks Pass",
+						pos = 
+						{
+							-27736.8,
+							-19174.8,
+						},
+						sector_id = 1753,
+					},
+					[1754] = 
+					{
+						coord = "29211.3, 2632.69",
+						global_pos = 
+						{
+							x = 29211.3,
+							y = 2632.69,
+						},
+						level = 80,
+						name = "Shattered Steppes",
+						pos = 
+						{
+							25231.2,
+							-5584.6,
+						},
+						sector_id = 1754,
+					},
+					[1755] = 
+					{
+						coord = "29068.3, 3057.66",
+						global_pos = 
+						{
+							x = 29068.3,
+							y = 3057.66,
+						},
+						level = 80,
+						name = "The Crag",
+						pos = 
+						{
+							21799.2,
+							-15783.8,
+						},
+						sector_id = 1755,
+					},
+					[1756] = 
+					{
+						coord = "28375.4, 2783.62",
+						global_pos = 
+						{
+							x = 28375.4,
+							y = 2783.62,
+						},
+						level = 80,
+						name = "The Wardowns",
+						pos = 
+						{
+							5169.6,
+							-9206.9,
+						},
+						sector_id = 1756,
+					},
+					[1757] = 
+					{
+						coord = "29035.9, 1617.39",
+						global_pos = 
+						{
+							x = 29035.9,
+							y = 1617.39,
+						},
+						level = 80,
+						name = "Cavern of the Khan-Ur",
+						pos = 
+						{
+							21021.6,
+							18782.6,
+						},
+						sector_id = 1757,
+					},
+					[1758] = 
+					{
+						coord = "28416.5, 1356.36",
+						global_pos = 
+						{
+							x = 28416.5,
+							y = 1356.36,
+						},
+						level = 80,
+						name = "Khan-Ur's Gauntlet",
+						pos = 
+						{
+							6156,
+							25047.4,
+						},
+						sector_id = 1758,
+					},
+					[1759] = 
+					{
+						coord = "27577.7, 3351.37",
+						global_pos = 
+						{
+							x = 27577.7,
+							y = 3351.37,
+						},
+						level = 80,
+						name = "Training Grounds",
+						pos = 
+						{
+							-13975.2,
+							-22832.9,
+						},
+						sector_id = 1759,
+					},
+					[1760] = 
+					{
+						coord = "27387.1, 2701.27",
+						global_pos = 
+						{
+							x = 27387.1,
+							y = 2701.27,
+						},
+						level = 80,
+						name = "Upper Blood Keep",
+						pos = 
+						{
+							-18549.6,
+							-7230.5,
+						},
+						sector_id = 1760,
+					},
+					[1761] = 
+					{
+						coord = "29600.5, 2518.82",
+						global_pos = 
+						{
+							x = 29600.5,
+							y = 2518.82,
+						},
+						level = 80,
+						name = "The Overlook",
+						pos = 
+						{
+							34572,
+							-2851.7,
+						},
+						sector_id = 1761,
+					},
+					[1762] = 
+					{
+						coord = "27664.6, 2250.63",
+						global_pos = 
+						{
+							x = 27664.6,
+							y = 2250.63,
+						},
+						level = 80,
+						name = "The Brig",
+						pos = 
+						{
+							-11889.6,
+							3584.9,
+						},
+						sector_id = 1762,
+					},
+					[1763] = 
+					{
+						coord = "28198.6, 2521.04",
+						global_pos = 
+						{
+							x = 28198.6,
+							y = 2521.04,
+						},
+						level = 80,
+						name = "Iron Legion Camp",
+						pos = 
+						{
+							926.4,
+							-2905,
+						},
+						sector_id = 1763,
+					},
+					[1764] = 
+					{
+						coord = "27575.8, 2637.21",
+						global_pos = 
+						{
+							x = 27575.8,
+							y = 2637.21,
+						},
+						level = 80,
+						name = "Lower Blood Keep",
+						pos = 
+						{
+							-14020.8,
+							-5693,
+						},
+						sector_id = 1764,
+					},
+					[1765] = 
+					{
+						coord = "27715.3, 1760.72",
+						global_pos = 
+						{
+							x = 27715.3,
+							y = 1760.72,
+						},
+						level = 80,
+						name = "Rusty Meadows",
+						pos = 
+						{
+							-10672.8,
+							15342.7,
+						},
+						sector_id = 1765,
+					},
+					[1766] = 
+					{
+						coord = "28083.2, 2261.62",
+						global_pos = 
+						{
+							x = 28083.2,
+							y = 2261.62,
+						},
+						level = 80,
+						name = "Festival Promenade",
+						pos = 
+						{
+							-1843.2,
+							3321.1,
+						},
+						sector_id = 1766,
+					},
+					[1767] = 
+					{
+						coord = "27215.7, 2162.89",
+						global_pos = 
+						{
+							x = 27215.7,
+							y = 2162.89,
+						},
+						level = 80,
+						name = "Longeye's Landslide",
+						pos = 
+						{
+							-22663.2,
+							5690.6,
+						},
+						sector_id = 1767,
+					},
+					[1768] = 
+					{
+						coord = "29443.3, 1591.09",
+						global_pos = 
+						{
+							x = 29443.3,
+							y = 1591.09,
+						},
+						level = 80,
+						name = "Doomlore Ruins",
+						pos = 
+						{
+							30799.2,
+							19413.8,
+						},
+						sector_id = 1768,
+					},
+					[1769] = 
+					{
+						coord = "26882.8, 2657.76",
+						global_pos = 
+						{
+							x = 26882.8,
+							y = 2657.76,
+						},
+						level = 80,
+						name = "Bitter Horn",
+						pos = 
+						{
+							-30652.8,
+							-6186.2,
+						},
+						sector_id = 1769,
+					},
+					[1770] = 
+					{
+						coord = "28845.2, 2930.95",
+						global_pos = 
+						{
+							x = 28845.2,
+							y = 2930.95,
+						},
+						level = 80,
+						name = "Sacnoth Stream",
+						pos = 
+						{
+							16444.8,
+							-12742.8,
+						},
+						sector_id = 1770,
+					},
+					[1771] = 
+					{
+						coord = "28565.6, 2193.56",
+						global_pos = 
+						{
+							x = 28565.6,
+							y = 2193.56,
+						},
+						level = 80,
+						name = "Devourer's Ridge",
+						pos = 
+						{
+							9734.4,
+							4954.6,
+						},
+						sector_id = 1771,
+					},
+					[1772] = 
+					{
+						coord = "27874.6, 3019.54",
+						global_pos = 
+						{
+							x = 27874.6,
+							y = 3019.54,
+						},
+						level = 80,
+						name = "Tribunes' Trench",
+						pos = 
+						{
+							-6849.6,
+							-14869,
+						},
+						sector_id = 1772,
+					},
+				},
+			},
+		},
+		map_id = 1334,
+		map_name = "Deeper and Deeper",
+		map_rect = "-36864, -30720], [39936, 30720",
+		map_rect_table = 
+		{
+			
+			{
+				-36864,
+				-30720,
+			},
+			
+			{
+				39936,
+				30720,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 2,
+		region_name = "Ascalon",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1336] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "26624, 1120], [29824, 3680",
+		continent_rect_table = 
+		{
+			
+			{
+				26624,
+				1120,
+			},
+			
+			{
+				29824,
+				3680,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				points_of_interest = 
+				{
+					[3057] = 
+					{
+						coord = "29559.2, 2591.29",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29559.2,
+							y = 2591.29,
+						},
+						name = "Priory Research Station",
+						poi_id = 3057,
+						pos = 
+						{
+							33580.8,
+							-4591,
+						},
+						type = "landmark",
+					},
+					[3058] = 
+					{
+						coord = "28176.1, 2543.53",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28176.1,
+							y = 2543.53,
+						},
+						name = "Santia's Forge",
+						poi_id = 3058,
+						pos = 
+						{
+							386.4,
+							-3444.7,
+						},
+						type = "landmark",
+					},
+					[3059] = 
+					{
+						coord = "27319.9, 1984.5",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27319.9,
+							y = 1984.5,
+						},
+						name = "Blood Dam",
+						poi_id = 3059,
+						pos = 
+						{
+							-20162.4,
+							9972,
+						},
+						type = "landmark",
+					},
+					[3060] = 
+					{
+						coord = "27688.4, 2523.86",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27688.4,
+							y = 2523.86,
+						},
+						name = "Auris's Workshop",
+						poi_id = 3060,
+						pos = 
+						{
+							-11318.4,
+							-2972.6,
+						},
+						type = "landmark",
+					},
+					[3061] = 
+					{
+						coord = "28546.2, 2397.25",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28546.2,
+							y = 2397.25,
+						},
+						name = "Ash Legion Camp",
+						poi_id = 3061,
+						pos = 
+						{
+							9268.8,
+							66,
+						},
+						type = "landmark",
+					},
+					[3062] = 
+					{
+						coord = "27442.5, 2851.79",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27442.5,
+							y = 2851.79,
+						},
+						name = "Imperator Ruinbringer's Office",
+						poi_id = 3062,
+						pos = 
+						{
+							-17220,
+							-10843,
+						},
+						type = "landmark",
+					},
+					[3065] = 
+					{
+						coord = "27602.2, 2198.31",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27602.2,
+							y = 2198.31,
+						},
+						name = "Stockade",
+						poi_id = 3065,
+						pos = 
+						{
+							-13387.2,
+							4840.6,
+						},
+						type = "landmark",
+					},
+					[3067] = 
+					{
+						coord = "27496.6, 2436.76",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27496.6,
+							y = 2436.76,
+						},
+						name = "Keep Kitchen",
+						poi_id = 3067,
+						pos = 
+						{
+							-15921.6,
+							-882.2,
+						},
+						type = "landmark",
+					},
+					[3068] = 
+					{
+						coord = "29339.2, 1582.73",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29339.2,
+							y = 1582.73,
+						},
+						name = "Cathedral of Flames Gate",
+						poi_id = 3068,
+						pos = 
+						{
+							28300.8,
+							19614.5,
+						},
+						type = "landmark",
+					},
+					[3069] = 
+					{
+						coord = "28381.8, 3280.31",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28381.8,
+							y = 3280.31,
+						},
+						name = "Contender's Colosseum",
+						poi_id = 3069,
+						pos = 
+						{
+							5323.2,
+							-21127.4,
+						},
+						type = "landmark",
+					},
+					[3070] = 
+					{
+						coord = "29355.2, 3203.55",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29355.2,
+							y = 3203.55,
+						},
+						name = "Aurene's Grace",
+						poi_id = 3070,
+						pos = 
+						{
+							28684.8,
+							-19285.2,
+						},
+						type = "landmark",
+					},
+					[3071] = 
+					{
+						coord = "27352.6, 1758.31",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27352.6,
+							y = 1758.31,
+						},
+						name = "Soul's Hearth",
+						poi_id = 3071,
+						pos = 
+						{
+							-19377.6,
+							15400.6,
+						},
+						type = "landmark",
+					},
+					[3073] = 
+					{
+						coord = "29442, 1658.82",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29442,
+							y = 1658.82,
+						},
+						name = "Doomlore Shrine",
+						poi_id = 3073,
+						pos = 
+						{
+							30768,
+							17788.3,
+						},
+						type = "landmark",
+					},
+					[3074] = 
+					{
+						coord = "27720.1, 2186.19",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27720.1,
+							y = 2186.19,
+						},
+						name = "Warden's Office",
+						poi_id = 3074,
+						pos = 
+						{
+							-10557.6,
+							5131.4,
+						},
+						type = "landmark",
+					},
+					[3075] = 
+					{
+						coord = "27856.5, 1669.02",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27856.5,
+							y = 1669.02,
+						},
+						name = "Fangstorm's Farmhouse",
+						poi_id = 3075,
+						pos = 
+						{
+							-7284,
+							17543.5,
+						},
+						type = "landmark",
+					},
+					[3076] = 
+					{
+						coord = "27613.9, 2658.18",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27613.9,
+							y = 2658.18,
+						},
+						name = "Rank 'n' File Pub",
+						poi_id = 3076,
+						pos = 
+						{
+							-13106.4,
+							-6196.3,
+						},
+						type = "landmark",
+					},
+					[3077] = 
+					{
+						coord = "28257.1, 2286.99",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28257.1,
+							y = 2286.99,
+						},
+						name = "Rally Pavilion",
+						poi_id = 3077,
+						pos = 
+						{
+							2330.4,
+							2712.2,
+						},
+						type = "landmark",
+					},
+					[3079] = 
+					{
+						coord = "28075.7, 2023.9",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28075.7,
+							y = 2023.9,
+						},
+						name = "Eternal Cauldron",
+						poi_id = 3079,
+						pos = 
+						{
+							-2023.2,
+							9026.4,
+						},
+						type = "landmark",
+					},
+					[3082] = 
+					{
+						coord = "27491.4, 2822.57",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27491.4,
+							y = 2822.57,
+						},
+						name = "Blood Legion Fahrar",
+						poi_id = 3082,
+						pos = 
+						{
+							-16046.4,
+							-10141.7,
+						},
+						type = "landmark",
+					},
+					[3085] = 
+					{
+						coord = "28817.4, 3323.45",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28817.4,
+							y = 3323.45,
+						},
+						name = "Blood Lagoon",
+						poi_id = 3085,
+						pos = 
+						{
+							15777.6,
+							-22162.8,
+						},
+						type = "landmark",
+					},
+					[3087] = 
+					{
+						coord = "28008.5, 2233.38",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28008.5,
+							y = 2233.38,
+						},
+						name = "All-Legion Commons",
+						poi_id = 3087,
+						pos = 
+						{
+							-3636,
+							3998.9,
+						},
+						type = "landmark",
+					},
+					[3089] = 
+					{
+						coord = "29124.7, 2593.24",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29124.7,
+							y = 2593.24,
+						},
+						name = "Recon Cove",
+						poi_id = 3089,
+						pos = 
+						{
+							23152.8,
+							-4637.8,
+						},
+						type = "landmark",
+					},
+					[3090] = 
+					{
+						coord = "28912.3, 1492.08",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28912.3,
+							y = 1492.08,
+						},
+						name = "Vault of the Khan-Ur",
+						poi_id = 3090,
+						pos = 
+						{
+							18055.2,
+							21790.1,
+						},
+						type = "landmark",
+					},
+					[3093] = 
+					{
+						coord = "27519.9, 3188.67",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27519.9,
+							y = 3188.67,
+						},
+						name = "Sniper's Square",
+						poi_id = 3093,
+						pos = 
+						{
+							-15362.4,
+							-18928.1,
+						},
+						type = "landmark",
+					},
+					[3095] = 
+					{
+						coord = "27345.2, 3299.9",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27345.2,
+							y = 3299.9,
+						},
+						name = "Shiver Gate",
+						poi_id = 3095,
+						pos = 
+						{
+							-19555.2,
+							-21597.6,
+						},
+						type = "landmark",
+					},
+					[3096] = 
+					{
+						coord = "27736.1, 2927.76",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27736.1,
+							y = 2927.76,
+						},
+						name = "Blood Keep Main Gate",
+						poi_id = 3096,
+						pos = 
+						{
+							-10173.6,
+							-12666.2,
+						},
+						type = "landmark",
+					},
+					[3097] = 
+					{
+						coord = "29146.3, 3086.17",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29146.3,
+							y = 3086.17,
+						},
+						name = "Blood Stand Stage",
+						poi_id = 3097,
+						pos = 
+						{
+							23671.2,
+							-16468.1,
+						},
+						type = "landmark",
+					},
+					[3098] = 
+					{
+						coord = "28769.4, 2789.22",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28769.4,
+							y = 2789.22,
+						},
+						name = "Band's Bivouac",
+						poi_id = 3098,
+						pos = 
+						{
+							14625.6,
+							-9341.3,
+						},
+						type = "landmark",
+					},
+					[3100] = 
+					{
+						coord = "27373.9, 2599.78",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27373.9,
+							y = 2599.78,
+						},
+						name = "Great Hall",
+						poi_id = 3100,
+						pos = 
+						{
+							-18866.4,
+							-4794.7,
+						},
+						type = "landmark",
+					},
+					[3101] = 
+					{
+						coord = "28427.5, 1748.75",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28427.5,
+							y = 1748.75,
+						},
+						name = "Unity's Beacon",
+						poi_id = 3101,
+						pos = 
+						{
+							6420,
+							15630,
+						},
+						type = "landmark",
+					},
+				},
+				sectors = 
+				{
+					[1748] = 
+					{
+						coord = "29268.1, 3135.62",
+						global_pos = 
+						{
+							x = 29268.1,
+							y = 3135.62,
+						},
+						level = 80,
+						name = "Kralkatorrik's Emergence Zone",
+						pos = 
+						{
+							26594.4,
+							-17654.9,
+						},
+						sector_id = 1748,
+					},
+					[1749] = 
+					{
+						coord = "29103.9, 1966.63",
+						global_pos = 
+						{
+							x = 29103.9,
+							y = 1966.63,
+						},
+						level = 80,
+						name = "Dalada Forest",
+						pos = 
+						{
+							22653.6,
+							10400.9,
+						},
+						sector_id = 1749,
+					},
+					[1750] = 
+					{
+						coord = "28386.9, 1848.01",
+						global_pos = 
+						{
+							x = 28386.9,
+							y = 1848.01,
+						},
+						level = 80,
+						name = "Burning Effigy",
+						pos = 
+						{
+							5445.6,
+							13247.8,
+						},
+						sector_id = 1750,
+					},
+					[1751] = 
+					{
+						coord = "28365.5, 3423.75",
+						global_pos = 
+						{
+							x = 28365.5,
+							y = 3423.75,
+						},
+						level = 80,
+						name = "The Ooze Pit",
+						pos = 
+						{
+							4932,
+							-24570,
+						},
+						sector_id = 1751,
+					},
+					[1752] = 
+					{
+						coord = "28087.8, 2014.54",
+						global_pos = 
+						{
+							x = 28087.8,
+							y = 2014.54,
+						},
+						level = 80,
+						name = "Flame Legion Camp",
+						pos = 
+						{
+							-1732.8,
+							9251,
+						},
+						sector_id = 1752,
+					},
+					[1753] = 
+					{
+						coord = "27004.3, 3198.95",
+						global_pos = 
+						{
+							x = 27004.3,
+							y = 3198.95,
+						},
+						level = 80,
+						name = "Shiverpeaks Pass",
+						pos = 
+						{
+							-27736.8,
+							-19174.8,
+						},
+						sector_id = 1753,
+					},
+					[1754] = 
+					{
+						coord = "29211.3, 2632.69",
+						global_pos = 
+						{
+							x = 29211.3,
+							y = 2632.69,
+						},
+						level = 80,
+						name = "Shattered Steppes",
+						pos = 
+						{
+							25231.2,
+							-5584.6,
+						},
+						sector_id = 1754,
+					},
+					[1755] = 
+					{
+						coord = "29068.3, 3057.66",
+						global_pos = 
+						{
+							x = 29068.3,
+							y = 3057.66,
+						},
+						level = 80,
+						name = "The Crag",
+						pos = 
+						{
+							21799.2,
+							-15783.8,
+						},
+						sector_id = 1755,
+					},
+					[1756] = 
+					{
+						coord = "28375.4, 2783.62",
+						global_pos = 
+						{
+							x = 28375.4,
+							y = 2783.62,
+						},
+						level = 80,
+						name = "The Wardowns",
+						pos = 
+						{
+							5169.6,
+							-9206.9,
+						},
+						sector_id = 1756,
+					},
+					[1757] = 
+					{
+						coord = "29035.9, 1617.39",
+						global_pos = 
+						{
+							x = 29035.9,
+							y = 1617.39,
+						},
+						level = 80,
+						name = "Cavern of the Khan-Ur",
+						pos = 
+						{
+							21021.6,
+							18782.6,
+						},
+						sector_id = 1757,
+					},
+					[1758] = 
+					{
+						coord = "28416.5, 1356.36",
+						global_pos = 
+						{
+							x = 28416.5,
+							y = 1356.36,
+						},
+						level = 80,
+						name = "Khan-Ur's Gauntlet",
+						pos = 
+						{
+							6156,
+							25047.4,
+						},
+						sector_id = 1758,
+					},
+					[1759] = 
+					{
+						coord = "27577.7, 3351.37",
+						global_pos = 
+						{
+							x = 27577.7,
+							y = 3351.37,
+						},
+						level = 80,
+						name = "Training Grounds",
+						pos = 
+						{
+							-13975.2,
+							-22832.9,
+						},
+						sector_id = 1759,
+					},
+					[1760] = 
+					{
+						coord = "27387.1, 2701.27",
+						global_pos = 
+						{
+							x = 27387.1,
+							y = 2701.27,
+						},
+						level = 80,
+						name = "Upper Blood Keep",
+						pos = 
+						{
+							-18549.6,
+							-7230.5,
+						},
+						sector_id = 1760,
+					},
+					[1761] = 
+					{
+						coord = "29600.5, 2518.82",
+						global_pos = 
+						{
+							x = 29600.5,
+							y = 2518.82,
+						},
+						level = 80,
+						name = "The Overlook",
+						pos = 
+						{
+							34572,
+							-2851.7,
+						},
+						sector_id = 1761,
+					},
+					[1762] = 
+					{
+						coord = "27664.6, 2250.63",
+						global_pos = 
+						{
+							x = 27664.6,
+							y = 2250.63,
+						},
+						level = 80,
+						name = "The Brig",
+						pos = 
+						{
+							-11889.6,
+							3584.9,
+						},
+						sector_id = 1762,
+					},
+					[1763] = 
+					{
+						coord = "28198.6, 2521.04",
+						global_pos = 
+						{
+							x = 28198.6,
+							y = 2521.04,
+						},
+						level = 80,
+						name = "Iron Legion Camp",
+						pos = 
+						{
+							926.4,
+							-2905,
+						},
+						sector_id = 1763,
+					},
+					[1764] = 
+					{
+						coord = "27575.8, 2637.21",
+						global_pos = 
+						{
+							x = 27575.8,
+							y = 2637.21,
+						},
+						level = 80,
+						name = "Lower Blood Keep",
+						pos = 
+						{
+							-14020.8,
+							-5693,
+						},
+						sector_id = 1764,
+					},
+					[1765] = 
+					{
+						coord = "27715.3, 1760.72",
+						global_pos = 
+						{
+							x = 27715.3,
+							y = 1760.72,
+						},
+						level = 80,
+						name = "Rusty Meadows",
+						pos = 
+						{
+							-10672.8,
+							15342.7,
+						},
+						sector_id = 1765,
+					},
+					[1766] = 
+					{
+						coord = "28083.2, 2261.62",
+						global_pos = 
+						{
+							x = 28083.2,
+							y = 2261.62,
+						},
+						level = 80,
+						name = "Festival Promenade",
+						pos = 
+						{
+							-1843.2,
+							3321.1,
+						},
+						sector_id = 1766,
+					},
+					[1767] = 
+					{
+						coord = "27215.7, 2162.89",
+						global_pos = 
+						{
+							x = 27215.7,
+							y = 2162.89,
+						},
+						level = 80,
+						name = "Longeye's Landslide",
+						pos = 
+						{
+							-22663.2,
+							5690.6,
+						},
+						sector_id = 1767,
+					},
+					[1768] = 
+					{
+						coord = "29443.3, 1591.09",
+						global_pos = 
+						{
+							x = 29443.3,
+							y = 1591.09,
+						},
+						level = 80,
+						name = "Doomlore Ruins",
+						pos = 
+						{
+							30799.2,
+							19413.8,
+						},
+						sector_id = 1768,
+					},
+					[1769] = 
+					{
+						coord = "26882.8, 2657.76",
+						global_pos = 
+						{
+							x = 26882.8,
+							y = 2657.76,
+						},
+						level = 80,
+						name = "Bitter Horn",
+						pos = 
+						{
+							-30652.8,
+							-6186.2,
+						},
+						sector_id = 1769,
+					},
+					[1770] = 
+					{
+						coord = "28845.2, 2930.95",
+						global_pos = 
+						{
+							x = 28845.2,
+							y = 2930.95,
+						},
+						level = 80,
+						name = "Sacnoth Stream",
+						pos = 
+						{
+							16444.8,
+							-12742.8,
+						},
+						sector_id = 1770,
+					},
+					[1771] = 
+					{
+						coord = "28565.6, 2193.56",
+						global_pos = 
+						{
+							x = 28565.6,
+							y = 2193.56,
+						},
+						level = 80,
+						name = "Devourer's Ridge",
+						pos = 
+						{
+							9734.4,
+							4954.6,
+						},
+						sector_id = 1771,
+					},
+					[1772] = 
+					{
+						coord = "27874.6, 3019.54",
+						global_pos = 
+						{
+							x = 27874.6,
+							y = 3019.54,
+						},
+						level = 80,
+						name = "Tribunes' Trench",
+						pos = 
+						{
+							-6849.6,
+							-14869,
+						},
+						sector_id = 1772,
+					},
+				},
+			},
+		},
+		map_id = 1336,
+		map_name = "A Race to Arms",
+		map_rect = "-36864, -30720], [39936, 30720",
+		map_rect_table = 
+		{
+			
+			{
+				-36864,
+				-30720,
+			},
+			
+			{
+				39936,
+				30720,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 2,
+		region_name = "Ascalon",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1338] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "26624, 1120], [29824, 3680",
+		continent_rect_table = 
+		{
+			
+			{
+				26624,
+				1120,
+			},
+			
+			{
+				29824,
+				3680,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				points_of_interest = 
+				{
+					[3057] = 
+					{
+						coord = "29559.2, 2591.29",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29559.2,
+							y = 2591.29,
+						},
+						name = "Priory Research Station",
+						poi_id = 3057,
+						pos = 
+						{
+							33580.8,
+							-4591,
+						},
+						type = "landmark",
+					},
+					[3058] = 
+					{
+						coord = "28176.1, 2543.53",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28176.1,
+							y = 2543.53,
+						},
+						name = "Santia's Forge",
+						poi_id = 3058,
+						pos = 
+						{
+							386.4,
+							-3444.7,
+						},
+						type = "landmark",
+					},
+					[3059] = 
+					{
+						coord = "27319.9, 1984.5",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27319.9,
+							y = 1984.5,
+						},
+						name = "Blood Dam",
+						poi_id = 3059,
+						pos = 
+						{
+							-20162.4,
+							9972,
+						},
+						type = "landmark",
+					},
+					[3060] = 
+					{
+						coord = "27688.4, 2523.86",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27688.4,
+							y = 2523.86,
+						},
+						name = "Auris's Workshop",
+						poi_id = 3060,
+						pos = 
+						{
+							-11318.4,
+							-2972.6,
+						},
+						type = "landmark",
+					},
+					[3061] = 
+					{
+						coord = "28546.2, 2397.25",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28546.2,
+							y = 2397.25,
+						},
+						name = "Ash Legion Camp",
+						poi_id = 3061,
+						pos = 
+						{
+							9268.8,
+							66,
+						},
+						type = "landmark",
+					},
+					[3062] = 
+					{
+						coord = "27442.5, 2851.79",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27442.5,
+							y = 2851.79,
+						},
+						name = "Imperator Ruinbringer's Office",
+						poi_id = 3062,
+						pos = 
+						{
+							-17220,
+							-10843,
+						},
+						type = "landmark",
+					},
+					[3065] = 
+					{
+						coord = "27602.2, 2198.31",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27602.2,
+							y = 2198.31,
+						},
+						name = "Stockade",
+						poi_id = 3065,
+						pos = 
+						{
+							-13387.2,
+							4840.6,
+						},
+						type = "landmark",
+					},
+					[3067] = 
+					{
+						coord = "27496.6, 2436.76",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27496.6,
+							y = 2436.76,
+						},
+						name = "Keep Kitchen",
+						poi_id = 3067,
+						pos = 
+						{
+							-15921.6,
+							-882.2,
+						},
+						type = "landmark",
+					},
+					[3068] = 
+					{
+						coord = "29339.2, 1582.73",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29339.2,
+							y = 1582.73,
+						},
+						name = "Cathedral of Flames Gate",
+						poi_id = 3068,
+						pos = 
+						{
+							28300.8,
+							19614.5,
+						},
+						type = "landmark",
+					},
+					[3069] = 
+					{
+						coord = "28381.8, 3280.31",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28381.8,
+							y = 3280.31,
+						},
+						name = "Contender's Colosseum",
+						poi_id = 3069,
+						pos = 
+						{
+							5323.2,
+							-21127.4,
+						},
+						type = "landmark",
+					},
+					[3070] = 
+					{
+						coord = "29355.2, 3203.55",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29355.2,
+							y = 3203.55,
+						},
+						name = "Aurene's Grace",
+						poi_id = 3070,
+						pos = 
+						{
+							28684.8,
+							-19285.2,
+						},
+						type = "landmark",
+					},
+					[3071] = 
+					{
+						coord = "27352.6, 1758.31",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27352.6,
+							y = 1758.31,
+						},
+						name = "Soul's Hearth",
+						poi_id = 3071,
+						pos = 
+						{
+							-19377.6,
+							15400.6,
+						},
+						type = "landmark",
+					},
+					[3073] = 
+					{
+						coord = "29442, 1658.82",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29442,
+							y = 1658.82,
+						},
+						name = "Doomlore Shrine",
+						poi_id = 3073,
+						pos = 
+						{
+							30768,
+							17788.3,
+						},
+						type = "landmark",
+					},
+					[3074] = 
+					{
+						coord = "27720.1, 2186.19",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27720.1,
+							y = 2186.19,
+						},
+						name = "Warden's Office",
+						poi_id = 3074,
+						pos = 
+						{
+							-10557.6,
+							5131.4,
+						},
+						type = "landmark",
+					},
+					[3075] = 
+					{
+						coord = "27856.5, 1669.02",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27856.5,
+							y = 1669.02,
+						},
+						name = "Fangstorm's Farmhouse",
+						poi_id = 3075,
+						pos = 
+						{
+							-7284,
+							17543.5,
+						},
+						type = "landmark",
+					},
+					[3076] = 
+					{
+						coord = "27613.9, 2658.18",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27613.9,
+							y = 2658.18,
+						},
+						name = "Rank 'n' File Pub",
+						poi_id = 3076,
+						pos = 
+						{
+							-13106.4,
+							-6196.3,
+						},
+						type = "landmark",
+					},
+					[3077] = 
+					{
+						coord = "28257.1, 2286.99",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28257.1,
+							y = 2286.99,
+						},
+						name = "Rally Pavilion",
+						poi_id = 3077,
+						pos = 
+						{
+							2330.4,
+							2712.2,
+						},
+						type = "landmark",
+					},
+					[3079] = 
+					{
+						coord = "28075.7, 2023.9",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28075.7,
+							y = 2023.9,
+						},
+						name = "Eternal Cauldron",
+						poi_id = 3079,
+						pos = 
+						{
+							-2023.2,
+							9026.4,
+						},
+						type = "landmark",
+					},
+					[3082] = 
+					{
+						coord = "27491.4, 2822.57",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27491.4,
+							y = 2822.57,
+						},
+						name = "Blood Legion Fahrar",
+						poi_id = 3082,
+						pos = 
+						{
+							-16046.4,
+							-10141.7,
+						},
+						type = "landmark",
+					},
+					[3084] = 
+					{
+						coord = "27357.9, 2737.64",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27357.9,
+							y = 2737.64,
+						},
+						name = "War Room",
+						poi_id = 3084,
+						pos = 
+						{
+							-19250.4,
+							-8103.4,
+						},
+						type = "landmark",
+					},
+					[3085] = 
+					{
+						coord = "28817.4, 3323.45",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28817.4,
+							y = 3323.45,
+						},
+						name = "Blood Lagoon",
+						poi_id = 3085,
+						pos = 
+						{
+							15777.6,
+							-22162.8,
+						},
+						type = "landmark",
+					},
+					[3087] = 
+					{
+						coord = "28008.5, 2233.38",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28008.5,
+							y = 2233.38,
+						},
+						name = "All-Legion Commons",
+						poi_id = 3087,
+						pos = 
+						{
+							-3636,
+							3998.9,
+						},
+						type = "landmark",
+					},
+					[3089] = 
+					{
+						coord = "29124.7, 2593.24",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29124.7,
+							y = 2593.24,
+						},
+						name = "Recon Cove",
+						poi_id = 3089,
+						pos = 
+						{
+							23152.8,
+							-4637.8,
+						},
+						type = "landmark",
+					},
+					[3090] = 
+					{
+						coord = "28912.3, 1492.08",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28912.3,
+							y = 1492.08,
+						},
+						name = "Vault of the Khan-Ur",
+						poi_id = 3090,
+						pos = 
+						{
+							18055.2,
+							21790.1,
+						},
+						type = "landmark",
+					},
+					[3093] = 
+					{
+						coord = "27519.9, 3188.67",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27519.9,
+							y = 3188.67,
+						},
+						name = "Sniper's Square",
+						poi_id = 3093,
+						pos = 
+						{
+							-15362.4,
+							-18928.1,
+						},
+						type = "landmark",
+					},
+					[3095] = 
+					{
+						coord = "27345.2, 3299.9",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27345.2,
+							y = 3299.9,
+						},
+						name = "Shiver Gate",
+						poi_id = 3095,
+						pos = 
+						{
+							-19555.2,
+							-21597.6,
+						},
+						type = "landmark",
+					},
+					[3096] = 
+					{
+						coord = "27736.1, 2927.76",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27736.1,
+							y = 2927.76,
+						},
+						name = "Blood Keep Main Gate",
+						poi_id = 3096,
+						pos = 
+						{
+							-10173.6,
+							-12666.2,
+						},
+						type = "landmark",
+					},
+					[3097] = 
+					{
+						coord = "29146.3, 3086.17",
+						floor = 1,
+						global_pos = 
+						{
+							x = 29146.3,
+							y = 3086.17,
+						},
+						name = "Blood Stand Stage",
+						poi_id = 3097,
+						pos = 
+						{
+							23671.2,
+							-16468.1,
+						},
+						type = "landmark",
+					},
+					[3098] = 
+					{
+						coord = "28769.4, 2789.22",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28769.4,
+							y = 2789.22,
+						},
+						name = "Band's Bivouac",
+						poi_id = 3098,
+						pos = 
+						{
+							14625.6,
+							-9341.3,
+						},
+						type = "landmark",
+					},
+					[3100] = 
+					{
+						coord = "27373.9, 2599.78",
+						floor = 1,
+						global_pos = 
+						{
+							x = 27373.9,
+							y = 2599.78,
+						},
+						name = "Great Hall",
+						poi_id = 3100,
+						pos = 
+						{
+							-18866.4,
+							-4794.7,
+						},
+						type = "landmark",
+					},
+					[3101] = 
+					{
+						coord = "28427.5, 1748.75",
+						floor = 1,
+						global_pos = 
+						{
+							x = 28427.5,
+							y = 1748.75,
+						},
+						name = "Unity's Beacon",
+						poi_id = 3101,
+						pos = 
+						{
+							6420,
+							15630,
+						},
+						type = "landmark",
+					},
+				},
+				sectors = 
+				{
+					[1748] = 
+					{
+						coord = "29268.1, 3135.62",
+						global_pos = 
+						{
+							x = 29268.1,
+							y = 3135.62,
+						},
+						level = 80,
+						name = "Kralkatorrik's Emergence Zone",
+						pos = 
+						{
+							26594.4,
+							-17654.9,
+						},
+						sector_id = 1748,
+					},
+					[1749] = 
+					{
+						coord = "29103.9, 1966.63",
+						global_pos = 
+						{
+							x = 29103.9,
+							y = 1966.63,
+						},
+						level = 80,
+						name = "Dalada Forest",
+						pos = 
+						{
+							22653.6,
+							10400.9,
+						},
+						sector_id = 1749,
+					},
+					[1750] = 
+					{
+						coord = "28386.9, 1848.01",
+						global_pos = 
+						{
+							x = 28386.9,
+							y = 1848.01,
+						},
+						level = 80,
+						name = "Burning Effigy",
+						pos = 
+						{
+							5445.6,
+							13247.8,
+						},
+						sector_id = 1750,
+					},
+					[1751] = 
+					{
+						coord = "28365.5, 3423.75",
+						global_pos = 
+						{
+							x = 28365.5,
+							y = 3423.75,
+						},
+						level = 80,
+						name = "The Ooze Pit",
+						pos = 
+						{
+							4932,
+							-24570,
+						},
+						sector_id = 1751,
+					},
+					[1752] = 
+					{
+						coord = "28087.8, 2014.54",
+						global_pos = 
+						{
+							x = 28087.8,
+							y = 2014.54,
+						},
+						level = 80,
+						name = "Flame Legion Camp",
+						pos = 
+						{
+							-1732.8,
+							9251,
+						},
+						sector_id = 1752,
+					},
+					[1753] = 
+					{
+						coord = "27004.3, 3198.95",
+						global_pos = 
+						{
+							x = 27004.3,
+							y = 3198.95,
+						},
+						level = 80,
+						name = "Shiverpeaks Pass",
+						pos = 
+						{
+							-27736.8,
+							-19174.8,
+						},
+						sector_id = 1753,
+					},
+					[1754] = 
+					{
+						coord = "29211.3, 2632.69",
+						global_pos = 
+						{
+							x = 29211.3,
+							y = 2632.69,
+						},
+						level = 80,
+						name = "Shattered Steppes",
+						pos = 
+						{
+							25231.2,
+							-5584.6,
+						},
+						sector_id = 1754,
+					},
+					[1755] = 
+					{
+						coord = "29068.3, 3057.66",
+						global_pos = 
+						{
+							x = 29068.3,
+							y = 3057.66,
+						},
+						level = 80,
+						name = "The Crag",
+						pos = 
+						{
+							21799.2,
+							-15783.8,
+						},
+						sector_id = 1755,
+					},
+					[1756] = 
+					{
+						coord = "28375.4, 2783.62",
+						global_pos = 
+						{
+							x = 28375.4,
+							y = 2783.62,
+						},
+						level = 80,
+						name = "The Wardowns",
+						pos = 
+						{
+							5169.6,
+							-9206.9,
+						},
+						sector_id = 1756,
+					},
+					[1757] = 
+					{
+						coord = "29035.9, 1617.39",
+						global_pos = 
+						{
+							x = 29035.9,
+							y = 1617.39,
+						},
+						level = 80,
+						name = "Cavern of the Khan-Ur",
+						pos = 
+						{
+							21021.6,
+							18782.6,
+						},
+						sector_id = 1757,
+					},
+					[1758] = 
+					{
+						coord = "28416.5, 1356.36",
+						global_pos = 
+						{
+							x = 28416.5,
+							y = 1356.36,
+						},
+						level = 80,
+						name = "Khan-Ur's Gauntlet",
+						pos = 
+						{
+							6156,
+							25047.4,
+						},
+						sector_id = 1758,
+					},
+					[1759] = 
+					{
+						coord = "27577.7, 3351.37",
+						global_pos = 
+						{
+							x = 27577.7,
+							y = 3351.37,
+						},
+						level = 80,
+						name = "Training Grounds",
+						pos = 
+						{
+							-13975.2,
+							-22832.9,
+						},
+						sector_id = 1759,
+					},
+					[1760] = 
+					{
+						coord = "27387.1, 2701.27",
+						global_pos = 
+						{
+							x = 27387.1,
+							y = 2701.27,
+						},
+						level = 80,
+						name = "Upper Blood Keep",
+						pos = 
+						{
+							-18549.6,
+							-7230.5,
+						},
+						sector_id = 1760,
+					},
+					[1761] = 
+					{
+						coord = "29600.5, 2518.82",
+						global_pos = 
+						{
+							x = 29600.5,
+							y = 2518.82,
+						},
+						level = 80,
+						name = "The Overlook",
+						pos = 
+						{
+							34572,
+							-2851.7,
+						},
+						sector_id = 1761,
+					},
+					[1762] = 
+					{
+						coord = "27664.6, 2250.63",
+						global_pos = 
+						{
+							x = 27664.6,
+							y = 2250.63,
+						},
+						level = 80,
+						name = "The Brig",
+						pos = 
+						{
+							-11889.6,
+							3584.9,
+						},
+						sector_id = 1762,
+					},
+					[1763] = 
+					{
+						coord = "28198.6, 2521.04",
+						global_pos = 
+						{
+							x = 28198.6,
+							y = 2521.04,
+						},
+						level = 80,
+						name = "Iron Legion Camp",
+						pos = 
+						{
+							926.4,
+							-2905,
+						},
+						sector_id = 1763,
+					},
+					[1764] = 
+					{
+						coord = "27575.8, 2637.21",
+						global_pos = 
+						{
+							x = 27575.8,
+							y = 2637.21,
+						},
+						level = 80,
+						name = "Lower Blood Keep",
+						pos = 
+						{
+							-14020.8,
+							-5693,
+						},
+						sector_id = 1764,
+					},
+					[1765] = 
+					{
+						coord = "27715.3, 1760.72",
+						global_pos = 
+						{
+							x = 27715.3,
+							y = 1760.72,
+						},
+						level = 80,
+						name = "Rusty Meadows",
+						pos = 
+						{
+							-10672.8,
+							15342.7,
+						},
+						sector_id = 1765,
+					},
+					[1766] = 
+					{
+						coord = "28083.2, 2261.62",
+						global_pos = 
+						{
+							x = 28083.2,
+							y = 2261.62,
+						},
+						level = 80,
+						name = "Festival Promenade",
+						pos = 
+						{
+							-1843.2,
+							3321.1,
+						},
+						sector_id = 1766,
+					},
+					[1767] = 
+					{
+						coord = "27215.7, 2162.89",
+						global_pos = 
+						{
+							x = 27215.7,
+							y = 2162.89,
+						},
+						level = 80,
+						name = "Longeye's Landslide",
+						pos = 
+						{
+							-22663.2,
+							5690.6,
+						},
+						sector_id = 1767,
+					},
+					[1768] = 
+					{
+						coord = "29443.3, 1591.09",
+						global_pos = 
+						{
+							x = 29443.3,
+							y = 1591.09,
+						},
+						level = 80,
+						name = "Doomlore Ruins",
+						pos = 
+						{
+							30799.2,
+							19413.8,
+						},
+						sector_id = 1768,
+					},
+					[1769] = 
+					{
+						coord = "26882.8, 2657.76",
+						global_pos = 
+						{
+							x = 26882.8,
+							y = 2657.76,
+						},
+						level = 80,
+						name = "Bitter Horn",
+						pos = 
+						{
+							-30652.8,
+							-6186.2,
+						},
+						sector_id = 1769,
+					},
+					[1770] = 
+					{
+						coord = "28845.2, 2930.95",
+						global_pos = 
+						{
+							x = 28845.2,
+							y = 2930.95,
+						},
+						level = 80,
+						name = "Sacnoth Stream",
+						pos = 
+						{
+							16444.8,
+							-12742.8,
+						},
+						sector_id = 1770,
+					},
+					[1771] = 
+					{
+						coord = "28565.6, 2193.56",
+						global_pos = 
+						{
+							x = 28565.6,
+							y = 2193.56,
+						},
+						level = 80,
+						name = "Devourer's Ridge",
+						pos = 
+						{
+							9734.4,
+							4954.6,
+						},
+						sector_id = 1771,
+					},
+					[1772] = 
+					{
+						coord = "27874.6, 3019.54",
+						global_pos = 
+						{
+							x = 27874.6,
+							y = 3019.54,
+						},
+						level = 80,
+						name = "Tribunes' Trench",
+						pos = 
+						{
+							-6849.6,
+							-14869,
+						},
+						sector_id = 1772,
+					},
+				},
+			},
+		},
+		map_id = 1338,
+		map_name = "Bad Blood",
+		map_rect = "-36864, -30720], [39936, 30720",
+		map_rect_table = 
+		{
+			
+			{
+				-36864,
+				-30720,
+			},
+			
+			{
+				39936,
+				30720,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 2,
+		region_name = "Ascalon",
 		type = "Instance",
 		waypoints = 
 		{
