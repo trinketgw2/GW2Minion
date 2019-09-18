@@ -14,11 +14,12 @@ ml_navigation.GetMovementType = function() if ( Player.swimming ~= GW2.SWIMSTATE
 ml_navigation.StopMovement = function() Player:StopMovement() end
 
 -- Main function to move the player. 'targetid' is optional but should be used as often as possible, if there is no target, use 0
-function Player:MoveTo(x, y, z, targetid, stoppingdistance, randommovement, smoothturns)
+function Player:MoveTo(x, y, z, targetid, stoppingdistance, randommovement, smoothturns, staymounted)
 	ml_navigation.stoppingdistance = stoppingdistance or 154
 	ml_navigation.randommovement = randommovement
 	ml_navigation.smoothturns = smoothturns or true
 	ml_navigation.targetid = targetid or 0
+	ml_navigation.staymounted = staymounted or false
 	ml_navigation.debug = nil
 
 	ml_navigation.targetposition = { x=x, y=y, z=z }
@@ -374,7 +375,7 @@ function ml_navigation.Navigate(event, ticks )
 						NavigationManager.NavPathNode = ml_navigation.pathindex
 					else
 						-- Dismount when we are close to our target position, so we can get to the actual point and not overshooting it or similiar unprecise stuff
-						if (pathsize - ml_navigation.pathindex < 5 and Player.mounted)then
+						if (pathsize - ml_navigation.pathindex < 5 and Player.mounted and not ml_navigation.staymounted)then
 							-- calculate remaining distance to the path end
 							local l_dist = 0
 							local l_lastnode = playerpos
@@ -398,7 +399,7 @@ function ml_navigation.Navigate(event, ticks )
 					return
 				else
 					d("[Navigation] - Path end reached.")
-					if(Player.mounted) then Player:Dismount() end
+					if(Player.mounted and not ml_navigation.staymounted) then Player:Dismount() end
 					Player:StopMovement()
 					gw2_unstuck.Reset()
 
@@ -546,11 +547,14 @@ function ml_navigation:MoveToNextNode( playerpos, lastnode, nextnode, overridefa
 					local mountSpeed = HackManager:GetSpeed()
 					if (mountSpeed > 450) then
 						Player:SetMovement(GW2.MOVEMENTTYPE.Backward)
+						d("slowing down")
 					elseif (mountSpeed > 400) then
 						Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward) -- stopping forward movement until we are facing the node
 						Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
+						d("stopping movement")
 					elseif (mountSpeed > 350) then
 						Player:SetMovement(GW2.MOVEMENTTYPE.Forward)
+						d("speeding up")
 					end
 					--d("TURNING : "..tostring(res))
 					gw2_unstuck.stucktick = ml_global_information.Now + 500 -- the unstuck kicks in too often when we are still turning on our sluggish slow mount...
