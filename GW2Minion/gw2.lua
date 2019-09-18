@@ -162,6 +162,7 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(1310,"Thunderhead Peaks",enforce)
 		ml_mesh_mgr.SetDefaultMesh(1317,"Dragonfall",enforce)
 		ml_mesh_mgr.SetDefaultMesh(1248,"Domain of Vabbi",enforce)
+		ml_mesh_mgr.SetDefaultMesh(1330,"Grothmar Valley",enforce)
 		
 		--Instances
 		ml_mesh_mgr.SetDefaultMesh(896,"North Nolan Hatchery",enforce) -- Diessa Plateau
