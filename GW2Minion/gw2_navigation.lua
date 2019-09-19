@@ -375,7 +375,7 @@ function ml_navigation.Navigate(event, ticks )
 						NavigationManager.NavPathNode = ml_navigation.pathindex
 					else
 						-- Dismount when we are close to our target position, so we can get to the actual point and not overshooting it or similiar unprecise stuff
-						if (pathsize - ml_navigation.pathindex < 5 and Player.mounted and not ml_navigation.staymounted)then
+						if (pathsize - ml_navigation.pathindex < 5 and Player.mounted and ml_navigation.staymounted == false)then
 							-- calculate remaining distance to the path end
 							local l_dist = 0
 							local l_lastnode = playerpos
@@ -399,7 +399,7 @@ function ml_navigation.Navigate(event, ticks )
 					return
 				else
 					d("[Navigation] - Path end reached.")
-					if(Player.mounted and not ml_navigation.staymounted) then Player:Dismount() end
+					if(Player.mounted and ml_navigation.staymounted == false) then Player:Dismount() end
 					Player:StopMovement()
 					gw2_unstuck.Reset()
 
