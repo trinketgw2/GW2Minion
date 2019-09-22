@@ -2,7 +2,8 @@
 
 -- Since we have different "types" of movement, add all types and assign a value to them. Make sure to include one entry for each of the 4 kinds below per movement type!
 ml_navigation.NavPointReachedDistances = 			{ 	["Walk"] = 32,		["Diving"] = 48,	["Mounted"] = 100,}		-- Distance to the next node in the path at which the ml_navigation.pathindex is iterated
-ml_navigation.PathDeviationDistances = 				{ 	["Walk"] = 50,		["Diving"] = 150, 	["Mounted"] = 100,}		-- The max. distance the playerposition can be away from the current path. (The Point-Line distance between player and the last & next pathnode)
+ml_navigation.PathDeviationDistances = 				{ 	["Walk"] = 50,		["Diving"] = 150, 	["Mounted"] = 150,}		-- The max. distance the playerposition can be away from the current path. (The Point-Line distance between player and the last & next pathnode)
+ml_navigation.lastMount = 0
 
 -- gw2_obstacle_manager has control over this now
 ml_navigation.avoidanceareasize = 50
@@ -117,6 +118,7 @@ function ml_navigation.Navigate(event, ticks )
 								-- JUMP
 								if(Player.mounted)then
 									Player:Dismount()
+									ml_navigation.lastMount = ml_global_information.Now - 5000
 								end
 								lastnode = nextnode
 								nextnode = ml_navigation.path[ ml_navigation.pathindex + 1]
@@ -229,6 +231,7 @@ function ml_navigation.Navigate(event, ticks )
 									ml_navigation.navconnection = nil
 								elseif (Player.mounted) then
 									Player:Dismount()
+									ml_navigation.lastMount = ml_global_information.Now - 5000
 									Player:Stop()
 								end
 								return
@@ -349,20 +352,36 @@ function ml_navigation.Navigate(event, ticks )
 
 					else
 						-- TODO: check if water surface node, dont try to mount if so.
-						if((Settings.GW2Minion.usemount == nil or Settings.GW2Minion.usemount) and not Player.mounted and totalpathdistance > 2000 and Player.canmount)then
-							if((not lastnode or lastnode.navconnectionid == 0) and nextnode.navconnectionid == 0 and (not nextnextnode or nextnextnode.navconnectionid == 0)) then
+						if((Settings.GW2Minion.usemount == nil or Settings.GW2Minion.usemount) and not Player.mounted and Player.canmount and ml_global_information.Now - ml_navigation.lastMount > 5000)then
+							local remainingPathLenght = ml_navigation:GetRemainingPathLenght()
+							if(remainingPathLenght ~= 0 and remainingPathLenght > 800)then
+								local allowMount = true
 								local distanceToNextNode = math.distance3d(playerpos, {x = nextnode.x, y = nextnode.y, z = nextnode.z,})
-								local anglediffPlayerNextNode = math.angle({x = playerpos.hx, y = playerpos.hy,  z = 0}, {x = nextnode.x-playerpos.x, y = nextnode.y-playerpos.y, z = 0,})
-								local anglediffNextNodeNextNextNode = nextnextnode and math.angle({x = nextnode.x-playerpos.x, y = nextnode.y-playerpos.y, z = 0}, {x = nextnextnode.x-nextnode.x, y = nextnextnode.y-nextnode.y, z = 0,}) or 0
-								if (distanceToNextNode >= 500) then
-									if (anglediffPlayerNextNode < 30) then
-										gw2_common_functions.NecroLeaveDeathshroud()
-										Player:Mount()
-									end
-								else
-									if (anglediffPlayerNextNode < 30 and anglediffNextNodeNextNextNode < 45) then
-										gw2_common_functions.NecroLeaveDeathshroud()
-										Player:Mount()
+
+								if (lastnode and lastnode.navconnectionid ~= 0 and nextnode and nextnode.navconnectionid ~= 0) then
+									allowMount = false
+								end
+								if (nextnode.navconnectionid ~= 0 and distanceToNextNode < 800) then
+									allowMount = false
+								end
+
+								if (allowMount) then
+									local anglediffPlayerNextNode = math.angle({x = playerpos.hx, y = playerpos.hy,  z = 0}, {x = nextnode.x-playerpos.x, y = nextnode.y-playerpos.y, z = 0,})
+									local anglediffNextNodeNextNextNode = nextnextnode and math.angle({x = nextnode.x-playerpos.x, y = nextnode.y-playerpos.y, z = 0}, {x = nextnextnode.x-nextnode.x, y = nextnextnode.y-nextnode.y, z = 0,}) or 0
+
+									if (distanceToNextNode >= 500) then
+										if (anglediffPlayerNextNode < 30) then
+											gw2_common_functions.NecroLeaveDeathshroud()
+											Player:Mount()
+											ml_navigation.lastMount = ml_global_information.Now
+										end
+
+									else
+										if (anglediffPlayerNextNode < 30 and anglediffNextNodeNextNextNode < 45) then
+											gw2_common_functions.NecroLeaveDeathshroud()
+											Player:Mount()
+											ml_navigation.lastMount = ml_global_information.Now
+										end
 									end
 								end
 							end
@@ -375,23 +394,12 @@ function ml_navigation.Navigate(event, ticks )
 						NavigationManager.NavPathNode = ml_navigation.pathindex
 					else
 						-- Dismount when we are close to our target position, so we can get to the actual point and not overshooting it or similiar unprecise stuff
-						if (pathsize - ml_navigation.pathindex < 5 and Player.mounted and ml_navigation.staymounted == false)then
-							-- calculate remaining distance to the path end
-							local l_dist = 0
-							local l_lastnode = playerpos
-							if(ml_navigation.pathindex < pathsize) then
-								for i = ml_navigation.pathindex+1, pathsize do
-									local l_node = ml_navigation.path[ i ]
-									l_dist = l_dist + math.distance3d(l_lastnode,l_node)
-									l_lastnode = l_node
-								end
-							else
-								if (ml_navigation.pathindex == pathsize)then
-									l_dist = math.distance3d(l_lastnode,nextnode)
-								end
-							end
-							if(l_dist ~= 0 and l_dist < 400)then 
+						-- if (pathsize - ml_navigation.pathindex < 5 and Player.mounted and ml_navigation.staymounted == false)then
+						if (Player.mounted and ml_navigation.staymounted == false)then
+							local remainingPathLenght = ml_navigation:GetRemainingPathLenght()
+							if(remainingPathLenght ~= 0 and remainingPathLenght < 400)then
 								Player:Dismount()
+								ml_navigation.lastMount = ml_global_information.Now - 5000
 							end
 						end
 						ml_navigation:MoveToNextNode(playerpos, lastnode, nextnode )
@@ -399,7 +407,10 @@ function ml_navigation.Navigate(event, ticks )
 					return
 				else
 					d("[Navigation] - Path end reached.")
-					if(Player.mounted and ml_navigation.staymounted == false) then Player:Dismount() end
+					if(Player.mounted and ml_navigation.staymounted == false) then
+						Player:Dismount()
+						ml_navigation.lastMount = ml_global_information.Now - 5000
+					end
 					Player:StopMovement()
 					gw2_unstuck.Reset()
 
@@ -443,7 +454,9 @@ function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 
 		if (Player.swimming ~= GW2.SWIMSTATE.Diving) then
 			local nodedist = ml_navigation:GetRaycast_Player_Node_Distance(playerpos,nextnode)
-			if ( (nodedist - navconradius*32) < ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()] ) then
+			local movementstate = Player.movementstate
+			local nodeReachedDistance = (movementstate == GW2.MOVEMENTSTATE.Jumping or movementstate == GW2.MOVEMENTSTATE.Falling) and ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()] * 2 or ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()]
+			if ( (nodedist - navconradius*32) < nodeReachedDistance) then
 				-- d("[Navigation] - Node reached. ("..tostring(math.round(nodedist - navconradius*32,2)).." < "..tostring(ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()])..")")
 				-- We arrived at a NavConnection Node
 				if( navcon) then
@@ -611,6 +624,27 @@ function ml_navigation:MoveToNextNode( playerpos, lastnode, nextnode, overridefa
 	return false
 end
 
+function ml_navigation:GetRemainingPathLenght()
+	local pathLength = 0
+	local pathNodeCount = #self.path
+	local lastNodePosition = Player.pos
+
+	if(self.pathindex < pathNodeCount) then
+		for pathNodeID = self.pathindex+1, pathNodeCount do
+			local pathNode = self.path[pathNodeID]
+			pathLength = pathLength + math.distance3d(lastNodePosition,pathNode)
+			lastNodePosition = pathNode
+		end
+
+	else
+		if (self.pathindex == pathNodeCount)then
+			pathLength = math.distance3d(lastNodePosition,self.path[pathNodeCount])
+		end
+	end
+
+	return pathLength
+end
+
 
 -- Calculates the Point-Line-Distance between the PlayerPosition and the last and the next PathNode. If it is larger than the treshold, it returns false, we left our path.
 function ml_navigation:IsStillOnPath(ppos, lastnode, nextnode, deviationthreshold)
@@ -624,7 +658,7 @@ function ml_navigation:IsStillOnPath(ppos, lastnode, nextnode, deviationthreshol
 				local from = { x=lastnode.x, y = lastnode.y, z = 0 }
 				local to = { x=nextnode.x, y = nextnode.y, z = 0 }
 				local playerpos = { x=ppos.x, y = ppos.y, z = 0 }
-				if ( not (movstate == GW2.MOVEMENTSTATE.Jumping or movstate == GW2.MOVEMENTSTATE.Falling) and math.distancepointline(from, to, playerpos) > deviationthreshold) then
+				if (movstate ~= GW2.MOVEMENTSTATE.Jumping and movstate ~= GW2.MOVEMENTSTATE.Falling and math.distancepointline(from, to, playerpos) > deviationthreshold) then
 					d("[Navigation] - Player left the path - 2D-Distance to Path: "..tostring(math.distancepointline(from, to, playerpos)).." > "..tostring(deviationthreshold))
 					--NavigationManager:UpdatePathStart()  -- this seems to cause some weird twitching loops sometimes..not sure why
 					NavigationManager:ResetPath()
@@ -634,7 +668,7 @@ function ml_navigation:IsStillOnPath(ppos, lastnode, nextnode, deviationthreshol
 
 			else
 				-- Under water, using 3D
-				if ( not (movstate == GW2.MOVEMENTSTATE.Jumping or movstate == GW2.MOVEMENTSTATE.Falling) and math.distancepointline(lastnode, nextnode, ppos) > deviationthreshold) then
+				if (movstate ~= GW2.MOVEMENTSTATE.Jumping and movstate ~= GW2.MOVEMENTSTATE.Falling and math.distancepointline(lastnode, nextnode, ppos) > deviationthreshold) then
 					d("[Navigation] - Player not on Path anymore. - Distance to Path: "..tostring(math.distancepointline(lastnode,nextnode,ppos)).." > "..tostring(deviationthreshold))
 					--NavigationManager:UpdatePathStart()
 					NavigationManager:ResetPath()
@@ -650,8 +684,8 @@ end
 -- Tries to use RayCast to determine the exact floor height from Player and Node, and uses that to calculate the correct distance.
 function ml_navigation:GetRaycast_Player_Node_Distance(ppos,node)
 	-- Raycast from "top to bottom" @PlayerPos and @NodePos
-	local P_hit, P_hitx, P_hity, P_hitz   = RayCast(ppos.x,ppos.y,ppos.z-120,ppos.x,ppos.y,ppos.z+120)
-	local N_hit, N_hitx, N_hity, N_hitz = RayCast(node.x,node.y,node.z-120,node.x,node.y,node.z+120)
+	local P_hit, P_hitx, P_hity, P_hitz   = RayCast(ppos.x,ppos.y,ppos.z-120,ppos.x,ppos.y,ppos.z+250)
+	local N_hit, N_hitx, N_hity, N_hitz = RayCast(node.x,node.y,node.z-120,node.x,node.y,node.z+250)
 	local dist = math.distance3d(ppos,node)
 
 	-- To prevent spinny dancing when we are unable to reach the 3D targetposition due to whatever reason , a little safety check here
@@ -691,9 +725,11 @@ function ml_navigation:GetRaycast_Player_Node_Distance(ppos,node)
 	if (P_hit and N_hit ) then
 		local raydist = math.distance3d(P_hitx, P_hity, P_hitz , N_hitx, N_hity, N_hitz)
 		if (raydist < dist) then
+			-- d("return ray dist")
 			return raydist
 		end
 	end
+	-- d("return dist")
 	return dist
 end
 
@@ -758,6 +794,7 @@ end
 function ml_navigation:EnsurePosition(playerpos)
 	if(Player.mounted)then
 		Player:Dismount()
+		ml_navigation.lastMount = ml_global_information.Now - 5000
 	end
 	if ( not self.ensurepositionstarttime ) then self.ensurepositionstarttime = ml_global_information.Now end
 
