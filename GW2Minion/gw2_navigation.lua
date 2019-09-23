@@ -388,6 +388,12 @@ function ml_navigation.Navigate(event, ticks )
 						end
 					end
 
+					-- update last time we were mounted. If navigation dismounts, this is resets.
+					-- if we leave our mount for any other reason, like unstuck or falling into water, we wait 5 seconds before we mount again.
+					if (Player.mounted) then
+						ml_navigation.lastMount = ml_global_information.Now
+					end
+
 					-- Move to next node in our path
 					if (ml_navigation:NextNodeReached( playerpos, nextnode ,nextnextnode) )then
 						ml_navigation.pathindex = ml_navigation.pathindex + 1
