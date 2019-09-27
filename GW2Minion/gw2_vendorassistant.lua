@@ -22,7 +22,7 @@ function gw2_vendorassistant.Draw()
 	
 	if(gw2_vendorassistant.window.open) then
 		GUI:SetNextWindowSize(320,170,GUI.SetCond_Once)
-		GUI:SetNextWindowPosCenter(GUI.SetCond_Once)
+		GUI:SetNextWindowPosCenter(GUI.SetCond_FirstUseEver)
 		
 		gw2_vendorassistant.window.visible, gw2_vendorassistant.window.open = GUI:Begin(gw2_vendorassistant.window.name, gw2_vendorassistant.window.open, GUI.WindowFlags_NoCollapse)
 
