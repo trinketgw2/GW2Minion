@@ -407,6 +407,7 @@ function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 
 		if (Player.swimming ~= GW2.SWIMSTATE.Diving) then
 			local nodedist = ml_navigation:GetRaycast_Player_Node_Distance(playerpos,nextnode)
+			-- local nodedist = math.distance3d(playerpos,nextnode)
 			local movementstate = Player.movementstate
 			local nodeReachedDistance = (movementstate == GW2.MOVEMENTSTATE.Jumping or movementstate == GW2.MOVEMENTSTATE.Falling) and ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()] * 2 or ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()]
 			if ( (nodedist - navconradius*32) < nodeReachedDistance) then
@@ -637,8 +638,8 @@ end
 -- Tries to use RayCast to determine the exact floor height from Player and Node, and uses that to calculate the correct distance.
 function ml_navigation:GetRaycast_Player_Node_Distance(ppos,node)
 	-- Raycast from "top to bottom" @PlayerPos and @NodePos
-	local P_hit, P_hitx, P_hity, P_hitz   = RayCast(ppos.x,ppos.y,ppos.z-120,ppos.x,ppos.y,ppos.z+250)
-	local N_hit, N_hitx, N_hity, N_hitz = RayCast(node.x,node.y,node.z-120,node.x,node.y,node.z+250)
+	local P_hit, P_hitx, P_hity, P_hitz = RayCast(ppos.x,ppos.y,ppos.z-120,ppos.x,ppos.y,ppos.z+250)
+	local N_hit, N_hitx, N_hity, N_hitz = RayCast(node.x-25,node.y-25,node.z-120,node.x,node.y,node.z+250)
 	local dist = math.distance3d(ppos,node)
 
 	-- To prevent spinny dancing when we are unable to reach the 3D targetposition due to whatever reason , a little safety check here
