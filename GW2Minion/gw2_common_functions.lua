@@ -877,7 +877,7 @@ end
 
 -- Input manager functions specific for gw2.
 function gw2_common_functions.toggleBot()
-	if (GetGameState() == GW2.GAMESTATE.GAMEPLAY and NavigationManager:GetNavMeshState() == GLOBAL.MESHSTATE.MESHREADY) then
+	if (GetGameState() == GW2.GAMESTATE.GAMEPLAY) then
 		if (BehaviorManager:Running()) then
 			BehaviorManager:Stop()
 			Player:StopMovement()

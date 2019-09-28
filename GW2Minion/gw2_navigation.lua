@@ -95,23 +95,17 @@ function ml_navigation.Navigate(event, ticks )
 						-- Custom OMC
 						elseif(ml_navigation.navconnection.type == 4) then
 
-							-- 'live nav' vs 'new nav'
 							local ncsubtype
 							local ncradius
 							local ncdirectionFromA
-							if (NavigationManager.ShowCells == nil ) then
-								ncsubtype = ml_navigation.navconnection.subtype
-								ncradius = ml_navigation.navconnection.radius
-							else
-								if (ml_navigation.navconnection.details) then
-									ncsubtype = ml_navigation.navconnection.details.subtype
-									if(nextnode.navconnectionsideA == true) then
-										ncradius = ml_navigation.navconnection.sideB.radius -- yes , B , not A
-										ncdirectionFromA =  true
-									else
-										ncradius = ml_navigation.navconnection.sideA.radius
-										ncdirectionFromA =  false
-									end
+							if (ml_navigation.navconnection.details) then
+								ncsubtype = ml_navigation.navconnection.details.subtype
+								if(nextnode.navconnectionsideA == true) then
+									ncradius = ml_navigation.navconnection.sideB.radius -- yes , B , not A
+									ncdirectionFromA =  true
+								else
+									ncradius = ml_navigation.navconnection.sideA.radius
+									ncdirectionFromA =  false
 								end
 							end
 							if(ncsubtype == 1 ) then
@@ -247,20 +241,10 @@ function ml_navigation.Navigate(event, ticks )
 
 								else
 									-- We need to face and move
-									-- find out from which side we are coming:
-									if (NavigationManager.ShowCells == nil ) then
-										local dA = math.distance3d(ml_navigation.navconnection.from, playerpos)
-										local dB = math.distance3d(ml_navigation.navconnection.to, playerpos)
-										local closest = ml_navigation.navconnection.from
-										if ( dB < dA ) then closest = ml_navigation.navconnection.to end
-										Player:SetFacingH(closest.hx,closest.hy,closest.hz)
+									if(nextnode.navconnectionsideA == true) then
+										Player:SetFacingH(ml_navigation.navconnection.details.headingA_x, ml_navigation.navconnection.details.headingA_y, ml_navigation.navconnection.details.headingA_z)
 									else
-										-- new nav
-										if(nextnode.navconnectionsideA == true) then
-											Player:SetFacingH(ml_navigation.navconnection.details.headingA_x, ml_navigation.navconnection.details.headingA_y, ml_navigation.navconnection.details.headingA_z)
-										else
-											Player:SetFacingH(ml_navigation.navconnection.details.headingB_x, ml_navigation.navconnection.details.headingB_y, ml_navigation.navconnection.details.headingB_z)
-										end
+										Player:SetFacingH(ml_navigation.navconnection.details.headingB_x, ml_navigation.navconnection.details.headingB_y, ml_navigation.navconnection.details.headingB_z)
 									end
 								end
 								return
@@ -270,63 +254,34 @@ function ml_navigation.Navigate(event, ticks )
 								lastnode = nextnode		-- OMC start
 								nextnode = nextnextnode	-- OMC end
 								local result
-								if (NavigationManager.ShowCells == nil ) then
-									if ( ml_navigation.navconnection.luacode and ml_navigation.navconnection.luacode ~= "" and ml_navigation.navconnection.luacode ~= " " ) then
+								
+								if ( ml_navigation.navconnection.details.luacode and ml_navigation.navconnection.details.luacode and ml_navigation.navconnection.details.luacode ~= "" and ml_navigation.navconnection.details.luacode ~= " " ) then
 
-										if ( not ml_navigation.navconnection.luacode_compiled and not ml_navigation.navconnection.luacode_bugged ) then
-											local execstring = 'return function(self,startnode,endnode) '..ml_navigation.navconnection.luacode..' end'
-											local func = loadstring(execstring)
-											if ( func ) then
-												result = func()(ml_navigation.navconnection, lastnode, nextnode)
-												if ( ml_navigation.navconnection ) then -- yeah happens, crazy, riught ?
-													ml_navigation.navconnection.luacode_compiled = func
-												end
+									if ( not ml_navigation.navconnection.luacode_compiled and not ml_navigation.navconnection.luacode_bugged ) then
+										local execstring = 'return function(self,startnode,endnode) '..ml_navigation.navconnection.details.luacode..' end'
+										local func = loadstring(execstring)
+										if ( func ) then
+											result = func()(ml_navigation.navconnection, lastnode, nextnode)
+											if ( ml_navigation.navconnection ) then -- yeah happens, crazy, riught ?
+												ml_navigation.navconnection.luacode_compiled = func
 											else
-												ml_navigation.navconnection.luacode_compiled = nil
-												ml_navigation.navconnection.luacode_bugged = true
-												ml_error("[Navigation] - The Mesh Connection Lua Code has a BUG !!")
-												assert(loadstring(execstring)) -- print out the actual error
+												--ml_error("[Navigation] - Cannot set luacode_compiled, ml_navigation.navconnection is nil !?")
 											end
 										else
-											--executing the already loaded function
+											ml_navigation.navconnection.luacode_compiled = nil
+											ml_navigation.navconnection.luacode_bugged = true
+											ml_error("[Navigation] - The Mesh Connection Lua Code has a BUG !!")
+											assert(loadstring(execstring)) -- print out the actual error
+										end
+									else
+										--executing the already loaded function
+										if(ml_navigation.navconnection.luacode_compiled) then
 											result = ml_navigation.navconnection.luacode_compiled()(ml_navigation.navconnection, lastnode, nextnode)
 										end
-
-									else
-										d("[Navigation] - ERROR: A 'Custom Lua Code' MeshConnection has NO lua code!...")
 									end
 
 								else
-									-- new nav
-									if ( ml_navigation.navconnection.details.luacode and ml_navigation.navconnection.details.luacode and ml_navigation.navconnection.details.luacode ~= "" and ml_navigation.navconnection.details.luacode ~= " " ) then
-
-										if ( not ml_navigation.navconnection.luacode_compiled and not ml_navigation.navconnection.luacode_bugged ) then
-											local execstring = 'return function(self,startnode,endnode) '..ml_navigation.navconnection.details.luacode..' end'
-											local func = loadstring(execstring)
-											if ( func ) then
-												result = func()(ml_navigation.navconnection, lastnode, nextnode)
-												if ( ml_navigation.navconnection ) then -- yeah happens, crazy, riught ?
-													ml_navigation.navconnection.luacode_compiled = func
-												else
-													--ml_error("[Navigation] - Cannot set luacode_compiled, ml_navigation.navconnection is nil !?")
-												end
-											else
-												ml_navigation.navconnection.luacode_compiled = nil
-												ml_navigation.navconnection.luacode_bugged = true
-												ml_error("[Navigation] - The Mesh Connection Lua Code has a BUG !!")
-												assert(loadstring(execstring)) -- print out the actual error
-											end
-										else
-											--executing the already loaded function
-											if(ml_navigation.navconnection.luacode_compiled) then
-												result = ml_navigation.navconnection.luacode_compiled()(ml_navigation.navconnection, lastnode, nextnode)
-											end
-										end
-
-									else
-										d("[Navigation] - ERROR: A 'Custom Lua Code' MeshConnection has NO lua code!...")
-									end
-
+									d("[Navigation] - ERROR: A 'Custom Lua Code' MeshConnection has NO lua code!...")
 								end
 
 								-- continue to walk to the omc end
@@ -440,20 +395,12 @@ function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 		local navcon = nil
 		local navconradius = 0
 		if( nextnode.navconnectionid and nextnode.navconnectionid ~= 0) then
-			-- new && old nav code
-			if (NavigationManager.ShowCells == nil ) then
-				navcon = ml_mesh_mgr.navconnections[nextnode.navconnectionid]
-				if ( navcon ) then
-					navconradius = navcon.radius -- meshspace to gamespace is *32 in GW2
-				end
-			else
-				navcon = NavigationManager:GetNavConnection(nextnode.navconnectionid)
-				if ( navcon ) then
-					if(nextnode.navconnectionsideA == true) then
-						navconradius = navcon.sideA.radius -- meshspace to gamespace is *32 in GW2
-					else
-						navconradius = navcon.sideB.radius -- meshspace to gamespace is *32 in GW2
-					end
+			navcon = NavigationManager:GetNavConnection(nextnode.navconnectionid)
+			if ( navcon ) then
+				if(nextnode.navconnectionsideA == true) then
+					navconradius = navcon.sideA.radius -- meshspace to gamespace is *32 in GW2
+				else
+					navconradius = navcon.sideB.radius -- meshspace to gamespace is *32 in GW2
 				end
 			end
 		end
@@ -744,46 +691,26 @@ function ml_navigation:SetEnsureStartPosition(currentnode, nextnode, playerpos, 
 	Player:Stop()
 	self.ensureposition = {x = currentnode.x, y = currentnode.y, z = currentnode.z}
 
-	-- Find out which side of the NavCon we are at
-	if (NavigationManager.ShowCells == nil ) then
-		-- ol nav
-		local nearside, farside
-		if (math.distance3d(playerpos, navconnection.from) < math.distance3d(playerpos, navconnection.to) ) then
-			nearside = navconnection.from
-			farside = navconnection.to
+	if(navconnection.details) then
+		if(currentnode.navconnectionsideA == true) then
+			self.ensureheading = {hx = navconnection.details.headingA_x, hy = navconnection.details.headingA_y, hz = navconnection.details.headingA_z}
 		else
-			nearside = navconnection.to
-			farside = navconnection.from
+			self.ensureheading = {hx = navconnection.details.headingB_x, hy = navconnection.details.headingB_y, hz = navconnection.details.headingB_z}
 		end
-
-		if(nearside.hx ~= 0 ) then
-			self.ensureheading = nearside
-			self.ensureheadingtargetpos =  nil
-		else
-			self.ensureheading = nil
-			self.ensureheadingtargetpos = {x = farside.x, y = farside.y, z = farside.z}
-		end
+		self.ensureheadingtargetpos =  nil
 
 	else
-		-- new nav
-		if(navconnection.details) then
-			if(currentnode.navconnectionsideA == true) then
-				self.ensureheading = {hx = navconnection.details.headingA_x, hy = navconnection.details.headingA_y, hz = navconnection.details.headingA_z}
-			else
-				self.ensureheading = {hx = navconnection.details.headingB_x, hy = navconnection.details.headingB_y, hz = navconnection.details.headingB_z}
-			end
-			self.ensureheadingtargetpos =  nil
-
+		-- this still a thing ?
+		-- TODO: Is this ever showing up? if so, then leave it. probs old nav crap
+		ml_error("DO NOT REMOVE ME!!!")
+		if(currentnode.navconnectionsideA == true) then
+			self.ensureheadingtargetpos = {x = navconnection.sideA.x, y = navconnection.sideA.y, z = navconnection.sideA.z}
 		else
-			-- this still a thing ?
-			if(currentnode.navconnectionsideA == true) then
-				self.ensureheadingtargetpos = {x = navconnection.sideA.x, y = navconnection.sideA.y, z = navconnection.sideA.z}
-			else
-				self.ensureheadingtargetpos = {x = navconnection.sideB.x, y = navconnection.sideB.y, z = navconnection.sideB.z}
-			end
-			self.ensureheading = nil
+			self.ensureheadingtargetpos = {x = navconnection.sideB.x, y = navconnection.sideB.y, z = navconnection.sideB.z}
 		end
+		self.ensureheading = nil
 	end
+
 	self:EnsurePosition(playerpos)
 end
 function ml_navigation:SetEnsureEndPosition(currentnode, nextnode, playerpos)

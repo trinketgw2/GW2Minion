@@ -15,7 +15,7 @@ function dev.Init()
 	-- Register Button	
 	ml_gui.ui_mgr:AddSubMember({ id = "GW2MINION##DEV_1", name = "Dev-Monitor", onClick = function() dev.open = not dev.open end, tooltip = "Open the Dev monitor.", texture = GetStartupPath().."\\GUI\\UI_Textures\\api.png"},"GW2MINION##MENU_HEADER","GW2MINION##MENU_ADDONS")	
 end
-RegisterEventHandler("Module.Initalize",dev.Init)
+RegisterEventHandler("Module.Initalize", dev.Init, "Dev-Tool")
 
 function dev.DrawCall(event, ticks )
 	
@@ -1341,7 +1341,7 @@ function dev.DrawCall(event, ticks )
 		GUI:End()
 	end	
 end
-RegisterEventHandler("Gameloop.Draw", dev.DrawCall)
+RegisterEventHandler("Gameloop.Draw", dev.DrawCall, "Dev-Tool")
 
 function dev.DrawCharacterDetails(c)
 	
