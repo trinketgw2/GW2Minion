@@ -347,6 +347,8 @@ function ml_navigation.Navigate(event, ticks )
 					-- if we leave our mount for any other reason, like unstuck or falling into water, we wait 5 seconds before we mount again.
 					if (Player.mounted) then
 						ml_navigation.lastMount = ml_global_information.Now
+					elseif (Player.swimming == GW2.SWIMSTATE.Diving or Player.swimming == GW2.SWIMSTATE.Swimming) then
+						ml_navigation.lastMount = ml_global_information.Now - 2000
 					end
 
 					-- Move to next node in our path
@@ -540,7 +542,7 @@ function ml_navigation:MoveToNextNode( playerpos, lastnode, nextnode, overridefa
 				-- We are on the correct horizontal position, but our goal is now either above or below us
 				-- compensate for the fact that the char is always swimming on the surface between 0 - 50 @height
 				local pHeight = playerpos.z
-				if ( nextnode.z < 50 ) then pHeight = nextnode.z end -- if the node is in shallow water (<50) , fix the playerheight at this pos. Else it gets super wonky at this point.
+				if ( nextnode.z < 20 ) then pHeight = nextnode.z end -- if the node is in shallow water (<50) , fix the playerheight at this pos. Else it gets super wonky at this point.
 				local distH = math.abs(math.abs(pHeight) - math.abs(nextnode.z))
 
 				if ( distH > ml_navigation.NavPointReachedDistances["Diving"]) then

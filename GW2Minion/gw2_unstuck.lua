@@ -187,7 +187,9 @@ function gw2_unstuck.HandleStuck()
 end
 
 function gw2_unstuck.OnMesh()
-	if(not Player.onmesh and not gw2_unstuck.manualcontrolmode and not ml_navigation.navconnection) then
+	if (Player.swimming == GW2.SWIMSTATE.Diving) then
+		return true
+	elseif(not Player.onmesh and not gw2_unstuck.manualcontrolmode and not ml_navigation.navconnection) then
 		local meshstate = NavigationManager:GetNavMeshState()
 		if(meshstate == GLOBAL.MESHSTATE.MESHEMPTY or meshstate == GLOBAL.MESHSTATE.MESHBUILDING or not string.valid(ml_mesh_mgr.currentfilename)) then
 			d("[Unstuck]: No mesh loaded for this map.")
