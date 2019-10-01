@@ -316,7 +316,8 @@ function ml_navigation.Navigate(event, ticks )
 								if (lastnode and lastnode.navconnectionid ~= 0 and nextnode and nextnode.navconnectionid ~= 0) then
 									allowMount = false
 								end
-								if (nextnode.navconnectionid ~= 0 and distanceToNextNode < 800) then
+								-- if (nextnode.navconnectionid ~= 0 and distanceToNextNode < 800) then
+								if (ml_navigation:DistanceToNextNavConnection() < 1000) then
 									allowMount = false
 								end
 
@@ -599,6 +600,25 @@ function ml_navigation:GetRemainingPathLenght()
 	end
 
 	return pathLength
+end
+
+function ml_navigation:DistanceToNextNavConnection()
+	local pathLength = 0
+	local pathNodeCount = #self.path
+	local lastNodePosition = Player.pos
+
+	if(self.pathindex < pathNodeCount) then
+		for pathNodeID = self.pathindex+1, pathNodeCount do
+			local pathNode = self.path[pathNodeID]
+			pathLength = pathLength + math.distance3d(lastNodePosition,pathNode)
+			lastNodePosition = pathNode
+			if (pathNode.navconnectionid ~= 0) then
+				return pathLength
+			end
+		end
+	end
+
+	return 999999
 end
 
 
