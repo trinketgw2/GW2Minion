@@ -116,10 +116,11 @@ function gw2_unstuck.HandleStuck()
 		return gw2_unstuck.lastresult
 	end
 	
-	-- if(not ml_global_information.Player_CanMove) then
-		-- gw2_unstuck.lastresult = true
-		-- return gw2_unstuck.lastresult
-	-- end
+	local movementstate = Player.movementstate
+	if(not ml_global_information.Player_CanMove and movementstate ~= GW2.MOVEMENTSTATE.Jumping and movementstate ~= GW2.MOVEMENTSTATE.Falling) then
+		gw2_unstuck.lastresult = true
+		return gw2_unstuck.lastresult
+	end
 	
 	-- Make sure we are actually in the game and not a cutscene 
 	if(ml_global_information.GameState ~= GW2.GAMESTATE.GAMEPLAY) then

@@ -316,8 +316,10 @@ function ml_navigation.Navigate(event, ticks )
 								if (lastnode and lastnode.navconnectionid ~= 0 and nextnode and nextnode.navconnectionid ~= 0) then
 									allowMount = false
 								end
-								-- if (nextnode.navconnectionid ~= 0 and distanceToNextNode < 800) then
 								if (ml_navigation:DistanceToNextNavConnection() < 1000) then
+									allowMount = false
+								end
+								if (Player.buffs and Player.buffs[57576]) then
 									allowMount = false
 								end
 
