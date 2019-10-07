@@ -518,14 +518,25 @@ function dev.DrawCall(event, ticks )
 							GUI:BulletText("Unknown4") GUI:SameLine(200) GUI:InputText("##devin11",tostring(dInfo.isunknown4),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 							GUI:BulletText("Unknown5") GUI:SameLine(200) GUI:InputText("##devin12",tostring(dInfo.isunknown5),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 							GUI:BulletText("Unknown6") GUI:SameLine(200) GUI:InputText("##devin13",tostring(dInfo.isunknown6),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+							GUI:BulletText("GetInstanceLevel") GUI:SameLine(200) GUI:InputText("##devin17",tostring(Player:GetInstanceLevel()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+							GUI:BulletText("SetInstanceLevel") GUI:SameLine(200) GUI:PushItemWidth(150)							
+							dev.instancelevel = GUI:InputInt("##devss5", dev.instancelevel or 1,1,10) GUI:PopItemWidth()							
+							GUI:SameLine()
+							if (GUI:Button("Set",50,15) ) then d("SetInstanceLevel Result: "..tostring(Player:SetInstanceLevel(dev.instancelevel))) end
+							
 							if (GUI:Button("StartNewInstance",150,15) ) then d("StartNewInstance Result: "..tostring(Player:OpenInstance())) end
 							GUI:SameLine()
 							if (GUI:Button("JoinInstance",150,15) ) then d("JoinInstance Result: "..tostring(Player:JoinInstance())) end
+							
 							if (GUI:Button("LeaveInstance",150,15) ) then d("LeaveInstance Result: "..tostring(Player:LeaveInstance())) end
 							GUI:SameLine()
 							if (GUI:Button("ResetInstance",150,15) ) then d("ResetInstance Result: "..tostring(Player:ResetInstance())) end
+								
 							
-						end						
+							
+						end
+						if (GUI:Button("RespawnInInstance",150,15) ) then d("RespawnInInstance Result: "..tostring(Player:RespawnInInstance())) end
+
 						GUI:BulletText("CanClaimReward") GUI:SameLine(200) GUI:InputText("##devin14",tostring(Player:CanClaimReward()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 						if (GUI:Button("ClaimReward",150,15) ) then d("ClaimReward Result: "..tostring(Player:ClaimReward())) end
 						
