@@ -555,7 +555,8 @@ function dev.DrawCall(event, ticks )
 									GUI:BulletText("Salvagable")	GUI:SameLine(200) GUI:InputText(uniqueID .. "_10",	tostring(b.salvagable),		GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 									GUI:BulletText("IsMailable")	GUI:SameLine(200) GUI:InputText(uniqueID .. "_12",	tostring(b.ismailable),		GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 									GUI:BulletText("CanSellToTP")	GUI:SameLine(200) GUI:InputText(uniqueID .. "_13",	tostring(b.canselltotp),	GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-																		
+									GUI:BulletText("Location")		GUI:SameLine(200) GUI:InputText(uniqueID .. "_14",	tostring(b.location),		GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+									
 									local upgrades = b.upgrades
 									if (table.valid(upgrades)) then
 										GUI:SetNextTreeNodeOpened(true)
