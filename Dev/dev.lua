@@ -1293,58 +1293,93 @@ function dev.DrawCall(event, ticks )
 						GUI:PopItemWidth()
 						GUI:TreePop()
 					end
-
 -- END Utility Functions & Other Infos
-					if ( GUI:TreeNode("Installed Addons") ) then
-				dev.showInitAddons = GUI:Checkbox("Include Initialize Events", dev.showInitAddons or false)
-				if(not dev.lastaddontick or ticks - dev.lastaddontick > 200) then
-					dev.lastaddontick = ticks
-					dev.addonlist = GetAddonList()
-					table.sort(dev.addonlist, function(a,b) return a.average > b.average end)					
-				end
-				GUI:PushItemWidth(250)
-				GUI:Columns( 6, "#beer", true )
-				GUI:SetColumnWidth(0, 250)
-				GUI:SetColumnWidth(1, 125)
-				GUI:SetColumnWidth(2, 100)
-				GUI:SetColumnWidth(3, 100)
-				GUI:SetColumnWidth(4, 100)
-				GUI:SetColumnWidth(5, 100)
-				GUI:Text("Addon")
-				GUI:NextColumn()
-				GUI:Text("Event")
-				GUI:NextColumn()
-				GUI:Text("lasttick")						
-				GUI:NextColumn()						
-				GUI:Text("highest (ms)")
-				GUI:NextColumn()
-				GUI:Text("lowest (ms)")
-				GUI:NextColumn()
-				GUI:Text("average (ms)")
-				GUI:NextColumn()
-				GUI:Separator()					
-				for i, e in pairs(dev.addonlist) do
-					if(e.highest ~= 0) then
-						if(dev.showInitAddons or ( e.lasttick < 10000 and e.event ~= "Module.Initialize"))then
-							GUI:Text(e.name)
-							GUI:NextColumn()
-							GUI:Text(e.event)
-							GUI:NextColumn()
-							GUI:Text(e.lasttick)
-							GUI:NextColumn()
-							GUI:Text(e.highest)
-							GUI:NextColumn()
-							GUI:Text(e.slowest)
-							GUI:NextColumn()
-							GUI:Text(e.average)
-							GUI:NextColumn()
+
+-- BEGIN Vote Dialog
+					if ( GUI:TreeNode("Votes Dialog") ) then
+						GUI:PushItemWidth(250)
+						local list = Player:GetVoteList()
+						if ( table.valid(list) )then
+							
+							for id, b in pairsByKeys(list) do
+								if ( GUI:TreeNode(tostring(b.id).."##votedlg")) then
+									GUI:BulletText("Ptr") GUI:SameLine(200) GUI:InputText("##devmmw0",tostring(string.format( "%X",b.ptr)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+									GUI:BulletText("UniqueID") GUI:SameLine(200) GUI:InputText("##devmmw1",tostring(b.id),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+									GUI:BulletText("Type") GUI:SameLine(200) GUI:InputText("##devmmw3",tostring(b.type),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+									GUI:BulletText("Time") GUI:SameLine(200) GUI:InputText("##devmmw4",tostring(b.time),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+									GUI:BulletText("Owner") GUI:SameLine(200) GUI:InputText("##devmmw2",tostring(b.owner),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+									GUI:BulletText("Voters") GUI:SameLine(200) GUI:InputText("##devmmw5",tostring(b.voters),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+									local votes = b.votes
+									if ( table.valid(votes) )then
+										for vid, v in pairsByKeys(votes) do
+											GUI:BulletText("Voter "..tostring(vid).." Result") GUI:SameLine(200) GUI:InputText("##devmmw6"..tostring(vid),tostring(v),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+										end
+									end
+									GUI:BulletText("Set Vote") GUI:SameLine(200) GUI:PushItemWidth(150)	
+									dev.votevalue = GUI:InputInt("##devss5", dev.votevalue or 0,1,1) GUI:PopItemWidth()	
+									if(dev.votevalue < 0) then dev.votevalue = 0 end
+									if(dev.votevalue > 1) then dev.votevalue = 1 end					
+									GUI:SameLine()
+									if (GUI:Button("Vote",50,15) ) then d("Vote Result: "..tostring(b:Vote(dev.votevalue))) end
+									GUI:TreePop()
+								end
+							end							
 						end
+						GUI:PopItemWidth()
+						GUI:TreePop()
 					end
-				end
-				GUI:Columns(1)
-				GUI:PopItemWidth()
-				GUI:TreePop()
-			end
+-- END Vote Dialog
+
+					if ( GUI:TreeNode("Installed Addons") ) then
+						dev.showInitAddons = GUI:Checkbox("Include Initialize Events", dev.showInitAddons or false)
+						if(not dev.lastaddontick or ticks - dev.lastaddontick > 200) then
+							dev.lastaddontick = ticks
+							dev.addonlist = GetAddonList()
+							table.sort(dev.addonlist, function(a,b) return a.average > b.average end)					
+						end
+						GUI:PushItemWidth(250)
+						GUI:Columns( 6, "#beer", true )
+						GUI:SetColumnWidth(0, 250)
+						GUI:SetColumnWidth(1, 125)
+						GUI:SetColumnWidth(2, 100)
+						GUI:SetColumnWidth(3, 100)
+						GUI:SetColumnWidth(4, 100)
+						GUI:SetColumnWidth(5, 100)
+						GUI:Text("Addon")
+						GUI:NextColumn()
+						GUI:Text("Event")
+						GUI:NextColumn()
+						GUI:Text("lasttick")						
+						GUI:NextColumn()						
+						GUI:Text("highest (ms)")
+						GUI:NextColumn()
+						GUI:Text("lowest (ms)")
+						GUI:NextColumn()
+						GUI:Text("average (ms)")
+						GUI:NextColumn()
+						GUI:Separator()					
+						for i, e in pairs(dev.addonlist) do
+							if(e.highest ~= 0) then
+								if(dev.showInitAddons or ( e.lasttick < 10000 and e.event ~= "Module.Initialize"))then
+									GUI:Text(e.name)
+									GUI:NextColumn()
+									GUI:Text(e.event)
+									GUI:NextColumn()
+									GUI:Text(e.lasttick)
+									GUI:NextColumn()
+									GUI:Text(e.highest)
+									GUI:NextColumn()
+									GUI:Text(e.slowest)
+									GUI:NextColumn()
+									GUI:Text(e.average)
+									GUI:NextColumn()
+								end
+							end
+						end
+						GUI:Columns(1)
+						GUI:PopItemWidth()
+						GUI:TreePop()
+					end
 -- 	END INSTALLED ADDONS
 					
 				end
