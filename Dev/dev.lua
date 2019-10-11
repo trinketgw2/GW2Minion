@@ -10,6 +10,7 @@ dev.movementtype = { [0] = "Forward", [1] ="Backward", [2] ="Left", [3] ="Right"
 dev.movementtypeidx = 0
 dev.chatchannel = 0
 dev.renderobjdrawmode = { [0] = "POINTS", [1] = "LINES", [2] = "TRIANGLES", }
+dev.equipskillslotAquatic = false
 
 function dev.Init()
 	-- Register Button	
@@ -1717,6 +1718,8 @@ function dev.DrawSpellInfo(b)
 	GUI:BulletText("ID") GUI:SameLine(200) GUI:InputText("##devsk2",tostring(b.skillid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 	GUI:BulletText("Name") GUI:SameLine(200) GUI:InputText("##devsk1233", tostring(b.name),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 	GUI:BulletText("ContentID") GUI:SameLine(200) GUI:InputText("##devsk3", tostring(b.contentid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+	GUI:BulletText("PalettePtr") GUI:SameLine(200) GUI:InputText("##devsk35", tostring(b.paletteptr),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+	GUI:BulletText("PaletteID") GUI:SameLine(200) GUI:InputText("##devsk33", tostring(b.paletteid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)	
 	GUI:BulletText("Cooldown") GUI:SameLine(200) GUI:InputText("##devsk4", tostring(b.cooldown),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 	GUI:BulletText("CooldownMax") GUI:SameLine(200) GUI:InputText("##devsk5",tostring(b.cooldownmax),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 	GUI:BulletText("Ammo") GUI:SameLine(200) GUI:InputText("##devsk16 ", tostring(b.ammo),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
@@ -1747,7 +1750,19 @@ function dev.DrawSpellInfo(b)
 	GUI:BulletText("CastAnim7") GUI:SameLine(200) GUI:InputText("##devsk30",tostring(b.isunknown7),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 	GUI:BulletText("CastAnim8") GUI:SameLine(200) GUI:InputText("##devsk31",tostring(b.isunknown8),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 	GUI:BulletText("CastAnim9") GUI:SameLine(200) GUI:InputText("##devsk32",tostring(b.isunknown9),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-									
+
+
+	GUI:BulletText("EquipSkillSlot") GUI:SameLine(200) GUI:PushItemWidth(150)
+	dev.equipskillslot = GUI:InputInt("##devsequip", dev.equipskillslot or 0,1,1) GUI:PopItemWidth()
+	GUI:SameLine() 
+	dev.equipskillslotAquatic = GUI:Checkbox("##devsequipAqua",dev.equipskillslotAquatic)
+	if (GUI:IsItemHovered()) then GUI:SetTooltip("Equip it on the Aquatic Skillbar?") end
+	if(dev.equipskillslot < 0) then dev.equipskillslot = 0 end
+	if(dev.equipskillslot > 4 and dev.equipskillslot < 18) then dev.equipskillslot = 19 end	
+	if(dev.equipskillslot < 19 and dev.equipskillslot > 4) then dev.equipskillslot = 4 end	
+	if(dev.equipskillslot > 19) then dev.equipskillslot = 19 end	
+	GUI:SameLine()
+	if (GUI:Button("Equip",50,15) ) then d("Equip Result: "..tostring(Player:EquipSkill(b.skillid,dev.equipskillslot,dev.equipskillslotAquatic))) end
 end
 
 
