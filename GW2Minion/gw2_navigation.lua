@@ -217,16 +217,19 @@ function ml_navigation.Navigate(event, ticks )
 							elseif(ncsubtype == 4 ) then
 								-- INTERACT
 								local movementstate = Player:GetMovementState()
+								Player:Stop()
+								-- delay getting on mount, this can cancel whatever interacter needs to take place
+								ml_navigation.lastMount = ml_global_information.Now - 2000
 								if (not Player.mounted and movementstate ~= GW2.MOVEMENTSTATE.Jumping and movementstate ~= GW2.MOVEMENTSTATE.Falling) then
 									Player:Interact()
-									ml_navigation.lastupdate = ml_navigation.lastupdate + 250 --1000
+									ml_navigation.lastupdate = ml_navigation.lastupdate + 1000
 									ml_navigation.pathindex = ml_navigation.pathindex + 1
 									NavigationManager.NavPathNode = ml_navigation.pathindex
 									ml_navigation.navconnection = nil
 								elseif (Player.mounted) then
 									Player:Dismount()
-									ml_navigation.lastMount = ml_global_information.Now - 5000
-									Player:Stop()
+									-- ml_navigation.lastMount = ml_global_information.Now - 3000
+									-- Player:Stop()
 								end
 								return
 
@@ -319,7 +322,9 @@ function ml_navigation.Navigate(event, ticks )
 								if (ml_navigation:DistanceToNextNavConnection() < 1000) then
 									allowMount = false
 								end
-								if (Player.buffs and Player.buffs[57576]) then
+								
+								local mountDisableingBuffs = {[57576] = true, [43406] = true}
+								if (Player.buffs and gw2_common_functions.HasBuffs(Player, mountDisableingBuffs)) then
 									allowMount = false
 								end
 
