@@ -681,15 +681,37 @@ function dev.DrawCall(event, ticks )
 					end
 -- END MAPMARKER
 
+					if ( GUI:TreeNode("Mounts") ) then
+						GUI:BulletText("Mounted") GUI:SameLine(200) GUI:InputText("##devmm42w3",tostring(Player.mounted),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+						GUI:BulletText("CanMount") GUI:SameLine(200) GUI:InputText("##devmm4w3",tostring(Player.canmount),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+						if (GUI:Button("Mount",150,15) ) then Player:Mount() end GUI:SameLine()if (GUI:Button("Dismount",150,15) ) then Player:Dismount() end
+						local list = Player:GetMountList()
+						if ( table.valid(list) )then
+							GUI:PushItemWidth(250)
+							for id, b in pairsByKeys(list) do
+								local uniqueID = "###dev_mount" .. id
+								if ( GUI:TreeNode(tostring(id).." - "..b.name)) then
+									GUI:BulletText("Ptr")			GUI:SameLine(200) GUI:InputText(uniqueID .. "_2",	string.format( "%X",b.ptr),	GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+									GUI:BulletText("ID")			GUI:SameLine(200) GUI:InputText(uniqueID .. "_3",	tostring(b.id),			GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+									GUI:BulletText("ContentID")		GUI:SameLine(200) GUI:InputText(uniqueID .. "_3",	tostring(b.contentid),	GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+									
+									if (GUI:Button("Select Mount",100,15) ) then d("Result: "..tostring(Player:SelectMount(b.id))) end									
+									GUI:TreePop()
+								end
+							end							
+							GUI:PopItemWidth()
+						else
+							GUI:Text("No Mounts found.") 
+						end
+						GUI:TreePop()
+					end
 
 					if ( GUI:TreeNode("Movement") ) then
 						GUI:PushItemWidth(250)						
 						GUI:BulletText("CanMove") GUI:SameLine(200) GUI:InputText("##devmm1",tostring(Player:CanMove()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 						GUI:BulletText("IsMoving") GUI:SameLine(200) GUI:InputText("##devmm2",tostring(Player:IsMoving()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 						GUI:BulletText("MovementState") GUI:SameLine(200) GUI:InputText("##devmm3",tostring(Player:GetMovementState()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-						GUI:BulletText("Mounted") GUI:SameLine(200) GUI:InputText("##devmm43",tostring(Player.mounted),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-						GUI:BulletText("CanMount") GUI:SameLine(200) GUI:InputText("##devmm43",tostring(Player.canmount),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-						if (GUI:Button("Mount",150,15) ) then Player:Mount() end GUI:SameLine()if (GUI:Button("Dismount",150,15) ) then Player:Dismount() end
+						
 						local movstr = ""
 						local movdirs = Player:GetMovement()
 						if (movdirs.forward) then movstr = "forward" end
