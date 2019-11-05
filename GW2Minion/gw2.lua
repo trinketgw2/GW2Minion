@@ -175,6 +175,9 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(1099,"Desert Borderlands",enforce)
 		ml_mesh_mgr.SetDefaultMesh(38,"Eternal Battlegrounds",enforce)
 		
+		-- Fractals
+		ml_mesh_mgr.SetDefaultMesh(872,"Mistlock Observatory",enforce)
+		
 						
 	end
 	
