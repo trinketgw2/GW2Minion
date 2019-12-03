@@ -177,6 +177,7 @@ function gw2minion.Init()
 		
 		-- Fractals
 		ml_mesh_mgr.SetDefaultMesh(872,"Mistlock Observatory",enforce)
+		ml_mesh_mgr.SetDefaultMesh(956,"Aetherblade",enforce)
 		
 						
 	end
