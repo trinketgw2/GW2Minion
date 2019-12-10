@@ -11,7 +11,7 @@ dev.movementtypeidx = 0
 dev.chatchannel = 0
 dev.renderobjdrawmode = { [0] = "POINTS", [1] = "LINES", [2] = "TRIANGLES", }
 dev.equipskillslotAquatic = false
-
+dev.driftvec = { x =0,y =0, z =0, }
 function dev.Init()
 	-- Register Button	
 	ml_gui.ui_mgr:AddSubMember({ id = "GW2MINION##DEV_1", name = "Dev-Monitor", onClick = function() dev.open = not dev.open end, tooltip = "Open the Dev monitor.", texture = GetStartupPath().."\\GUI\\UI_Textures\\api.png"},"GW2MINION##MENU_HEADER","GW2MINION##MENU_ADDONS")	
@@ -490,15 +490,15 @@ function dev.DrawCall(event, ticks )
 						GUI:BulletText("NoClip") GUI:SameLine(150) dev.noclip, b = GUI:Checkbox("##devh8",dev.noclip)
 						if ( b ) then HackManager:NoClip(dev.noclip) end
 
+						local movdir = HackManager:GetDriftDirection()
+						if(table.valid(movdir))then							
+							GUI:BulletText("Current Drift Direction") GUI:SameLine(200) GUI:InputFloat3( "##devdrf1", movdir.x, movdir.y, movdir.z, 2)							
+						end
 						
 						GUI:PopItemWidth()
-						GUI:TreePop()					
+						GUI:TreePop()
 					end
 --END CHAT		
-
-
-
-
 
 					if ( GUI:TreeNode("Instances") ) then
 						GUI:PushItemWidth(250)
@@ -616,21 +616,21 @@ function dev.DrawCall(event, ticks )
 											GUI:TreePop()
 										end
 									end
-									
-									if (GUI:Button("Use",100,15) ) then d("Using Item Result: "..tostring(b:Use())) end
+									if (GUI:Button("Use",100,15) ) then d("Using Item Result: "..tostring(b:Use(false))) end
 									GUI:SameLine(200)
-									if (GUI:Button("Sell",100,15)) then d("Selling Item Result: "..tostring(b:Sell())) end
+									if (GUI:Button("UseAll",100,15) ) then d("Using Item Result: "..tostring(b:Use())) end
 									
 									if (GUI:Button("Equip",100,15) ) then d("Equip Item Result: "..tostring(b:Equip(dev.equipitemidx))) end
 									GUI:SameLine(200) 
 									dev.equipitemidx = GUI:Combo("EquipSlot", dev.equipitemidx, dev.equipitemlist)
-									
 									
 									if (GUI:Button("SoulBind",100,15) ) then d("SoulBind Item Result: "..tostring(b:Bind())) end
 									GUI:SameLine(200)
 									if (GUI:Button("Salvage",100,15) ) then d("Salvage Item Result: "..tostring(b:Salvage())) end
 									
 									if (GUI:Button("Destroy",100,15) ) then d("Destroy Item Result: "..tostring(b:Destroy())) end
+									GUI:SameLine(200)
+									if (GUI:Button("Sell",100,15)) then d("Selling Item Result: "..tostring(b:Sell())) end
 									
 									GUI:TreePop()
 								end
@@ -965,7 +965,7 @@ function dev.DrawCall(event, ticks )
 						end
 						
 						GUI:PopItemWidth()
-						GUI:TreePop()
+						GUI:TreePop()						
 					end
 -- END SKILLS
 
