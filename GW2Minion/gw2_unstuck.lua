@@ -141,7 +141,7 @@ function gw2_unstuck.HandleStuck()
 	end
 	
 	-- Check conditions
-	if(gw2_common_functions.HasBuffs(Player, ml_global_information.ImmobilizeConditions)) then
+	if(gw2_common_functions.HasBuffs(Player, ml_global_information.ImmobilizeConditions) and (not Player.mounted and not gw2_common_functions.HasBuffs(Player, "26980"))) then
 		gw2_unstuck.lastresult = true
 		return gw2_unstuck.lastresult
 	end
