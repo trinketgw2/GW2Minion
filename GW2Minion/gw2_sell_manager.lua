@@ -658,8 +658,9 @@ end
 function gw2_sell_manager.needToSell(nearby)
 	local junkitems = Inventory("rarity="..GW2.ITEMRARITY.Junk..",exclude_contentid="..gw2_blacklistmanager.GetExcludeString(GetString("Sell items")))
 	local selljunk = table.size(junkitems) > 3 or (table.valid(junkitems) and ((ml_global_information.Player_Inventory_SlotsFree*100)/Inventory.slotcount) < 15)
+	local sellitems =  gw2_sell_manager.ItemsToSell() > 3 or (gw2_sell_manager.ItemsToSell() > 0 and ((ml_global_information.Player_Inventory_SlotsFree*100)/Inventory.slotcount) < 15)
 	
-	if (table.valid(gw2_sell_manager.createItemList()) or selljunk) then
+	if (table.valid(gw2_sell_manager.createItemList()) or selljunk or sellitems) then
 		if (nearby and ((ml_global_information.Player_Inventory_SlotsFree*100)/Inventory.slotcount) < 33) then
 			return true
 		elseif (ml_global_information.Player_Inventory_SlotsFree <= 2) then
@@ -667,6 +668,28 @@ function gw2_sell_manager.needToSell(nearby)
 		end
 	end
 	return false
+end
+
+function gw2_sell_manager.ItemsToSell()
+local count = table.size(Inventory("rarity="..GW2.ITEMRARITY.Junk..",exclude_contentid="..gw2_blacklistmanager.GetExcludeString(GetString("Sell items"))))
+local inventory_list = Inventory("")
+
+	for k,v in pairs(inventory_list) do
+		if v.rarity ~= GW2.ITEMRARITY.Junk then
+		local filter_matched = false
+			for k2,v2 in pairs(gw2_sell_manager.singleItemList.list) do
+				if v2.itemID == v.itemID then 
+					filter_matched = true
+					count = count + 1
+				end
+			end
+			
+			if not filter_matched and gw2_sell_manager.itemMatchesFilter(v) then
+					count = count + 1		
+			end
+		end
+	end
+	return count
 end
 
 -- Toggle menu. TODO: replace with new gui stuff yeah.
