@@ -3018,18 +3018,18 @@ local tbl =
 					},
 					[358] = 
 					{
-						coord = "16360, 10430.6",
+						coord = "16389.3, 10420.8",
 						global_pos = 
 						{
-							x = 16360,
-							y = 10430.6,
+							x = 16389.3,
+							y = 10420.8,
 						},
 						level = 43,
 						name = "Hidden Ourobon",
 						pos = 
 						{
-							33216,
-							10785.6,
+							33919.2,
+							11020.8,
 						},
 						sector_id = 358,
 					},
@@ -105954,18 +105954,18 @@ local tbl =
 	{
 		continent_id = 1,
 		continent_name = "Tyria",
-		continent_rect = "15232, 15872], [17664, 19072",
+		continent_rect = "16000, 16000], [17024, 17024",
 		continent_rect_table = 
 		{
 			
 			{
-				15232,
-				15872,
+				16000,
+				16000,
 			},
 			
 			{
-				17664,
-				19072,
+				17024,
+				17024,
 			},
 		},
 		default_floor = -3,
@@ -105988,8 +105988,8 @@ local tbl =
 						poi_id = 1222,
 						pos = 
 						{
-							-3291.3,
-							8250.6,
+							-9352.8,
+							2743.2,
 						},
 						type = "landmark",
 					},
@@ -106008,8 +106008,8 @@ local tbl =
 						name = "Chantry of Secrets",
 						pos = 
 						{
-							-1018.6,
-							6360.6,
+							-3955.2,
+							-3163.2,
 						},
 						sector_id = 858,
 					},
@@ -117005,18 +117005,18 @@ local tbl =
 	{
 		continent_id = 2,
 		continent_name = "Mists",
-		continent_rect = "2304, 6912], [3584, 9472",
+		continent_rect = "1664, 6528], [2944, 9088",
 		continent_rect_table = 
 		{
 			
 			{
-				2304,
-				6912,
+				1664,
+				6528,
 			},
 			
 			{
-				3584,
-				9472,
+				2944,
+				9088,
 			},
 		},
 		default_floor = 21,
@@ -150847,6 +150847,294 @@ local tbl =
 				{
 					-13805.3,
 					-12240,
+				},
+				type = "waypoint",
+			},
+		},
+	},
+	[1104] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "768, 13312], [2048, 14592",
+		continent_rect_table = 
+		{
+			
+			{
+				768,
+				13312,
+			},
+			
+			{
+				2048,
+				14592,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				points_of_interest = 
+				{
+					[2107] = 
+					{
+						coord = "916.629, 13527.2",
+						floor = 1,
+						global_pos = 
+						{
+							x = 916.629,
+							y = 13527.2,
+						},
+						name = "Canyon Dig Waypoint",
+						poi_id = 2107,
+						pos = 
+						{
+							-11792.9,
+							10195.2,
+						},
+						type = "waypoint",
+					},
+					[2129] = 
+					{
+						coord = "1183.82, 14264.6",
+						floor = 1,
+						global_pos = 
+						{
+							x = 1183.82,
+							y = 14264.6,
+						},
+						name = "Riverside Overlook Waypoint",
+						poi_id = 2129,
+						pos = 
+						{
+							-5380.3,
+							-7502.4,
+						},
+						type = "waypoint",
+					},
+					[2167] = 
+					{
+						coord = "1443.12, 13513.3",
+						floor = 1,
+						global_pos = 
+						{
+							x = 1443.12,
+							y = 13513.3,
+						},
+						name = "Upper Plaza Waypoint",
+						poi_id = 2167,
+						pos = 
+						{
+							842.9,
+							10528.8,
+						},
+						type = "waypoint",
+					},
+					[2238] = 
+					{
+						coord = "1844.88, 14554.2",
+						floor = 1,
+						global_pos = 
+						{
+							x = 1844.88,
+							y = 14554.2,
+						},
+						name = "Shrine Tunnel Waypoint",
+						poi_id = 2238,
+						pos = 
+						{
+							10485.1,
+							-14452.8,
+						},
+						type = "waypoint",
+					},
+					[2242] = 
+					{
+						coord = "1466.53, 13963.5",
+						floor = 1,
+						global_pos = 
+						{
+							x = 1466.53,
+							y = 13963.5,
+						},
+						name = "Central Precipice Waypoint",
+						poi_id = 2242,
+						pos = 
+						{
+							1404.7,
+							-276,
+						},
+						type = "waypoint",
+					},
+					[2292] = 
+					{
+						coord = "2018.53, 14465.3",
+						floor = 1,
+						global_pos = 
+						{
+							x = 2018.53,
+							y = 14465.3,
+						},
+						name = "Sandstone Coliseum Waypoint",
+						poi_id = 2292,
+						pos = 
+						{
+							14652.7,
+							-12319.2,
+						},
+						type = "waypoint",
+					},
+				},
+				sectors = 
+				{
+					[1289] = 
+					{
+						coord = "1497.13, 14074",
+						global_pos = 
+						{
+							x = 1497.13,
+							y = 14074,
+						},
+						level = 0,
+						pos = 
+						{
+							2139.1,
+							-2928,
+						},
+						sector_id = 1289,
+					},
+				},
+			},
+		},
+		map_id = 1104,
+		map_name = "Lost Precipice",
+		map_rect = "-15360, -15360], [15360, 15360",
+		map_rect_table = 
+		{
+			
+			{
+				-15360,
+				-15360,
+			},
+			
+			{
+				15360,
+				15360,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 10,
+		region_name = "Heart of Maguuma",
+		type = "Instance",
+		waypoints = 
+		{
+			[2107] = 
+			{
+				coord = "916.629, 13527.2",
+				floor = 1,
+				global_pos = 
+				{
+					x = 916.629,
+					y = 13527.2,
+				},
+				name = "Canyon Dig Waypoint",
+				poi_id = 2107,
+				pos = 
+				{
+					-11792.9,
+					10195.2,
+				},
+				type = "waypoint",
+			},
+			[2129] = 
+			{
+				coord = "1183.82, 14264.6",
+				floor = 1,
+				global_pos = 
+				{
+					x = 1183.82,
+					y = 14264.6,
+				},
+				name = "Riverside Overlook Waypoint",
+				poi_id = 2129,
+				pos = 
+				{
+					-5380.3,
+					-7502.4,
+				},
+				type = "waypoint",
+			},
+			[2167] = 
+			{
+				coord = "1443.12, 13513.3",
+				floor = 1,
+				global_pos = 
+				{
+					x = 1443.12,
+					y = 13513.3,
+				},
+				name = "Upper Plaza Waypoint",
+				poi_id = 2167,
+				pos = 
+				{
+					842.9,
+					10528.8,
+				},
+				type = "waypoint",
+			},
+			[2238] = 
+			{
+				coord = "1844.88, 14554.2",
+				floor = 1,
+				global_pos = 
+				{
+					x = 1844.88,
+					y = 14554.2,
+				},
+				name = "Shrine Tunnel Waypoint",
+				poi_id = 2238,
+				pos = 
+				{
+					10485.1,
+					-14452.8,
+				},
+				type = "waypoint",
+			},
+			[2242] = 
+			{
+				coord = "1466.53, 13963.5",
+				floor = 1,
+				global_pos = 
+				{
+					x = 1466.53,
+					y = 13963.5,
+				},
+				name = "Central Precipice Waypoint",
+				poi_id = 2242,
+				pos = 
+				{
+					1404.7,
+					-276,
+				},
+				type = "waypoint",
+			},
+			[2292] = 
+			{
+				coord = "2018.53, 14465.3",
+				floor = 1,
+				global_pos = 
+				{
+					x = 2018.53,
+					y = 14465.3,
+				},
+				name = "Sandstone Coliseum Waypoint",
+				poi_id = 2292,
+				pos = 
+				{
+					14652.7,
+					-12319.2,
 				},
 				type = "waypoint",
 			},
@@ -205027,7 +205315,7 @@ local tbl =
 			},
 		},
 		map_id = 1306,
-		map_name = "Secret Lair of the Snowmen",
+		map_name = "Secret Lair of the Snowmen (Squad)",
 		map_rect = "-15360, -15360], [15360, 15360",
 		map_rect_table = 
 		{
@@ -215899,6 +216187,3763 @@ local tbl =
 		min_level = 80,
 		region_id = 2,
 		region_name = "Ascalon",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1339] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "23944, 1110], [24961, 2127",
+		continent_rect_table = 
+		{
+			
+			{
+				23944,
+				1110,
+			},
+			
+			{
+				24961,
+				2127,
+			},
+		},
+		default_floor = 61,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1780] = 
+					{
+						coord = "24481.8, 1612.75",
+						global_pos = 
+						{
+							x = 24481.8,
+							y = 1612.75,
+						},
+						level = 80,
+						pos = 
+						{
+							708,
+							138.9,
+						},
+						sector_id = 1780,
+					},
+				},
+			},
+		},
+		map_id = 1339,
+		map_name = "Weekly Strike Mission: Boneskinner (Squad)",
+		map_rect = "-12288, -12288], [12288, 12288",
+		map_rect_table = 
+		{
+			
+			{
+				-12288,
+				-12288,
+			},
+			
+			{
+				12288,
+				12288,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1340] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "23944, 1110], [24961, 2127",
+		continent_rect_table = 
+		{
+			
+			{
+				23944,
+				1110,
+			},
+			
+			{
+				24961,
+				2127,
+			},
+		},
+		default_floor = 62,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1775] = 
+					{
+						coord = "24481.8, 1612.75",
+						global_pos = 
+						{
+							x = 24481.8,
+							y = 1612.75,
+						},
+						level = 80,
+						pos = 
+						{
+							708,
+							138.9,
+						},
+						sector_id = 1775,
+					},
+				},
+			},
+		},
+		map_id = 1340,
+		map_name = "Weekly Strike Mission: Voice of the Fallen and Claw of the Fallen (Public)",
+		map_rect = "-12288, -12288], [12288, 12288",
+		map_rect_table = 
+		{
+			
+			{
+				-12288,
+				-12288,
+			},
+			
+			{
+				12288,
+				12288,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Public",
+		waypoints = 
+		{
+		},
+	},
+	[1341] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "23944, 1110], [24961, 2127",
+		continent_rect_table = 
+		{
+			
+			{
+				23944,
+				1110,
+			},
+			
+			{
+				24961,
+				2127,
+			},
+		},
+		default_floor = 60,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1779] = 
+					{
+						coord = "24481.8, 1612.75",
+						global_pos = 
+						{
+							x = 24481.8,
+							y = 1612.75,
+						},
+						level = 80,
+						pos = 
+						{
+							708,
+							138.9,
+						},
+						sector_id = 1779,
+					},
+				},
+			},
+		},
+		map_id = 1341,
+		map_name = "Weekly Strike Mission: Fraenir of Jormag (Squad)",
+		map_rect = "-12288, -12288], [12288, 12288",
+		map_rect_table = 
+		{
+			
+			{
+				-12288,
+				-12288,
+			},
+			
+			{
+				12288,
+				12288,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1342] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "22143, 588], [26623, 2764",
+		continent_rect_table = 
+		{
+			
+			{
+				22143,
+				588,
+			},
+			
+			{
+				26623,
+				2764,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1773] = 
+					{
+						coord = "26202.4, 2365.83",
+						global_pos = 
+						{
+							x = 26202.4,
+							y = 2365.83,
+						},
+						level = 80,
+						name = "Southern Mountains",
+						pos = 
+						{
+							45201.6,
+							-15019.9,
+						},
+						sector_id = 1773,
+					},
+					[1774] = 
+					{
+						coord = "24992.6, 2205.69",
+						global_pos = 
+						{
+							x = 24992.6,
+							y = 2205.69,
+						},
+						level = 80,
+						name = "Aberrant Forest",
+						pos = 
+						{
+							16166.4,
+							-11176.6,
+						},
+						sector_id = 1774,
+					},
+					[1776] = 
+					{
+						coord = "25623.4, 937.075",
+						global_pos = 
+						{
+							x = 25623.4,
+							y = 937.075,
+						},
+						level = 80,
+						name = "Darkrime Delves",
+						pos = 
+						{
+							31305.6,
+							19270.2,
+						},
+						sector_id = 1776,
+					},
+					[1777] = 
+					{
+						coord = "24651.1, 1488.64",
+						global_pos = 
+						{
+							x = 24651.1,
+							y = 1488.64,
+						},
+						level = 80,
+						name = "Raven Sanctum",
+						pos = 
+						{
+							7970.4,
+							6032.6,
+						},
+						sector_id = 1777,
+					},
+					[1778] = 
+					{
+						coord = "25575.8, 2319.35",
+						global_pos = 
+						{
+							x = 25575.8,
+							y = 2319.35,
+						},
+						level = 80,
+						name = "Ravenfrost Caverns",
+						pos = 
+						{
+							30163.2,
+							-13904.4,
+						},
+						sector_id = 1778,
+					},
+					[1781] = 
+					{
+						coord = "25679.6, 1714.25",
+						global_pos = 
+						{
+							x = 25679.6,
+							y = 1714.25,
+						},
+						level = 80,
+						name = "Frozen Pass",
+						pos = 
+						{
+							32654.4,
+							618,
+						},
+						sector_id = 1781,
+					},
+					[1782] = 
+					{
+						coord = "24835.6, 982.292",
+						global_pos = 
+						{
+							x = 24835.6,
+							y = 982.292,
+						},
+						level = 80,
+						name = "Asgeir's Legacy",
+						pos = 
+						{
+							12398.4,
+							18185,
+						},
+						sector_id = 1782,
+					},
+					[1784] = 
+					{
+						coord = "25561.9, 1355.7",
+						global_pos = 
+						{
+							x = 25561.9,
+							y = 1355.7,
+						},
+						level = 80,
+						name = "Svanir Plateau",
+						pos = 
+						{
+							29829.6,
+							9223.2,
+						},
+						sector_id = 1784,
+					},
+					[1787] = 
+					{
+						coord = "26159.8, 1931.21",
+						global_pos = 
+						{
+							x = 26159.8,
+							y = 1931.21,
+						},
+						level = 80,
+						name = "Jora's Keep",
+						pos = 
+						{
+							44179.2,
+							-4589,
+						},
+						sector_id = 1787,
+					},
+					[1788] = 
+					{
+						coord = "24797.3, 1951.19",
+						global_pos = 
+						{
+							x = 24797.3,
+							y = 1951.19,
+						},
+						level = 80,
+						name = "Fallen Ruins",
+						pos = 
+						{
+							11479.2,
+							-5068.6,
+						},
+						sector_id = 1788,
+					},
+					[1789] = 
+					{
+						coord = "26282.4, 1164.69",
+						global_pos = 
+						{
+							x = 26282.4,
+							y = 1164.69,
+						},
+						level = 80,
+						name = "Fallen Mountains",
+						pos = 
+						{
+							47121.6,
+							13807.4,
+						},
+						sector_id = 1789,
+					},
+				},
+			},
+		},
+		map_id = 1342,
+		map_name = "The Invitation",
+		map_rect = "-52224, -24576], [55296, 27648",
+		map_rect_table = 
+		{
+			
+			{
+				-52224,
+				-24576,
+			},
+			
+			{
+				55296,
+				27648,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1343] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "22143, 588], [26623, 2764",
+		continent_rect_table = 
+		{
+			
+			{
+				22143,
+				588,
+			},
+			
+			{
+				26623,
+				2764,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				points_of_interest = 
+				{
+					[3102] = 
+					{
+						coord = "24890.4, 2305.11",
+						floor = 1,
+						global_pos = 
+						{
+							x = 24890.4,
+							y = 2305.11,
+						},
+						name = "Ruined Hut",
+						poi_id = 3102,
+						pos = 
+						{
+							13713.6,
+							-13562.6,
+						},
+						type = "landmark",
+					},
+					[3103] = 
+					{
+						coord = "26053.7, 1338.1",
+						floor = 1,
+						global_pos = 
+						{
+							x = 26053.7,
+							y = 1338.1,
+						},
+						poi_id = 3103,
+						pos = 
+						{
+							41632.8,
+							9645.6,
+						},
+						type = "vista",
+					},
+					[3104] = 
+					{
+						coord = "26125.3, 1953.99",
+						floor = 1,
+						global_pos = 
+						{
+							x = 26125.3,
+							y = 1953.99,
+						},
+						name = "Vigil Gate",
+						poi_id = 3104,
+						pos = 
+						{
+							43351.2,
+							-5135.8,
+						},
+						type = "landmark",
+					},
+					[3105] = 
+					{
+						coord = "25633, 1830.53",
+						floor = 1,
+						global_pos = 
+						{
+							x = 25633,
+							y = 1830.53,
+						},
+						name = "Claw's Perch",
+						poi_id = 3105,
+						pos = 
+						{
+							31536,
+							-2172.7,
+						},
+						type = "landmark",
+					},
+					[3106] = 
+					{
+						coord = "24969.9, 1558.91",
+						floor = 1,
+						global_pos = 
+						{
+							x = 24969.9,
+							y = 1558.91,
+						},
+						name = "Raven's Gate",
+						poi_id = 3106,
+						pos = 
+						{
+							15621.6,
+							4346.2,
+						},
+						type = "landmark",
+					},
+					[3108] = 
+					{
+						coord = "24554.8, 1717.18",
+						floor = 1,
+						global_pos = 
+						{
+							x = 24554.8,
+							y = 1717.18,
+						},
+						name = "Raven Pass",
+						poi_id = 3108,
+						pos = 
+						{
+							5659.2,
+							547.7,
+						},
+						type = "landmark",
+					},
+					[3109] = 
+					{
+						coord = "25528.5, 873.358",
+						floor = 1,
+						global_pos = 
+						{
+							x = 25528.5,
+							y = 873.358,
+						},
+						name = "Darkrime Ruins",
+						poi_id = 3109,
+						pos = 
+						{
+							29028,
+							20799.4,
+						},
+						type = "landmark",
+					},
+					[3110] = 
+					{
+						coord = "26379.4, 2175.21",
+						floor = 1,
+						global_pos = 
+						{
+							x = 26379.4,
+							y = 2175.21,
+						},
+						poi_id = 3110,
+						pos = 
+						{
+							49449.6,
+							-10445,
+						},
+						type = "vista",
+					},
+					[3111] = 
+					{
+						coord = "26168.7, 1934.82",
+						floor = 1,
+						global_pos = 
+						{
+							x = 26168.7,
+							y = 1934.82,
+						},
+						name = "Jora's Keep Waypoint",
+						poi_id = 3111,
+						pos = 
+						{
+							44392.8,
+							-4675.7,
+						},
+						type = "waypoint",
+					},
+					[3112] = 
+					{
+						coord = "25010.1, 1183.29",
+						floor = 1,
+						global_pos = 
+						{
+							x = 25010.1,
+							y = 1183.29,
+						},
+						name = "Gates of Svanir",
+						poi_id = 3112,
+						pos = 
+						{
+							16586.4,
+							13361,
+						},
+						type = "landmark",
+					},
+					[3113] = 
+					{
+						coord = "25417, 1169.94",
+						floor = 1,
+						global_pos = 
+						{
+							x = 25417,
+							y = 1169.94,
+						},
+						name = "Northwest Svanir Camp",
+						poi_id = 3113,
+						pos = 
+						{
+							26352,
+							13681.4,
+						},
+						type = "landmark",
+					},
+					[3114] = 
+					{
+						coord = "26231, 1889.3",
+						floor = 1,
+						global_pos = 
+						{
+							x = 26231,
+							y = 1889.3,
+						},
+						name = "General's Quarters",
+						poi_id = 3114,
+						pos = 
+						{
+							45888,
+							-3583.2,
+						},
+						type = "landmark",
+					},
+					[3115] = 
+					{
+						coord = "25285.8, 1969.54",
+						floor = 1,
+						global_pos = 
+						{
+							x = 25285.8,
+							y = 1969.54,
+						},
+						name = "Boneskinner Den",
+						poi_id = 3115,
+						pos = 
+						{
+							23203.2,
+							-5509,
+						},
+						type = "landmark",
+					},
+					[3117] = 
+					{
+						coord = "25717.8, 1482.56",
+						floor = 1,
+						global_pos = 
+						{
+							x = 25717.8,
+							y = 1482.56,
+						},
+						name = "Southeast Svanir Camp",
+						poi_id = 3117,
+						pos = 
+						{
+							33571.2,
+							6178.6,
+						},
+						type = "landmark",
+					},
+					[3118] = 
+					{
+						coord = "25439.1, 1584.2",
+						floor = 1,
+						global_pos = 
+						{
+							x = 25439.1,
+							y = 1584.2,
+						},
+						name = "Southwest Svanir Camp",
+						poi_id = 3118,
+						pos = 
+						{
+							26882.4,
+							3739.2,
+						},
+						type = "landmark",
+					},
+					[3119] = 
+					{
+						coord = "24955.5, 1231.92",
+						floor = 1,
+						global_pos = 
+						{
+							x = 24955.5,
+							y = 1231.92,
+						},
+						poi_id = 3119,
+						pos = 
+						{
+							15276,
+							12193.9,
+						},
+						type = "vista",
+					},
+					[3120] = 
+					{
+						coord = "25537.3, 2168.35",
+						floor = 1,
+						global_pos = 
+						{
+							x = 25537.3,
+							y = 2168.35,
+						},
+						name = "Aberrant Den",
+						poi_id = 3120,
+						pos = 
+						{
+							29239.2,
+							-10280.4,
+						},
+						type = "landmark",
+					},
+					[3121] = 
+					{
+						coord = "25816.6, 1110.16",
+						floor = 1,
+						global_pos = 
+						{
+							x = 25816.6,
+							y = 1110.16,
+						},
+						name = "Northeast Svanir Camp",
+						poi_id = 3121,
+						pos = 
+						{
+							35942.4,
+							15116.2,
+						},
+						type = "landmark",
+					},
+					[3122] = 
+					{
+						coord = "24725.7, 1995.97",
+						floor = 1,
+						global_pos = 
+						{
+							x = 24725.7,
+							y = 1995.97,
+						},
+						poi_id = 3122,
+						pos = 
+						{
+							9760.8,
+							-6143.3,
+						},
+						type = "vista",
+					},
+					[3124] = 
+					{
+						coord = "26101.3, 1067.82",
+						floor = 1,
+						global_pos = 
+						{
+							x = 26101.3,
+							y = 1067.82,
+						},
+						name = "Bear Shrine",
+						poi_id = 3124,
+						pos = 
+						{
+							42775.2,
+							16132.3,
+						},
+						type = "landmark",
+					},
+					[3125] = 
+					{
+						coord = "23584, 1583.08",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23584,
+							y = 1583.08,
+						},
+						name = "Kodan Shipwreck",
+						poi_id = 3125,
+						pos = 
+						{
+							-17640,
+							3766.1,
+						},
+						type = "landmark",
+					},
+					[3126] = 
+					{
+						coord = "23370.9, 663.067",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23370.9,
+							y = 663.067,
+						},
+						name = "Mystery of the Raven Gate Ruins",
+						poi_id = 3126,
+						pos = 
+						{
+							-22754.4,
+							25846.4,
+						},
+						type = "landmark",
+					},
+					[3127] = 
+					{
+						coord = "23629.8, 2148.77",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23629.8,
+							y = 2148.77,
+						},
+						name = "Kodan's Leap",
+						poi_id = 3127,
+						pos = 
+						{
+							-16540.8,
+							-9810.5,
+						},
+						type = "landmark",
+					},
+					[3128] = 
+					{
+						coord = "23698.7, 2448.82",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23698.7,
+							y = 2448.82,
+						},
+						poi_id = 3128,
+						pos = 
+						{
+							-14887.2,
+							-17011.7,
+						},
+						type = "vista",
+					},
+					[3129] = 
+					{
+						coord = "23848.3, 1430.71",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23848.3,
+							y = 1430.71,
+						},
+						name = "Still Waters Speaking Waypoint",
+						poi_id = 3129,
+						pos = 
+						{
+							-11296.8,
+							7423,
+						},
+						type = "waypoint",
+					},
+					[3130] = 
+					{
+						coord = "26388.5, 779.896",
+						floor = 1,
+						global_pos = 
+						{
+							x = 26388.5,
+							y = 779.896,
+						},
+						name = "Mystery of the Labyrinth",
+						poi_id = 3130,
+						pos = 
+						{
+							49668,
+							23042.5,
+						},
+						type = "landmark",
+					},
+					[3131] = 
+					{
+						coord = "22739.1, 1451.3",
+						floor = 1,
+						global_pos = 
+						{
+							x = 22739.1,
+							y = 1451.3,
+						},
+						name = "Sifhalla Ruins",
+						poi_id = 3131,
+						pos = 
+						{
+							-37917.6,
+							6928.8,
+						},
+						type = "landmark",
+					},
+					[3132] = 
+					{
+						coord = "23433.2, 912.287",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23433.2,
+							y = 912.287,
+						},
+						poi_id = 3132,
+						pos = 
+						{
+							-21259.2,
+							19865.1,
+						},
+						type = "vista",
+					},
+					[3133] = 
+					{
+						coord = "23182.8, 1138.89",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23182.8,
+							y = 1138.89,
+						},
+						name = "Shrine of the Valorous Wolverine",
+						poi_id = 3133,
+						pos = 
+						{
+							-27268.8,
+							14426.6,
+						},
+						type = "landmark",
+					},
+					[3134] = 
+					{
+						coord = "24042.2, 855.217",
+						floor = 1,
+						global_pos = 
+						{
+							x = 24042.2,
+							y = 855.217,
+						},
+						name = "Shrine of the Resilient Ox",
+						poi_id = 3134,
+						pos = 
+						{
+							-6643.2,
+							21234.8,
+						},
+						type = "landmark",
+					},
+					[3135] = 
+					{
+						coord = "23037.6, 2331.27",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23037.6,
+							y = 2331.27,
+						},
+						name = "Cavern of Lost Sons",
+						poi_id = 3135,
+						pos = 
+						{
+							-30753.6,
+							-14190.5,
+						},
+						type = "landmark",
+					},
+					[3136] = 
+					{
+						coord = "23994.4, 2394.42",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23994.4,
+							y = 2394.42,
+						},
+						name = "Shrine of the Vigilant Eagle",
+						poi_id = 3136,
+						pos = 
+						{
+							-7790.4,
+							-15706.1,
+						},
+						type = "landmark",
+					},
+					[3137] = 
+					{
+						coord = "22684.1, 2241.16",
+						floor = 1,
+						global_pos = 
+						{
+							x = 22684.1,
+							y = 2241.16,
+						},
+						name = "Den of Whispers",
+						poi_id = 3137,
+						pos = 
+						{
+							-39237.6,
+							-12027.8,
+						},
+						type = "landmark",
+					},
+					[3138] = 
+					{
+						coord = "23920.6, 1357.67",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23920.6,
+							y = 1357.67,
+						},
+						poi_id = 3138,
+						pos = 
+						{
+							-9561.6,
+							9175.9,
+						},
+						type = "vista",
+					},
+					[3139] = 
+					{
+						coord = "23811.1, 1749.54",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23811.1,
+							y = 1749.54,
+						},
+						name = "Koda's Tears",
+						poi_id = 3139,
+						pos = 
+						{
+							-12189.6,
+							-229,
+						},
+						type = "landmark",
+					},
+					[3140] = 
+					{
+						coord = "24182.1, 2641.83",
+						floor = 1,
+						global_pos = 
+						{
+							x = 24182.1,
+							y = 2641.83,
+						},
+						name = "Mystery of the Hidden Tower",
+						poi_id = 3140,
+						pos = 
+						{
+							-3285.6,
+							-21643.9,
+						},
+						type = "landmark",
+					},
+					[3141] = 
+					{
+						coord = "23868.6, 1410.97",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23868.6,
+							y = 1410.97,
+						},
+						name = "Still Waters Speaking",
+						poi_id = 3141,
+						pos = 
+						{
+							-10809.6,
+							7896.7,
+						},
+						type = "landmark",
+					},
+					[3142] = 
+					{
+						coord = "23566.8, 2605.85",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23566.8,
+							y = 2605.85,
+						},
+						name = "Whisperwind Grotto",
+						poi_id = 3142,
+						pos = 
+						{
+							-18052.8,
+							-20780.4,
+						},
+						type = "landmark",
+					},
+					[3143] = 
+					{
+						coord = "24182.6, 741.996",
+						floor = 1,
+						global_pos = 
+						{
+							x = 24182.6,
+							y = 741.996,
+						},
+						poi_id = 3143,
+						pos = 
+						{
+							-3273.6,
+							23952.1,
+						},
+						type = "vista",
+					},
+				},
+				sectors = 
+				{
+					[1773] = 
+					{
+						coord = "26202.4, 2365.83",
+						global_pos = 
+						{
+							x = 26202.4,
+							y = 2365.83,
+						},
+						level = 80,
+						name = "Southern Mountains",
+						pos = 
+						{
+							45201.6,
+							-15019.9,
+						},
+						sector_id = 1773,
+					},
+					[1774] = 
+					{
+						coord = "24992.6, 2205.69",
+						global_pos = 
+						{
+							x = 24992.6,
+							y = 2205.69,
+						},
+						level = 80,
+						name = "Aberrant Forest",
+						pos = 
+						{
+							16166.4,
+							-11176.6,
+						},
+						sector_id = 1774,
+					},
+					[1776] = 
+					{
+						coord = "25623.4, 937.075",
+						global_pos = 
+						{
+							x = 25623.4,
+							y = 937.075,
+						},
+						level = 80,
+						name = "Darkrime Delves",
+						pos = 
+						{
+							31305.6,
+							19270.2,
+						},
+						sector_id = 1776,
+					},
+					[1777] = 
+					{
+						coord = "24651.1, 1488.64",
+						global_pos = 
+						{
+							x = 24651.1,
+							y = 1488.64,
+						},
+						level = 80,
+						name = "Raven Sanctum",
+						pos = 
+						{
+							7970.4,
+							6032.6,
+						},
+						sector_id = 1777,
+					},
+					[1778] = 
+					{
+						coord = "25575.8, 2319.35",
+						global_pos = 
+						{
+							x = 25575.8,
+							y = 2319.35,
+						},
+						level = 80,
+						name = "Ravenfrost Caverns",
+						pos = 
+						{
+							30163.2,
+							-13904.4,
+						},
+						sector_id = 1778,
+					},
+					[1781] = 
+					{
+						coord = "25679.6, 1714.25",
+						global_pos = 
+						{
+							x = 25679.6,
+							y = 1714.25,
+						},
+						level = 80,
+						name = "Frozen Pass",
+						pos = 
+						{
+							32654.4,
+							618,
+						},
+						sector_id = 1781,
+					},
+					[1782] = 
+					{
+						coord = "24835.6, 982.292",
+						global_pos = 
+						{
+							x = 24835.6,
+							y = 982.292,
+						},
+						level = 80,
+						name = "Asgeir's Legacy",
+						pos = 
+						{
+							12398.4,
+							18185,
+						},
+						sector_id = 1782,
+					},
+					[1784] = 
+					{
+						coord = "25561.9, 1355.7",
+						global_pos = 
+						{
+							x = 25561.9,
+							y = 1355.7,
+						},
+						level = 80,
+						name = "Svanir Plateau",
+						pos = 
+						{
+							29829.6,
+							9223.2,
+						},
+						sector_id = 1784,
+					},
+					[1787] = 
+					{
+						coord = "26159.8, 1931.21",
+						global_pos = 
+						{
+							x = 26159.8,
+							y = 1931.21,
+						},
+						level = 80,
+						name = "Jora's Keep",
+						pos = 
+						{
+							44179.2,
+							-4589,
+						},
+						sector_id = 1787,
+					},
+					[1788] = 
+					{
+						coord = "24797.3, 1951.19",
+						global_pos = 
+						{
+							x = 24797.3,
+							y = 1951.19,
+						},
+						level = 80,
+						name = "Fallen Ruins",
+						pos = 
+						{
+							11479.2,
+							-5068.6,
+						},
+						sector_id = 1788,
+					},
+					[1789] = 
+					{
+						coord = "26282.4, 1164.69",
+						global_pos = 
+						{
+							x = 26282.4,
+							y = 1164.69,
+						},
+						level = 80,
+						name = "Fallen Mountains",
+						pos = 
+						{
+							47121.6,
+							13807.4,
+						},
+						sector_id = 1789,
+					},
+					[1791] = 
+					{
+						coord = "23953.7, 2309.95",
+						global_pos = 
+						{
+							x = 23953.7,
+							y = 2309.95,
+						},
+						level = 80,
+						name = "Eaglewatch Rise",
+						pos = 
+						{
+							-8767.2,
+							-13678.8,
+						},
+						sector_id = 1791,
+					},
+					[1792] = 
+					{
+						coord = "23243.8, 1200.37",
+						global_pos = 
+						{
+							x = 23243.8,
+							y = 1200.37,
+						},
+						level = 80,
+						name = "Ice Spire Peaks",
+						pos = 
+						{
+							-25804.8,
+							12951.1,
+						},
+						sector_id = 1792,
+					},
+					[1793] = 
+					{
+						coord = "23293.1, 2110.42",
+						global_pos = 
+						{
+							x = 23293.1,
+							y = 2110.42,
+						},
+						level = 80,
+						name = "Frigid Dunes",
+						pos = 
+						{
+							-24621.6,
+							-8890.1,
+						},
+						sector_id = 1793,
+					},
+					[1794] = 
+					{
+						coord = "24049.4, 1075.32",
+						global_pos = 
+						{
+							x = 24049.4,
+							y = 1075.32,
+						},
+						level = 80,
+						name = "Frostborn Cascades",
+						pos = 
+						{
+							-6470.4,
+							15952.3,
+						},
+						sector_id = 1794,
+					},
+					[1795] = 
+					{
+						coord = "23097.9, 929.751",
+						global_pos = 
+						{
+							x = 23097.9,
+							y = 929.751,
+						},
+						level = 80,
+						name = "Raven Ruins",
+						pos = 
+						{
+							-29306.4,
+							19446,
+						},
+						sector_id = 1795,
+					},
+					[1797] = 
+					{
+						coord = "22726.9, 2300.67",
+						global_pos = 
+						{
+							x = 22726.9,
+							y = 2300.67,
+						},
+						level = 80,
+						name = "Whispering Depths",
+						pos = 
+						{
+							-38210.4,
+							-13456.1,
+						},
+						sector_id = 1797,
+					},
+					[1798] = 
+					{
+						coord = "23796.6, 1402.49",
+						global_pos = 
+						{
+							x = 23796.6,
+							y = 1402.49,
+						},
+						level = 80,
+						name = "Spirits' Refuge",
+						pos = 
+						{
+							-12537.6,
+							8100.2,
+						},
+						sector_id = 1798,
+					},
+					[1800] = 
+					{
+						coord = "23388.9, 1497.34",
+						global_pos = 
+						{
+							x = 23388.9,
+							y = 1497.34,
+						},
+						level = 80,
+						name = "Fractured Lake",
+						pos = 
+						{
+							-22322.4,
+							5823.8,
+						},
+						sector_id = 1800,
+					},
+					[1803] = 
+					{
+						coord = "22815, 1635.79",
+						global_pos = 
+						{
+							x = 22815,
+							y = 1635.79,
+						},
+						level = 80,
+						name = "Cerulean Hollows",
+						pos = 
+						{
+							-36096,
+							2501,
+						},
+						sector_id = 1803,
+					},
+					[1806] = 
+					{
+						coord = "23684.8, 1057.44",
+						global_pos = 
+						{
+							x = 23684.8,
+							y = 1057.44,
+						},
+						level = 80,
+						name = "Forest of a Thousand Voices",
+						pos = 
+						{
+							-15220.8,
+							16381.4,
+						},
+						sector_id = 1806,
+					},
+					[1807] = 
+					{
+						coord = "23451.5, 2405.93",
+						global_pos = 
+						{
+							x = 23451.5,
+							y = 2405.93,
+						},
+						level = 80,
+						name = "Rime Glen",
+						pos = 
+						{
+							-20820,
+							-15982.3,
+						},
+						sector_id = 1807,
+					},
+					[1808] = 
+					{
+						coord = "23924.9, 1630.06",
+						global_pos = 
+						{
+							x = 23924.9,
+							y = 1630.06,
+						},
+						level = 80,
+						name = "Boreal Pass",
+						pos = 
+						{
+							-9458.4,
+							2638.6,
+						},
+						sector_id = 1808,
+					},
+				},
+			},
+		},
+		map_id = 1343,
+		map_name = "Bjora Marches",
+		map_rect = "-52224, -24576], [55296, 27648",
+		map_rect_table = 
+		{
+			
+			{
+				-52224,
+				-24576,
+			},
+			
+			{
+				55296,
+				27648,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Public",
+		waypoints = 
+		{
+			[3111] = 
+			{
+				coord = "26168.7, 1934.82",
+				floor = 1,
+				global_pos = 
+				{
+					x = 26168.7,
+					y = 1934.82,
+				},
+				name = "Jora's Keep Waypoint",
+				poi_id = 3111,
+				pos = 
+				{
+					44392.8,
+					-4675.7,
+				},
+				type = "waypoint",
+			},
+			[3129] = 
+			{
+				coord = "23848.3, 1430.71",
+				floor = 1,
+				global_pos = 
+				{
+					x = 23848.3,
+					y = 1430.71,
+				},
+				name = "Still Waters Speaking Waypoint",
+				poi_id = 3129,
+				pos = 
+				{
+					-11296.8,
+					7423,
+				},
+				type = "waypoint",
+			},
+		},
+	},
+	[1344] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "23944, 1110], [24961, 2127",
+		continent_rect_table = 
+		{
+			
+			{
+				23944,
+				1110,
+			},
+			
+			{
+				24961,
+				2127,
+			},
+		},
+		default_floor = 60,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1783] = 
+					{
+						coord = "24481.8, 1612.75",
+						global_pos = 
+						{
+							x = 24481.8,
+							y = 1612.75,
+						},
+						level = 80,
+						pos = 
+						{
+							708,
+							138.9,
+						},
+						sector_id = 1783,
+					},
+				},
+			},
+		},
+		map_id = 1344,
+		map_name = "Weekly Strike Mission: Fraenir of Jormag (Public)",
+		map_rect = "-12288, -12288], [12288, 12288",
+		map_rect_table = 
+		{
+			
+			{
+				-12288,
+				-12288,
+			},
+			
+			{
+				12288,
+				12288,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Public",
+		waypoints = 
+		{
+		},
+	},
+	[1345] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "22143, 588], [26623, 2764",
+		continent_rect_table = 
+		{
+			
+			{
+				22143,
+				588,
+			},
+			
+			{
+				26623,
+				2764,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				points_of_interest = 
+				{
+					[3115] = 
+					{
+						coord = "25285.8, 1969.54",
+						floor = 1,
+						global_pos = 
+						{
+							x = 25285.8,
+							y = 1969.54,
+						},
+						name = "Boneskinner Den",
+						poi_id = 3115,
+						pos = 
+						{
+							23203.2,
+							-5509,
+						},
+						type = "landmark",
+					},
+				},
+				sectors = 
+				{
+					[1774] = 
+					{
+						coord = "24992.6, 2205.69",
+						global_pos = 
+						{
+							x = 24992.6,
+							y = 2205.69,
+						},
+						level = 80,
+						name = "Aberrant Forest",
+						pos = 
+						{
+							16166.4,
+							-11176.6,
+						},
+						sector_id = 1774,
+					},
+				},
+			},
+		},
+		map_id = 1345,
+		map_name = "What's Left Behind",
+		map_rect = "-52224, -24576], [55296, 27648",
+		map_rect_table = 
+		{
+			
+			{
+				-52224,
+				-24576,
+			},
+			
+			{
+				55296,
+				27648,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1346] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "23944, 1110], [24961, 2127",
+		continent_rect_table = 
+		{
+			
+			{
+				23944,
+				1110,
+			},
+			
+			{
+				24961,
+				2127,
+			},
+		},
+		default_floor = 62,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1786] = 
+					{
+						coord = "24481.8, 1612.75",
+						global_pos = 
+						{
+							x = 24481.8,
+							y = 1612.75,
+						},
+						level = 80,
+						pos = 
+						{
+							708,
+							138.9,
+						},
+						sector_id = 1786,
+					},
+				},
+			},
+		},
+		map_id = 1346,
+		map_name = "Weekly Strike Mission: Voice of the Fallen and Claw of the Fallen (Squad)",
+		map_rect = "-12288, -12288], [12288, 12288",
+		map_rect_table = 
+		{
+			
+			{
+				-12288,
+				-12288,
+			},
+			
+			{
+				12288,
+				12288,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1349] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "22143, 588], [26623, 2764",
+		continent_rect_table = 
+		{
+			
+			{
+				22143,
+				588,
+			},
+			
+			{
+				26623,
+				2764,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				points_of_interest = 
+				{
+					[3104] = 
+					{
+						coord = "26125.3, 1953.99",
+						floor = 1,
+						global_pos = 
+						{
+							x = 26125.3,
+							y = 1953.99,
+						},
+						name = "Vigil Gate",
+						poi_id = 3104,
+						pos = 
+						{
+							43351.2,
+							-5135.8,
+						},
+						type = "landmark",
+					},
+					[3114] = 
+					{
+						coord = "26231, 1889.3",
+						floor = 1,
+						global_pos = 
+						{
+							x = 26231,
+							y = 1889.3,
+						},
+						name = "General's Quarters",
+						poi_id = 3114,
+						pos = 
+						{
+							45888,
+							-3583.2,
+						},
+						type = "landmark",
+					},
+				},
+				sectors = 
+				{
+					[1774] = 
+					{
+						coord = "24992.6, 2205.69",
+						global_pos = 
+						{
+							x = 24992.6,
+							y = 2205.69,
+						},
+						level = 80,
+						name = "Aberrant Forest",
+						pos = 
+						{
+							16166.4,
+							-11176.6,
+						},
+						sector_id = 1774,
+					},
+					[1778] = 
+					{
+						coord = "25575.8, 2319.35",
+						global_pos = 
+						{
+							x = 25575.8,
+							y = 2319.35,
+						},
+						level = 80,
+						name = "Ravenfrost Caverns",
+						pos = 
+						{
+							30163.2,
+							-13904.4,
+						},
+						sector_id = 1778,
+					},
+					[1781] = 
+					{
+						coord = "25679.6, 1714.25",
+						global_pos = 
+						{
+							x = 25679.6,
+							y = 1714.25,
+						},
+						level = 80,
+						name = "Frozen Pass",
+						pos = 
+						{
+							32654.4,
+							618,
+						},
+						sector_id = 1781,
+					},
+					[1782] = 
+					{
+						coord = "24835.6, 982.292",
+						global_pos = 
+						{
+							x = 24835.6,
+							y = 982.292,
+						},
+						level = 80,
+						name = "Asgeir's Legacy",
+						pos = 
+						{
+							12398.4,
+							18185,
+						},
+						sector_id = 1782,
+					},
+					[1784] = 
+					{
+						coord = "25561.9, 1355.7",
+						global_pos = 
+						{
+							x = 25561.9,
+							y = 1355.7,
+						},
+						level = 80,
+						name = "Svanir Plateau",
+						pos = 
+						{
+							29829.6,
+							9223.2,
+						},
+						sector_id = 1784,
+					},
+					[1787] = 
+					{
+						coord = "26159.8, 1931.21",
+						global_pos = 
+						{
+							x = 26159.8,
+							y = 1931.21,
+						},
+						level = 80,
+						name = "Jora's Keep",
+						pos = 
+						{
+							44179.2,
+							-4589,
+						},
+						sector_id = 1787,
+					},
+					[1788] = 
+					{
+						coord = "24797.3, 1951.19",
+						global_pos = 
+						{
+							x = 24797.3,
+							y = 1951.19,
+						},
+						level = 80,
+						name = "Fallen Ruins",
+						pos = 
+						{
+							11479.2,
+							-5068.6,
+						},
+						sector_id = 1788,
+					},
+					[1789] = 
+					{
+						coord = "26282.4, 1164.69",
+						global_pos = 
+						{
+							x = 26282.4,
+							y = 1164.69,
+						},
+						level = 80,
+						name = "Fallen Mountains",
+						pos = 
+						{
+							47121.6,
+							13807.4,
+						},
+						sector_id = 1789,
+					},
+				},
+			},
+		},
+		map_id = 1349,
+		map_name = "Silence",
+		map_rect = "-52224, -24576], [55296, 27648",
+		map_rect_table = 
+		{
+			
+			{
+				-52224,
+				-24576,
+			},
+			
+			{
+				55296,
+				27648,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1351] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "23944, 1110], [24961, 2127",
+		continent_rect_table = 
+		{
+			
+			{
+				23944,
+				1110,
+			},
+			
+			{
+				24961,
+				2127,
+			},
+		},
+		default_floor = 61,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1785] = 
+					{
+						coord = "24481.8, 1612.75",
+						global_pos = 
+						{
+							x = 24481.8,
+							y = 1612.75,
+						},
+						level = 80,
+						pos = 
+						{
+							708,
+							138.9,
+						},
+						sector_id = 1785,
+					},
+				},
+			},
+		},
+		map_id = 1351,
+		map_name = "Weekly Strike Mission: Boneskinner (Public)",
+		map_rect = "-12288, -12288], [12288, 12288",
+		map_rect_table = 
+		{
+			
+			{
+				-12288,
+				-12288,
+			},
+			
+			{
+				12288,
+				12288,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Public",
+		waypoints = 
+		{
+		},
+	},
+	[1352] = 
+	{
+		continent_rect = "19500, 8000], [20780, 9280",
+		continent_rect_table = 
+		{
+			
+			{
+				19500,
+				8000,
+			},
+			
+			{
+				20780,
+				9280,
+			},
+		},
+		default_floor = -39,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1790] = 
+					{
+						coord = "20015.2, 8659.87",
+						global_pos = 
+						{
+							x = 20015.2,
+							y = 8659.87,
+						},
+						level = 80,
+						pos = 
+						{
+							-2995.2,
+							-476.9,
+						},
+						sector_id = 1790,
+					},
+				},
+			},
+		},
+		map_id = 1352,
+		map_name = "Secret Lair of the Snowmen (Public)",
+		map_rect = "-15360, -15360], [15360, 15360",
+		map_rect_table = 
+		{
+			
+			{
+				-15360,
+				-15360,
+			},
+			
+			{
+				15360,
+				15360,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		type = "Public",
+		waypoints = 
+		{
+		},
+	},
+	[1353] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "10240, 9856], [12160, 11648",
+		continent_rect_table = 
+		{
+			
+			{
+				10240,
+				9856,
+			},
+			
+			{
+				12160,
+				11648,
+			},
+		},
+		default_floor = 2,
+		floors = 
+		{
+			
+			{
+				points_of_interest = 
+				{
+					[256] = 
+					{
+						coord = "11125.7, 11239.3",
+						floor = 1,
+						global_pos = 
+						{
+							x = 11125.7,
+							y = 11239.3,
+						},
+						name = "Mina's Target Shooting",
+						poi_id = 256,
+						pos = 
+						{
+							-247.2,
+							-11695.2,
+						},
+						type = "landmark",
+					},
+					[257] = 
+					{
+						coord = "11517, 11006.2",
+						floor = 1,
+						global_pos = 
+						{
+							x = 11517,
+							y = 11006.2,
+						},
+						name = "Durmand Hall",
+						poi_id = 257,
+						pos = 
+						{
+							9144,
+							-6100.8,
+						},
+						type = "landmark",
+					},
+					[258] = 
+					{
+						coord = "11859.3, 10811.1",
+						floor = 1,
+						global_pos = 
+						{
+							x = 11859.3,
+							y = 10811.1,
+						},
+						name = "Maiden's Whisper",
+						poi_id = 258,
+						pos = 
+						{
+							17359.2,
+							-1418.4,
+						},
+						type = "landmark",
+					},
+					[259] = 
+					{
+						coord = "11695.5, 11251.8",
+						floor = 1,
+						global_pos = 
+						{
+							x = 11695.5,
+							y = 11251.8,
+						},
+						name = "Uzolan's Mechanical Orchestra",
+						poi_id = 259,
+						pos = 
+						{
+							13428,
+							-11995.2,
+						},
+						type = "landmark",
+					},
+					[260] = 
+					{
+						coord = "10983.2, 10997.4",
+						floor = 1,
+						global_pos = 
+						{
+							x = 10983.2,
+							y = 10997.4,
+						},
+						name = "Vigil Hall",
+						poi_id = 260,
+						pos = 
+						{
+							-3667.2,
+							-5889.6,
+						},
+						type = "landmark",
+					},
+					[261] = 
+					{
+						coord = "11585.8, 10193.9",
+						floor = 1,
+						global_pos = 
+						{
+							x = 11585.8,
+							y = 10193.9,
+						},
+						name = "Vanguard Hospital",
+						poi_id = 261,
+						pos = 
+						{
+							10795.2,
+							13394.4,
+						},
+						type = "landmark",
+					},
+					[262] = 
+					{
+						coord = "11512.3, 10476.6",
+						floor = 1,
+						global_pos = 
+						{
+							x = 11512.3,
+							y = 10476.6,
+						},
+						name = "Queen's Heart Orphanage",
+						poi_id = 262,
+						pos = 
+						{
+							9031.2,
+							6609.6,
+						},
+						type = "landmark",
+					},
+					[263] = 
+					{
+						coord = "11155.7, 10381.3",
+						floor = 1,
+						global_pos = 
+						{
+							x = 11155.7,
+							y = 10381.3,
+						},
+						name = "Minister Zamon's Mansion",
+						poi_id = 263,
+						pos = 
+						{
+							472.8,
+							8896.8,
+						},
+						type = "landmark",
+					},
+					[264] = 
+					{
+						coord = "11757.9, 10952.4",
+						floor = 1,
+						global_pos = 
+						{
+							x = 11757.9,
+							y = 10952.4,
+						},
+						name = "Minister Wi's Mansion",
+						poi_id = 264,
+						pos = 
+						{
+							14925.6,
+							-4809.6,
+						},
+						type = "landmark",
+					},
+					[266] = 
+					{
+						coord = "11386, 10357.5",
+						floor = 1,
+						global_pos = 
+						{
+							x = 11386,
+							y = 10357.5,
+						},
+						name = "Manor Hill",
+						poi_id = 266,
+						pos = 
+						{
+							6000,
+							9468,
+						},
+						type = "landmark",
+					},
+					[267] = 
+					{
+						coord = "11587.6, 10523.3",
+						floor = 1,
+						global_pos = 
+						{
+							x = 11587.6,
+							y = 10523.3,
+						},
+						name = "Cottage Bend",
+						poi_id = 267,
+						pos = 
+						{
+							10838.4,
+							5488.8,
+						},
+						type = "landmark",
+					},
+					[268] = 
+					{
+						coord = "11615.1, 10374.6",
+						floor = 1,
+						global_pos = 
+						{
+							x = 11615.1,
+							y = 10374.6,
+						},
+						name = "Rook's Row",
+						poi_id = 268,
+						pos = 
+						{
+							11498.4,
+							9057.6,
+						},
+						type = "landmark",
+					},
+					[269] = 
+					{
+						coord = "10706.3, 11290.7",
+						floor = 1,
+						global_pos = 
+						{
+							x = 10706.3,
+							y = 11290.7,
+						},
+						name = "Haidryn's Menagerie",
+						poi_id = 269,
+						pos = 
+						{
+							-10312.8,
+							-12928.8,
+						},
+						type = "landmark",
+					},
+					[817] = 
+					{
+						coord = "11247.1, 10495.2",
+						floor = 1,
+						global_pos = 
+						{
+							x = 11247.1,
+							y = 10495.2,
+						},
+						name = "Skull Plaza",
+						poi_id = 817,
+						pos = 
+						{
+							2666.4,
+							6163.2,
+						},
+						type = "landmark",
+					},
+					[843] = 
+					{
+						coord = "11088.5, 11396",
+						floor = 1,
+						global_pos = 
+						{
+							x = 11088.5,
+							y = 11396,
+						},
+						name = "The Busted Flagon",
+						poi_id = 843,
+						pos = 
+						{
+							-1140,
+							-15456,
+						},
+						type = "landmark",
+					},
+					[1805] = 
+					{
+						coord = "11593.8, 11463.8",
+						floor = 1,
+						global_pos = 
+						{
+							x = 11593.8,
+							y = 11463.8,
+						},
+						name = "The Dead End",
+						poi_id = 1805,
+						pos = 
+						{
+							10987.2,
+							-17083.2,
+						},
+						type = "landmark",
+					},
+				},
+				sectors = 
+				{
+					[183] = 
+					{
+						coord = "11819.4, 10863.4",
+						global_pos = 
+						{
+							x = 11819.4,
+							y = 10863.4,
+						},
+						level = 0,
+						name = "Rurikton",
+						pos = 
+						{
+							16401.6,
+							-2673.6,
+						},
+						sector_id = 183,
+					},
+					[184] = 
+					{
+						coord = "10682.8, 10851.3",
+						global_pos = 
+						{
+							x = 10682.8,
+							y = 10851.3,
+						},
+						level = 0,
+						name = "The Crown Pavilion",
+						pos = 
+						{
+							-10876.8,
+							-2383.2,
+						},
+						sector_id = 184,
+					},
+					[186] = 
+					{
+						coord = "10971.1, 10346.8",
+						global_pos = 
+						{
+							x = 10971.1,
+							y = 10346.8,
+						},
+						level = 0,
+						name = "Ossan Quarter",
+						pos = 
+						{
+							-3957.6,
+							9724.8,
+						},
+						sector_id = 186,
+					},
+					[187] = 
+					{
+						coord = "11541.2, 10354.4",
+						global_pos = 
+						{
+							x = 11541.2,
+							y = 10354.4,
+						},
+						level = 0,
+						name = "Salma District (Home)",
+						pos = 
+						{
+							9724.8,
+							9542.4,
+						},
+						sector_id = 187,
+					},
+					[722] = 
+					{
+						coord = "11247.6, 10874.7",
+						global_pos = 
+						{
+							x = 11247.6,
+							y = 10874.7,
+						},
+						level = 0,
+						name = "District Promenade",
+						pos = 
+						{
+							2678.4,
+							-2944.8,
+						},
+						sector_id = 722,
+					},
+					[723] = 
+					{
+						coord = "10661.8, 10514.5",
+						global_pos = 
+						{
+							x = 10661.8,
+							y = 10514.5,
+						},
+						level = 0,
+						name = "Plaza of Balthazar",
+						pos = 
+						{
+							-11380.8,
+							5700,
+						},
+						sector_id = 723,
+					},
+					[724] = 
+					{
+						coord = "11178, 11483.4",
+						global_pos = 
+						{
+							x = 11178,
+							y = 11483.4,
+						},
+						level = 0,
+						name = "Plaza of Dwayna",
+						pos = 
+						{
+							1008,
+							-17553.6,
+						},
+						sector_id = 724,
+					},
+					[725] = 
+					{
+						coord = "11250.8, 10174.5",
+						global_pos = 
+						{
+							x = 11250.8,
+							y = 10174.5,
+						},
+						level = 0,
+						name = "Plaza of Grenth",
+						pos = 
+						{
+							2755.2,
+							13860,
+						},
+						sector_id = 725,
+					},
+					[726] = 
+					{
+						coord = "11833.6, 11185",
+						global_pos = 
+						{
+							x = 11833.6,
+							y = 11185,
+						},
+						level = 0,
+						name = "Plaza of Kormir",
+						pos = 
+						{
+							16742.4,
+							-10392,
+						},
+						sector_id = 726,
+					},
+					[727] = 
+					{
+						coord = "11829.1, 10506",
+						global_pos = 
+						{
+							x = 11829.1,
+							y = 10506,
+						},
+						level = 0,
+						name = "Plaza of Lyssa",
+						pos = 
+						{
+							16634.4,
+							5904,
+						},
+						sector_id = 727,
+					},
+					[728] = 
+					{
+						coord = "10667.9, 11181.5",
+						global_pos = 
+						{
+							x = 10667.9,
+							y = 11181.5,
+						},
+						level = 0,
+						name = "Plaza of Melandru",
+						pos = 
+						{
+							-11234.4,
+							-10308,
+						},
+						sector_id = 728,
+					},
+					[730] = 
+					{
+						coord = "10830.7, 10611.9",
+						global_pos = 
+						{
+							x = 10830.7,
+							y = 10611.9,
+						},
+						level = 0,
+						name = "Balthazar Low Road",
+						pos = 
+						{
+							-7327.2,
+							3362.4,
+						},
+						sector_id = 730,
+					},
+					[731] = 
+					{
+						coord = "11245.1, 11255.8",
+						global_pos = 
+						{
+							x = 11245.1,
+							y = 11255.8,
+						},
+						level = 0,
+						name = "Dwayna Low Road",
+						pos = 
+						{
+							2618.4,
+							-12091.2,
+						},
+						sector_id = 731,
+					},
+					[732] = 
+					{
+						coord = "11245.7, 10358.4",
+						global_pos = 
+						{
+							x = 11245.7,
+							y = 10358.4,
+						},
+						level = 0,
+						name = "Grenth Low Road",
+						pos = 
+						{
+							2632.8,
+							9446.4,
+						},
+						sector_id = 732,
+					},
+					[733] = 
+					{
+						coord = "11655.9, 11088.6",
+						global_pos = 
+						{
+							x = 11655.9,
+							y = 11088.6,
+						},
+						level = 0,
+						name = "Kormir Low Road",
+						pos = 
+						{
+							12477.6,
+							-8078.4,
+						},
+						sector_id = 733,
+					},
+					[734] = 
+					{
+						coord = "11659.3, 10604.9",
+						global_pos = 
+						{
+							x = 11659.3,
+							y = 10604.9,
+						},
+						level = 0,
+						name = "Lyssa Low Road",
+						pos = 
+						{
+							12559.2,
+							3530.4,
+						},
+						sector_id = 734,
+					},
+					[735] = 
+					{
+						coord = "10838.1, 11082.5",
+						global_pos = 
+						{
+							x = 10838.1,
+							y = 11082.5,
+						},
+						level = 0,
+						name = "Melandru Low Road",
+						pos = 
+						{
+							-7149.6,
+							-7932,
+						},
+						sector_id = 735,
+					},
+					[736] = 
+					{
+						coord = "11509.2, 11339",
+						global_pos = 
+						{
+							x = 11509.2,
+							y = 11339,
+						},
+						level = 0,
+						name = "Eastern Commons",
+						pos = 
+						{
+							8956.8,
+							-14088,
+						},
+						sector_id = 736,
+					},
+					[737] = 
+					{
+						coord = "10993.3, 11321.5",
+						global_pos = 
+						{
+							x = 10993.3,
+							y = 11321.5,
+						},
+						level = 0,
+						name = "Western Commons",
+						pos = 
+						{
+							-3424.8,
+							-13668,
+						},
+						sector_id = 737,
+					},
+				},
+			},
+		},
+		map_id = 1353,
+		map_name = "Celestial Challenge",
+		map_rect = "-21504, -21504], [24576, 21504",
+		map_rect_table = 
+		{
+			
+			{
+				-21504,
+				-21504,
+			},
+			
+			{
+				24576,
+				21504,
+			},
+		},
+		max_level = 80,
+		min_level = 0,
+		region_id = 4,
+		region_name = "Kryta",
+		type = "Public",
+		waypoints = 
+		{
+		},
+	},
+	[1355] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "22760, 2596], [23528, 3108",
+		continent_rect_table = 
+		{
+			
+			{
+				22760,
+				2596,
+			},
+			
+			{
+				23528,
+				3108,
+			},
+		},
+		default_floor = -40,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1796] = 
+					{
+						coord = "23224.3, 2861.61",
+						global_pos = 
+						{
+							x = 23224.3,
+							y = 2861.61,
+						},
+						level = 80,
+						pos = 
+						{
+							1927.2,
+							-230.6,
+						},
+						sector_id = 1796,
+					},
+					[1799] = 
+					{
+						coord = "23403, 2739.93",
+						global_pos = 
+						{
+							x = 23403,
+							y = 2739.93,
+						},
+						level = 80,
+						pos = 
+						{
+							6216,
+							2689.7,
+						},
+						sector_id = 1799,
+					},
+					[1802] = 
+					{
+						coord = "23052.2, 2869.82",
+						global_pos = 
+						{
+							x = 23052.2,
+							y = 2869.82,
+						},
+						level = 80,
+						pos = 
+						{
+							-2203.2,
+							-427.7,
+						},
+						sector_id = 1802,
+					},
+					[1804] = 
+					{
+						coord = "22931.1, 2825.95",
+						global_pos = 
+						{
+							x = 22931.1,
+							y = 2825.95,
+						},
+						level = 80,
+						pos = 
+						{
+							-5109.6,
+							625.2,
+						},
+						sector_id = 1804,
+					},
+					[1805] = 
+					{
+						coord = "22861.5, 2703.84",
+						global_pos = 
+						{
+							x = 22861.5,
+							y = 2703.84,
+						},
+						level = 80,
+						pos = 
+						{
+							-6780,
+							3555.8,
+						},
+						sector_id = 1805,
+					},
+				},
+			},
+		},
+		map_id = 1355,
+		map_name = "Voice in the Deep",
+		map_rect = "-9216, -6144], [9216, 6144",
+		map_rect_table = 
+		{
+			
+			{
+				-9216,
+				-6144,
+			},
+			
+			{
+				9216,
+				6144,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1356] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "22143, 588], [26623, 2764",
+		continent_rect_table = 
+		{
+			
+			{
+				22143,
+				588,
+			},
+			
+			{
+				26623,
+				2764,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				points_of_interest = 
+				{
+					[3125] = 
+					{
+						coord = "23584, 1583.08",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23584,
+							y = 1583.08,
+						},
+						name = "Kodan Shipwreck",
+						poi_id = 3125,
+						pos = 
+						{
+							-17640,
+							3766.1,
+						},
+						type = "landmark",
+					},
+					[3131] = 
+					{
+						coord = "22793.9, 1474.16",
+						floor = 1,
+						global_pos = 
+						{
+							x = 22793.9,
+							y = 1474.16,
+						},
+						name = "Sifhalla Ruins",
+						poi_id = 3131,
+						pos = 
+						{
+							-36602.4,
+							6380.2,
+						},
+						type = "landmark",
+					},
+					[3133] = 
+					{
+						coord = "23182.9, 1161",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23182.9,
+							y = 1161,
+						},
+						name = "Shrine of the Valorous Wolverine",
+						poi_id = 3133,
+						pos = 
+						{
+							-27266.4,
+							13896,
+						},
+						type = "landmark",
+					},
+					[3134] = 
+					{
+						coord = "24042.2, 855.217",
+						floor = 1,
+						global_pos = 
+						{
+							x = 24042.2,
+							y = 855.217,
+						},
+						name = "Shrine of the Resilient Ox",
+						poi_id = 3134,
+						pos = 
+						{
+							-6643.2,
+							21234.8,
+						},
+						type = "landmark",
+					},
+					[3136] = 
+					{
+						coord = "23994.4, 2394.42",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23994.4,
+							y = 2394.42,
+						},
+						name = "Shrine of the Vigilant Eagle",
+						poi_id = 3136,
+						pos = 
+						{
+							-7790.4,
+							-15706.1,
+						},
+						type = "landmark",
+					},
+					[3137] = 
+					{
+						coord = "22688.4, 2259.86",
+						floor = 1,
+						global_pos = 
+						{
+							x = 22688.4,
+							y = 2259.86,
+						},
+						name = "Den of Whispers",
+						poi_id = 3137,
+						pos = 
+						{
+							-39134.4,
+							-12476.6,
+						},
+						type = "landmark",
+					},
+					[3141] = 
+					{
+						coord = "23868.6, 1410.97",
+						floor = 1,
+						global_pos = 
+						{
+							x = 23868.6,
+							y = 1410.97,
+						},
+						name = "Still Waters Speaking",
+						poi_id = 3141,
+						pos = 
+						{
+							-10809.6,
+							7896.7,
+						},
+						type = "landmark",
+					},
+				},
+				sectors = 
+				{
+					[1773] = 
+					{
+						coord = "26202.4, 2365.83",
+						global_pos = 
+						{
+							x = 26202.4,
+							y = 2365.83,
+						},
+						level = 80,
+						name = "Southern Mountains",
+						pos = 
+						{
+							45201.6,
+							-15019.9,
+						},
+						sector_id = 1773,
+					},
+					[1774] = 
+					{
+						coord = "24992.6, 2205.69",
+						global_pos = 
+						{
+							x = 24992.6,
+							y = 2205.69,
+						},
+						level = 80,
+						name = "Aberrant Forest",
+						pos = 
+						{
+							16166.4,
+							-11176.6,
+						},
+						sector_id = 1774,
+					},
+					[1776] = 
+					{
+						coord = "25623.4, 937.075",
+						global_pos = 
+						{
+							x = 25623.4,
+							y = 937.075,
+						},
+						level = 80,
+						name = "Darkrime Delves",
+						pos = 
+						{
+							31305.6,
+							19270.2,
+						},
+						sector_id = 1776,
+					},
+					[1777] = 
+					{
+						coord = "24651.1, 1488.64",
+						global_pos = 
+						{
+							x = 24651.1,
+							y = 1488.64,
+						},
+						level = 80,
+						name = "Raven Sanctum",
+						pos = 
+						{
+							7970.4,
+							6032.6,
+						},
+						sector_id = 1777,
+					},
+					[1778] = 
+					{
+						coord = "25575.8, 2319.35",
+						global_pos = 
+						{
+							x = 25575.8,
+							y = 2319.35,
+						},
+						level = 80,
+						name = "Ravenfrost Caverns",
+						pos = 
+						{
+							30163.2,
+							-13904.4,
+						},
+						sector_id = 1778,
+					},
+					[1781] = 
+					{
+						coord = "25679.6, 1714.25",
+						global_pos = 
+						{
+							x = 25679.6,
+							y = 1714.25,
+						},
+						level = 80,
+						name = "Frozen Pass",
+						pos = 
+						{
+							32654.4,
+							618,
+						},
+						sector_id = 1781,
+					},
+					[1782] = 
+					{
+						coord = "24835.6, 982.292",
+						global_pos = 
+						{
+							x = 24835.6,
+							y = 982.292,
+						},
+						level = 80,
+						name = "Asgeir's Legacy",
+						pos = 
+						{
+							12398.4,
+							18185,
+						},
+						sector_id = 1782,
+					},
+					[1784] = 
+					{
+						coord = "25561.9, 1355.7",
+						global_pos = 
+						{
+							x = 25561.9,
+							y = 1355.7,
+						},
+						level = 80,
+						name = "Svanir Plateau",
+						pos = 
+						{
+							29829.6,
+							9223.2,
+						},
+						sector_id = 1784,
+					},
+					[1787] = 
+					{
+						coord = "26159.8, 1931.21",
+						global_pos = 
+						{
+							x = 26159.8,
+							y = 1931.21,
+						},
+						level = 80,
+						name = "Jora's Keep",
+						pos = 
+						{
+							44179.2,
+							-4589,
+						},
+						sector_id = 1787,
+					},
+					[1788] = 
+					{
+						coord = "24797.3, 1951.19",
+						global_pos = 
+						{
+							x = 24797.3,
+							y = 1951.19,
+						},
+						level = 80,
+						name = "Fallen Ruins",
+						pos = 
+						{
+							11479.2,
+							-5068.6,
+						},
+						sector_id = 1788,
+					},
+					[1789] = 
+					{
+						coord = "26282.4, 1164.69",
+						global_pos = 
+						{
+							x = 26282.4,
+							y = 1164.69,
+						},
+						level = 80,
+						name = "Fallen Mountains",
+						pos = 
+						{
+							47121.6,
+							13807.4,
+						},
+						sector_id = 1789,
+					},
+					[1791] = 
+					{
+						coord = "23953.7, 2309.95",
+						global_pos = 
+						{
+							x = 23953.7,
+							y = 2309.95,
+						},
+						level = 80,
+						name = "Eaglewatch Rise",
+						pos = 
+						{
+							-8767.2,
+							-13678.8,
+						},
+						sector_id = 1791,
+					},
+					[1792] = 
+					{
+						coord = "23243.8, 1200.37",
+						global_pos = 
+						{
+							x = 23243.8,
+							y = 1200.37,
+						},
+						level = 80,
+						name = "Ice Spire Peaks",
+						pos = 
+						{
+							-25804.8,
+							12951.1,
+						},
+						sector_id = 1792,
+					},
+					[1793] = 
+					{
+						coord = "23293.1, 2110.42",
+						global_pos = 
+						{
+							x = 23293.1,
+							y = 2110.42,
+						},
+						level = 80,
+						name = "Frigid Dunes",
+						pos = 
+						{
+							-24621.6,
+							-8890.1,
+						},
+						sector_id = 1793,
+					},
+					[1794] = 
+					{
+						coord = "24049.4, 1075.32",
+						global_pos = 
+						{
+							x = 24049.4,
+							y = 1075.32,
+						},
+						level = 80,
+						name = "Frostborn Cascades",
+						pos = 
+						{
+							-6470.4,
+							15952.3,
+						},
+						sector_id = 1794,
+					},
+					[1795] = 
+					{
+						coord = "23097.9, 929.751",
+						global_pos = 
+						{
+							x = 23097.9,
+							y = 929.751,
+						},
+						level = 80,
+						name = "Raven Ruins",
+						pos = 
+						{
+							-29306.4,
+							19446,
+						},
+						sector_id = 1795,
+					},
+					[1797] = 
+					{
+						coord = "22726.9, 2300.67",
+						global_pos = 
+						{
+							x = 22726.9,
+							y = 2300.67,
+						},
+						level = 80,
+						name = "Whispering Depths",
+						pos = 
+						{
+							-38210.4,
+							-13456.1,
+						},
+						sector_id = 1797,
+					},
+					[1798] = 
+					{
+						coord = "23796.6, 1402.49",
+						global_pos = 
+						{
+							x = 23796.6,
+							y = 1402.49,
+						},
+						level = 80,
+						name = "Spirits' Refuge",
+						pos = 
+						{
+							-12537.6,
+							8100.2,
+						},
+						sector_id = 1798,
+					},
+					[1800] = 
+					{
+						coord = "23388.9, 1497.34",
+						global_pos = 
+						{
+							x = 23388.9,
+							y = 1497.34,
+						},
+						level = 80,
+						name = "Fractured Lake",
+						pos = 
+						{
+							-22322.4,
+							5823.8,
+						},
+						sector_id = 1800,
+					},
+					[1803] = 
+					{
+						coord = "22815, 1635.79",
+						global_pos = 
+						{
+							x = 22815,
+							y = 1635.79,
+						},
+						level = 80,
+						name = "Cerulean Hollows",
+						pos = 
+						{
+							-36096,
+							2501,
+						},
+						sector_id = 1803,
+					},
+					[1806] = 
+					{
+						coord = "23684.8, 1057.44",
+						global_pos = 
+						{
+							x = 23684.8,
+							y = 1057.44,
+						},
+						level = 80,
+						name = "Forest of a Thousand Voices",
+						pos = 
+						{
+							-15220.8,
+							16381.4,
+						},
+						sector_id = 1806,
+					},
+					[1807] = 
+					{
+						coord = "23451.5, 2405.93",
+						global_pos = 
+						{
+							x = 23451.5,
+							y = 2405.93,
+						},
+						level = 80,
+						name = "Rime Glen",
+						pos = 
+						{
+							-20820,
+							-15982.3,
+						},
+						sector_id = 1807,
+					},
+					[1808] = 
+					{
+						coord = "23924.9, 1630.06",
+						global_pos = 
+						{
+							x = 23924.9,
+							y = 1630.06,
+						},
+						level = 80,
+						name = "Boreal Pass",
+						pos = 
+						{
+							-9458.4,
+							2638.6,
+						},
+						sector_id = 1808,
+					},
+				},
+			},
+		},
+		map_id = 1356,
+		map_name = "Chasing Ghosts",
+		map_rect = "-52224, -24576], [55296, 27648",
+		map_rect_table = 
+		{
+			
+			{
+				-52224,
+				-24576,
+			},
+			
+			{
+				55296,
+				27648,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1357] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "22760, 2596], [23272, 3108",
+		continent_rect_table = 
+		{
+			
+			{
+				22760,
+				2596,
+			},
+			
+			{
+				23272,
+				3108,
+			},
+		},
+		default_floor = -41,
+		floors = 
+		{
+			
+			{
+			},
+		},
+		map_id = 1357,
+		map_name = "Strike Mission: Whisper of Jormag (Public)",
+		map_rect = "-6144, -6144], [6144, 6144",
+		map_rect_table = 
+		{
+			
+			{
+				-6144,
+				-6144,
+			},
+			
+			{
+				6144,
+				6144,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Public",
+		waypoints = 
+		{
+		},
+	},
+	[1358] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "24576, 4864], [25856, 6144",
+		continent_rect_table = 
+		{
+			
+			{
+				24576,
+				4864,
+			},
+			
+			{
+				25856,
+				6144,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+			},
+		},
+		map_id = 1358,
+		map_name = "Eye of the North",
+		map_rect = "-15360, -15360], [15360, 15360",
+		map_rect_table = 
+		{
+			
+			{
+				-15360,
+				-15360,
+			},
+			
+			{
+				15360,
+				15360,
+			},
+		},
+		max_level = 0,
+		min_level = 0,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1359] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "22760, 2596], [23272, 3108",
+		continent_rect_table = 
+		{
+			
+			{
+				22760,
+				2596,
+			},
+			
+			{
+				23272,
+				3108,
+			},
+		},
+		default_floor = -41,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1801] = 
+					{
+						coord = "23013.5, 2826.24",
+						global_pos = 
+						{
+							x = 23013.5,
+							y = 2826.24,
+						},
+						level = 80,
+						pos = 
+						{
+							-60,
+							618.2,
+						},
+						sector_id = 1801,
+					},
+				},
+			},
+		},
+		map_id = 1359,
+		map_name = "Strike Mission: Whisper of Jormag (Squad)",
+		map_rect = "-6144, -6144], [6144, 6144",
+		map_rect_table = 
+		{
+			
+			{
+				-6144,
+				-6144,
+			},
+			
+			{
+				6144,
+				6144,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
 		type = "Instance",
 		waypoints = 
 		{
