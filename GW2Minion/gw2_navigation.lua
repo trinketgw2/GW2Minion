@@ -391,7 +391,12 @@ function ml_navigation.Navigate(event, ticks )
 
 		-- stoopid case catch
 		if( ml_navigation.navconnection ) then
-			ml_error("[Navigation] - Breaking out of not handled NavConnection.")
+			if  GetGameState() == GW2.GAMESTATE.CINEMATIC then				
+				d("[Navigation] - Running cutscene. Stop Player Movement.")	
+			else
+				
+				ml_error("[Navigation] - Breaking out of not handled NavConnection.")		
+			end
 			Player:StopMovement()
 		end
 	end
