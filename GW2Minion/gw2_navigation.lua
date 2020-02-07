@@ -257,7 +257,7 @@ function ml_navigation.Navigate(event, ticks )
 								lastnode = nextnode		-- OMC start
 								nextnode = nextnextnode	-- OMC end
 								local result
-								
+
 								if ( ml_navigation.navconnection.details.luacode and ml_navigation.navconnection.details.luacode and ml_navigation.navconnection.details.luacode ~= "" and ml_navigation.navconnection.details.luacode ~= " " ) then
 
 									if ( not ml_navigation.navconnection.luacode_compiled and not ml_navigation.navconnection.luacode_bugged ) then
@@ -273,7 +273,7 @@ function ml_navigation.Navigate(event, ticks )
 										else
 											ml_navigation.navconnection.luacode_compiled = nil
 											ml_navigation.navconnection.luacode_bugged = true
-											ml_error("[Navigation] - The Mesh Connection Lua Code has a BUG !!")
+											ml_error("[Navigation] - A NavConnection ahead in the path of type 'Lua Code' has a BUG !")
 											assert(loadstring(execstring)) -- print out the actual error
 										end
 									else
@@ -322,7 +322,7 @@ function ml_navigation.Navigate(event, ticks )
 								if (ml_navigation:DistanceToNextNavConnection() < 1000) then
 									allowMount = false
 								end
-								
+
 								local mountDisableingBuffs = {[57576] = true, [43406] = true}
 								if (Player.buffs and gw2_common_functions.HasBuffs(Player, mountDisableingBuffs)) then
 									allowMount = false
@@ -423,6 +423,9 @@ function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 			if ( (nodedist - navconradius*32) < nodeReachedDistance) then
 				-- d("[Navigation] - Node reached. ("..tostring(math.round(nodedist - navconradius*32,2)).." < "..tostring(ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()])..")")
 				-- We arrived at a NavConnection Node
+				
+				--self:CallCustomLuaNavConnectionsAhead(5) TEST THIS FIRST
+				
 				if( navcon) then
 					d("[Navigation] -  Arrived at NavConnection ID: "..tostring(nextnode.navconnectionid))
 					ml_navigation:ResetOMCHandler()
@@ -587,6 +590,38 @@ function ml_navigation:MoveToNextNode( playerpos, lastnode, nextnode, overridefa
 	end
 	return false
 end
+--[[  UNTESTED AND NEEDS MOST LIKELY FIXING
+function ml_navigation:CallCustomLuaNavConnectionsAhead(maxAheadCount)
+	local pathsize = table.size(ml_navigation.path)
+	local pstartindex = ml_navigation.pathindex
+	local pindex = ml_navigation.pathindex
+	if ( pathsize > 0 ) then
+		while ( pindex < pathsize and pindex < (pstartindex + maxAheadCount)) do
+			local lastnode = ml_navigation.path[ pindex ]	-- OMC start
+			local nextnode = ml_navigation.path[ ml_navigation.pathindex + 1]	-- OMC end
+
+			if( nextnode.navconnectionid and nextnode.navconnectionid ~= 0) then
+				local navcon = NavigationManager:GetNavConnection(nextnode.navconnectionid)
+				if ( navcon and navcon.type == 4 and navcon.details and navcon.details.subtype == 6) then -- Custom OMC / -- Custom Lua Code
+
+					if ( navcon.details.luacode and navcon.details.luacode and navcon.details.luacode ~= "" ) then
+						local execstring = 'return function(self,startnode,endnode) '..navcon.details.luacode..' end'
+						local func = loadstring(execstring)
+						if ( func ) then
+							func()(ml_navigation.navconnection, lastnode, nextnode)
+						else
+							ml_error("[Navigation] - A 'Custom Lua Code' NavConnection ahead in the path has a BUG !")
+							assert(loadstring(execstring)) -- print out the actual error
+						end
+					else
+						d("[Navigation] - ERROR: A 'Custom Lua Code' NavConnection ahead in the path has NO lua code!...")
+					end
+				end
+			end
+			pindex = pindex + 1
+		end
+	end
+end]]
 
 function ml_navigation:GetRemainingPathLenght()
 	local pathLength = 0
