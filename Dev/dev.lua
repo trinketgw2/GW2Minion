@@ -498,7 +498,7 @@ function dev.DrawCall(event, ticks )
 						GUI:PopItemWidth()
 						GUI:TreePop()
 					end
---END CHAT		
+--END CHAT
 
 					if ( GUI:TreeNode("Instances") ) then
 						GUI:PushItemWidth(250)
@@ -1430,6 +1430,7 @@ function dev.DrawCharacterDetails(c)
 	GUI:BulletText("Health") GUI:SameLine(200)  GUI:InputFloat3( "##dev7", h.current, h.max, h.percent, 2, GUI.InputTextFlags_ReadOnly)
 	GUI:BulletText("Power") GUI:SameLine(200) GUI:InputText("##dev4442",tostring(c.power),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 	GUI:BulletText("Endurance") GUI:SameLine(200) GUI:InputText("##dev4442",tostring(c.endurance),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+	GUI:BulletText("Barrier") GUI:SameLine(200)  GUI:InputFloat( "##dev24412", c.barrier or 0, 2, GUI.InputTextFlags_ReadOnly)
 	local p = c.pos
 	GUI:BulletText("Position") GUI:SameLine(200)  GUI:InputFloat3( "##dev9", p.x, p.y, p.z, 2, GUI.InputTextFlags_ReadOnly)
 	GUI:BulletText("Heading") GUI:SameLine(200)  GUI:InputFloat3( "##dev10", p.hx, p.hy, p.hz, 2, GUI.InputTextFlags_ReadOnly)
@@ -1793,3 +1794,21 @@ end
 
 
 
+
+function dev.t(poop)
+	local p = Player.pos
+	p.z = p.z - 28
+	local t = Player:GetTarget()
+	if(t) then
+		local tp = t.pos
+		tp.z = tp.z - 28
+		for i= poop or 0, 40000, 1 do
+			local res,x,y,z,p1,p2,p3 = RayCast(p.x,p.y,p.z,tp.x,tp.y,tp.z,i)
+			if(res==true)then
+				d("HIT SHITTTTT "..tostring(i) .. " RES ".. tostring(res))
+				d(tostring(x)..", "..tostring(y)..", "..tostring(z)..", "..tostring(p1)..", "..tostring(p2)..", "..tostring(p3))
+				break
+			end
+		end
+	end
+end
