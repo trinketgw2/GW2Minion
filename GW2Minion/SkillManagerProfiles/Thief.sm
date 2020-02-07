@@ -2551,6 +2551,56 @@ local tbl =
 		},
 		
 		{
+			activationtime = 0,
+			condition_luacode = "return true",
+			conditions = 
+			{
+				
+				{
+					
+					{
+						operator = 1,
+						target = 1,
+						uid = "Distance",
+						value = 600,
+					}, 
+					casttarget = 1,
+				},
+			},
+			id = 55031,
+			instantcast = false,
+			requireslos = true,
+			setsattackrange = false,
+			skillpaletteuid = "Thief_Thief",
+			stopsmovement = false,
+		},
+		
+		{
+			activationtime = 0.5,
+			condition_luacode = "return true",
+			conditions = 
+			{
+				
+				{
+					
+					{
+						operator = 1,
+						target = 1,
+						uid = "Distance",
+						value = 1200,
+					}, 
+					casttarget = 1,
+				},
+			},
+			id = 13014,
+			instantcast = false,
+			requireslos = true,
+			setsattackrange = false,
+			skillpaletteuid = "Thief_Thief",
+			stopsmovement = false,
+		},
+		
+		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
 			conditions = 
