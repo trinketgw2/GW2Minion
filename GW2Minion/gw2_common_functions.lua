@@ -602,15 +602,19 @@ end
 
 -- return true/false if player is in an instance (only works for dungeons and normal instances, not while using "home instance stone" or "hall of monuments portal stone") 
 function gw2_common_functions.PlayerInInstance()
-	local partyInfo = ml_global_information.Player_Party
-	if (table.valid(partyInfo)) then
-		for _,member in pairs(partyInfo) do
-			if (member.id == ml_global_information.Player_ID and member.isunknown1 ~= nil and member.isunknown1 ~= 0) then
-				return true
-			end
-		end
-	end
-	return false
+    if table.valid(gw2_datamanager.mapData[ml_global_information.CurrentMapID]) then
+        return gw2_datamanager.mapData[ml_global_information.CurrentMapID].type == "Instance"
+    else
+        local partyInfo = ml_global_information.PlayerParty
+        if (table.valid(partyInfo)) then
+            for ,member in pairs(partyInfo) do
+                if (member.id == ml_global_information.Player_ID and member.isunknown1 ~= nil and member.isunknown1 ~= 0) then
+                    return true
+                end
+            end
+        end
+    end
+    return false
 end
 
 -- Can move in direction(dir=0->7).
