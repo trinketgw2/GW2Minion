@@ -833,6 +833,9 @@ function dev.DrawCall(event, ticks )
 						GUI:BulletText("IsInPvPLobby") GUI:SameLine(200) GUI:InputText("##devpp1",tostring(PvPManager:IsInPvPLobby()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 						GUI:BulletText("IsInMatch") GUI:SameLine(200) GUI:InputText("##devpp2",tostring(PvPManager:IsInMatch()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 						GUI:BulletText("IsArenaQueued") GUI:SameLine(200) GUI:InputText("##devpp3",tostring(PvPManager:IsArenaQueued()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+						GUI:BulletText("IsPartyArenaRequestOpen") GUI:SameLine(200) GUI:InputText("##devpp12",tostring(PvPManager:IsPartyArenaRequestOpen()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+						GUI:BulletText("ArenaQueuedTime") GUI:SameLine(200) GUI:InputText("##devpp11",tostring(PvPManager:GetArenaQueuedTime()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+						GUI:BulletText("ArenaName") GUI:SameLine(200) GUI:InputText("##devpp10",tostring(PvPManager:GetArenaName()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 						GUI:BulletText("IsMatchAvailable") GUI:SameLine(200) GUI:InputText("##devpp4",tostring(PvPManager:IsMatchAvailable()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 						GUI:BulletText("IsMatchStarted") GUI:SameLine(200) GUI:InputText("##devpp5",tostring(PvPManager:IsMatchStarted()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 						GUI:BulletText("IsMatchFinished") GUI:SameLine(200) GUI:InputText("##devpp6",tostring(PvPManager:IsMatchFinished()),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
@@ -846,6 +849,7 @@ function dev.DrawCall(event, ticks )
 						if (GUI:Button("Join Unranked Queue",150,15) ) then d("Join Unranked Queue: "..tostring(PvPManager:JoinArenaQueue(1))) end
 						GUI:SameLine()
 						if (GUI:Button("Join Ranked Queue",150,15) ) then d("Join Ranked Queue: "..tostring(PvPManager:JoinArenaQueue(2))) end
+						if (GUI:Button("Accept Party Arena Request",150,15) ) then d("AcceptPartyArenaRequest : "..tostring(PvPManager:AcceptPartyArenaRequest())) end
 						if (GUI:Button("Leave Queue",150,15) ) then d("Leave Unranked Queue: "..tostring(PvPManager:LeaveArenaQueue())) end
 						if (GUI:Button("Set Ready",150,15) ) then d("Set Ready: "..tostring(PvPManager:SetReady())) end
 
@@ -1854,4 +1858,22 @@ function dev.t(poop)
 			end
 		end
 	end
+
+
+
+	for i=150000,350000 do
+		local str = GetStringFromID(i)
+		if(str == "") then
+			str = GetStringFromID(i)
+		end
+		if(string.contains(str,"Arena"))then
+			d(tostring(i).. " = "..str)
+		end
+	end
+	--D = "314820 = PvP Arena Request"
+	--D = "314879 = Ranked Arena"
+
 end
+
+
+
