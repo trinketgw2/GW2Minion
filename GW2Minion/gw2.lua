@@ -163,15 +163,20 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(1228,"Elon Riverlands",enforce)
 		ml_mesh_mgr.SetDefaultMesh(1211,"Desert Highlands",enforce)
 		ml_mesh_mgr.SetDefaultMesh(1226,"The Desolation",enforce)
-		ml_mesh_mgr.SetDefaultMesh(1301,"Jahai Bluffs",enforce)
+		ml_mesh_mgr.SetDefaultMesh(1248,"Domain of Vabbi",enforce)
+		
+		--LS4
 		ml_mesh_mgr.SetDefaultMesh(1263,"Domain of Istan",enforce)
 		ml_mesh_mgr.SetDefaultMesh(1271,"Sandswept Isles",enforce)
 		ml_mesh_mgr.SetDefaultMesh(1288,"Domain of Kourna",enforce)
+		ml_mesh_mgr.SetDefaultMesh(1301,"Jahai Bluffs",enforce)
 		ml_mesh_mgr.SetDefaultMesh(1294,"Sun's Refuge",enforce)
 		ml_mesh_mgr.SetDefaultMesh(1310,"Thunderhead Peaks",enforce)
 		ml_mesh_mgr.SetDefaultMesh(1317,"Dragonfall",enforce)
-		ml_mesh_mgr.SetDefaultMesh(1248,"Domain of Vabbi",enforce)
+		
+		--LS5
 		ml_mesh_mgr.SetDefaultMesh(1330,"Grothmar Valley",enforce)
+		ml_mesh_mgr.SetDefaultMesh(1343,"Bjora Marches",enforce)
 		
 		--Instances
 		ml_mesh_mgr.SetDefaultMesh(896,"North Nolan Hatchery",enforce) -- Diessa Plateau
