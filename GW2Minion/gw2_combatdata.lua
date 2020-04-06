@@ -71,7 +71,7 @@ gw2_combatdata.buffLog				= { -- WIP.
 
 function gw2_combatdata.Init()
 	if(Settings.gw2_combatdata.active2 == nil) then
-		Settings.gw2_combatdata.active2 = true
+		Settings.gw2_combatdata.active2 = false
 	end
 	gw2_combatdata.active2 = Settings.gw2_combatdata.active2
 	
@@ -519,6 +519,20 @@ function gw2_combatdata.sortColumn(op1,op2)
 	end
 end
 
+-- THESE CHANGE FROM TIME TO TIME !
+local COMBATTRACKER_TYPE = {
+	[2] = "ComboArea",
+	[3] = "Death State",
+	[4] = "Downed State",
+	[5] = "Energy Adjustment",
+	[7] = "Exp Adjustment",
+	[8] = "HP Adjustment",
+	[11] = "Karma Adjustment",
+	[12] = "Luck Adjustment",
+	[21] = "Skill Out of Range",
+	[25] = "WvW Exp Adjustment",
+}
+
 -- Combat log functions.
 function gw2_combatdata.updateLog()
 	local combatData = GetCombatData(gw2_combatdata.checkAllEntities)
@@ -526,13 +540,13 @@ function gw2_combatdata.updateLog()
 		local currentLog = gw2_combatdata.damageLog
 		local newestTime = gw2_combatdata.timeLastUpdate
 		for id,data in ipairs(combatData) do
-			if (data and data.source ~= nil and (data.type == 7 or data.type == 2 or data.type == 3) and data.time > gw2_combatdata.timeLastUpdate) then
+			if (data and data.source ~= nil and (data.type == 8 or data.type == 3 or data.type == 4) and data.time > gw2_combatdata.timeLastUpdate) then
 				if (data.time > newestTime) then
 					newestTime = data.time
 				end
-				if ((data.type == 2 or data.type == 3) and currentLog[data.source] and currentLog[data.source][data.target]) then
+				if ((data.type == 3 or data.type == 4) and currentLog[data.source] and currentLog[data.source][data.target]) then
 					currentLog[data.source][data.target].timeOfDeath = data.time
-				elseif (data.type == 7) then
+				elseif (data.type == 8) then
 					-- Create log entry if not there.
 					if (not table.valid(currentLog[data.source])) then
 						currentLog[data.source] = {}
@@ -630,14 +644,15 @@ function gw2_combatdata.getSourceTarget(sourceID,combatLog)
 		hps = 0,
 		ttk = 0,
 	}
+
 	if (type(sourceID) == "number" and table.valid(combatLog) and type(combatLog.targetid) == "number") then
 		local sourceLog = gw2_combatdata.damageLog[sourceID]
-		if (table.valid(sourceLog)) then
+		if (table.valid(sourceLog)) then			
 			local sourceTargetLog = sourceLog[combatLog.targetid]
 			-- Get time of engagement and last encounter.
 			if (table.valid(sourceTargetLog)) then
 				combatData.timeOfEngagement = sourceTargetLog.timeOfEngagement
-				-- combatData.timeOfLastEncounter = sourceTargetLog.timeOfDeath > 0 and sourceTargetLog.timeOfDeath or sourceTargetLog.timeOfLastHit
+				-- combatData.timeOfLastEncounter = sourceTargetLog.timeOfDeath > 0 and sourceTargetLog.timeOfDeath or sourceTargetLog.timeOfLastHit				
 				combatData.timeOfLastEncounter = sourceTargetLog.timeOfDeath > 0 and sourceTargetLog.timeOfDeath or GetSystemTime() -- TODO: replace time function.
 			end
 			-- Check if we have valid times.
@@ -801,10 +816,10 @@ end
 function gw2_combatdata.Update(_,ticks)
 	if (Settings.gw2_combatdata.active2) then
 		if (ticks - gw2_combatdata.updateTicks >= gw2_combatdata.upateTickDelay) then
-			gw2_combatdata.updateTicks = ticks
+			gw2_combatdata.updateTicks = ticks			
 			gw2_combatdata.updateLog()
 			gw2_combatdata.updateCombatData()
-			gw2_combatdata.updateSelectedTargetData()
+			gw2_combatdata.updateSelectedTargetData()			
 		end
 		if (ticks - gw2_combatdata.cleanTicks >= gw2_combatdata.cleanTickDelay) then
 			gw2_combatdata.cleanTicks = ticks

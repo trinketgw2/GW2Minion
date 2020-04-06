@@ -192,16 +192,16 @@ function dev.DrawCall(event, ticks )
 
 
 					local COMBATTRACKER_TYPE = {
-						[1] = "ComboArea",
-						[2] = "Death State",
-						[3] = "Downed State",
-						[4] = "Energy Adjustment",
-						[6] = "Exp Adjustment",
-						[7] = "HP Adjustment",
-						[10] = "Karma Adjustment",
-						[11] = "Luck Adjustment",
-						[20] = "Skill Out of Range",
-						[24] = "WvW Exp Adjustment",
+						[2] = "ComboArea",
+						[3] = "Death State",
+						[4] = "Downed State",
+						[5] = "Energy Adjustment",
+						[7] = "Exp Adjustment",
+						[8] = "HP Adjustment",
+						[11] = "Karma Adjustment",
+						[12] = "Luck Adjustment",
+						[21] = "Skill Out of Range",
+						[25] = "WvW Exp Adjustment",
 					}
 
 					if ( GUI:TreeNode("Combat Data") ) then
@@ -1861,18 +1861,18 @@ function dev.t(poop)
 
 
 
-	for i=150000,350000 do
+	for i=850000,1150000 do
 		local str = GetStringFromID(i)
 		if(str == "") then
 			str = GetStringFromID(i)
 		end
-		if(string.contains(str,"Arena"))then
+		if(string.contains(str,"Are you ready?"))then
 			d(tostring(i).. " = "..str)
 		end
 	end
 	--D = "314820 = PvP Arena Request"
 	--D = "314879 = Ranked Arena"
-
+	-- 637650  719797
 end
 
 
