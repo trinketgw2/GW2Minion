@@ -323,7 +323,7 @@ function ml_navigation.Navigate(event, ticks )
 									allowMount = false
 								end
 
-								local mountDisableingBuffs = {[57576] = true, [43406] = true}
+								local mountDisableingBuffs = {[57576] = true, [43406] = true, [49494] = true}
 								if (Player.buffs and gw2_common_functions.HasBuffs(Player, mountDisableingBuffs)) then
 									allowMount = false
 								end
