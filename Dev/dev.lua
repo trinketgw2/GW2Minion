@@ -1486,7 +1486,7 @@ function dev.DrawCall(event, ticks )
 		end
 		GUI:End()
 	end
-end
+
 RegisterEventHandler("Gameloop.Draw", dev.DrawCall, "Dev-Tool")
 
 function dev.DrawCharacterDetails(c)
@@ -1902,7 +1902,5 @@ function dev.t(poop)
 	--D = "314820 = PvP Arena Request"
 	--D = "314879 = Ranked Arena"
 	-- 637650  719797
+<<<<<<< HEAD
 end--]]
-
-
-
