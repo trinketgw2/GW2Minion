@@ -1241,7 +1241,7 @@ function dev.DrawCall(event, ticks )
 
 
 					if ( GUI:TreeNode("Waypoints (Local Map)") ) then
-						local list = WaypointList()
+						local list = WaypointList("")
 						if ( table.valid(list) )then
 							GUI:PushItemWidth(250)
 							for id, b in pairsByKeys(list) do
@@ -1868,7 +1868,7 @@ end
 
 
 
-
+--[[
 
 
 function dev.t(poop)
@@ -1902,7 +1902,7 @@ function dev.t(poop)
 	--D = "314820 = PvP Arena Request"
 	--D = "314879 = Ranked Arena"
 	-- 637650  719797
-end
+end--]]
 
 
 
