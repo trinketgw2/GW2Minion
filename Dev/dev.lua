@@ -666,7 +666,7 @@ function dev.DrawCall(event, ticks )
 							GUI:TreePop()
 						end
 						if ( GUI:TreeNode("List") ) then
-							local list = MapMarkerList("")
+							local list = MapMarkerList()
 							if ( table.valid(list) )then
 								for id, b in pairsByKeys(list) do
 									dev.DrawMapMarkerDetails(id,b)
@@ -1274,6 +1274,35 @@ function dev.DrawCall(event, ticks )
 
 					if ( GUI:TreeNode("WorldMap") ) then
 						GUI:PushItemWidth(150)
+						if ( GUI:TreeNode("Markers") ) then
+							GUI:BulletText("HasMarkers ID:") GUI:SameLine() dev.hasMarker = GUI:InputInt("##devwmm1M", (dev.hasMarker or 1), 1, 1)
+							if (GUI:IsItemHovered()) then GUI:SetTooltip("If the entered Marker ID is available / discovered and can be used.") end
+							GUI:SameLine() GUI:Text("Discovered : "..tostring(WorldMap:HasMarker(dev.hasMarker)))
+
+							local list = WorldMap:MarkerList()
+							if ( table.valid(list) )then
+								GUI:PushItemWidth(250)
+								local ppos = Player.pos
+								for id, b in pairsByKeys(list) do
+									if ( GUI:TreeNode(tostring(id).."-"..tostring(b.id).. "-"..tostring(b.id2).. " - "..b.name)) then
+										GUI:BulletText("Ptr") GUI:SameLine(200) GUI:InputText("##devmmw0M",tostring(string.format( "%X",b.ptr)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+										GUI:BulletText("Ptr2") GUI:SameLine(200) GUI:InputText("##devmmw0xM",tostring(string.format( "%X",b.ptr2)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+										GUI:BulletText("id") GUI:SameLine(200) GUI:InputText("##devmmw1M",tostring(b.id),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+										GUI:BulletText("contentid") GUI:SameLine(200) GUI:InputText("##devmmw2M",tostring(b.contentid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+										GUI:BulletText("markertype") GUI:SameLine(200) GUI:InputText("##devmmw3M",tostring(b.markertype),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+										GUI:BulletText("coordtype") GUI:SameLine(200) GUI:InputText("##devmmw5M",tostring(b.coordtype),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+										local p = b.pos
+										GUI:BulletText("Position") GUI:SameLine(200) if (GUI:IsItemHovered()) then GUI:SetTooltip("THIS IS ONLY VALID AFTER THE MAP WAS OPENED..TODO for me still... fx.") end   GUI:InputFloat3( "##devmmw4", p.x, p.y, p.z, 2, GUI.InputTextFlags_ReadOnly)
+										--if (GUI:Button("TeleportTo",100,15) ) then d("Teleport To Result: "..tostring(Player:TeleportToWaypoint(b.id))) end
+										GUI:TreePop()
+									end
+								end
+								end
+								GUI:PopItemWidth()
+							end
+							GUI:TreePop()
+						end
+
 						if ( GUI:TreeNode("Waypoints") ) then
 							GUI:BulletText("HasWaypoint ID:") GUI:SameLine() dev.haswaypoint = GUI:InputInt("##devwmm1", (dev.haswaypoint or 1), 1, 1)
 							if (GUI:IsItemHovered()) then GUI:SetTooltip("If the entered waypoint ID is available / discovered and can be used.") end
@@ -1290,7 +1319,7 @@ function dev.DrawCall(event, ticks )
 										GUI:BulletText("Type") GUI:SameLine(200) GUI:InputText("##devmmw3",tostring(b.type),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 										local p = b.pos
 										GUI:BulletText("Position") GUI:SameLine(200) if (GUI:IsItemHovered()) then GUI:SetTooltip("THIS IS ONLY VALID AFTER THE MAP WAS OPENED..TODO for me still... fx.") end   GUI:InputFloat3( "##devmmw4", p.x, p.y, p.z, 2, GUI.InputTextFlags_ReadOnly)
-										if (GUI:Button("TeleportTo",100,15) ) then d("Buy TeleportTo Result: "..tostring(Player:TeleportToWaypoint(b.id))) end
+										if (GUI:Button("TeleportTo",100,15) ) then d("Teleport To Result: "..tostring(Player:TeleportToWaypoint(b.id))) end
 										GUI:TreePop()
 									end
 								end
@@ -1700,81 +1729,81 @@ end
 function dev.DrawMapMarkerDetails(id,b)
 	local uniqid = (string.valid(b.name) and b.name or "unknown").."##"..tostring(b.characterid > 0 and b.characterid or id)..tostring(b.contentid)..tostring(b.markertype)..tostring(b.worldmarkertype)
 	if ( GUI:TreeNode(uniqid)) then
-		GUI:BulletText("Ptr") GUI:SameLine(200) GUI:InputText("##devm0",tostring(string.format( "%X",b.ptr)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-		GUI:BulletText("Ptr2") GUI:SameLine(200) GUI:InputText("##devm1",tostring(string.format( "%X",b.ptr2)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-		GUI:BulletText("API ID") GUI:SameLine(200) GUI:InputText("##devm3",tostring(b.apiid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-		GUI:BulletText("Content ID") if (GUI:IsItemHovered()) then GUI:SetTooltip("Content is (should :D) be a stable unique ID for you to use.") end GUI:SameLine(200) GUI:InputText("##devm8",tostring(b.contentid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-		GUI:BulletText("Context ID") if (GUI:IsItemHovered()) then GUI:SetTooltip("Context ID is NOT a 'stable', it changes now and then. This is EventID, QuestID and similiar IDs.") end GUI:SameLine(200) GUI:InputText("##devm6",tostring(b.contextid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-		GUI:BulletText("Connected AgentID") GUI:SameLine(200) GUI:InputText("##devm7",tostring(b.agentid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-		GUI:BulletText("MarkerType") GUI:SameLine(200) GUI:InputText("##devm4",tostring(b.markertype),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-		GUI:BulletText("WorldMarkerType") if (GUI:IsItemHovered()) then GUI:SetTooltip("This changed a few times in the past...") end GUI:SameLine(200) GUI:InputText("##devmm4",tostring(b.worldmarkertype),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-		GUI:BulletText("SubregionID") if (GUI:IsItemHovered()) then GUI:SetTooltip("ID to identify the Heart Quests") end  GUI:SameLine(200) GUI:InputText("##devm9",tostring(b.subregionid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("Ptr") GUI:SameLine(250) GUI:InputText("##devm0",tostring(string.format( "%X",b.ptr)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("Ptr2") GUI:SameLine(250) GUI:InputText("##devm1",tostring(string.format( "%X",b.ptr2)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("API ID") GUI:SameLine(250) GUI:InputText("##devm3a",tostring(b.apiid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("Content ID") if (GUI:IsItemHovered()) then GUI:SetTooltip("Content is (should :D) be a stable unique ID for you to use.") end GUI:SameLine(250) GUI:InputText("##devm8",tostring(b.contentid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("Context ID") if (GUI:IsItemHovered()) then GUI:SetTooltip("Context ID is NOT a 'stable', it changes now and then. This is EventID, QuestID and similiar IDs.") end GUI:SameLine(250) GUI:InputText("##devm6",tostring(b.contextid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("Connected AgentID") GUI:SameLine(250) GUI:InputText("##devm7",tostring(b.agentid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("MarkerType") GUI:SameLine(250) GUI:InputText("##devm4",tostring(b.markertype),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("WorldMarkerType") if (GUI:IsItemHovered()) then GUI:SetTooltip("This changed a few times in the past...") end GUI:SameLine(250) GUI:InputText("##devmm4",tostring(b.worldmarkertype),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+		GUI:BulletText("SubregionID") if (GUI:IsItemHovered()) then GUI:SetTooltip("ID to identify the Heart Quests") end  GUI:SameLine(250) GUI:InputText("##devm9",tostring(b.subregionid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 
 		if ( GUI:TreeNode("Positional Data")) then
 			local p = b.pos
-			GUI:BulletText("CoordType") if (GUI:IsItemHovered()) then GUI:SetTooltip("If the Position is in Local Coord Space or World Coord Space (=1)") end GUI:SameLine(200) GUI:InputFloat("##devma12", b.coordtype,0,0,2)
-			GUI:BulletText("Distance") GUI:SameLine(200) GUI:InputFloat("##devm12", b.distance,0,0,2)
-			GUI:BulletText("LoS") GUI:SameLine(200) GUI:InputText("##devm44", tostring(b.los),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("OnMesh") GUI:SameLine(200) GUI:InputText("##devm11", tostring(b.onmesh),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("PathDistance") GUI:SameLine(200) GUI:InputFloat("##devm13", b.pathdistance,0,0,2)
-			GUI:BulletText("Position") GUI:SameLine(200)  GUI:InputFloat3( "##devm10", p.x, p.y, p.z, 2, GUI.InputTextFlags_ReadOnly)
-			GUI:BulletText("IsReachable") GUI:SameLine(200) GUI:InputText("##devam33", tostring(b.isreachable),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("CoordType") if (GUI:IsItemHovered()) then GUI:SetTooltip("If the Position is in Local Coord Space or World Coord Space (=1)") end GUI:SameLine(250) GUI:InputFloat("##devma12", b.coordtype,0,0,2)
+			GUI:BulletText("Distance") GUI:SameLine(250) GUI:InputFloat("##devm12", b.distance,0,0,2)
+			GUI:BulletText("LoS") GUI:SameLine(250) GUI:InputText("##devm44", tostring(b.los),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("OnMesh") GUI:SameLine(250) GUI:InputText("##devm11", tostring(b.onmesh),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("PathDistance") GUI:SameLine(250) GUI:InputFloat("##devm13", b.pathdistance,0,0,2)
+			GUI:BulletText("Position") GUI:SameLine(250)  GUI:InputFloat3( "##devm10", p.x, p.y, p.z, 2, GUI.InputTextFlags_ReadOnly)
+			GUI:BulletText("IsReachable") GUI:SameLine(250) GUI:InputText("##devam33", tostring(b.isreachable),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 			local meshpos = b.meshpos
 			if( table.valid(meshpos)) then
-				GUI:BulletText("MeshPosition") GUI:SameLine(200)  GUI:InputFloat3( "##devm9m", meshpos.x, meshpos.y, meshpos.z, 2, GUI.InputTextFlags_ReadOnly)
-				GUI:BulletText("Dist MeshPos-Player") GUI:SameLine(200)  GUI:InputFloat("##devm12m", meshpos.distance,0,0,2)
-				GUI:BulletText("Dist to MeshPos") GUI:SameLine(200)  GUI:InputFloat("##devm13m", meshpos.meshdistance,0,0,2)
+				GUI:BulletText("MeshPosition") GUI:SameLine(250)  GUI:InputFloat3( "##devm9m", meshpos.x, meshpos.y, meshpos.z, 2, GUI.InputTextFlags_ReadOnly)
+				GUI:BulletText("Dist MeshPos-Player") GUI:SameLine(250)  GUI:InputFloat("##devm12m", meshpos.distance,0,0,2)
+				GUI:BulletText("Dist to MeshPos") GUI:SameLine(250)  GUI:InputFloat("##devm13m", meshpos.meshdistance,0,0,2)
 			end
 			local cubepos = b.cubepos
 			if( table.valid(cubepos)) then
-				GUI:BulletText("CubePosition") GUI:SameLine(200)  GUI:InputFloat3( "##devm9cm", cubepos.x, cubepos.y, cubepos.z, 2, GUI.InputTextFlags_ReadOnly)
-				GUI:BulletText("Dist CubePos-Player") GUI:SameLine(200)  GUI:InputFloat("##devm12cm", cubepos.distance,0,0,2)
-				GUI:BulletText("Dist to CubePos") GUI:SameLine(200)  GUI:InputFloat("##devm13cm", cubepos.meshdistance,0,0,2)
+				GUI:BulletText("CubePosition") GUI:SameLine(250)  GUI:InputFloat3( "##devm9cm", cubepos.x, cubepos.y, cubepos.z, 2, GUI.InputTextFlags_ReadOnly)
+				GUI:BulletText("Dist CubePos-Player") GUI:SameLine(250)  GUI:InputFloat("##devm12cm", cubepos.distance,0,0,2)
+				GUI:BulletText("Dist to CubePos") GUI:SameLine(250)  GUI:InputFloat("##devm13cm", cubepos.meshdistance,0,0,2)
 			end
 			GUI:TreePop()
 		end
 
 		if ( GUI:TreeNode("Additional Data")) then
-			GUI:BulletText("Is Adventure") GUI:SameLine(200) GUI:InputText("##devma19",tostring(b.isadventure),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Is Commander") GUI:SameLine(200) GUI:InputText("##devm19",tostring(b.iscommander),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Is Event") GUI:SameLine(200) GUI:InputText("##devm14",tostring(b.isevent),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Is Floor Changer") GUI:SameLine(200) GUI:InputText("##devma16",tostring(b.isfloorchanger),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is Adventure") GUI:SameLine(250) GUI:InputText("##devma19",tostring(b.isadventure),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is Commander") GUI:SameLine(250) GUI:InputText("##devm19",tostring(b.iscommander),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is Event") GUI:SameLine(250) GUI:InputText("##devm14",tostring(b.isevent),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is Floor Changer") GUI:SameLine(250) GUI:InputText("##devma16",tostring(b.isfloorchanger),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 
-			GUI:BulletText("Is Heart") GUI:SameLine(200) GUI:InputText("##devma34",tostring(b.isheart),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Is Heart Unfinished") GUI:SameLine(200) GUI:InputText("##devmb34",tostring(b.isheartincomplete),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Is HeroPoint") GUI:SameLine(200) GUI:InputText("##devm34",tostring(b.isheropoint),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Is InInteractRange") GUI:SameLine(200) GUI:InputText("##devm40", tostring(b.isininteractrange),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Is Interactable") GUI:SameLine(200) GUI:InputText("##dem41", tostring(b.interactable),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Is Mentor") GUI:SameLine(200) GUI:InputText("##devm31",tostring(b.ismentor),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Is PointOfInterest") GUI:SameLine(200) GUI:InputText("##devm20",tostring(b.ispoi),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Is Quest") GUI:SameLine(200) GUI:InputText("##devm16",tostring(b.isquest),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is Heart") GUI:SameLine(250) GUI:InputText("##devma34",tostring(b.isheart),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is Heart Unfinished") GUI:SameLine(250) GUI:InputText("##devmb34",tostring(b.isheartincomplete),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is HeroPoint") GUI:SameLine(250) GUI:InputText("##devm34",tostring(b.isheropoint),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is InInteractRange") GUI:SameLine(250) GUI:InputText("##devm40", tostring(b.isininteractrange),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is Interactable") GUI:SameLine(250) GUI:InputText("##dem41", tostring(b.interactable),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is Mentor") GUI:SameLine(250) GUI:InputText("##devm31",tostring(b.ismentor),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is PointOfInterest") GUI:SameLine(250) GUI:InputText("##devm20",tostring(b.ispoi),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is Quest") GUI:SameLine(250) GUI:InputText("##devm16",tostring(b.isquest),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 
-			GUI:BulletText("Is Selectable") GUI:SameLine(200) GUI:InputText("##devm42", tostring(b.selectable),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is Selectable") GUI:SameLine(250) GUI:InputText("##devm42", tostring(b.selectable),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 
-			GUI:BulletText("Is StoryMarker") GUI:SameLine(200) GUI:InputText("##devma15",tostring(b.isstorymarker),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Is Subregion") GUI:SameLine(200) GUI:InputText("##devm17",tostring(b.issubregion),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Is Vista") GUI:SameLine(200) GUI:InputText("##devm18",tostring(b.isvista),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Is Waypoint") GUI:SameLine(200) GUI:InputText("##devm15",tostring(b.iswaypoint),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is StoryMarker") GUI:SameLine(250) GUI:InputText("##devma15",tostring(b.isstorymarker),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is Subregion") GUI:SameLine(250) GUI:InputText("##devm17",tostring(b.issubregion),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is Vista") GUI:SameLine(250) GUI:InputText("##devm18",tostring(b.isvista),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Is Waypoint") GUI:SameLine(250) GUI:InputText("##devm15",tostring(b.iswaypoint),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 			GUI:TreePop()
 		end
 
 		if ( GUI:TreeNode("Unknown Data - Tell us if you find out wtf this is")) then
-			GUI:BulletText("Unknown0") GUI:SameLine(200) GUI:InputText("##devm21",tostring(b.isunknown0),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown1") GUI:SameLine(200) GUI:InputText("##devm22",tostring(b.isunknown1),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown2") GUI:SameLine(200) GUI:InputText("##devm23",tostring(b.isunknown2),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown3") GUI:SameLine(200) GUI:InputText("##devma23",tostring(b.isunknown3),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown4") GUI:SameLine(200) GUI:InputText("##devm25",tostring(b.isunknown4),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown5") GUI:SameLine(200) GUI:InputText("##devm26",tostring(b.isunknown5),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown6") GUI:SameLine(200) GUI:InputText("##devm27",tostring(b.isunknown6),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown7") GUI:SameLine(200) GUI:InputText("##devm28",tostring(b.isunknown7),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown8") GUI:SameLine(200) GUI:InputText("##devm29",tostring(b.isunknown8),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown9") GUI:SameLine(200) GUI:InputText("##devm30",tostring(b.isunknown9),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown10") GUI:SameLine(200) GUI:InputText("##devmc35",tostring(b.isunknown10),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown11") GUI:SameLine(200) GUI:InputText("##devm32",tostring(b.isunknown11),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown12") GUI:SameLine(200) GUI:InputText("##devm33",tostring(b.isunknown12),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown13") GUI:SameLine(200) GUI:InputText("##devma34",tostring(b.isunknown13),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown14") GUI:SameLine(200) GUI:InputText("##devmb35",tostring(b.isunknown14),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-			GUI:BulletText("Unknown15") GUI:SameLine(200) GUI:InputText("##devmc36",tostring(b.isunknown15),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown0") GUI:SameLine(250) GUI:InputText("##devm21",tostring(b.isunknown0),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown1") GUI:SameLine(250) GUI:InputText("##devm22",tostring(b.isunknown1),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown2") GUI:SameLine(250) GUI:InputText("##devm23",tostring(b.isunknown2),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown3") GUI:SameLine(250) GUI:InputText("##devma23",tostring(b.isunknown3),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown4") GUI:SameLine(250) GUI:InputText("##devm25",tostring(b.isunknown4),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown5") GUI:SameLine(250) GUI:InputText("##devm26",tostring(b.isunknown5),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown6") GUI:SameLine(250) GUI:InputText("##devm27",tostring(b.isunknown6),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown7") GUI:SameLine(250) GUI:InputText("##devm28",tostring(b.isunknown7),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown8") GUI:SameLine(250) GUI:InputText("##devm29",tostring(b.isunknown8),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown9") GUI:SameLine(250) GUI:InputText("##devm30",tostring(b.isunknown9),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown10") GUI:SameLine(250) GUI:InputText("##devmc35",tostring(b.isunknown10),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown11") GUI:SameLine(250) GUI:InputText("##devm32",tostring(b.isunknown11),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown12") GUI:SameLine(250) GUI:InputText("##devm33",tostring(b.isunknown12),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown13") GUI:SameLine(250) GUI:InputText("##devma34",tostring(b.isunknown13),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown14") GUI:SameLine(250) GUI:InputText("##devmb35",tostring(b.isunknown14),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+			GUI:BulletText("Unknown15") GUI:SameLine(250) GUI:InputText("##devmc36",tostring(b.isunknown15),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 
 			GUI:TreePop()
 		end
