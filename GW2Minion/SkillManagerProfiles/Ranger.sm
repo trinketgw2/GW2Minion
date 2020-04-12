@@ -190,7 +190,7 @@ local tbl =
 		
 		{
 			activationtime = 0.5,
-			condition_luacode = "\nfunction VerifyEntitiesCount()\n\tlocal scan = CharacterList(\"alive,aggro,attackable,maxdistance=1500\")\n\tif (table.valid(scan)) then\n\t\t\treturn table.size(scan)\n\tend\n\treturn 0\nend\nif VerifyEntitiesCount() >= 3 then\n\t\td(\"Aggro count > 3. Use Skill\")\n\t\treturn true\nend\nif Player:GetTarget() then\n\t\tif Player:GetTarget().health ~= nil then\n\t\t\t\tif Player:GetTarget().health.current ~= nil and (Player:GetTarget().health.current >= (Player.health.max * 4)) then\n\t\t\t\td(\"Strong Target. Use Skill\")\n\t\t\t\t\t\treturn true\n\t\t\t\tend\n\t\tend\nend",
+			condition_luacode = "\nfunction VerifyEntitiesCount()\n\tlocal scan = CharacterList(\"alive,aggro,attackable,maxdistance=1500\")\n\tif (table.valid(scan)) then\n\t\t\treturn table.size(scan)\n\tend\n\treturn 0\nend\nif VerifyEntitiesCount() >= 3 then\n\t\t\n\t\treturn true\nend\nif Player:GetTarget() then\n\t\tif Player:GetTarget().health ~= nil then\n\t\t\t\tif Player:GetTarget().health.current ~= nil and (Player:GetTarget().health.current >= (Player.health.max * 4)) then\n\t\t\t\t\n\t\t\t\t\t\treturn true\n\t\t\t\tend\n\t\tend\nend",
 			conditions = 
 			{
 			},
@@ -2421,7 +2421,7 @@ local tbl =
 		
 		{
 			activationtime = 0,
-			condition_luacode = "\nfunction VerifyEntitiesCount()\n\tlocal scan = CharacterList(\"friendly,dead,maxdistance=600,distanceto=44872\")\n\tif (table.valid(scan)) then\n\t\t\treturn table.size(scan)\n\tend\n\treturn 0\nend\nif VerifyEntitiesCount() > 3 then\n\t\td(\"Use revive\")\n\t\treturn true\nend",
+			condition_luacode = "\nfunction VerifyEntitiesCount()\n\tlocal scan = CharacterList(\"friendly,dead,maxdistance=600,distanceto=44872\")\n\tif (table.valid(scan)) then\n\t\t\treturn table.size(scan)\n\tend\n\treturn 0\nend\nif VerifyEntitiesCount() > 3 then\n\t\t\n\t\treturn true\nend",
 			conditions = 
 			{
 			},
@@ -2878,7 +2878,7 @@ local tbl =
 		
 		{
 			activationtime = 0.5,
-			condition_luacode = "\nfunction VerifyReviveCount()\n\tlocal scan = CharacterList(\"friendly,dead,maxdistance=600\")\n\tif (table.valid(scan)) then\n\t\t\treturn table.size(scan)\n\tend\n\treturn 0\nend\nfunction VerifyHealCount()\n\tlocal scan = CharacterList(\"friendly,dead,maxdistance=1000\")\n\tif (table.valid(scan)) then\n\t\t\treturn table.size(scan)\n\tend\n\treturn 0\nend\nif VerifyReviveCount() > 3 then\n\t\td(\"Set nature Spirit for revive\")\n\t\treturn true\nend\nif VerifyHealCount() > 3 then\n\t\td(\"Set nature Spirit for Heals\")\n\t\treturn true\nend",
+			condition_luacode = "\nfunction VerifyReviveCount()\n\tlocal scan = CharacterList(\"friendly,dead,maxdistance=600\")\n\tif (table.valid(scan)) then\n\t\t\treturn table.size(scan)\n\tend\n\treturn 0\nend\nfunction VerifyHealCount()\n\tlocal scan = CharacterList(\"friendly,dead,maxdistance=1000\")\n\tif (table.valid(scan)) then\n\t\t\treturn table.size(scan)\n\tend\n\treturn 0\nend\nif VerifyReviveCount() > 3 then\n\t\t\n\t\treturn true\nend\nif VerifyHealCount() > 3 then\n\t\t\n\t\treturn true\nend",
 			conditions = 
 			{
 			},
