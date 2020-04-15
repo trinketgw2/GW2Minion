@@ -1838,7 +1838,7 @@ local tbl =
 		
 		{
 			activationtime = 0.5,
-			condition_luacode = "if ( context.attack_target and context.attack_target.castinfo.skillid > 0) then \n\t\treturn true \nelse \n\t\treturn false \nend",
+			condition_luacode = "if ( context.attack_target and context.attack_target.castinfo and context.attack_target.castinfo.skillid > 0) then \n\t\treturn true \nelse \n\t\treturn false \nend",
 			conditions = 
 			{
 				
