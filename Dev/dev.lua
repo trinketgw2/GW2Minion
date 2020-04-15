@@ -393,7 +393,8 @@ function dev.DrawCall(event, ticks )
 									GUI:BulletText("Description") GUI:SameLine(200) GUI:InputText("##devev4",tostring(b.description),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 									GUI:BulletText("Is Listed / ??WorldEvent") GUI:SameLine(200) GUI:InputText("##devev3",tostring(b.isworldevent),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 									GUI:BulletText("Is DungeonEvent") GUI:SameLine(200) GUI:InputText("##deveva4",tostring(b.isdungeonevent),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-
+								
+								GUI:BulletText("Unknown0") GUI:SameLine(200) GUI:InputText("##devin23",tostring(string.format( "%X",b.isunknown0)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 								GUI:BulletText("Unknown1") GUI:SameLine(200) GUI:InputText("##devin8",tostring(string.format( "%X",b.isunknown1)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 								GUI:BulletText("Unknown2") GUI:SameLine(200) GUI:InputText("##devin9",tostring(string.format( "%X",b.isunknown2)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 								GUI:BulletText("Unknown3") GUI:SameLine(200) GUI:InputText("##devin10",tostring(b.isunknown3),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
@@ -1274,11 +1275,7 @@ function dev.DrawCall(event, ticks )
 
 					if ( GUI:TreeNode("WorldMap") ) then
 						GUI:PushItemWidth(150)
-						if ( GUI:TreeNode("Markers") ) then
-							GUI:BulletText("HasMarkers ID:") GUI:SameLine() dev.hasMarker = GUI:InputInt("##devwmm1M", (dev.hasMarker or 1), 1, 1)
-							if (GUI:IsItemHovered()) then GUI:SetTooltip("If the entered Marker ID is available / discovered and can be used.") end
-							GUI:SameLine() GUI:Text("Discovered : "..tostring(WorldMap:HasMarker(dev.hasMarker)))
-
+						if ( GUI:TreeNode("Markers") ) then							
 							local list = WorldMap:MarkerList()
 							if ( table.valid(list) )then
 								GUI:PushItemWidth(250)
@@ -1301,6 +1298,33 @@ function dev.DrawCall(event, ticks )
 							end
 							GUI:TreePop()
 						end
+
+						if ( GUI:TreeNode("PointsOfInterest") ) then							
+							local list = WorldMap:POIList()
+							if ( table.valid(list) )then
+								GUI:PushItemWidth(250)
+								for id, b in pairs(list) do
+									if ( GUI:TreeNode(tostring(id).."-"..b.name)) then
+										GUI:BulletText("Ptr") GUI:SameLine(200) GUI:InputText("##devmmp0",tostring(string.format( "%X",b.ptr)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+										GUI:BulletText("Ptr2") GUI:SameLine(200) GUI:InputText("##devmmp1",tostring(string.format( "%X",b.ptr2)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+										GUI:BulletText("ID") GUI:SameLine(200) GUI:InputText("##devmmp2",tostring(b.id),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+										GUI:BulletText("MapID") GUI:SameLine(200) GUI:InputText("##devmmp3",tostring(b.mapid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+										GUI:BulletText("Type") GUI:SameLine(200) GUI:InputText("##devmmp4",tostring(b.type),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+										GUI:BulletText("SameZone") GUI:SameLine(200) GUI:InputText("##devmmp5",tostring(b.samezone),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+										GUI:BulletText("Unlocked") GUI:SameLine(200) GUI:InputText("##devmmp6",tostring(b.unlocked),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+										GUI:BulletText("Distance") GUI:SameLine(200) GUI:InputText("##devmmp7",tostring(b.distance),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+
+										local p = b.pos
+										GUI:BulletText("Position") GUI:SameLine(200) GUI:InputFloat3( "##devmmp8", p.x, p.y, p.z, 2, GUI.InputTextFlags_ReadOnly)
+										--if (GUI:Button("TeleportTo",100,15) ) then d("Buy TeleportTo Result: "..tostring(Player:Teleport(b.id))) end
+										GUI:TreePop()
+									end
+								end
+								GUI:PopItemWidth()
+							end
+							GUI:TreePop()
+						end
+
 						if ( GUI:TreeNode("Waypoints") ) then
 							GUI:BulletText("HasWaypoint ID:") GUI:SameLine() dev.haswaypoint = GUI:InputInt("##devwmm1", (dev.haswaypoint or 1), 1, 1)
 							if (GUI:IsItemHovered()) then GUI:SetTooltip("If the entered waypoint ID is available / discovered and can be used.") end
