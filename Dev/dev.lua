@@ -1278,7 +1278,7 @@ function dev.DrawCall(event, ticks )
 						if ( GUI:TreeNode("Markers") ) then							
 							local list = WorldMap:MarkerList()
 							if ( table.valid(list) )then
-								GUI:PushItemWidth(250)
+								GUI:PushItemWidth(250)								
 								local ppos = Player.pos
 								for id, b in pairsByKeys(list) do
 									if ( GUI:TreeNode(tostring(id).."-"..tostring(b.id).. "-"..tostring(b.id2).. " - "..b.name)) then
@@ -1290,7 +1290,7 @@ function dev.DrawCall(event, ticks )
 										GUI:BulletText("coordtype") GUI:SameLine(200) GUI:InputText("##devmmw5M",tostring(b.coordtype),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 										local p = b.pos
 										GUI:BulletText("Position") GUI:SameLine(200) if (GUI:IsItemHovered()) then GUI:SetTooltip("THIS IS ONLY VALID AFTER THE MAP WAS OPENED..TODO for me still... fx.") end   GUI:InputFloat3( "##devmmw4", p.x, p.y, p.z, 2, GUI.InputTextFlags_ReadOnly)
-										--if (GUI:Button("TeleportTo",100,15) ) then d("Teleport To Result: "..tostring(Player:TeleportToWaypoint(b.id))) end
+										if (GUI:Button("Teleport To##"..tostring(id),100,15) ) then d("Teleport To Result: "..tostring(HackManager:Teleport(p.x,p.y,p.z))) end
 										GUI:TreePop()
 									end
 								end
@@ -1303,21 +1303,85 @@ function dev.DrawCall(event, ticks )
 							local list = WorldMap:POIList()
 							if ( table.valid(list) )then
 								GUI:PushItemWidth(250)
+								if(dev.poisamemap == nil) then dev.poisamemap = false end
+								dev.poisamemap = GUI:Checkbox("Show only local Map##devwma",dev.poisamemap)
 								for id, b in pairs(list) do
-									if ( GUI:TreeNode(tostring(id).."-"..b.name)) then
-										GUI:BulletText("Ptr") GUI:SameLine(200) GUI:InputText("##devmmp0",tostring(string.format( "%X",b.ptr)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-										GUI:BulletText("Ptr2") GUI:SameLine(200) GUI:InputText("##devmmp1",tostring(string.format( "%X",b.ptr2)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-										GUI:BulletText("ID") GUI:SameLine(200) GUI:InputText("##devmmp2",tostring(b.id),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-										GUI:BulletText("MapID") GUI:SameLine(200) GUI:InputText("##devmmp3",tostring(b.mapid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-										GUI:BulletText("Type") GUI:SameLine(200) GUI:InputText("##devmmp4",tostring(b.type),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-										GUI:BulletText("SameZone") GUI:SameLine(200) GUI:InputText("##devmmp5",tostring(b.samezone),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-										GUI:BulletText("Unlocked") GUI:SameLine(200) GUI:InputText("##devmmp6",tostring(b.unlocked),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
-										GUI:BulletText("Distance") GUI:SameLine(200) GUI:InputText("##devmmp7",tostring(b.distance),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+									if(dev.poisamemap == false or b.samezone == 1) then
+										if ( GUI:TreeNode(tostring(id).."-"..b.name)) then
+											GUI:BulletText("Ptr") GUI:SameLine(200) GUI:InputText("##devmmp0",tostring(string.format( "%X",b.ptr)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("Ptr2") GUI:SameLine(200) GUI:InputText("##devmmp1",tostring(string.format( "%X",b.ptr2)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("ID") GUI:SameLine(200) GUI:InputText("##devmmp2",tostring(b.id),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("MapID") GUI:SameLine(200) GUI:InputText("##devmmp3",tostring(b.mapid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("Type") GUI:SameLine(200) GUI:InputText("##devmmp4",tostring(b.type),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("SameZone") GUI:SameLine(200) GUI:InputText("##devmmp5",tostring(b.samezone),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("Unlocked") GUI:SameLine(200) GUI:InputText("##devmmp6",tostring(b.unlocked),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("Distance") GUI:SameLine(200) GUI:InputText("##devmmp7",tostring(b.distance),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
 
-										local p = b.pos
-										GUI:BulletText("Position") GUI:SameLine(200) GUI:InputFloat3( "##devmmp8", p.x, p.y, p.z, 2, GUI.InputTextFlags_ReadOnly)
-										--if (GUI:Button("TeleportTo",100,15) ) then d("Buy TeleportTo Result: "..tostring(Player:Teleport(b.id))) end
-										GUI:TreePop()
+											local p = b.pos
+											GUI:BulletText("Position") GUI:SameLine(200) GUI:InputFloat3( "##devmmp8", p.x, p.y, p.z, 2, GUI.InputTextFlags_ReadOnly)
+											if (GUI:Button("Teleport To##"..tostring(id),100,15) ) then d("Teleport To Result: "..tostring(HackManager:Teleport(p.x,p.y,p.z))) end
+											GUI:TreePop()
+										end
+									end
+								end
+								GUI:PopItemWidth()
+							end
+							GUI:TreePop()
+						end
+
+						if ( GUI:TreeNode("Vistas") ) then							
+							local list = WorldMap:VistaList()
+							if ( table.valid(list) )then
+								GUI:PushItemWidth(250)
+								if(dev.poisamemapb == nil) then dev.poisamemapb = false end
+								dev.poisamemapb = GUI:Checkbox("Show only local Map##devwmb",dev.poisamemapb)
+								for id, b in pairs(list) do
+									if(dev.poisamemapb == false or b.samezone == 1) then
+										if ( GUI:TreeNode(tostring(id).."-"..b.name)) then
+											GUI:BulletText("Ptr") GUI:SameLine(200) GUI:InputText("##devmmv0",tostring(string.format( "%X",b.ptr)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("Ptr2") GUI:SameLine(200) GUI:InputText("##devmmv1",tostring(string.format( "%X",b.ptr2)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("ID") GUI:SameLine(200) GUI:InputText("##devmmv2",tostring(b.id),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("MapID") GUI:SameLine(200) GUI:InputText("##devmmv3",tostring(b.mapid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("Type") GUI:SameLine(200) GUI:InputText("##devmmv4",tostring(b.type),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("SameZone") GUI:SameLine(200) GUI:InputText("##devmmv5",tostring(b.samezone),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("Unlocked") GUI:SameLine(200) GUI:InputText("##devmmv6",tostring(b.unlocked),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("Distance") GUI:SameLine(200) GUI:InputText("##devmmv7",tostring(b.distance),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+
+											local p = b.pos
+											GUI:BulletText("Position") GUI:SameLine(200) GUI:InputFloat3( "##devmmv8", p.x, p.y, p.z, 2, GUI.InputTextFlags_ReadOnly)
+											if (GUI:Button("Teleport To##"..tostring(id),100,15) ) then d("Teleport To Result: "..tostring(HackManager:Teleport(p.x,p.y,p.z))) end
+											GUI:TreePop()
+										end
+									end
+								end
+								GUI:PopItemWidth()
+							end
+							GUI:TreePop()
+						end
+
+						if ( GUI:TreeNode("Important Objects") ) then							
+							local list = WorldMap:ObjectsList()
+							if ( table.valid(list) )then
+								GUI:PushItemWidth(250)
+								if(dev.poisamemapc == nil) then dev.poisamemapc = false end
+								dev.poisamemapc = GUI:Checkbox("Show only local Map##devwmb",dev.poisamemapc)
+								for id, b in pairs(list) do
+									if(dev.poisamemapc == false or b.samezone == 1) then
+										if ( GUI:TreeNode(tostring(id).."-"..b.name)) then
+											GUI:BulletText("Ptr") GUI:SameLine(200) GUI:InputText("##devmmo0",tostring(string.format( "%X",b.ptr)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("Ptr2") GUI:SameLine(200) GUI:InputText("##devmmo1",tostring(string.format( "%X",b.ptr2)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("ID") GUI:SameLine(200) GUI:InputText("##devmmo2",tostring(b.id),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("MapID") GUI:SameLine(200) GUI:InputText("##devmmo3",tostring(b.mapid),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("Type") GUI:SameLine(200) GUI:InputText("##devmmo4",tostring(b.type),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("SameZone") GUI:SameLine(200) GUI:InputText("##devmmo5",tostring(b.samezone),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("Unlocked") GUI:SameLine(200) GUI:InputText("##devmmo6",tostring(b.unlocked),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+											GUI:BulletText("Distance") GUI:SameLine(200) GUI:InputText("##devmmo7",tostring(b.distance),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+
+											local p = b.pos
+											GUI:BulletText("Position") GUI:SameLine(200) GUI:InputFloat3( "##devmmo8", p.x, p.y, p.z, 2, GUI.InputTextFlags_ReadOnly)
+											if (GUI:Button("Teleport To##"..tostring(id),100,15) ) then d("Teleport To Result: "..tostring(HackManager:Teleport(p.x,p.y,p.z))) end
+											GUI:TreePop()
+										end
 									end
 								end
 								GUI:PopItemWidth()
@@ -1928,3 +1992,15 @@ end
 
 
 
+local l_req = {
+	["api"] = "/api/ping",
+	["method"] = "GET",
+	["callback"] = function(validresult, data)
+		if(validresult == true) then
+			d(tostring(data))
+		else
+			d("Error: Failed A")
+		end
+	end,
+}
+API:Request(l_req)
