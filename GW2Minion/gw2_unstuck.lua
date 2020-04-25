@@ -15,6 +15,7 @@ gw2_unstuck.statuscodes = {
 gw2_unstuck.version = 1
 gw2_unstuck.tickdelay = 150
 gw2_unstuck.pvpmatch = false
+gw2_unstuck.enabled = true
 
 gw2_unstuck.usedwaypointlasttick = {}
 function gw2_unstuck.usedwaypointlasttick:reset()
@@ -96,7 +97,7 @@ end
 
 function gw2_unstuck.HandleStuck()
 	-- Throttle
-	if(gw2_unstuck.stucktick > 0 and TimeSince(gw2_unstuck.stucktick) < gw2_unstuck.tickdelay ) then
+	if(gw2_unstuck.stucktick > 0 and TimeSince(gw2_unstuck.stucktick) < gw2_unstuck.tickdelay ) or not gw2_unstuck.enabled then
 		return gw2_unstuck.lastresult
 	end
 	
