@@ -307,7 +307,7 @@ function gw2minion.DrawVersionChanged()
 		GUI:Spacing()
 		GUI:SameLine(25)
 		GUI:SetWindowFontScale(0.8)
-		GUI:Text("Enjoy the No-Downtime-Mode ;)")
+		GUI:Text(GetString("Enjoy the No-Downtime-Mode ;)"))
 		GUI:SetWindowFontScale(1)
 		
 		GUI:Spacing()
