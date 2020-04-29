@@ -100,7 +100,7 @@ function ml_navigation.Navigate(event, ticks )
 										d("[Navigation] - Springer OMC (ID:"..tostring(navConId)..") disabled at ["..tostring(startPos.x)..","..tostring(startPos.y)..","..tostring(startPos.z).."]")
 										NavigationManager:ResetPath()
 										ml_navigation:MoveTo(ml_navigation.targetposition.x, ml_navigation.targetposition.y, ml_navigation.targetposition.z, ml_navigation.targetid)
-										DisableNavConnection(omc,30000)
+										DisableNavConnection(omc,nil)
 									end
 								else
 									EnableNavConnection(omc)
