@@ -22,6 +22,9 @@ function gw2minion.Init()
 		ml_mesh_mgr.GetMapID = function () return Player:GetLocalMapID() end
 		ml_mesh_mgr.GetMapName = function () return gw2_datamanager.GetMapName(Player:GetLocalMapID())  end
 		ml_mesh_mgr.GetPlayerPos = function () return Player.pos end
+		-- extending subtypes list with mounts
+		local ncsubtypes = ml_mesh_mgr.GetNavConnectionSubTypes()
+		ncsubtypes[7] = "Springer"
 
 		-- Set worldnavigation data
 		ml_mesh_mgr.navData = {} -- Holds the data for world navigation
