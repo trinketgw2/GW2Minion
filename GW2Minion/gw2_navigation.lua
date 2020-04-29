@@ -91,10 +91,10 @@ function ml_navigation.Navigate(event, ticks )
 						if (navCon) then
 							local navConId = navCon.navconnectionid
 							local omc = NavigationManager:GetNavConnection(navConId)
-							local startPos = (omc.sideA.walkable and omc.sideA.x == navCon.x and omc.sideA.y == navCon.y and omc.sideA.z == navCon.z) and omc.sideA or omc.sideB
-							local endPos = (omc.sideA.x == startPos.x and omc.sideA.y == startPos.y and omc.sideA.z == startPos.z) and omc.sideB or omc.sideA
 
 							if (omc and navConId ~= 0 and omc.details.subtype == 7) then
+                                local startPos = (omc.sideA.walkable and omc.sideA.x == navCon.x and omc.sideA.y == navCon.y and omc.sideA.z == navCon.z) and omc.sideA or omc.sideB
+                                local endPos = (omc.sideA.x == startPos.x and omc.sideA.y == startPos.y and omc.sideA.z == startPos.z) and omc.sideB or omc.sideA
 								if (not Settings.GW2Minion.usemount or not ml_navigation:ValidSpringerOMC(startPos,endPos)) then
 									if (not omc.disabled) then
 										d("[Navigation] - Springer OMC (ID:"..tostring(navConId)..") disabled at ["..tostring(startPos.x)..","..tostring(startPos.y)..","..tostring(startPos.z).."]")
