@@ -9,6 +9,17 @@ ml_navigation.lastMount = 0
 ml_navigation.avoidanceareasize = 50
 ml_navigation.avoidanceareas = { }	-- TODO: make a proper API in c++ for handling a list and accessing single entries
 
+-- all mount related constants
+ml_navigation.mount = {}
+ml_navigation.mount.springer = {
+	ID = 41731,
+	MAXLOADTIME = 800,
+	GRACETIME = 2000,
+	LOWBOOSTFACTOR = 0.25, -- if we jump higher than far
+	HIGHBOOSTFACTOR = 0.75, -- if we jump further than high
+	GetMaxTravelHeight = function() return Settings.GW2Minion.springerMastered and 1050 or 550 end,
+	GetMaxTravelTime = function() return Settings.GW2Minion.springerMastered and 3500 or 2050 end,
+}
 
 
 ml_navigation.GetMovementType = function() if ( Player.swimming ~= GW2.SWIMSTATE.Diving ) then if (Player.mounted) then return "Mounted" else return "Walk" end else return "Diving" end end	-- Return the EXACT NAMES you used above in the 4 tables for movement type keys
@@ -74,6 +85,29 @@ function ml_navigation.Navigate(event, ticks )
 						return
 					end
 
+					-- Validate the next few path nodes if they are springer OMCs and are reachable (mastery, too high/far in general etc.)
+					for index = 0, 20 do
+						local navCon = ml_navigation.path[ ml_navigation.pathindex + index ]
+						if (navCon) then
+							local navConId = navCon.navconnectionid
+							local omc = NavigationManager:GetNavConnection(navConId)
+							local startPos = (omc.sideA.walkable and omc.sideA.x == navCon.x and omc.sideA.y == navCon.y and omc.sideA.z == navCon.z) and omc.sideA or omc.sideB
+							local endPos = (omc.sideA.x == startPos.x and omc.sideA.y == startPos.y and omc.sideA.z == startPos.z) and omc.sideB or omc.sideA
+
+							if (omc and navConId ~= 0 and omc.details.subtype == 7) then
+								if (not Settings.GW2Minion.usemount or not ml_navigation:ValidSpringerOMC(startPos,endPos)) then
+									if (not omc.disabled) then
+										d("[Navigation] - Springer OMC (ID:"..tostring(navConId)..") disabled at ["..tostring(startPos.x)..","..tostring(startPos.y)..","..tostring(startPos.z).."]")
+										NavigationManager:ResetPath()
+										ml_navigation:MoveTo(ml_navigation.targetposition.x, ml_navigation.targetposition.y, ml_navigation.targetposition.z, ml_navigation.targetid)
+										DisableNavConnection(omc,nil)
+									end
+								else
+									EnableNavConnection(omc)
+								end
+							end
+						end
+					end
 
 					-- Handle Current NavConnections
 					if( ml_navigation.navconnection ) then
@@ -92,7 +126,7 @@ function ml_navigation.Navigate(event, ticks )
 							lastnode = nextnode
 							nextnode = ml_navigation.path[ ml_navigation.pathindex + 1]
 
-						-- Custom OMC
+							-- Custom OMC
 						elseif(ml_navigation.navconnection.type == 4) then
 
 							local ncsubtype
@@ -294,10 +328,164 @@ function ml_navigation.Navigate(event, ticks )
 									-- keep calling the MeshConnection
 									return
 								end
+							elseif(ncsubtype == 7 ) then
+								-- SPRINGER
+								local function resetSpringerOMC()
+									if (ml_navigation.path[ml_navigation.pathindex + 2]) then
+										-- Continue path available
+										local navConId = ml_navigation.path[ml_navigation.pathindex + 2].navconnectionid
+										if (navConId ~= 0 and (NavigationManager:GetNavConnection(navConId).details or {}).subtype == 7) then
+											-- We will have right after an springer OMC again so we stay mounted on springer
+											ml_navigation.lastMount = ml_global_information.Now + ml_navigation.mount.springer.GRACETIME
+										end
+										Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward) -- stop forward movement
+										ml_navigation.currentSpringerJump = nil
+										ml_navigation.pathindex = ml_navigation.pathindex + 2
+									else
+										-- OMC end position is last node
+
+									end
+									NavigationManager.NavPathNode = ml_navigation.pathindex
+									ml_navigation.navconnection = nil
+									d("[Navigation] - Springer OMC done")
+								end
+
+								local function normalize(coords)
+									local magnitude = math.sqrt(coords.x * coords.x + coords.y * coords.y)
+
+									if magnitude == 1 then
+										return coords
+									elseif magnitude > 1e-5 then
+										coords.x = coords.x / magnitude
+										coords.y = coords.y / magnitude
+									else
+										coords.x = 0
+										coords.y = 0
+									end
+
+									return coords
+								end
+
+								local function angle2DToPointInDeg(heading,point)
+									local currentHeading = normalize(heading)
+									local goalHeading = normalize({x = point.x - playerpos.x, y = point.y - playerpos.y})
+									local currentHeadingDotGoalHeading = (currentHeading.x * goalHeading.x) + (currentHeading.y * goalHeading.y)
+									local currentHeadingDotcurrentHeading = (currentHeading.x * currentHeading.x) + (currentHeading.y * currentHeading.y)
+									local goalHeadingDotGoalHeading = (goalHeading.x * goalHeading.x) + (goalHeading.y * goalHeading.y)
+									return math.acos(currentHeadingDotGoalHeading / math.sqrt(currentHeadingDotcurrentHeading * goalHeadingDotGoalHeading)) * 180 / math.pi
+								end
+
+								-- Low level character without mount skill slot
+								if (not Player:GetSpellInfo(19)) then
+									DisableNavConnection(ml_navigation.navconnection,nil)
+									NavigationManager:ResetPath()
+									ml_navigation:MoveTo(ml_navigation.targetposition.x, ml_navigation.targetposition.y, ml_navigation.targetposition.z, ml_navigation.targetid)
+									resetSpringerOMC()
+									d("[Navigation] - Springer OMC disabled. You don't have skill slot 19")
+									return
+								end
+
+								-- EXECUTION
+								if ( table.valid(ml_navigation.currentSpringerJump) ) then
+									-- OMC RUNNING
+
+									-- Variable definitions
+									local startPos = ml_navigation.currentSpringerJump.startSide
+									local endPos = ml_navigation.currentSpringerJump.endSide
+									local lowerEndPos = endPos.z > startPos.z
+									local zDistToTravel = lowerEndPos and -math.abs(endPos.z - startPos.z) or math.abs(endPos.z - startPos.z)
+									local xyDistToTravel = math.distance2d(startPos,endPos)
+									local xyDistToTravelFactor = zDistToTravel > xyDistToTravel and ml_navigation.mount.springer.LOWBOOSTFACTOR or ml_navigation.mount.springer.HIGHBOOSTFACTOR
+									local totalDistToTravel = zDistToTravel + xyDistToTravel * xyDistToTravelFactor
+									local neededChargeTime = totalDistToTravel / ml_navigation.mount.springer.GetMaxTravelHeight() * ml_navigation.mount.springer.MAXLOADTIME
+									local needTravelTime = ml_navigation.mount.springer.GetMaxTravelHeight() / ml_navigation.mount.springer.GetMaxTravelTime() * totalDistToTravel
+
+									-- OMC end reached or we failed to jump
+									if (ml_navigation.currentSpringerJump.jumpTime
+											and math.distance2d(playerpos,startPos) > math.distance2d(endPos,startPos) - endPos.radius * 32
+											and (Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundMoving
+											or Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving)) then
+										if (TimeSince(ml_navigation.currentSpringerJump.jumpTime) > neededChargeTime + needTravelTime) then
+											resetSpringerOMC()
+										else
+											Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward)
+										end
+										return
+									end
+									-- Mount springer and save last mount to swap back later
+									if (ml_navigation.currentSpringerJump.mountTime and TimeSince(ml_navigation.currentSpringerJump.mountTime) < 1000) then
+										return
+									elseif (Player.mounted and Player:GetSpellInfo(5).skillid ~= 45994) then
+										Player:Dismount()
+										return
+									elseif (not Player.mounted and Player:GetSpellInfo(19).skillid == ml_navigation.mount.springer.ID and Player.canmount) then
+										Player:Mount()
+										ml_navigation.currentSpringerJump.mountTime = ml_global_information.Now
+										return
+									elseif (not Player.mounted and Player.canmount and not ml_navigation.lastMountOMCID) then
+										ml_navigation.lastMountOMCID = Player:GetSpellInfo(19).skillid
+										Player:SelectMount(ml_navigation.mount.springer.ID)
+										return
+									elseif (not Player.mounted) then
+										return
+									end
+									-- face + jump
+									if (not ml_navigation.currentSpringerJump.jumpTime) then
+										-- Do facing
+										if (angle2DToPointInDeg({x=playerpos.hx,y=playerpos.hy},endPos) > 10) then
+											if (not ml_navigation.currentSpringerJump.faceTime or TimeSince(ml_navigation.currentSpringerJump.faceTime) > ml_navigation.mount.springer.GRACETIME / 2) then
+												Player:SetFacingExact(endPos.x, endPos.y, endPos.z,true)
+												ml_navigation.currentSpringerJump.faceTime = ml_global_information.Now
+												--d("[Navigation] - Springer OMC face end position")
+											end
+											return
+										end
+										-- Do jump
+										if (neededChargeTime > 0) then KeyDown(32) end
+										Player:SetFacingExact(endPos.x, endPos.y, endPos.z)
+										ml_navigation.currentSpringerJump.jumpTime = ml_global_information.Now
+										d("[Navigation] - Springer OMC jump with charge time of ("..tostring(neededChargeTime)..")")
+										return
+									end
+									-- Charge + in air phase
+									if (ml_navigation.currentSpringerJump.jumpTime and TimeSince(ml_navigation.currentSpringerJump.jumpTime) > neededChargeTime) then
+										-- Interrupt jump
+										KeyUp(32)
+										-- Move towards endPos
+										local grounded = Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundMoving and Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving
+										if ((not grounded or neededChargeTime <= 0) and math.distance2d(playerpos,startPos) <= math.distance2d(endPos,startPos)) then
+											Player:SetMovement(GW2.MOVEMENTTYPE.Forward)
+											--d("[Navigation] - Springer OMC forward movement")
+										else
+											-- prevent boosting over the endpoint
+											if (math.distance2d(playerpos,startPos) > math.distance2d(endPos,startPos) - endPos.radius * 32) then
+												PressKey(83)
+											end
+											Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward)
+											--d("[Navigation] - Springer OMC interrupt forward movement")
+										end
+										return
+									end
+								else
+									-- OMC STARTING
+									ml_navigation.currentSpringerJump = {}
+									ml_navigation.currentSpringerJump.startSide = (ml_navigation.navconnection.sideB.walkable
+											and math.distance3d(playerpos,ml_navigation.navconnection.sideA) >= math.distance3d(playerpos,ml_navigation.navconnection.sideB))
+											and ml_navigation.navconnection.sideB
+											or ml_navigation.navconnection.sideA
+									ml_navigation.currentSpringerJump.endSide = table.deepcompare(ml_navigation.currentSpringerJump.startSide,ml_navigation.navconnection.sideB,true)
+											and ml_navigation.navconnection.sideA
+											or ml_navigation.navconnection.sideB
+
+									ml_navigation.currentSpringerJump.path = table.valid(ml_navigation.path) and table.deepcopy(ml_navigation.path[table.size(ml_navigation.path)],false)
+									Player:Stop()
+									d("[Navigation] - Springer OMC started")
+								end
+								return
 							end
 
 
-						-- Macromesh node
+							-- Macromesh node
 						elseif(ml_navigation.navconnection.type == 5) then
 							-- we should not be here in the first place..c++ should have replaced any macromesh node with walkable paths. But since this is on a lot faster timer than the main bot pulse, it can happen that 4-5 pathnodes are "reached" and then a macronode appears.
 							d("[Navigation] - Reached a Macromesh node... waiting for a path update...")
@@ -351,6 +539,22 @@ function ml_navigation.Navigate(event, ticks )
 						end
 					end
 
+					-- If we used a mount OMC and we had a different mount before the OMC, then we want to swap back to the old one here
+					if (ml_navigation.lastMountOMCID and TimeSince(ml_navigation.lastMount) > 4000) then
+						if (not Player.mounted) then
+							-- Make sure we have the mount we last used
+							if (ml_navigation.lastMountOMCID == Player:GetSpellInfo(19).skillid) then
+								ml_navigation.lastMountOMCID = nil
+							else
+								Player:SelectMount(ml_navigation.lastMountOMCID)
+							end
+							return
+						else
+							Player:Dismount()
+							return
+						end
+					end
+
 					-- update last time we were mounted. If navigation dismounts, this is resets.
 					-- if we leave our mount for any other reason, like unstuck or falling into water, we wait 5 seconds before we mount again.
 					if (Player.mounted) then
@@ -391,11 +595,11 @@ function ml_navigation.Navigate(event, ticks )
 
 		-- stoopid case catch
 		if( ml_navigation.navconnection ) then
-			if  GetGameState() == GW2.GAMESTATE.CINEMATIC then				
-				d("[Navigation] - Running cutscene. Stop Player Movement.")	
+			if  GetGameState() == GW2.GAMESTATE.CINEMATIC then
+				d("[Navigation] - Running cutscene. Stop Player Movement.")
 			else
-				
-				ml_error("[Navigation] - Breaking out of not handled NavConnection.")		
+
+				ml_error("[Navigation] - Breaking out of not handled NavConnection.")
 			end
 			Player:StopMovement()
 		end
@@ -406,91 +610,91 @@ RegisterEventHandler("Gameloop.Draw", ml_navigation.Navigate, "ml_navigation.Nav
 -- Checks if the next node in our path was reached, takes differen movements into account ( swimming, walking, riding etc. )
 function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 
-		-- take into account navconnection radius, to randomize the movement on places where precision is not needed
-		local navcon = nil
-		local navconradius = 0
-		if( nextnode.navconnectionid and nextnode.navconnectionid ~= 0) then
-			navcon = NavigationManager:GetNavConnection(nextnode.navconnectionid)
-			if ( navcon ) then
-				if(nextnode.navconnectionsideA == true) then
-					navconradius = navcon.sideA.radius -- meshspace to gamespace is *32 in GW2
-				else
-					navconradius = navcon.sideB.radius -- meshspace to gamespace is *32 in GW2
-				end
+	-- take into account navconnection radius, to randomize the movement on places where precision is not needed
+	local navcon = nil
+	local navconradius = 0
+	if( nextnode.navconnectionid and nextnode.navconnectionid ~= 0) then
+		navcon = NavigationManager:GetNavConnection(nextnode.navconnectionid)
+		if ( navcon ) then
+			if(nextnode.navconnectionsideA == true) then
+				navconradius = navcon.sideA.radius -- meshspace to gamespace is *32 in GW2
+			else
+				navconradius = navcon.sideB.radius -- meshspace to gamespace is *32 in GW2
 			end
 		end
+	end
 
-		if (Player.swimming ~= GW2.SWIMSTATE.Diving) then
-			local nodedist = ml_navigation:GetRaycast_Player_Node_Distance(playerpos,nextnode)
-			-- local nodedist = math.distance3d(playerpos,nextnode)
-			local movementstate = Player.movementstate
-			local nodeReachedDistance = (movementstate == GW2.MOVEMENTSTATE.Jumping or movementstate == GW2.MOVEMENTSTATE.Falling) and ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()] * 2 or ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()]
-			if ( (nodedist - navconradius*32) < nodeReachedDistance) then
-				-- d("[Navigation] - Node reached. ("..tostring(math.round(nodedist - navconradius*32,2)).." < "..tostring(ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()])..")")
-				-- We arrived at a NavConnection Node
-				
-				--self:CallCustomLuaNavConnectionsAhead(5) TEST THIS FIRST
-				
-				if( navcon) then
-					d("[Navigation] -  Arrived at NavConnection ID: "..tostring(nextnode.navconnectionid))
-					ml_navigation:ResetOMCHandler()
-					gw2_unstuck.SoftReset()
-					ml_navigation.navconnection = navcon
-					if( not ml_navigation.navconnection ) then
-						ml_error("[Navigation] -  No NavConnection Data found for ID: "..tostring(nextnode.navconnectionid))
-						return false
-					end
-					if ( navconradius > 0 and navconradius < 1.0 ) then	-- kinda shitfix for the conversion of the old OMCs to the new NavCons, I set all precise connections to have a radius of 0.5
-						ml_navigation:SetEnsureStartPosition(nextnode, nextnextnode, playerpos, ml_navigation.navconnection)
-					end
-					-- Add for now a timer to cancel the shit after 10 seconds if something really went crazy wrong
-					ml_navigation.navconnection_start_tmr = ml_global_information.Now
+	if (Player.swimming ~= GW2.SWIMSTATE.Diving) then
+		local nodedist = ml_navigation:GetRaycast_Player_Node_Distance(playerpos,nextnode)
+		-- local nodedist = math.distance3d(playerpos,nextnode)
+		local movementstate = Player.movementstate
+		local nodeReachedDistance = (movementstate == GW2.MOVEMENTSTATE.Jumping or movementstate == GW2.MOVEMENTSTATE.Falling) and ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()] * 2 or ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()]
+		if ( (nodedist - navconradius*32) < nodeReachedDistance) then
+			-- d("[Navigation] - Node reached. ("..tostring(math.round(nodedist - navconradius*32,2)).." < "..tostring(ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()])..")")
+			-- We arrived at a NavConnection Node
 
-				else
-					if (ml_navigation.navconnection) then
-						gw2_unstuck.Reset()
-					end
-					ml_navigation.navconnection = nil
-					return true
+			--self:CallCustomLuaNavConnectionsAhead(5) TEST THIS FIRST
+
+			if( navcon) then
+				d("[Navigation] -  Arrived at NavConnection ID: "..tostring(nextnode.navconnectionid))
+				ml_navigation:ResetOMCHandler()
+				gw2_unstuck.SoftReset()
+				ml_navigation.navconnection = navcon
+				if( not ml_navigation.navconnection ) then
+					ml_error("[Navigation] -  No NavConnection Data found for ID: "..tostring(nextnode.navconnectionid))
+					return false
 				end
+				if ( navconradius > 0 and navconradius < 1.0 ) then	-- kinda shitfix for the conversion of the old OMCs to the new NavCons, I set all precise connections to have a radius of 0.5
+					ml_navigation:SetEnsureStartPosition(nextnode, nextnextnode, playerpos, ml_navigation.navconnection)
+				end
+				-- Add for now a timer to cancel the shit after 10 seconds if something really went crazy wrong
+				ml_navigation.navconnection_start_tmr = ml_global_information.Now
 
 			else
-				-- Still walking towards the nextnode...
-				--d("nodedist  - navconradius "..tostring(nodedist).. " - " ..tostring(navconradius))
-
+				if (ml_navigation.navconnection) then
+					gw2_unstuck.Reset()
+				end
+				ml_navigation.navconnection = nil
+				return true
 			end
 
 		else
+			-- Still walking towards the nextnode...
+			--d("nodedist  - navconradius "..tostring(nodedist).. " - " ..tostring(navconradius))
+
+		end
+
+	else
 		-- Handle underwater movement
-			-- Check if the next Cubenode is reached:
-			local dist3D = math.distance3d(nextnode,playerpos)
-			if ( (dist3D - navconradius*32) < ml_navigation.NavPointReachedDistances["Diving"]) then
-				-- We reached the node
-				-- d("[Navigation] - Cube Node reached. ("..tostring(math.round(dist3D - navconradius*32,2)).." < "..tostring(ml_navigation.NavPointReachedDistances["Diving"])..")")
+		-- Check if the next Cubenode is reached:
+		local dist3D = math.distance3d(nextnode,playerpos)
+		if ( (dist3D - navconradius*32) < ml_navigation.NavPointReachedDistances["Diving"]) then
+			-- We reached the node
+			-- d("[Navigation] - Cube Node reached. ("..tostring(math.round(dist3D - navconradius*32,2)).." < "..tostring(ml_navigation.NavPointReachedDistances["Diving"])..")")
 
-				-- We arrived at a NavConnection Node
-				if( navcon) then
-					d("[Navigation] -  Arrived at NavConnection ID: "..tostring(nextnode.navconnectionid))
-					ml_navigation:ResetOMCHandler()
-					gw2_unstuck.SoftReset()
-					ml_navigation.navconnection = navcon
-					if( not ml_navigation.navconnection ) then
-						ml_error("[Navigation] -  No NavConnection Data found for ID: "..tostring(nextnode.navconnectionid))
-						return false
-					end
-					if ( navconradius > 0 and navconradius < 1.0 ) then	-- kinda shitfix for the conversion of the old OMCs to the new NavCons, I set all precise connections to have a radius of 0.5
-						ml_navigation:SetEnsureStartPosition(nextnode, nextnextnode, playerpos, ml_navigation.navconnection)
-					end
-
-				else
-					if (ml_navigation.navconnection) then
-						gw2_unstuck.Reset()
-					end
-					ml_navigation.navconnection = nil
-					return true
+			-- We arrived at a NavConnection Node
+			if( navcon) then
+				d("[Navigation] -  Arrived at NavConnection ID: "..tostring(nextnode.navconnectionid))
+				ml_navigation:ResetOMCHandler()
+				gw2_unstuck.SoftReset()
+				ml_navigation.navconnection = navcon
+				if( not ml_navigation.navconnection ) then
+					ml_error("[Navigation] -  No NavConnection Data found for ID: "..tostring(nextnode.navconnectionid))
+					return false
 				end
+				if ( navconradius > 0 and navconradius < 1.0 ) then	-- kinda shitfix for the conversion of the old OMCs to the new NavCons, I set all precise connections to have a radius of 0.5
+					ml_navigation:SetEnsureStartPosition(nextnode, nextnextnode, playerpos, ml_navigation.navconnection)
+				end
+
+			else
+				if (ml_navigation.navconnection) then
+					gw2_unstuck.Reset()
+				end
+				ml_navigation.navconnection = nil
+				return true
 			end
 		end
+	end
 	return false
 end
 
@@ -944,4 +1148,20 @@ function Player:StopMovement()
 	Player:Stop()
 	NavigationManager:ResetPath()
 	gw2_combat_movement:StopCombatMovement()
+end
+
+-- Takes {x,y,z} lua tables and checks if a jump would be not too high/far
+function ml_navigation:ValidSpringerOMC(startPos,endPos)
+	-- VARIABLES
+	local lowerEndPos = endPos.z > startPos.z
+	local zDistToTravel = lowerEndPos and -math.abs(endPos.z - startPos.z) or math.abs(endPos.z - startPos.z)
+	local xyDistToTravel = math.distance2d(startPos,endPos)
+	local totalDistToTravel = zDistToTravel - startPos.radius * 32 + xyDistToTravel * ml_navigation.mount.springer.LOWBOOSTFACTOR - endPos.radius * 32 -- We always use lower boost factor for this validation
+	local neededChargeTime = totalDistToTravel / ml_navigation.mount.springer.GetMaxTravelHeight() * ml_navigation.mount.springer.MAXLOADTIME
+
+	if (not lowerEndPos and neededChargeTime > ml_navigation.mount.springer.MAXLOADTIME) then
+		return false
+	else
+		return true
+	end
 end
