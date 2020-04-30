@@ -9,7 +9,8 @@ ml_navigation.lastMount = 0
 ml_navigation.avoidanceareasize = 50
 ml_navigation.avoidanceareas = { }	-- TODO: make a proper API in c++ for handling a list and accessing single entries
 
--- all mount related constants
+-- all mount related variables
+ml_navigation.lastMountOMCID = nil
 ml_navigation.mount = {}
 ml_navigation.mount.springer = {
 	ID = 41731,
@@ -115,6 +116,7 @@ function ml_navigation.Navigate(event, ticks )
 						-- Temp solution to cancel navcon handling after 10 sec
 						if ( ml_navigation.navconnection_start_tmr and ( ml_global_information.Now - ml_navigation.navconnection_start_tmr > 10000)) then
 							d("[Navigation] - We did not complete the Navconnection handling in 10 seconds, something went wrong ?...Resetting Path..")
+							ml_navigation.currentSpringerJump = nil
 							Player:StopMovement()
 							return
 						end
@@ -441,7 +443,7 @@ function ml_navigation.Navigate(event, ticks )
 											return
 										end
 										-- Do jump
-										if (neededChargeTime > 0) then KeyDown(32) end
+										if (neededChargeTime > 0) then KeyDown(32) end -- TODO: works for CN?
 										Player:SetFacingExact(endPos.x, endPos.y, endPos.z)
 										ml_navigation.currentSpringerJump.jumpTime = ml_global_information.Now
 										d("[Navigation] - Springer OMC jump with charge time of ("..tostring(neededChargeTime)..")")
@@ -450,16 +452,17 @@ function ml_navigation.Navigate(event, ticks )
 									-- Charge + in air phase
 									if (ml_navigation.currentSpringerJump.jumpTime and TimeSince(ml_navigation.currentSpringerJump.jumpTime) > neededChargeTime) then
 										-- Interrupt jump
-										KeyUp(32)
+										KeyUp(32) -- TODO: works for CN?
 										-- Move towards endPos
 										local grounded = Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundMoving and Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving
+                                        -- TODO: as soon we get a better way to track the charge skill bar we can start moving forward earlier and thus getting further
 										if ((not grounded or neededChargeTime <= 0) and math.distance2d(playerpos,startPos) <= math.distance2d(endPos,startPos)) then
 											Player:SetMovement(GW2.MOVEMENTTYPE.Forward)
 											--d("[Navigation] - Springer OMC forward movement")
 										else
 											-- prevent boosting over the endpoint
 											if (math.distance2d(playerpos,startPos) > math.distance2d(endPos,startPos) - endPos.radius * 32) then
-												PressKey(83)
+												PressKey(83) -- TODO: works for CN?
 											end
 											Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward)
 											--d("[Navigation] - Springer OMC interrupt forward movement")
