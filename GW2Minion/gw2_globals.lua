@@ -71,6 +71,7 @@ ml_global_information.ImmobilizeConditions = {
 
 ml_global_information.InvulnerabilityConditions = {
 	[762]		= "Determined",
+	[785]		= "Determined",
 	[895]		= "Determined (no icon)",
 	[11641]		= "Determined (no icon)",
 	[757]		= "Invulnerable",
