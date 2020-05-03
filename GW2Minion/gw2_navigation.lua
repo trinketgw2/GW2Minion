@@ -377,6 +377,15 @@ function ml_navigation.Navigate(event, ticks )
 									return math.acos(currentHeadingDotGoalHeading / math.sqrt(currentHeadingDotcurrentHeading * goalHeadingDotGoalHeading)) * 180 / math.pi
 								end
 
+								-- We got into combat so we abort the OMC
+								if (not Player.mounted and Player.incombat and ml_navigation.navconnection) then
+									ml_navigation.currentSpringerJump = nil
+									gw2_common_functions.GetBestAggroTarget(GW2.HEALTHSTATE.Alive)
+									Player:StopMovement()
+									d("[Navigation] - Reset OMC due of being in combat.")
+									return
+								end
+
 								-- Low level character without mount skill slot
 								if (not Player:GetSpellInfo(19)) then
 									DisableNavConnection(ml_navigation.navconnection,nil)
@@ -387,7 +396,7 @@ function ml_navigation.Navigate(event, ticks )
 									return
 								end
 
-								-- EXECUTION
+								-- OMC handling
 								if ( table.valid(ml_navigation.currentSpringerJump) ) then
 									-- OMC RUNNING
 
@@ -421,8 +430,10 @@ function ml_navigation.Navigate(event, ticks )
 										Player:Dismount()
 										return
 									elseif (not Player.mounted and Player:GetSpellInfo(19).skillid == ml_navigation.mount.springer.ID and Player.canmount) then
-										Player:Mount()
-										ml_navigation.currentSpringerJump.mountTime = ml_global_information.Now
+										if (Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving) then
+											Player:Mount()
+											ml_navigation.currentSpringerJump.mountTime = ml_global_information.Now
+										end
 										return
 									elseif (not Player.mounted and Player.canmount and not ml_navigation.lastMountOMCID) then
 										ml_navigation.lastMountOMCID = Player:GetSpellInfo(19).skillid
