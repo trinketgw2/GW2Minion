@@ -2016,18 +2016,3 @@ function dev.t(poop)
 	--D = "314879 = Ranked Arena"
 	-- 637650  719797
 end
-
-
-
-local l_req = {
-	["api"] = "/api/ping",
-	["method"] = "GET",
-	["callback"] = function(validresult, data)
-		if(validresult == true) then
-			d(tostring(data))
-		else
-			d("Error: Failed A")
-		end
-	end,
-}
-API:Request(l_req)
