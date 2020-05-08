@@ -465,9 +465,9 @@ function ml_navigation.Navigate(event, ticks )
 										-- Interrupt jump
 										KeyUp(32) -- TODO: works for CN?
 										-- Move towards endPos
-										local grounded = Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundMoving and Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving
+										local inAir = Player:GetMovementState() == GW2.MOVEMENTSTATE.Falling or Player:GetMovementState() == GW2.MOVEMENTSTATE.Jumping
                                         -- TODO: as soon we get a better way to track the charge skill bar we can start moving forward earlier and thus getting further
-										if ((not grounded or neededChargeTime <= 0) and math.distance2d(playerpos,startPos) <= math.distance2d(endPos,startPos)) then
+										if ((inAir or neededChargeTime <= 0) and math.distance2d(playerpos,startPos) <= math.distance2d(endPos,startPos)) then
 											Player:SetMovement(GW2.MOVEMENTTYPE.Forward)
 											--d("[Navigation] - Springer OMC forward movement")
 										else
