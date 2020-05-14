@@ -385,6 +385,11 @@ function ml_navigation.Navigate(event, ticks )
 									return math.acos(currentHeadingDotGoalHeading / math.sqrt(currentHeadingDotcurrentHeading * goalHeadingDotGoalHeading)) * 180 / math.pi
 								end
 
+								-- Make sure this is setup
+								if (Settings.GW2Minion.mountAbility2Key == nil) then
+									Settings.GW2Minion.mountAbility2Key = 0x56 -- V
+								end
+
 								-- We got into combat so we abort the OMC
 								if (not Player.mounted and Player.incombat and ml_navigation.navconnection) then
 									ml_navigation.currentMountOMC = nil
@@ -462,7 +467,7 @@ function ml_navigation.Navigate(event, ticks )
 											return
 										end
 										-- Do jump
-										if (neededChargeTime > 0) then KeyDown(32) end -- TODO: works for CN?
+										if (neededChargeTime > 0) then KeyDown(Settings.GW2Minion.mountAbility2Key) end
 										Player:SetFacingExact(endPos.x, endPos.y, endPos.z)
 										ml_navigation.currentMountOMC.jumpTime = ml_global_information.Now
 										d("[Navigation] - Springer OMC jump with charge time of ("..tostring(neededChargeTime)..")")
@@ -471,7 +476,7 @@ function ml_navigation.Navigate(event, ticks )
 									-- Charge + in air phase
 									if (ml_navigation.currentMountOMC.jumpTime and TimeSince(ml_navigation.currentMountOMC.jumpTime) > neededChargeTime) then
 										-- Interrupt jump
-										KeyUp(32) -- TODO: works for CN?
+										KeyUp(Settings.GW2Minion.mountAbility2Key)
 										-- Move towards endPos
 										local inAir = Player:GetMovementState() == GW2.MOVEMENTSTATE.Falling or Player:GetMovementState() == GW2.MOVEMENTSTATE.Jumping
 										-- TODO: as soon we get a better way to track the charge skill bar we can start moving forward earlier and thus getting further
@@ -549,6 +554,11 @@ function ml_navigation.Navigate(event, ticks )
 									return math.acos(currentHeadingDotGoalHeading / math.sqrt(currentHeadingDotcurrentHeading * goalHeadingDotGoalHeading)) * 180 / math.pi
 								end
 
+								-- Make sure this is setup
+								if (Settings.GW2Minion.mountAbility2Key == nil) then
+									Settings.GW2Minion.mountAbility2Key = 0x56 -- V
+								end
+
 								-- We got into combat so we abort the OMC
 								if (not Player.mounted and Player.incombat and ml_navigation.navconnection) then
 									ml_navigation.currentMountOMC = nil
@@ -613,7 +623,7 @@ function ml_navigation.Navigate(event, ticks )
 									elseif (math.distance2d(playerpos,startPos) <= math.distance2d(endPos,startPos)) then
 										-- In air phase
 										if (not ml_navigation.currentMountOMC.jumpTime or TimeSince(ml_navigation.currentMountOMC.jumpTime) > 2000) then
-											PressKey(32)
+											PressKey(Settings.GW2Minion.mountAbility2Key)
 											ml_navigation.currentMountOMC.jumpTime = Now()
 										end
 										-- Move towards endPos
