@@ -25,6 +25,7 @@ function gw2minion.Init()
 		-- extending subtypes list with mounts
 		local ncsubtypes = ml_mesh_mgr.GetNavConnectionSubTypes()
 		ncsubtypes[7] = "Springer"
+		ncsubtypes[8] = "Jackal Portal"
 
 		-- Set worldnavigation data
 		ml_mesh_mgr.navData = {} -- Holds the data for world navigation
