@@ -701,7 +701,7 @@ function gw2_common_functions.radianToDegrees(radian)
 	return degrees
 end
 
--- get differance in degrees.
+-- get difference in degrees.
 function gw2_common_functions.getDegreeDiffTargets(targetIDA,targetIDB) -- gw2_common_functions.getDegreeDiffTargets(targetID,Player.id) player relative to target.
 	local targetA = CharacterList:Get(targetIDA) or GadgetList:Get(targetIDA)
 	local targetB = CharacterList:Get(targetIDB) or GadgetList:Get(targetIDB)
@@ -715,6 +715,45 @@ function gw2_common_functions.getDegreeDiffTargets(targetIDA,targetIDB) -- gw2_c
 		if (diffDegree < 0) then diffDegree = 360 + diffDegree end
 		return diffDegree
 	end
+end
+
+-- get unit vector.
+function gw2_common_functions.normalize(pos)
+	local magnitude = math.sqrt(pos.x * pos.x + pos.y * pos.y)
+
+	if magnitude == 1 then
+		return pos
+	elseif magnitude > 1e-5 then
+		pos.x = pos.x / magnitude
+		pos.y = pos.y / magnitude
+	else
+		pos.x = 0
+		pos.y = 0
+	end
+
+	return pos
+end
+
+-- get shorter turning direction. origin and heading from player.
+function gw2_common_functions.getTurnDirection(targetPos)
+	local origin = Player and Player.pos
+	if (table.valid(origin) and table.valid(targetPos)) then
+		local endHeading = gw2_common_functions.normalize({ x = targetPos.x - origin.x, y = targetPos.y - origin.y })
+		local bearingCurrentHeading = math.deg(math.tan(origin.hy / origin.hx))
+		local bearingGoalHeading = math.deg(math.tan(endHeading.y / endHeading.x))
+		local delta = (bearingGoalHeading - bearingCurrentHeading + 540) % 360 - 180
+		return delta < 0 and GW2.MOVEMENTTYPE.TurnLeft or GW2.MOVEMENTTYPE.TurnRight
+	end
+end
+
+-- get absolute angle with interval of [0,180]
+function gw2_common_functions.angle2DToTargetInDeg(origin,heading,target)
+	local currentHeading = gw2_common_functions.normalize(heading)
+	local goalHeading = gw2_common_functions.normalize({ x = target.x - origin.x, y = target.y - origin.y })
+	local currentHeadingDotGoalHeading = (currentHeading.x * goalHeading.x) + (currentHeading.y * goalHeading.y)
+	local currentHeadingDotcurrentHeading = (currentHeading.x * currentHeading.x) + (currentHeading.y * currentHeading.y)
+	local goalHeadingDotGoalHeading = (goalHeading.x * goalHeading.x) + (goalHeading.y * goalHeading.y)
+	return math.acos(currentHeadingDotGoalHeading / math.sqrt(currentHeadingDotcurrentHeading * goalHeadingDotGoalHeading)) * 180 / math.pi
 end
 
 -- Filter entity list by relative position.
