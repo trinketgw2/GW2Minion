@@ -375,27 +375,21 @@ function ml_navigation.Navigate(event, ticks )
 								ml_navigation.staymounted = true -- prevent unnecessary dismounting
 
 								local function resetSpringerOMC()
-									local omcEndPos = ml_navigation.path[ml_navigation.pathindex + 1]
 									local continueNode = ml_navigation.path[ml_navigation.pathindex + 2]
-									if (continueNode and math.distance3d(continueNode,omcEndPos) ~= 0) then
-										-- Continue path available
-										local navConId = ml_navigation.path[ml_navigation.pathindex + 2].navconnectionid
-										if (navConId ~= 0 and (NavigationManager:GetNavConnection(navConId).details or {}).subtype == 8) then
-											-- We will have right after a jackal jump OMC again so we stay mounted on jackal
-											ml_navigation.lastMount = ml_global_information.Now + ml_navigation.gw2mount.jackal.GRACETIME
-										end
-										Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward)
-										Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
-										ml_navigation.currentMountOMC = nil
-										ml_navigation.pathindex = ml_navigation.pathindex + 2
-									else
-										-- OMC end position is last node
-										ml_navigation.pathindex = pathsize + 1
-										ml_navigation.currentMountOMC = nil
+									local navConId = continueNode.navconnectionid
+									-- Continue path available
+									if (navConId ~= 0 and (NavigationManager:GetNavConnection(navConId).details or {}).subtype == 7) then
+										-- We will have right after a springer jump OMC again so we stay mounted on springer
+										ml_navigation.lastMount = ml_global_information.Now + ml_navigation.gw2mount.springer.GRACETIME
 									end
+									Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward)
+									Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
+									ml_navigation.pathindex = ml_navigation.pathindex + 1
 									NavigationManager.NavPathNode = ml_navigation.pathindex
+									ml_navigation.currentMountOMC = nil
 									ml_navigation.navconnection = nil
 									d("[Navigation] - Springer OMC done")
+									return
 								end
 
 								-- Make sure this is setup
@@ -435,8 +429,8 @@ function ml_navigation.Navigate(event, ticks )
 									local endPos = ml_navigation.currentMountOMC.endSide
 									local zDistToTravel = - startPos.z + endPos.z -- negativ means we have to descend
 									local xyDistToTravel = math.distance2d(startPos, endPos)
-									local xyDistToTravelFactor = zDistToTravel > xyDistToTravel and ml_navigation.gw2mount.springer.LOWBOOSTFACTOR or ml_navigation.gw2mount.springer.HIGHBOOSTFACTOR
-									local totalDistToTravel = zDistToTravel + xyDistToTravel * xyDistToTravelFactor
+									local xyDistToTravelFactor = zDistToTravel < xyDistToTravel and ml_navigation.gw2mount.springer.LOWBOOSTFACTOR or ml_navigation.gw2mount.springer.HIGHBOOSTFACTOR
+									local totalDistToTravel = -zDistToTravel + xyDistToTravel * xyDistToTravelFactor
 									local neededChargeTime = totalDistToTravel / ml_navigation.gw2mount.springer.GetMaxTravelHeight() * ml_navigation.gw2mount.springer.MAXLOADTIME
 									local needTravelTime = ml_navigation.gw2mount.springer.GetMaxTravelHeight() / ml_navigation.gw2mount.springer.GetMaxTravelTime() * totalDistToTravel
 									local angleToEndPos = gw2_common_functions.angle2DToTargetInDeg(playerpos,{ x = playerpos.hx, y = playerpos.hy }, endPos)
@@ -554,27 +548,21 @@ function ml_navigation.Navigate(event, ticks )
 								ml_navigation.staymounted = true -- prevent unnecessary dismounting
 
 								local function resetJackalJumpOMC()
-									local omcEndPos = ml_navigation.path[ml_navigation.pathindex + 1]
 									local continueNode = ml_navigation.path[ml_navigation.pathindex + 2]
-									if (continueNode and math.distance3d(continueNode,omcEndPos) ~= 0) then
-										-- Continue path available
-										local navConId = ml_navigation.path[ml_navigation.pathindex + 2].navconnectionid
-										if (navConId ~= 0 and (NavigationManager:GetNavConnection(navConId).details or {}).subtype == 8) then
-											-- We will have right after a jackal jump OMC again so we stay mounted on jackal
-											ml_navigation.lastMount = ml_global_information.Now + ml_navigation.gw2mount.jackal.GRACETIME
-										end
-										Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward)
-										Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
-										ml_navigation.currentMountOMC = nil
-										ml_navigation.pathindex = ml_navigation.pathindex + 2
-									else
-										-- OMC end position is last node
-										ml_navigation.pathindex = pathsize + 1
-										ml_navigation.currentMountOMC = nil
+									local navConId = continueNode.navconnectionid
+									-- Continue path available
+									if (navConId ~= 0 and (NavigationManager:GetNavConnection(navConId).details or {}).subtype == 8) then
+										-- We will have right after a springer jump OMC again so we stay mounted on springer
+										ml_navigation.lastMount = ml_global_information.Now + ml_navigation.gw2mount.jackal.GRACETIME
 									end
+									Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward)
+									Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
+									ml_navigation.pathindex = ml_navigation.pathindex + 1
 									NavigationManager.NavPathNode = ml_navigation.pathindex
+									ml_navigation.currentMountOMC = nil
 									ml_navigation.navconnection = nil
 									d("[Navigation] - Jackal Portal OMC done")
+									return
 								end
 
 								-- Make sure this is setup
@@ -727,28 +715,23 @@ function ml_navigation.Navigate(event, ticks )
 								ml_navigation.staymounted = true -- prevent unnecessary dismounting
 
 								local function resetRaptorOMC()
+									local continueNode = ml_navigation.path[ml_navigation.pathindex + 2]
+									local navConId = continueNode.navconnectionid
+									-- Continue path available
+									if (navConId ~= 0 and (NavigationManager:GetNavConnection(navConId).details or {}).subtype == 9) then
+										-- We will have right after a springer jump OMC again so we stay mounted on springer
+										ml_navigation.lastMount = ml_global_information.Now + ml_navigation.gw2mount.raptor.GRACETIME
+									end
 									-- Interrupt jump
 									KeyUp(Settings.GW2Minion.mountAbility2Key)
-									local omcEndPos = ml_navigation.path[ml_navigation.pathindex + 1]
-									local continueNode = ml_navigation.path[ml_navigation.pathindex + 2]
-									if (continueNode and math.distance3d(continueNode,omcEndPos) ~= 0) then
-										-- Continue path available
-										local navConId = ml_navigation.path[ml_navigation.pathindex + 2].navconnectionid
-										if (navConId ~= 0 and (NavigationManager:GetNavConnection(navConId).details or {}).subtype == 8) then
-											-- We will have right after a raptor jump OMC again so we stay mounted on raptor
-											ml_navigation.lastMount = ml_global_information.Now + ml_navigation.gw2mount.raptor.GRACETIME
-										end
-										Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
-										ml_navigation.currentMountOMC = nil
-										ml_navigation.pathindex = ml_navigation.pathindex + 2
-									else
-										-- OMC end position is last node
-										ml_navigation.pathindex = pathsize + 1
-										ml_navigation.currentMountOMC = nil
-									end
+									Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward)
+									Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
+									ml_navigation.pathindex = ml_navigation.pathindex + 1
 									NavigationManager.NavPathNode = ml_navigation.pathindex
+									ml_navigation.currentMountOMC = nil
 									ml_navigation.navconnection = nil
 									d("[Navigation] - Raptor Jump OMC done")
+									return
 								end
 
 								-- Make sure this is setup
