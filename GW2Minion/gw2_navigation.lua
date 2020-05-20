@@ -378,22 +378,6 @@ function ml_navigation.Navigate(event, ticks )
 									d("[Navigation] - Springer OMC done")
 								end
 
-								local function normalize(coords)
-									local magnitude = math.sqrt(coords.x * coords.x + coords.y * coords.y)
-
-									if magnitude == 1 then
-										return coords
-									elseif magnitude > 1e-5 then
-										coords.x = coords.x / magnitude
-										coords.y = coords.y / magnitude
-									else
-										coords.x = 0
-										coords.y = 0
-									end
-
-									return coords
-								end
-
 								-- Make sure this is setup
 								if (Settings.GW2Minion.mountAbility2Key == nil) then
 									Settings.GW2Minion.mountAbility2Key = 0x56 -- V
@@ -572,22 +556,6 @@ function ml_navigation.Navigate(event, ticks )
 									NavigationManager.NavPathNode = ml_navigation.pathindex
 									ml_navigation.navconnection = nil
 									d("[Navigation] - Jackal Portal OMC done")
-								end
-
-								local function normalize(coords)
-									local magnitude = math.sqrt(coords.x * coords.x + coords.y * coords.y)
-
-									if magnitude == 1 then
-										return coords
-									elseif magnitude > 1e-5 then
-										coords.x = coords.x / magnitude
-										coords.y = coords.y / magnitude
-									else
-										coords.x = 0
-										coords.y = 0
-									end
-
-									return coords
 								end
 
 								-- Make sure this is setup
