@@ -379,9 +379,11 @@ end
 
 -- Update Loop
 function gw2_radar.Update(_,ticks)
-	if (ticks - gw2_radar.computeTicks >= gw2_radar.computeTickDelay) then
-		gw2_radar.parseEntities()
-		gw2_radar.parseCompassPath()
+	if (GetGameState() == GW2.GAMESTATE.GAMEPLAY) then
+		if (ticks - gw2_radar.computeTicks >= gw2_radar.computeTickDelay) then
+			gw2_radar.parseEntities()
+			gw2_radar.parseCompassPath()
+		end
 	end
 end
 
