@@ -197,6 +197,7 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(872,"Mistlock Observatory",enforce)
 		ml_mesh_mgr.SetDefaultMesh(956,"Aetherblade",enforce)
 		ml_mesh_mgr.SetDefaultMesh(960,"Aetherblade Retreat",enforce)
+		ml_mesh_mgr.SetDefaultMesh(958,"Solid Ocean",enforce)
 		
 						
 	end
