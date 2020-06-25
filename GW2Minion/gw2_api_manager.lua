@@ -658,6 +658,8 @@ function gw2_api_manager.API_DataHandler(_, ticks)
                   gw2_api_manager.http_requests[idstring .. " - " .. category].status = s.queued
                   d(idstring .. " - " .. category)
                end
+            else
+               gw2_api_manager.ImageQueue[category] = nil               
             end
          end
       end
