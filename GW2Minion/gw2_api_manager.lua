@@ -11,6 +11,7 @@ gw2_api_manager.HTTP_Status = {
    downloading = 5,
 }
 gw2_api_manager.http_requests = {}
+gw2_api_manager.api_requests = {}
 gw2_api_manager.API_Request_Running = false
 gw2_api_manager.categories = {
    "skills",
@@ -18,6 +19,14 @@ gw2_api_manager.categories = {
    "currencies",
    "files",
    "commerce",
+}
+gw2_api_manager.data_path = GetLuaModsPath() .. "\\GW2Minion\\API_Data\\"
+gw2_api_manager.data_folders = {
+   skills = gw2_api_manager.data_path .. "skills\\",
+   items = gw2_api_manager.data_path .. "items\\",
+   currencies = gw2_api_manager.data_path .. "currencies\\",
+   files = gw2_api_manager.data_path .. "files\\",
+   commerce = gw2_api_manager.data_path .. "commerce\\",
 }
 gw2_api_manager.folders = {
    skills = gw2_api_manager.icons_path .. "skills\\",
@@ -57,9 +66,13 @@ gw2_api_manager.language_dependent = {
 -- create folders, load already gathered data files
 function gw2_api_manager.ModuleInit()
 
-   local folders = gw2_api_manager.folders
+   for _, foldername in pairs(gw2_api_manager.folders) do
+      if not FolderExists(foldername) then
+         FolderCreate(foldername)
+      end
+   end
 
-   for _, foldername in pairs(folders) do
+   for _, foldername in pairs(gw2_api_manager.data_folders) do
       if not FolderExists(foldername) then
          FolderCreate(foldername)
       end
@@ -71,15 +84,47 @@ end
 
 -- load already gathered data files
 function gw2_api_manager.Load_API_Data()
-   for k, v in pairs(FolderList(gw2_api_manager.path, ".*.lua") or {}) do
-      gw2_api_manager.API_Data[string.trim(v, 4)] = FileLoad(GetLuaModsPath() .. "\\GW2Minion\\API_Data\\" .. v) or {}
+   for _, foldername in pairs(FolderList(gw2_api_manager.path, ".*", true)) do
+      for _, file in pairs(FolderList(gw2_api_manager.path .. foldername, ".*.lua", false) or {}) do
+         gw2_api_manager.API_Data[foldername] = gw2_api_manager.API_Data[foldername] or {}
+         gw2_api_manager.API_Data[foldername][string.trim(file, 4)] = FileLoad(gw2_api_manager.path .. foldername .. "\\" .. file) or {}
+      end
    end
 end
 
 -- save already gathered data to lua files
-function gw2_api_manager.Save_API_Data()
-   for k, v in pairs(gw2_api_manager.API_Data) do
-      FileSave(GetLuaModsPath() .. "\\GW2Minion\\API_Data\\" .. k .. ".lua", gw2_api_manager.API_Data[k])
+function gw2_api_manager.Save_API_Data(category, id)
+   if not category then
+      for category, v in pairs(gw2_api_manager.API_Data) do
+         if category ~= "blacklist" then
+            if not FolderExists(gw2_api_manager.data_path .. category) then
+               FolderCreate(gw2_api_manager.data_path .. category)
+            end
+
+            for k2, v2 in pairs(gw2_api_manager.API_Data[category]) do
+               FileSave(gw2_api_manager.data_path .. category .. "\\" .. k2 .. ".lua", gw2_api_manager.API_Data[category][k2])
+            end
+         end
+      end
+   else
+      if category ~= "blacklist" then
+         if not FolderExists(gw2_api_manager.data_path .. category) then
+            FolderCreate(gw2_api_manager.data_path .. category)
+         end
+
+         if not id then
+            for k, v in pairs(gw2_api_manager.API_Data[category]) do
+               FileSave(gw2_api_manager.data_path .. category .. "\\" .. k .. ".lua", gw2_api_manager.API_Data[category][k])
+            end
+
+         elseif type(id) == "number" or type(id) == "string" then
+            FileSave(gw2_api_manager.data_path .. category .. "\\" .. id .. ".lua", gw2_api_manager.API_Data[category][id])
+         elseif type(id) == "table" then
+            for _, entry in pairs(id) do
+               FileSave(gw2_api_manager.data_path .. category .. "\\" .. entry .. ".lua", gw2_api_manager.API_Data[category][entry])
+            end
+         end
+      end
    end
 end
 
@@ -110,8 +155,10 @@ function gw2_api_manager.queue_API_Data(id, category, forced)
 
    gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
    gw2_api_manager.http_requests[category] = gw2_api_manager.http_requests[category] or {}
+   gw2_api_manager.api_requests[category] = gw2_api_manager.api_requests[category] or {}
 
-   if (type(id) == "string" or type(id) == "number") and not gw2_api_manager.is_Blacklisted(id, category) then
+   if (type(id) == "string" or type(id) == "number") and not gw2_api_manager.is_Blacklisted(id, category) and (not gw2_api_manager.api_requests[category][id] or TimeSince(gw2_api_manager.api_requests[category][id]) > 5000) then
+      gw2_api_manager.api_requests[category][id] = ml_global_information.Now
       tbl[category] = tbl[category] or {}
       tbl[category][id] = { status = s.queued, url = false, forced = forced or false }
       table.insert(ids, id)
@@ -120,7 +167,8 @@ function gw2_api_manager.queue_API_Data(id, category, forced)
    if type(id) == "table" then
       local count = 0
       for _, entry in pairs(id) do
-         if count < 200 and not gw2_api_manager.is_Blacklisted(entry, category) then
+         if count < 200 and not gw2_api_manager.is_Blacklisted(entry, category) and (not gw2_api_manager.api_requests[category][entry] or TimeSince(gw2_api_manager.api_requests[category][entry]) > 5000) then
+            gw2_api_manager.api_requests[category][entry] = ml_global_information.Now
             tbl[category] = tbl[category] or {}
             tbl[category][entry] = { status = s.queued, url = false, forced = forced or false }
             table.insert(ids, entry)
@@ -169,12 +217,13 @@ function gw2_api_manager.queue_API_Data(id, category, forced)
             end
          end
 
+         local time = os.time()
          for _, entry in pairs(data) do
             gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
             gw2_api_manager.API_Data[category][entry.id] = gw2_api_manager.setEntryData(entry, category)
-            gw2_api_manager.API_Data[category][entry.id].lastupdate = os.time()
+            gw2_api_manager.API_Data[category][entry.id].lastupdate = time
          end
-         gw2_api_manager.Save_API_Data()
+         gw2_api_manager.Save_API_Data(category, ids)
       end
 
       local function failed(str)
@@ -207,18 +256,21 @@ function gw2_api_manager.queue_API_Prices(id, forced)
 
    gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
    gw2_api_manager.http_requests[category] = gw2_api_manager.http_requests[category] or {}
+   gw2_api_manager.api_requests[category] = gw2_api_manager.api_requests[category] or {}
 
-   if (type(id) == "string" or type(id) == "number") and not gw2_api_manager.is_Blacklisted(id, category) then
+   if (type(id) == "string" or type(id) == "number") and not gw2_api_manager.is_Blacklisted(id, category) and (not gw2_api_manager.api_requests[category][id] or TimeSince(gw2_api_manager.api_requests[category][id]) > 5000) then
+      gw2_api_manager.api_requests[category][id] = ml_global_information.Now
       tbl[category] = tbl[category] or {}
-      tbl[category][id] = { status = s.queued, url = false, forced = forced or false }
+      tbl[category][id] = tbl[category][id] or { status = s.queued, url = false, forced = forced or false }
       table.insert(ids, id)
    end
 
    if type(id) == "table" then
       local count = 0
       for _, entry in pairs(id) do
-         if count < 200 and not gw2_api_manager.is_Blacklisted(id, category) then
-            tbl[category][entry] = { status = s.queued, url = false, forced = forced or false }
+         if count < 200 and not gw2_api_manager.is_Blacklisted(entry, category) and (not gw2_api_manager.api_requests[category][entry] or TimeSince(gw2_api_manager.api_requests[category][entry]) > 5000) then
+            tbl[category][entry] = tbl[category][entry] or { status = s.queued, url = false, forced = forced or false }
+            gw2_api_manager.api_requests[category][entry] = ml_global_information.Now
             table.insert(ids, entry)
             count = count + 1
          end
@@ -262,14 +314,15 @@ function gw2_api_manager.queue_API_Prices(id, forced)
       end
 
       d("[gw2_api_manager]: HTTP Request successful.")
+      local time = os.time()
       for _, entry in pairs(data) do
          gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
          gw2_api_manager.API_Data[category][entry.id] = gw2_api_manager.setEntryData(entry, category)
-         gw2_api_manager.API_Data[category][entry.id].lastupdate = os.time()
+         gw2_api_manager.API_Data[category][entry.id].lastupdate = time
       end
       gw2_api_manager.API_Request_Running = false
       gw2_api_manager.http_requests[idstring .. " - " .. category] = nil
-      gw2_api_manager.Save_API_Data()
+      gw2_api_manager.Save_API_Data(category, ids)
    end
 
    local function failed(str)
@@ -335,14 +388,14 @@ end
 -- this way we can provide always the data in the Players language
 function gw2_api_manager.setEntryData(data, category)
    gw2_api_manager.API_Data[category][data.id] = gw2_api_manager.API_Data[category][data.id] or {}
-
+   local language = Player:GetLanguage()
    local tbl = gw2_api_manager.API_Data[category][data.id]
    for k, v in pairs(data) do
       if not gw2_api_manager.language_dependent[k] then
          tbl[k] = v
       else
          tbl[k] = tbl[k] or {}
-         tbl[k][Player:GetLanguage()] = v
+         tbl[k][language] = v
       end
    end
 
@@ -368,8 +421,10 @@ function gw2_api_manager.getInfo(id, category, all_data)
 
    local tbl = {}
    if (type(id) == "string" or type(id) == "number") then
-      if gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] then
-         for k, v in pairs(gw2_api_manager.API_Data[category][id]) do
+      if (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id]) or FileExists(gw2_api_manager.data_folders[category] .. id .. ".lua") then
+         local info = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] and gw2_api_manager.API_Data[category][id]) or FileLoad(gw2_api_manager.data_folders[category] .. id .. ".lua")
+
+         for k, v in pairs(info) do
             if all_data or (not gw2_api_manager.language_dependent[k]) then
                tbl[k] = v
             else
@@ -385,9 +440,11 @@ function gw2_api_manager.getInfo(id, category, all_data)
 
    if (type(id) == "table") then
       for _, entry in pairs(id) do
-         if gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][entry] then
+         if (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][entry]) or FileExists(gw2_api_manager.data_folders[category] .. entry .. ".lua") then
+            local info = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][entry] and gw2_api_manager.API_Data[category][entry]) or FileLoad(gw2_api_manager.data_folders[category] .. entry .. ".lua")
+
             tbl[entry] = tbl[entry] or {}
-            for k, v in pairs(gw2_api_manager.API_Data[category][entry]) do
+            for k, v in pairs(info) do
                if all_data or (not gw2_api_manager.language_dependent[k]) then
                   tbl[entry][k] = v
                else
@@ -420,9 +477,12 @@ function gw2_api_manager.getPrice(id, all_data)
 
    local tbl = {}
    if (type(id) == "string" or type(id) == "number") then
-      if gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] and gw2_api_manager.TimeSince(gw2_api_manager.API_Data[category][id].lastupdate) < 900 then
-         if gw2_api_manager.API_Data["items"] and gw2_api_manager.API_Data["items"][id] then
-            for k, v in pairs(gw2_api_manager.API_Data["items"][id]) do
+      local info = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] and gw2_api_manager.API_Data[category][id]) or FileLoad(gw2_api_manager.data_folders[category] .. id .. ".lua")
+      local item_info = (gw2_api_manager.API_Data["items"] and gw2_api_manager.API_Data["items"][id] and gw2_api_manager.API_Data["items"][id]) or FileLoad(gw2_api_manager.data_folders["items"] .. id .. ".lua")
+
+      if table.valid(info) and gw2_api_manager.TimeSince(info.lastupdate) < 900 then
+         if item_info then
+            for k, v in pairs(item_info) do
                if all_data or (not gw2_api_manager.language_dependent[k]) then
                   tbl[k] = v
                else
@@ -431,14 +491,14 @@ function gw2_api_manager.getPrice(id, all_data)
             end
          end
 
-         for k, v in pairs(gw2_api_manager.API_Data[category][id]) do
+         for k, v in pairs(info) do
             if all_data or (not gw2_api_manager.language_dependent[k]) then
                tbl[k] = v
             else
                tbl[k] = v[Player:GetLanguage()]
             end
          end
-         tbl.time_since_update = gw2_api_manager.TimeSince(gw2_api_manager.API_Data[category][id].lastupdate)
+         tbl.time_since_update = gw2_api_manager.TimeSince(info.lastupdate)
 
       elseif not gw2_api_manager.is_Blacklisted(id, category) then
          table.insert(request_ids, id)
@@ -449,10 +509,13 @@ function gw2_api_manager.getPrice(id, all_data)
 
    if (type(id) == "table") then
       for _, entry in pairs(id) do
-         if gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][entry] and gw2_api_manager.TimeSince(gw2_api_manager.API_Data[category][entry].lastupdate) < 900 then
+         local info = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][entry] and gw2_api_manager.API_Data[category][entry]) or FileLoad(gw2_api_manager.data_folders[category] .. entry .. ".lua")
+         local item_info = (gw2_api_manager.API_Data["items"] and gw2_api_manager.API_Data["items"][entry] and gw2_api_manager.API_Data["items"][entry]) or FileLoad(gw2_api_manager.data_folders["items"] .. entry .. ".lua")
+
+         if table.valid(info) and gw2_api_manager.TimeSince(info.lastupdate) < 900 then
             tbl[entry] = tbl[entry] or {}
-            if gw2_api_manager.API_Data["items"] and gw2_api_manager.API_Data["items"][entry] then
-               for k, v in pairs(gw2_api_manager.API_Data["items"][entry]) do
+            if item_info then
+               for k, v in pairs(item_info) do
                   if all_data or (not gw2_api_manager.language_dependent[k]) then
                      tbl[entry][k] = v
                   else
@@ -461,14 +524,14 @@ function gw2_api_manager.getPrice(id, all_data)
                end
             end
 
-            for k, v in pairs(gw2_api_manager.API_Data[category][entry]) do
+            for k, v in pairs(info) do
                if all_data or (not gw2_api_manager.language_dependent[k]) then
                   tbl[entry][k] = v
                else
                   tbl[entry][k] = v[Player:GetLanguage()]
                end
             end
-            tbl.time_since_update = gw2_api_manager.TimeSince(gw2_api_manager.API_Data[category][entry].lastupdate)
+            tbl.time_since_update = gw2_api_manager.TimeSince(info.lastupdate)
 
          elseif not gw2_api_manager.is_Blacklisted(entry, category) then
             table.insert(request_ids, entry)
@@ -535,9 +598,11 @@ function gw2_api_manager.API_DataHandler(_, ticks)
 
    -- image downloading, restart each 10 seconds
    if table.valid(gw2_api_manager.ImageQueue) and (not gw2_api_manager.lastImage or FileExists(gw2_api_manager.lastImage) or gw2_api_manager.TimeSince(gw2_api_manager.lastDownload) > 10) then
-      for k, v in pairs(folders) do
-         for k2, v2 in pairs(FolderList(v, ".*.png_tmp")) do
-            FileDelete(v .. v2)
+      if gw2_api_manager.TimeSince(gw2_api_manager.lastDownload) > 10 then
+         for k, v in pairs(folders) do
+            for k2, v2 in pairs(FolderList(v, ".*.png_tmp")) do
+               FileDelete(v .. v2)
+            end
          end
       end
 
@@ -659,7 +724,7 @@ function gw2_api_manager.API_DataHandler(_, ticks)
                   d(idstring .. " - " .. category)
                end
             else
-               gw2_api_manager.ImageQueue[category] = nil               
+               gw2_api_manager.ImageQueue[category] = nil
             end
          end
       end
