@@ -3,6 +3,7 @@ gw2_api_manager.API_Data = {}
 gw2_api_manager.path = GetLuaModsPath() .. "\\GW2Minion\\API_Data\\"
 gw2_api_manager.icons_path = GetLuaModsPath() .. "\\GW2Minion\\Icons\\"
 gw2_api_manager.API_Call_Ticks = 0
+gw2_api_manager.imageticks = 0
 gw2_api_manager.HTTP_Status = {
    queued = 1,
    request_sent = 2,
@@ -406,6 +407,20 @@ function gw2_api_manager.setEntryData(data, category)
    return tbl
 end
 
+function gw2_api_manager.LoadData(category, id)
+   local tbl = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] and gw2_api_manager.API_Data[category][id]) or FileLoad(gw2_api_manager.data_folders[category] .. id .. ".lua")
+   local error
+
+   if table.valid(tbl) then
+      gw2_api_manager.API_Data[category][id] = tbl
+   else
+      tbl = {}
+      error = "File contains not a valid table."
+   end
+
+   return tbl, error
+end
+
 -- returns the collected item/skill/currency/... info
 -- for easy use juse use:
 -- id = itemid / currency id / skillid or table of ids
@@ -426,7 +441,7 @@ function gw2_api_manager.getInfo(id, category, all_data)
    local tbl = {}
    if (type(id) == "string" or type(id) == "number") then
       if (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id]) or FileExists(gw2_api_manager.data_folders[category] .. id .. ".lua") then
-         local info = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] and gw2_api_manager.API_Data[category][id]) or FileLoad(gw2_api_manager.data_folders[category] .. id .. ".lua")
+         local info = gw2_api_manager.LoadData(category, id)
 
          for k, v in pairs(info) do
             if all_data or (not gw2_api_manager.language_dependent[k]) then
@@ -445,7 +460,8 @@ function gw2_api_manager.getInfo(id, category, all_data)
    if (type(id) == "table") then
       for _, entry in pairs(id) do
          if (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][entry]) or FileExists(gw2_api_manager.data_folders[category] .. entry .. ".lua") then
-            local info = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][entry] and gw2_api_manager.API_Data[category][entry]) or FileLoad(gw2_api_manager.data_folders[category] .. entry .. ".lua")
+            local info = gw2_api_manager.LoadData(category, entry)
+            --local info = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][entry] and gw2_api_manager.API_Data[category][entry]) or FileLoad(gw2_api_manager.data_folders[category] .. entry .. ".lua")
 
             tbl[entry] = tbl[entry] or {}
             for k, v in pairs(info) do
@@ -481,8 +497,8 @@ function gw2_api_manager.getPrice(id, all_data)
 
    local tbl = {}
    if (type(id) == "number") then
-      local info = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] and gw2_api_manager.API_Data[category][id]) or FileLoad(gw2_api_manager.data_folders[category] .. id .. ".lua")
-      local item_info = (gw2_api_manager.API_Data["items"] and gw2_api_manager.API_Data["items"][id] and gw2_api_manager.API_Data["items"][id]) or FileLoad(gw2_api_manager.data_folders["items"] .. id .. ".lua")
+      local info = gw2_api_manager.LoadData(category, id)
+      local item_info = gw2_api_manager.LoadData("items", id)
 
       if table.valid(info) and gw2_api_manager.TimeSince(info.lastupdate) < 900 then
          if item_info then
@@ -513,8 +529,8 @@ function gw2_api_manager.getPrice(id, all_data)
 
    if (type(id) == "table") then
       for _, entry in pairs(id) do
-         local info = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][entry] and gw2_api_manager.API_Data[category][entry]) or FileLoad(gw2_api_manager.data_folders[category] .. entry .. ".lua")
-         local item_info = (gw2_api_manager.API_Data["items"] and gw2_api_manager.API_Data["items"][entry] and gw2_api_manager.API_Data["items"][entry]) or FileLoad(gw2_api_manager.data_folders["items"] .. entry .. ".lua")
+         local info = gw2_api_manager.LoadData(category, entry)
+         local item_info = gw2_api_manager.LoadData("items", entry)
 
          if table.valid(info) and gw2_api_manager.TimeSince(info.lastupdate) < 900 then
             tbl[entry] = tbl[entry] or {}
@@ -564,6 +580,7 @@ function gw2_api_manager.getIcon(id, category, fallback_icon)
    if FileExists(gw2_api_manager.icons_path .. category .. "\\" .. id .. ".png") then
       return gw2_api_manager.icons_path .. category .. "\\" .. id .. ".png"
    end
+
    for k, v in pairs(categories) do
       if category == k or category == v then
          category = v
@@ -601,46 +618,49 @@ function gw2_api_manager.API_DataHandler(_, ticks)
    local s = gw2_api_manager.HTTP_Status
 
    -- image downloading, restart each 10 seconds
-   if table.valid(gw2_api_manager.ImageQueue) and (not gw2_api_manager.lastImage or FileExists(gw2_api_manager.lastImage) or gw2_api_manager.TimeSince(gw2_api_manager.lastDownload) > 10) then
-      if gw2_api_manager.TimeSince(gw2_api_manager.lastDownload) > 10 then
-         for k, v in pairs(folders) do
-            for k2, v2 in pairs(FolderList(v, ".*.png_tmp")) do
-               FileDelete(v .. v2)
+   if ticks - gw2_api_manager.imageticks > 15 then
+      gw2_api_manager.imageticks = ticks
+      if table.valid(gw2_api_manager.ImageQueue) and (not gw2_api_manager.lastImage or FileExists(gw2_api_manager.lastImage) or gw2_api_manager.TimeSince(gw2_api_manager.lastDownload) > 10) then
+         if gw2_api_manager.TimeSince(gw2_api_manager.lastDownload) > 10 then
+            for k, v in pairs(folders) do
+               for k2, v2 in pairs(FolderList(v, ".*.png_tmp")) do
+                  FileDelete(v .. v2)
+               end
             end
          end
-      end
 
-      local download_started
-      gw2_api_manager.lastImage = false
-      gw2_api_manager.lastDownload = gw2_api_manager.lastDownload or 0
-      for category, v in pairs(gw2_api_manager.ImageQueue) do
-         if table.valid(v) and not gw2_api_manager.lastImage then
-            for id, entry in pairs(v) do
-               if entry.url and ((entry.status == s.download_queued) or gw2_api_manager.TimeSince(gw2_api_manager.lastDownload) > 10) then
-                  d("[gw2_api_manager]: Start download for " .. tostring(category) .. " id: " .. tostring(id))
-                  WebAPI:GetImage(id, entry.url, folders[category] .. id .. ".png")
-                  entry.status = s.downloading
-                  entry.download_start = os.time()
-                  entry.folder = folders[category] .. id .. ".png"
-                  gw2_api_manager.lastImage = folders[category] .. id .. ".png"
-                  gw2_api_manager.lastDownload = os.time()
-                  break
+         local download_started
+         gw2_api_manager.lastImage = false
+         gw2_api_manager.lastDownload = gw2_api_manager.lastDownload or 0
+         for category, v in pairs(gw2_api_manager.ImageQueue) do
+            if table.valid(v) and not gw2_api_manager.lastImage then
+               for id, entry in pairs(v) do
+                  if entry.url and ((entry.status == s.download_queued) or gw2_api_manager.TimeSince(gw2_api_manager.lastDownload) > 10) then
+                     d("[gw2_api_manager]: Start download for " .. tostring(category) .. " id: " .. tostring(id))
+                     WebAPI:GetImage(id, entry.url, folders[category] .. id .. ".png")
+                     entry.status = s.downloading
+                     entry.download_start = os.time()
+                     entry.folder = folders[category] .. id .. ".png"
+                     gw2_api_manager.lastImage = folders[category] .. id .. ".png"
+                     gw2_api_manager.lastDownload = os.time()
+                     break
+                  end
+
+                  if gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] and gw2_api_manager.API_Data[category][id].icon and not FileExists(folders[category] .. id .. ".png") then
+                     d("[gw2_api_manager]: Start download for " .. tostring(category) .. " id: " .. tostring(id))
+                     WebAPI:GetImage(id, gw2_api_manager.API_Data[category][id].icon, folders[category] .. id .. ".png")
+                     entry.status = s.downloading
+                     entry.download_start = os.time()
+                     entry.folder = folders[category] .. id .. ".png"
+                     gw2_api_manager.lastImage = folders[category] .. id .. ".png"
+                     gw2_api_manager.lastDownload = os.time()
+                     break
+                  end
                end
 
-               if gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] and gw2_api_manager.API_Data[category][id].icon and not FileExists(folders[category] .. id .. ".png") then
-                  d("[gw2_api_manager]: Start download for " .. tostring(category) .. " id: " .. tostring(id))
-                  WebAPI:GetImage(id, gw2_api_manager.API_Data[category][id].icon, folders[category] .. id .. ".png")
-                  entry.status = s.downloading
-                  entry.download_start = os.time()
-                  entry.folder = folders[category] .. id .. ".png"
-                  gw2_api_manager.lastImage = folders[category] .. id .. ".png"
-                  gw2_api_manager.lastDownload = os.time()
+               if gw2_api_manager.lastImage then
                   break
                end
-            end
-
-            if gw2_api_manager.lastImage then
-               break
             end
          end
       end
