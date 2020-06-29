@@ -228,6 +228,8 @@ function gw2_api_manager.queue_API_Data(id, category, forced)
 
       local function failed(str)
          d("[gw2_api_manager]: HTTP Request failed.")
+         local data = json.decode(str)
+         d(data or str)
          gw2_api_manager.API_Request_Running = false
       end
 
@@ -328,6 +330,8 @@ function gw2_api_manager.queue_API_Prices(id, forced)
    local function failed(str)
       d("[gw2_api_manager]: HTTP Request failed.")
       gw2_api_manager.API_Request_Running = false
+      local data = json.decode(str)
+      d(data or str)
    end
 
    if count >= 1 then
@@ -476,7 +480,7 @@ function gw2_api_manager.getPrice(id, all_data)
    local category = "commerce"
 
    local tbl = {}
-   if (type(id) == "string" or type(id) == "number") then
+   if (type(id) == "number") then
       local info = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] and gw2_api_manager.API_Data[category][id]) or FileLoad(gw2_api_manager.data_folders[category] .. id .. ".lua")
       local item_info = (gw2_api_manager.API_Data["items"] and gw2_api_manager.API_Data["items"][id] and gw2_api_manager.API_Data["items"][id]) or FileLoad(gw2_api_manager.data_folders["items"] .. id .. ".lua")
 
@@ -708,11 +712,14 @@ function gw2_api_manager.API_DataHandler(_, ticks)
                   end
                   gw2_api_manager.API_Request_Running = false
                   gw2_api_manager.http_requests[idstring .. " - " .. category] = nil
-                  gw2_api_manager.Save_API_Data()
+
+                  gw2_api_manager.Save_API_Data(category, ids)
                end
 
                local function failed(str)
                   d("[gw2_api_manager]: HTTP Request failed.")
+                  local data = json.decode(str)
+                  d(data or str)
                   gw2_api_manager.API_Request_Running = false
                   --local data = json.decode(str)
                end
@@ -721,7 +728,6 @@ function gw2_api_manager.API_DataHandler(_, ticks)
                   local params = { host = hosts[category], path = paths[category] .. "?ids=" .. idstring .. "&lang=" .. languages[Player:GetLanguage()], port = 443, method = "GET", https = true, onsuccess = success, onfailure = failed }
                   gw2_api_manager.http_requests[idstring .. " - " .. category] = params
                   gw2_api_manager.http_requests[idstring .. " - " .. category].status = s.queued
-                  d(idstring .. " - " .. category)
                end
             else
                gw2_api_manager.ImageQueue[category] = nil
