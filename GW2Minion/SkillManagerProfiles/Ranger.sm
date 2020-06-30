@@ -543,7 +543,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Ranger_Terrestrial",
+			skillpaletteuid = "Celestial Avatar",
 		},
 		
 		{
@@ -580,7 +580,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Ranger_Terrestrial",
+			skillpaletteuid = "Celestial Avatar",
 		},
 		
 		{
@@ -605,7 +605,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = false,
-			skillpaletteuid = "Ranger_Terrestrial",
+			skillpaletteuid = "Celestial Avatar",
 		},
 		
 		{
@@ -1122,7 +1122,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = false,
-			skillpaletteuid = "Ranger_Terrestrial",
+			skillpaletteuid = "Celestial Avatar",
 		},
 		
 		{
@@ -1801,30 +1801,6 @@ local tbl =
 				},
 			},
 			id = 12525,
-			instantcast = false,
-			requireslos = true,
-			setsattackrange = false,
-			skillpaletteuid = "Ranger_Greatsword",
-		},
-		
-		{
-			activationtime = 0.75,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "Distance",
-						value = 900,
-					}, 
-					casttarget = 1,
-				},
-			},
-			id = 12624,
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = false,
@@ -3838,7 +3814,7 @@ local tbl =
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
-			skillpaletteuid = "Ranger_Terrestrial",
+			skillpaletteuid = "Celestial Avatar",
 		},
 		
 		{
