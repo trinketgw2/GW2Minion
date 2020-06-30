@@ -63,6 +63,7 @@ gw2_api_manager.language_dependent = {
    status = true,
    text = true,
 }
+gw2_api_manager.chinese = Player:GetLanguage() == 5
 
 -- create folders, load already gathered data files
 function gw2_api_manager.ModuleInit()
@@ -398,9 +399,16 @@ function gw2_api_manager.setEntryData(data, category)
    for k, v in pairs(data) do
       if not gw2_api_manager.language_dependent[k] then
          tbl[k] = v
-      else
+      elseif language ~= 5 then
          tbl[k] = tbl[k] or {}
          tbl[k][language] = v
+      elseif gw2_api_manager.chinese then
+         tbl[k] = tbl[k] or {}
+         local _, item = next(Inventory("contentid=" .. data.id))
+         if item then
+            tbl[k][0] = v
+            tbl[k][5] = item.name
+         end
       end
    end
 
@@ -413,6 +421,15 @@ function gw2_api_manager.LoadData(category, id)
 
    if table.valid(tbl) then
       gw2_api_manager.API_Data[category][id] = tbl
+
+      if category == "items" and gw2_api_manager.chinese and (not gw2_api_manager.API_Data[category][id].name[5] or gw2_api_manager.API_Data[category][id].name[5] == "") then
+
+         local _, item = next(Inventory("contentid=" .. id))
+         if item then
+            gw2_api_manager.API_Data[category][id].name[5] = item.name
+            gw2_api_manager.Save_API_Data("items", id)
+         end
+      end
    else
       tbl = {}
       error = "File contains not a valid table."
