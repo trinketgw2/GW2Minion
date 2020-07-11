@@ -402,7 +402,7 @@ function gw2_api_manager.setEntryData(data, category)
       elseif language ~= 5 then
          tbl[k] = tbl[k] or {}
          tbl[k][language] = v
-      elseif gw2_api_manager.chinese then
+      elseif gw2_api_manager.chinese and k == "name" then
          tbl[k] = tbl[k] or {}
          local _, item = next(Inventory("contentid=" .. data.id))
          if item then
