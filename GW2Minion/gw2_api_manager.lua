@@ -615,6 +615,11 @@ function gw2_api_manager.add_to_Blacklist(id, category, reason)
 end
 
 function gw2_api_manager.is_Blacklisted(id, category)
+   if gw2_api_manager.blacklist[category] and gw2_api_manager.blacklist[category][id] and gw2_api_manager.TimeSince(gw2_api_manager.blacklist[category][id].time) > 300 then
+      gw2_api_manager.blacklist[category][id] = nil
+      gw2_api_manager.Save_Blacklist()
+   end
+
    return (gw2_api_manager.blacklist[category] and gw2_api_manager.blacklist[category][id]) or false
 end
 
