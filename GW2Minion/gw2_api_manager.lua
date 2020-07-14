@@ -563,6 +563,9 @@ function gw2_api_manager.getInfo(id, category, all_data)
                tbl[k] = v
             else
                tbl[k] = v[Player:GetLanguage()]
+               if not tbl[k] then
+                  table.insert(request_ids, id)
+               end
             end
          end
       elseif not gw2_api_manager.is_Blacklisted(id, category) then
@@ -584,6 +587,9 @@ function gw2_api_manager.getInfo(id, category, all_data)
                   tbl[entry][k] = v
                else
                   tbl[entry][k] = v[Player:GetLanguage()]
+                  if not tbl[entry][k] then
+                     table.insert(request_ids, entry)
+                  end
                end
             end
          elseif not gw2_api_manager.is_Blacklisted(entry, category) then
