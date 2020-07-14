@@ -345,6 +345,104 @@ function gw2_api_manager.queue_API_Prices(id, forced)
    return tbl
 end
 
+-- create a new HTTP request to fetch data of an item/skill/currency/... - if not available yet or forced
+function gw2_api_manager.queue_API_Listings(id, forced)
+   local tbl, ids = {}, {}
+   local s = gw2_api_manager.HTTP_Status
+   local categories = gw2_api_manager.categories
+   local hosts = gw2_api_manager.hosts
+   local languages = gw2_api_manager.languages
+   local paths = gw2_api_manager.paths
+   category = "commerce"
+   tbl[category] = tbl[category] or {}
+
+   gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
+   gw2_api_manager.http_requests[category] = gw2_api_manager.http_requests[category] or {}
+   gw2_api_manager.api_requests[category] = gw2_api_manager.api_requests[category] or {}
+
+   if (type(id) == "string" or type(id) == "number") and not gw2_api_manager.is_Blacklisted(id, category) and (not gw2_api_manager.api_requests[category][id] or TimeSince(gw2_api_manager.api_requests[category][id]) > 5000) then
+      gw2_api_manager.api_requests[category][id] = ml_global_information.Now
+      tbl[category] = tbl[category] or {}
+      tbl[category][id] = tbl[category][id] or { status = s.queued, url = false, forced = forced or false }
+      table.insert(ids, id)
+   end
+
+   if type(id) == "table" then
+      local count = 0
+      for _, entry in pairs(id) do
+         if count < 200 and not gw2_api_manager.is_Blacklisted(entry, category) and (not gw2_api_manager.api_requests[category][entry] or TimeSince(gw2_api_manager.api_requests[category][entry]) > 5000) then
+            tbl[category][entry] = tbl[category][entry] or { status = s.queued, url = false, forced = forced or false }
+            gw2_api_manager.api_requests[category][entry] = ml_global_information.Now
+            table.insert(ids, entry)
+            count = count + 1
+         end
+      end
+   end
+
+   local idstring, count = "", 0
+   for id, entry in pairs(tbl[category]) do
+      if count < 200 and (entry.forced or ((not gw2_api_manager.http_requests[category][entry] or not gw2_api_manager.http_requests[category][entry].status == s.queued) and not gw2_api_manager.API_Data[category][entry] or (gw2_api_manager.API_Data[category][entry].lastupdate) and gw2_api_manager.TimeSince(gw2_api_manager.API_Data[category][entry].lastupdate) > 900)) then
+         if (idstring == "") then
+            idstring = tostring(id)
+         else
+            idstring = idstring .. "," .. tostring(id)
+         end
+         count = count + 1
+      end
+   end
+
+   local function success(str)
+      local data = json.decode(str)
+
+      if data.text == "all ids provided are invalid" then
+         d("[gw2_api_manager]: Requested ids are invalid.")
+         for k, v in pairs(ids) do
+            gw2_api_manager.add_to_Blacklist(v, category)
+         end
+         return
+      end
+
+      for k, v in pairs(ids) do
+         local found = false
+         for _, entry in pairs(data) do
+            if entry.id == v then
+               found = true
+            end
+         end
+
+         if not found then
+            gw2_api_manager.add_to_Blacklist(v, category)
+         end
+      end
+
+      d("[gw2_api_manager]: HTTP Request successful.")
+      local time = os.time()
+      for _, entry in pairs(data) do
+         gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
+         gw2_api_manager.API_Data[category][entry.id] = gw2_api_manager.setEntryData(entry, category)
+         gw2_api_manager.API_Data[category][entry.id].lastupdate = time
+      end
+      gw2_api_manager.API_Request_Running = false
+      gw2_api_manager.http_requests[idstring .. " - " .. category] = nil
+      gw2_api_manager.Save_API_Data(category, ids)
+   end
+
+   local function failed(str)
+      d("[gw2_api_manager]: HTTP Request failed.")
+      gw2_api_manager.API_Request_Running = false
+      local data = json.decode(str)
+      d(data or str)
+   end
+
+   if count >= 1 then
+      local params = { host = hosts[category], path = paths[category] .. "/listings?ids=" .. idstring, port = 443, method = "GET", https = true, onsuccess = success, onfailure = failed }
+      gw2_api_manager.http_requests[idstring .. " - " .. category] = params
+      gw2_api_manager.http_requests[idstring .. " - " .. category].status = s.queued
+   end
+
+   return tbl
+end
+
 -- download an Icon from the API, create a new HTTP request to fetch the data and icon url - if not available yet or forced
 function gw2_api_manager.queue_API_Icon(id, category, url, forced)
    gw2_api_manager.ImageQueue = gw2_api_manager.ImageQueue or {}
@@ -529,6 +627,98 @@ function gw2_api_manager.getPrice(id, all_data)
          end
 
          for k, v in pairs(info) do
+            if k == "buys" or k == "sells" then
+               if v[1] then
+                  tbl[k] = v[1]
+               else
+                  tbl[k] = v
+               end
+            elseif all_data or (not gw2_api_manager.language_dependent[k]) then
+               tbl[k] = v
+            else
+               tbl[k] = v[Player:GetLanguage()]
+            end
+         end
+         tbl.time_since_update = gw2_api_manager.TimeSince(info.lastupdate)
+
+      elseif not gw2_api_manager.is_Blacklisted(id, category) then
+         table.insert(request_ids, id)
+      else
+         table.insert(invalid_ids, id)
+      end
+   end
+
+   if (type(id) == "table") then
+      for _, entry in pairs(id) do
+         local info = gw2_api_manager.LoadData(category, entry)
+         local item_info = gw2_api_manager.LoadData("items", entry)
+
+         if table.valid(info) and gw2_api_manager.TimeSince(info.lastupdate) < 900 then
+            tbl[entry] = tbl[entry] or {}
+            if item_info then
+               for k, v in pairs(item_info) do
+                  if k == "buys" or k == "sells" then
+                     tbl[entry][k] = v[1]
+                  elseif all_data or (not gw2_api_manager.language_dependent[k]) then
+                     tbl[entry][k] = v
+                  else
+                     tbl[entry][k] = v[Player:GetLanguage()]
+                  end
+               end
+            end
+
+            for k, v in pairs(info) do
+               if k == "buys" or k == "sells" then
+                  if v[1] then
+                     tbl[entry][k] = v[1]
+                  else
+                     tbl[entry][k] = v
+                  end
+               elseif all_data or (not gw2_api_manager.language_dependent[k]) then
+                  tbl[entry][k] = v
+               else
+                  tbl[entry][k] = v[Player:GetLanguage()]
+               end
+            end
+            tbl.time_since_update = gw2_api_manager.TimeSince(info.lastupdate)
+
+         elseif not gw2_api_manager.is_Blacklisted(entry, category) then
+            table.insert(request_ids, entry)
+         else
+            table.insert(invalid_ids, entry)
+         end
+      end
+   end
+
+   if table.valid(request_ids) then
+      gw2_api_manager.queue_API_Listings(request_ids)
+   end
+
+   return (table.valid(tbl) and tbl) or false, (table.valid(request_ids) and request_ids) or false, (table.valid(invalid_ids) and invalid_ids) or false
+end
+
+function gw2_api_manager.getListings(id, all_data)
+   local categories = gw2_api_manager.categories
+   local request_ids, invalid_ids = {}, {}
+   local category = "commerce"
+
+   local tbl = {}
+   if (type(id) == "number") then
+      local info = gw2_api_manager.LoadData(category, id)
+      local item_info = gw2_api_manager.LoadData("items", id)
+
+      if table.valid(info) and gw2_api_manager.TimeSince(info.lastupdate) < 900 then
+         if item_info then
+            for k, v in pairs(item_info) do
+               if all_data or (not gw2_api_manager.language_dependent[k]) then
+                  tbl[k] = v
+               else
+                  tbl[k] = v[Player:GetLanguage()]
+               end
+            end
+         end
+
+         for k, v in pairs(info) do
             if all_data or (not gw2_api_manager.language_dependent[k]) then
                tbl[k] = v
             else
@@ -579,7 +769,7 @@ function gw2_api_manager.getPrice(id, all_data)
    end
 
    if table.valid(request_ids) then
-      gw2_api_manager.queue_API_Prices(request_ids)
+      gw2_api_manager.queue_API_Listings(request_ids)
    end
 
    return (table.valid(tbl) and tbl) or false, (table.valid(request_ids) and request_ids) or false, (table.valid(invalid_ids) and invalid_ids) or false
