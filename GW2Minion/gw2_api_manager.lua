@@ -420,6 +420,7 @@ function gw2_api_manager.queue_API_Listings(id, forced)
       for _, entry in pairs(data) do
          gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
          gw2_api_manager.API_Data[category][entry.id] = gw2_api_manager.setEntryData(entry, category)
+         gw2_api_manager.API_Data[category][entry.id].listing_update = time
          gw2_api_manager.API_Data[category][entry.id].lastupdate = time
       end
       gw2_api_manager.API_Request_Running = false
@@ -495,7 +496,20 @@ function gw2_api_manager.setEntryData(data, category)
    local language = Player:GetLanguage()
    local tbl = gw2_api_manager.API_Data[category][data.id]
    for k, v in pairs(data) do
-      if not gw2_api_manager.language_dependent[k] then
+      if k == "sells" or k == "buys" then
+         if table.valid(v) and v[1] then
+            tbl[k] = tbl[k] or {}
+            tbl[k] = v or {quantity = 0, unit_price = 0}
+            tbl[k].quantity = v[1].quantity or 0
+            tbl[k].unit_price = v[1].unit_price or 0
+         elseif table.valid(v) then
+            tbl[k] = tbl[k] or {quantity = 0, unit_price = 0}
+            tbl[k].quantity = v.quantity or 0
+            tbl[k].unit_price = v.unit_price or 0
+         else
+            tbl[k] = {quantity = 0, unit_price = 0}
+         end
+      elseif not gw2_api_manager.language_dependent[k] then
          tbl[k] = v
       elseif language ~= 5 then
          tbl[k] = tbl[k] or {}
@@ -634,10 +648,12 @@ function gw2_api_manager.getPrice(id, all_data)
 
          for k, v in pairs(info) do
             if k == "buys" or k == "sells" then
-               if v[1] then
-                  tbl[k] = v[1]
-               else
-                  tbl[k] = v
+               if table.valid(v) then
+                  if v.quantity and v.unit_price then
+                     tbl[k] = {quantity = v.quantity, unit_price = v.unit_price}
+                  else
+                     table.insert(request_ids, id)
+                  end
                end
             elseif all_data or (not gw2_api_manager.language_dependent[k]) then
                tbl[k] = v
@@ -675,10 +691,12 @@ function gw2_api_manager.getPrice(id, all_data)
 
             for k, v in pairs(info) do
                if k == "buys" or k == "sells" then
-                  if v[1] then
-                     tbl[entry][k] = v[1]
-                  else
-                     tbl[entry][k] = v
+                  if table.valid(v) then
+                     if v.quantity and v.unit_price then
+                        tbl[entry][k] = {quantity = v.quantity, unit_price = v.unit_price}
+                     else
+                        table.insert(request_ids, entry)
+                     end
                   end
                elseif all_data or (not gw2_api_manager.language_dependent[k]) then
                   tbl[entry][k] = v
@@ -713,7 +731,7 @@ function gw2_api_manager.getListings(id, all_data)
       local info = gw2_api_manager.LoadData(category, id)
       local item_info = gw2_api_manager.LoadData("items", id)
 
-      if table.valid(info) and gw2_api_manager.TimeSince(info.lastupdate) < 900 then
+      if table.valid(info) and info.listing_update and gw2_api_manager.TimeSince(info.listing_update) < 900 then
          if item_info then
             for k, v in pairs(item_info) do
                if all_data or (not gw2_api_manager.language_dependent[k]) then
@@ -725,19 +743,13 @@ function gw2_api_manager.getListings(id, all_data)
          end
 
          for k, v in pairs(info) do
-            if k == "sells" or k == "buys" then
-               if table.valid(v) and not v[1] then
-                  table.insert(request_ids, id)
-               end
-            end
-
             if all_data or (not gw2_api_manager.language_dependent[k]) then
                tbl[k] = v
             else
                tbl[k] = v[Player:GetLanguage()]
             end
          end
-         tbl.time_since_update = gw2_api_manager.TimeSince(info.lastupdate)
+         tbl.time_since_update = gw2_api_manager.TimeSince(info.listing_update)
 
       elseif not gw2_api_manager.is_Blacklisted(id, category) then
          table.insert(request_ids, id)
@@ -751,7 +763,7 @@ function gw2_api_manager.getListings(id, all_data)
          local info = gw2_api_manager.LoadData(category, entry)
          local item_info = gw2_api_manager.LoadData("items", entry)
 
-         if table.valid(info) and gw2_api_manager.TimeSince(info.lastupdate) < 900 then
+         if table.valid(info) and gw2_api_manager.TimeSince(info.listing_update) < 900 then
             tbl[entry] = tbl[entry] or {}
             if item_info then
                for k, v in pairs(item_info) do
@@ -764,18 +776,13 @@ function gw2_api_manager.getListings(id, all_data)
             end
 
             for k, v in pairs(info) do
-               if k == "sells" or k == "buys" then
-                  if table.valid(v) and not v[1] then
-                     table.insert(request_ids, entry)
-                  end
-               end
                if all_data or (not gw2_api_manager.language_dependent[k]) then
                   tbl[entry][k] = v
                else
                   tbl[entry][k] = v[Player:GetLanguage()]
                end
             end
-            tbl.time_since_update = gw2_api_manager.TimeSince(info.lastupdate)
+            tbl.time_since_update = gw2_api_manager.TimeSince(info.listing_update)
 
          elseif not gw2_api_manager.is_Blacklisted(entry, category) then
             table.insert(request_ids, entry)
