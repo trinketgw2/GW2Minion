@@ -697,7 +697,7 @@ function gw2_api_manager.getPrice(id, all_data)
    end
 
    if table.valid(request_ids) then
-      gw2_api_manager.queue_API_Listings(request_ids)
+      gw2_api_manager.queue_API_Prices(request_ids)
    end
 
    return (table.valid(tbl) and tbl) or false, (table.valid(request_ids) and request_ids) or false, (table.valid(invalid_ids) and invalid_ids) or false
@@ -725,6 +725,12 @@ function gw2_api_manager.getListings(id, all_data)
          end
 
          for k, v in pairs(info) do
+            if k == "sells" or k == "buys" then
+               if table.valid(v) and not v[1] then
+                  table.insert(request_ids, id)
+               end
+            end
+
             if all_data or (not gw2_api_manager.language_dependent[k]) then
                tbl[k] = v
             else
@@ -758,6 +764,11 @@ function gw2_api_manager.getListings(id, all_data)
             end
 
             for k, v in pairs(info) do
+               if k == "sells" or k == "buys" then
+                  if table.valid(v) and not v[1] then
+                     table.insert(request_ids, entry)
+                  end
+               end
                if all_data or (not gw2_api_manager.language_dependent[k]) then
                   tbl[entry][k] = v
                else
