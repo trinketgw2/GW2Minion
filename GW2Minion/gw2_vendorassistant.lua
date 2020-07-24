@@ -20,7 +20,7 @@ end
 function gw2_vendorassistant.Draw()
 	gw2_vendorassistant.window.open = gw2_vendorassistant.vendoropen
 	
-	if(gw2_vendorassistant.window.open) then
+	if(gw2_vendorassistant.window.open) and Settings.GW2Minion.vendorassist then
 		GUI:SetNextWindowSize(320,170,GUI.SetCond_Once)
 		GUI:SetNextWindowPosCenter(GUI.SetCond_FirstUseEver)
 		
