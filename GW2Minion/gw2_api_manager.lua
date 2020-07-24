@@ -577,7 +577,14 @@ function gw2_api_manager.getInfo(id, category, all_data)
                tbl[k] = v
             else
                tbl[k] = v[Player:GetLanguage()]
-               if not tbl[k] then
+
+               if not tbl[k] and gw2_api_manager.chinese and k ~= "name" then
+                  tbl[k] = v[0]
+               end
+
+               if not tbl[k] and not gw2_api_manager.chinese then
+                  table.insert(request_ids, id)
+               elseif not v[0] and gw2_api_manager.chinese then
                   table.insert(request_ids, id)
                end
             end
@@ -601,7 +608,14 @@ function gw2_api_manager.getInfo(id, category, all_data)
                   tbl[entry][k] = v
                else
                   tbl[entry][k] = v[Player:GetLanguage()]
-                  if not tbl[entry][k] then
+
+                  if not tbl[entry][k] and gw2_api_manager.chinese and k ~= "name" then
+                     tbl[entry][k] = v[0]
+                  end
+
+                  if not tbl[entry][k] and not gw2_api_manager.chinese then
+                     table.insert(request_ids, entry)
+                  elseif not v[0] and gw2_api_manager.chinese then
                      table.insert(request_ids, entry)
                   end
                end
