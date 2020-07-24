@@ -929,9 +929,134 @@ function gw2_common_functions.toggleBot()
 		end
 	end
 end
-
 ml_input_mgr.registerFunction({
 		name = GetString("Toggle Bot"),
 		func = gw2_common_functions.toggleBot,
+	}
+)
+
+-- Mount Toggles
+gw2_common_functions.Mount = {
+	enum = {
+		Beetle = 50908,
+		Griffon = 44590,
+		Jackal = 40215,
+		Raptor = 41378,
+		Skimmer = 40509,
+		Skyscale = 55715,
+		Springer = 41731,
+		Warclaw = 54871,
+	}
+}
+
+function gw2_common_functions.Mount.Griffon()
+	if not Player.mounted then
+		Player:SelectMount(gw2_common_functions.Mount.enum.Griffon)
+		Player:Mount()
+	else
+		Player:Dismount()
+	end
+end
+ml_input_mgr.registerFunction({
+		name = GetString("Mount Griffon"),
+		func = gw2_common_functions.Mount.Griffon,
+	}
+)
+
+function gw2_common_functions.Mount.Jackal()
+	if not Player.mounted then
+		Player:SelectMount(gw2_common_functions.Mount.enum.Jackal)
+		Player:Mount()
+	else
+		Player:Dismount()
+	end
+end
+ml_input_mgr.registerFunction({
+		name = GetString("Mount Jackal"),
+		func = gw2_common_functions.Mount.Jackal,
+	}
+)
+
+function gw2_common_functions.Mount.Raptor()
+	if not Player.mounted then
+		Player:SelectMount(gw2_common_functions.Mount.enum.Raptor)
+		Player:Mount()
+	else
+		Player:Dismount()
+	end
+end
+ml_input_mgr.registerFunction({
+		name = GetString("Mount Raptor"),
+		func = gw2_common_functions.Mount.Raptor,
+	}
+)
+
+function gw2_common_functions.Mount.Beetle()
+	if not Player.mounted then
+		Player:SelectMount(gw2_common_functions.Mount.enum.Beetle)
+		Player:Mount()
+	else
+		Player:Dismount()
+	end
+end
+ml_input_mgr.registerFunction({
+		name = GetString("Mount Roller Beetle"),
+		func = gw2_common_functions.Mount.Beetle,
+	}
+)
+
+function gw2_common_functions.Mount.Skimmer()
+	if not Player.mounted then
+		Player:SelectMount(gw2_common_functions.Mount.enum.Skimmer)
+		Player:Mount()
+	else
+		Player:Dismount()
+	end
+end
+ml_input_mgr.registerFunction({
+		name = GetString("Mount Skimmer"),
+		func = gw2_common_functions.Mount.Skimmer,
+	}
+)
+
+function gw2_common_functions.Mount.Skyscale()
+	if not Player.mounted then
+		Player:SelectMount(gw2_common_functions.Mount.enum.Skyscale)
+		Player:Mount()
+	else
+		Player:Dismount()
+	end
+end
+ml_input_mgr.registerFunction({
+		name = GetString("Mount Skyscale"),
+		func = gw2_common_functions.Mount.Skyscale,
+	}
+)
+
+function gw2_common_functions.Mount.Springer()
+	if not Player.mounted then
+		Player:SelectMount(gw2_common_functions.Mount.enum.Springer)
+		Player:Mount()
+	else
+		Player:Dismount()
+	end
+end
+ml_input_mgr.registerFunction({
+		name = GetString("Mount Springer"),
+		func = gw2_common_functions.Mount.Springer,
+	}
+)
+
+function gw2_common_functions.Mount.Warclaw()
+	if not Player.mounted then
+		Player:SelectMount(gw2_common_functions.Mount.enum.Warclaw)
+		Player:Mount()
+	else
+		Player:Dismount()
+	end
+end
+ml_input_mgr.registerFunction({
+		name = GetString("Mount Warclaw"),
+		func = gw2_common_functions.Mount.Warclaw,
 	}
 )
