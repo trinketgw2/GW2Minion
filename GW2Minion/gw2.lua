@@ -199,6 +199,7 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(956,"Aetherblade",enforce)
 		ml_mesh_mgr.SetDefaultMesh(960,"Aetherblade Retreat",enforce)
 		ml_mesh_mgr.SetDefaultMesh(958,"Solid Ocean",enforce)
+		ml_mesh_mgr.SetDefaultMesh(950,"Urban Battleground",enforce)
 		
 		--Festivals
 		ml_mesh_mgr.SetDefaultMesh(1326,"Dragon Bash Arena",enforce)
