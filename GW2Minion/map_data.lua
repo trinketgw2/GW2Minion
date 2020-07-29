@@ -137580,6 +137580,75 @@ local tbl =
 		{
 		},
 	},
+	[1066] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "2560, 16128], [3840, 17408",
+		continent_rect_table = 
+		{
+			
+			{
+				2560,
+				16128,
+			},
+			
+			{
+				3840,
+				17408,
+			},
+		},
+		default_floor = 47,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1299] = 
+					{
+						coord = "3169, 16956.6",
+						global_pos = 
+						{
+							x = 3169,
+							y = 16956.6,
+						},
+						level = 0,
+						pos = 
+						{
+							-744,
+							-4526.4,
+						},
+						sector_id = 1299,
+					},
+				},
+			},
+		},
+		map_id = 1066,
+		map_name = "Claiming the Gilded Hollow",
+		map_rect = "-15360, -15360], [15360, 15360",
+		map_rect_table = 
+		{
+			
+			{
+				-15360,
+				-15360,
+			},
+			
+			{
+				15360,
+				15360,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 10,
+		region_name = "Heart of Maguuma",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
 	[1067] = 
 	{
 		continent_id = 1,
@@ -221204,7 +221273,7 @@ local tbl =
 							x = 17746.4,
 							y = 4053.32,
 						},
-						name = "Leadfoot Villiage",
+						name = "Leadfoot Village",
 						poi_id = 3154,
 						pos = 
 						{
@@ -221611,7 +221680,7 @@ local tbl =
 							x = 18231.1,
 							y = 5685.46,
 						},
-						name = "Pavillion of the Legions",
+						name = "Pavilion of the Legions",
 						poi_id = 3177,
 						pos = 
 						{
@@ -221655,6 +221724,396 @@ local tbl =
 						},
 						type = "landmark",
 					},
+					[3180] = 
+					{
+						coord = "18637.8, 2539.86",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18637.8,
+							y = 2539.86,
+						},
+						name = "Veins of Jormag",
+						poi_id = 3180,
+						pos = 
+						{
+							6091.2,
+							28539.4,
+						},
+						type = "landmark",
+					},
+					[3181] = 
+					{
+						coord = "17635.3, 2566.52",
+						floor = 1,
+						global_pos = 
+						{
+							x = 17635.3,
+							y = 2566.52,
+						},
+						name = "Thermal Vent",
+						poi_id = 3181,
+						pos = 
+						{
+							-17968.8,
+							27899.5,
+						},
+						type = "landmark",
+					},
+					[3182] = 
+					{
+						coord = "18956.2, 3210.24",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18956.2,
+							y = 3210.24,
+						},
+						poi_id = 3182,
+						pos = 
+						{
+							13732.8,
+							12450.2,
+						},
+						type = "vista",
+					},
+					[3183] = 
+					{
+						coord = "18863.9, 3115.85",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18863.9,
+							y = 3115.85,
+						},
+						name = "Archstone Dominion Camp",
+						poi_id = 3183,
+						pos = 
+						{
+							11517.6,
+							14715.6,
+						},
+						type = "landmark",
+					},
+					[3184] = 
+					{
+						coord = "18671.1, 1784.07",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18671.1,
+							y = 1784.07,
+						},
+						name = "Iceblood Channel",
+						poi_id = 3184,
+						pos = 
+						{
+							6890.4,
+							46678.3,
+						},
+						type = "landmark",
+					},
+					[3185] = 
+					{
+						coord = "18345.8, 2690.02",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18345.8,
+							y = 2690.02,
+						},
+						poi_id = 3185,
+						pos = 
+						{
+							-916.8,
+							24935.5,
+						},
+						type = "vista",
+					},
+					[3186] = 
+					{
+						coord = "17675.8, 3057.14",
+						floor = 1,
+						global_pos = 
+						{
+							x = 17675.8,
+							y = 3057.14,
+						},
+						name = "Forward Camp Waypoint",
+						poi_id = 3186,
+						pos = 
+						{
+							-16996.8,
+							16124.6,
+						},
+						type = "waypoint",
+					},
+					[3187] = 
+					{
+						coord = "17864.6, 2096.55",
+						floor = 1,
+						global_pos = 
+						{
+							x = 17864.6,
+							y = 2096.55,
+						},
+						name = "Sanctum of the Wild",
+						poi_id = 3187,
+						pos = 
+						{
+							-12465.6,
+							39178.8,
+						},
+						type = "landmark",
+					},
+					[3188] = 
+					{
+						coord = "18819.8, 1913.07",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18819.8,
+							y = 1913.07,
+						},
+						name = "The Spire",
+						poi_id = 3188,
+						pos = 
+						{
+							10459.2,
+							43582.3,
+						},
+						type = "landmark",
+					},
+					[3189] = 
+					{
+						coord = "18312.7, 2517.41",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18312.7,
+							y = 2517.41,
+						},
+						name = "Iron Lookout",
+						poi_id = 3189,
+						pos = 
+						{
+							-1711.2,
+							29078.2,
+						},
+						type = "landmark",
+					},
+					[3190] = 
+					{
+						coord = "18433, 3111.92",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18433,
+							y = 3111.92,
+						},
+						poi_id = 3190,
+						pos = 
+						{
+							1176,
+							14809.9,
+						},
+						type = "vista",
+					},
+					[3191] = 
+					{
+						coord = "18520.5, 3082.35",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18520.5,
+							y = 3082.35,
+						},
+						name = "Canopy Overlook",
+						poi_id = 3191,
+						pos = 
+						{
+							3276,
+							15519.6,
+						},
+						type = "landmark",
+					},
+					[3192] = 
+					{
+						coord = "17958.1, 3095.35",
+						floor = 1,
+						global_pos = 
+						{
+							x = 17958.1,
+							y = 3095.35,
+						},
+						poi_id = 3192,
+						pos = 
+						{
+							-10221.6,
+							15207.6,
+						},
+						type = "vista",
+					},
+					[3193] = 
+					{
+						coord = "17655.2, 3044.12",
+						floor = 1,
+						global_pos = 
+						{
+							x = 17655.2,
+							y = 3044.12,
+						},
+						name = "United Legions Forward Camp",
+						poi_id = 3193,
+						pos = 
+						{
+							-17491.2,
+							16437.1,
+						},
+						type = "landmark",
+					},
+					[3194] = 
+					{
+						coord = "18459.1, 3445.42",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18459.1,
+							y = 3445.42,
+						},
+						name = "Sniper's Slope",
+						poi_id = 3194,
+						pos = 
+						{
+							1802.4,
+							6805.9,
+						},
+						type = "landmark",
+					},
+					[3195] = 
+					{
+						coord = "18352.7, 1987.73",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18352.7,
+							y = 1987.73,
+						},
+						name = "Ice Dragon's Gate",
+						poi_id = 3195,
+						pos = 
+						{
+							-751.2,
+							41790.5,
+						},
+						type = "landmark",
+					},
+					[3196] = 
+					{
+						coord = "18725.7, 3454.22",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18725.7,
+							y = 3454.22,
+						},
+						name = "Shoreline Dominion Camp",
+						poi_id = 3196,
+						pos = 
+						{
+							8200.8,
+							6594.7,
+						},
+						type = "landmark",
+					},
+					[3197] = 
+					{
+						coord = "19074.2, 2199.85",
+						floor = 1,
+						global_pos = 
+						{
+							x = 19074.2,
+							y = 2199.85,
+						},
+						poi_id = 3197,
+						pos = 
+						{
+							16564.8,
+							36699.6,
+						},
+						type = "vista",
+					},
+					[3198] = 
+					{
+						coord = "18914.1, 2672.36",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18914.1,
+							y = 2672.36,
+						},
+						name = "Frostvein Dominion Camp",
+						poi_id = 3198,
+						pos = 
+						{
+							12722.4,
+							25359.4,
+						},
+						type = "landmark",
+					},
+					[3199] = 
+					{
+						coord = "18053.8, 2349.98",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18053.8,
+							y = 2349.98,
+						},
+						name = "Cavern Entryway",
+						poi_id = 3199,
+						pos = 
+						{
+							-7924.8,
+							33096.5,
+						},
+						type = "landmark",
+					},
+					[3200] = 
+					{
+						coord = "19182.9, 3235.75",
+						floor = 1,
+						global_pos = 
+						{
+							x = 19182.9,
+							y = 3235.75,
+						},
+						name = "Stone Archways",
+						poi_id = 3200,
+						pos = 
+						{
+							19173.6,
+							11838,
+						},
+						type = "landmark",
+					},
+					[3201] = 
+					{
+						coord = "18262.1, 2127.28",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18262.1,
+							y = 2127.28,
+						},
+						poi_id = 3201,
+						pos = 
+						{
+							-2925.6,
+							38441.3,
+						},
+						type = "vista",
+					},
 				},
 				sectors = 
 				{
@@ -221677,17 +222136,17 @@ local tbl =
 					},
 					[1817] = 
 					{
-						coord = "19021.7, 4879.83",
+						coord = "19023.2, 4879.83",
 						global_pos = 
 						{
-							x = 19021.7,
+							x = 19023.2,
 							y = 4879.83,
 						},
 						level = 80,
 						name = "Port Cascadia",
 						pos = 
 						{
-							15304.8,
+							15340.8,
 							-27619.9,
 						},
 						sector_id = 1817,
@@ -221711,35 +222170,35 @@ local tbl =
 					},
 					[1819] = 
 					{
-						coord = "18595.6, 4297.7",
+						coord = "18579.7, 4299.64",
 						global_pos = 
 						{
-							x = 18595.6,
-							y = 4297.7,
+							x = 18579.7,
+							y = 4299.64,
 						},
 						level = 80,
 						name = "Wolf's Crossing",
 						pos = 
 						{
-							5078.4,
-							-13648.8,
+							4696.8,
+							-13695.4,
 						},
 						sector_id = 1819,
 					},
 					[1820] = 
 					{
-						coord = "17821.6, 3907.74",
+						coord = "17859.1, 4034.4",
 						global_pos = 
 						{
-							x = 17821.6,
-							y = 3907.74,
+							x = 17859.1,
+							y = 4034.4,
 						},
 						level = 80,
 						name = "Leadfoot Village",
 						pos = 
 						{
-							-13497.6,
-							-4289.8,
+							-12597.6,
+							-7329.6,
 						},
 						sector_id = 1820,
 					},
@@ -221762,18 +222221,18 @@ local tbl =
 					},
 					[1822] = 
 					{
-						coord = "19149.6, 4123.65",
+						coord = "19075, 4257.47",
 						global_pos = 
 						{
-							x = 19149.6,
-							y = 4123.65,
+							x = 19075,
+							y = 4257.47,
 						},
 						level = 80,
 						name = "Lighthouse Point",
 						pos = 
 						{
-							18374.4,
-							-9471.6,
+							16584,
+							-12683.3,
 						},
 						sector_id = 1822,
 					},
@@ -221810,6 +222269,193 @@ local tbl =
 							-23305,
 						},
 						sector_id = 1825,
+					},
+					[1827] = 
+					{
+						coord = "18917.4, 3349.32",
+						global_pos = 
+						{
+							x = 18917.4,
+							y = 3349.32,
+						},
+						level = 80,
+						name = "Archstone Coast",
+						pos = 
+						{
+							12801.6,
+							9112.3,
+						},
+						sector_id = 1827,
+					},
+					[1828] = 
+					{
+						coord = "18482.9, 3218.69",
+						global_pos = 
+						{
+							x = 18482.9,
+							y = 3218.69,
+						},
+						level = 80,
+						name = "Canopy Crag",
+						pos = 
+						{
+							2373.6,
+							12247.4,
+						},
+						sector_id = 1828,
+					},
+					[1830] = 
+					{
+						coord = "17753.7, 2434.38",
+						global_pos = 
+						{
+							x = 17753.7,
+							y = 2434.38,
+						},
+						level = 80,
+						name = "Cavern of Guiding Spirits",
+						pos = 
+						{
+							-15127.2,
+							31070.9,
+						},
+						sector_id = 1830,
+					},
+					[1831] = 
+					{
+						coord = "18473.1, 3694.67",
+						global_pos = 
+						{
+							x = 18473.1,
+							y = 3694.67,
+						},
+						level = 80,
+						name = "Dominion's Breach",
+						pos = 
+						{
+							2138.4,
+							823.9,
+						},
+						sector_id = 1831,
+					},
+					[1832] = 
+					{
+						coord = "18021.8, 1801.18",
+						global_pos = 
+						{
+							x = 18021.8,
+							y = 1801.18,
+						},
+						level = 80,
+						name = "Frost Citadel",
+						pos = 
+						{
+							-8692.8,
+							46267.7,
+						},
+						sector_id = 1832,
+					},
+					[1833] = 
+					{
+						coord = "17569.3, 3205.25",
+						global_pos = 
+						{
+							x = 17569.3,
+							y = 3205.25,
+						},
+						level = 80,
+						name = "Legions' Alcove",
+						pos = 
+						{
+							-19552.8,
+							12570,
+						},
+						sector_id = 1833,
+					},
+					[1834] = 
+					{
+						coord = "18823.2, 2743.06",
+						global_pos = 
+						{
+							x = 18823.2,
+							y = 2743.06,
+						},
+						level = 80,
+						name = "Frostvein Watch",
+						pos = 
+						{
+							10540.8,
+							23662.6,
+						},
+						sector_id = 1834,
+					},
+					[1836] = 
+					{
+						coord = "18100.7, 3343.99",
+						global_pos = 
+						{
+							x = 18100.7,
+							y = 3343.99,
+						},
+						level = 80,
+						name = "Sentinel Bay",
+						pos = 
+						{
+							-6799.2,
+							9240.2,
+						},
+						sector_id = 1836,
+					},
+					[1837] = 
+					{
+						coord = "18225, 2654.86",
+						global_pos = 
+						{
+							x = 18225,
+							y = 2654.86,
+						},
+						level = 80,
+						name = "Drizzlewood Peak",
+						pos = 
+						{
+							-3816,
+							25779.4,
+						},
+						sector_id = 1837,
+					},
+					[1838] = 
+					{
+						coord = "18629.8, 2300.43",
+						global_pos = 
+						{
+							x = 18629.8,
+							y = 2300.43,
+						},
+						level = 80,
+						name = "The Bloodfield",
+						pos = 
+						{
+							5899.2,
+							34285.7,
+						},
+						sector_id = 1838,
+					},
+					[1839] = 
+					{
+						coord = "18947.9, 1839.36",
+						global_pos = 
+						{
+							x = 18947.9,
+							y = 1839.36,
+						},
+						level = 80,
+						name = "Claw's Roost",
+						pos = 
+						{
+							13533.6,
+							45351.4,
+						},
+						sector_id = 1839,
 					},
 				},
 			},
@@ -221852,6 +222498,24 @@ local tbl =
 				{
 					-3832.8,
 					-42363.1,
+				},
+				type = "waypoint",
+			},
+			[3186] = 
+			{
+				coord = "17675.8, 3057.14",
+				floor = 1,
+				global_pos = 
+				{
+					x = 17675.8,
+					y = 3057.14,
+				},
+				name = "Forward Camp Waypoint",
+				poi_id = 3186,
+				pos = 
+				{
+					-16996.8,
+					16124.6,
 				},
 				type = "waypoint",
 			},
@@ -221981,7 +222645,7 @@ local tbl =
 							x = 17746.4,
 							y = 4053.32,
 						},
-						name = "Leadfoot Villiage",
+						name = "Leadfoot Village",
 						poi_id = 3154,
 						pos = 
 						{
@@ -222251,7 +222915,7 @@ local tbl =
 							x = 18231.1,
 							y = 5685.46,
 						},
-						name = "Pavillion of the Legions",
+						name = "Pavilion of the Legions",
 						poi_id = 3177,
 						pos = 
 						{
@@ -222300,17 +222964,17 @@ local tbl =
 					},
 					[1817] = 
 					{
-						coord = "19021.7, 4879.83",
+						coord = "19023.2, 4879.83",
 						global_pos = 
 						{
-							x = 19021.7,
+							x = 19023.2,
 							y = 4879.83,
 						},
 						level = 80,
 						name = "Port Cascadia",
 						pos = 
 						{
-							15304.8,
+							15340.8,
 							-27619.9,
 						},
 						sector_id = 1817,
@@ -222334,35 +222998,35 @@ local tbl =
 					},
 					[1819] = 
 					{
-						coord = "18595.6, 4297.7",
+						coord = "18579.7, 4299.64",
 						global_pos = 
 						{
-							x = 18595.6,
-							y = 4297.7,
+							x = 18579.7,
+							y = 4299.64,
 						},
 						level = 80,
 						name = "Wolf's Crossing",
 						pos = 
 						{
-							5078.4,
-							-13648.8,
+							4696.8,
+							-13695.4,
 						},
 						sector_id = 1819,
 					},
 					[1820] = 
 					{
-						coord = "17821.6, 3907.74",
+						coord = "17859.1, 4034.4",
 						global_pos = 
 						{
-							x = 17821.6,
-							y = 3907.74,
+							x = 17859.1,
+							y = 4034.4,
 						},
 						level = 80,
 						name = "Leadfoot Village",
 						pos = 
 						{
-							-13497.6,
-							-4289.8,
+							-12597.6,
+							-7329.6,
 						},
 						sector_id = 1820,
 					},
@@ -222385,18 +223049,18 @@ local tbl =
 					},
 					[1822] = 
 					{
-						coord = "19149.6, 4123.65",
+						coord = "19075, 4257.47",
 						global_pos = 
 						{
-							x = 19149.6,
-							y = 4123.65,
+							x = 19075,
+							y = 4257.47,
 						},
 						level = 80,
 						name = "Lighthouse Point",
 						pos = 
 						{
-							18374.4,
-							-9471.6,
+							16584,
+							-12683.3,
 						},
 						sector_id = 1822,
 					},
@@ -222586,7 +223250,7 @@ local tbl =
 							x = 17746.4,
 							y = 4053.32,
 						},
-						name = "Leadfoot Villiage",
+						name = "Leadfoot Village",
 						poi_id = 3154,
 						pos = 
 						{
@@ -222856,7 +223520,7 @@ local tbl =
 							x = 18231.1,
 							y = 5685.46,
 						},
-						name = "Pavillion of the Legions",
+						name = "Pavilion of the Legions",
 						poi_id = 3177,
 						pos = 
 						{
@@ -222905,17 +223569,17 @@ local tbl =
 					},
 					[1817] = 
 					{
-						coord = "19021.7, 4879.83",
+						coord = "19023.2, 4879.83",
 						global_pos = 
 						{
-							x = 19021.7,
+							x = 19023.2,
 							y = 4879.83,
 						},
 						level = 80,
 						name = "Port Cascadia",
 						pos = 
 						{
-							15304.8,
+							15340.8,
 							-27619.9,
 						},
 						sector_id = 1817,
@@ -222939,35 +223603,35 @@ local tbl =
 					},
 					[1819] = 
 					{
-						coord = "18595.6, 4297.7",
+						coord = "18579.7, 4299.64",
 						global_pos = 
 						{
-							x = 18595.6,
-							y = 4297.7,
+							x = 18579.7,
+							y = 4299.64,
 						},
 						level = 80,
 						name = "Wolf's Crossing",
 						pos = 
 						{
-							5078.4,
-							-13648.8,
+							4696.8,
+							-13695.4,
 						},
 						sector_id = 1819,
 					},
 					[1820] = 
 					{
-						coord = "17821.6, 3907.74",
+						coord = "17859.1, 4034.4",
 						global_pos = 
 						{
-							x = 17821.6,
-							y = 3907.74,
+							x = 17859.1,
+							y = 4034.4,
 						},
 						level = 80,
 						name = "Leadfoot Village",
 						pos = 
 						{
-							-13497.6,
-							-4289.8,
+							-12597.6,
+							-7329.6,
 						},
 						sector_id = 1820,
 					},
@@ -222990,18 +223654,18 @@ local tbl =
 					},
 					[1822] = 
 					{
-						coord = "19149.6, 4123.65",
+						coord = "19075, 4257.47",
 						global_pos = 
 						{
-							x = 19149.6,
-							y = 4123.65,
+							x = 19075,
+							y = 4257.47,
 						},
 						level = 80,
 						name = "Lighthouse Point",
 						pos = 
 						{
-							18374.4,
-							-9471.6,
+							16584,
+							-12683.3,
 						},
 						sector_id = 1822,
 					},
@@ -223261,7 +223925,7 @@ local tbl =
 							x = 17746.4,
 							y = 4053.32,
 						},
-						name = "Leadfoot Villiage",
+						name = "Leadfoot Village",
 						poi_id = 3154,
 						pos = 
 						{
@@ -223531,7 +224195,7 @@ local tbl =
 							x = 18231.1,
 							y = 5685.46,
 						},
-						name = "Pavillion of the Legions",
+						name = "Pavilion of the Legions",
 						poi_id = 3177,
 						pos = 
 						{
@@ -223580,17 +224244,17 @@ local tbl =
 					},
 					[1817] = 
 					{
-						coord = "19021.7, 4879.83",
+						coord = "19023.2, 4879.83",
 						global_pos = 
 						{
-							x = 19021.7,
+							x = 19023.2,
 							y = 4879.83,
 						},
 						level = 80,
 						name = "Port Cascadia",
 						pos = 
 						{
-							15304.8,
+							15340.8,
 							-27619.9,
 						},
 						sector_id = 1817,
@@ -223614,35 +224278,35 @@ local tbl =
 					},
 					[1819] = 
 					{
-						coord = "18595.6, 4297.7",
+						coord = "18579.7, 4299.64",
 						global_pos = 
 						{
-							x = 18595.6,
-							y = 4297.7,
+							x = 18579.7,
+							y = 4299.64,
 						},
 						level = 80,
 						name = "Wolf's Crossing",
 						pos = 
 						{
-							5078.4,
-							-13648.8,
+							4696.8,
+							-13695.4,
 						},
 						sector_id = 1819,
 					},
 					[1820] = 
 					{
-						coord = "17821.6, 3907.74",
+						coord = "17859.1, 4034.4",
 						global_pos = 
 						{
-							x = 17821.6,
-							y = 3907.74,
+							x = 17859.1,
+							y = 4034.4,
 						},
 						level = 80,
 						name = "Leadfoot Village",
 						pos = 
 						{
-							-13497.6,
-							-4289.8,
+							-12597.6,
+							-7329.6,
 						},
 						sector_id = 1820,
 					},
@@ -223665,18 +224329,18 @@ local tbl =
 					},
 					[1822] = 
 					{
-						coord = "19149.6, 4123.65",
+						coord = "19075, 4257.47",
 						global_pos = 
 						{
-							x = 19149.6,
-							y = 4123.65,
+							x = 19075,
+							y = 4257.47,
 						},
 						level = 80,
 						name = "Lighthouse Point",
 						pos = 
 						{
-							18374.4,
-							-9471.6,
+							16584,
+							-12683.3,
 						},
 						sector_id = 1822,
 					},
@@ -223808,6 +224472,1119 @@ local tbl =
 		region_id = 1,
 		region_name = "Shiverpeak Mountains",
 		type = "Public",
+		waypoints = 
+		{
+		},
+	},
+	[1378] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "17360, 1425], [19536, 5905",
+		continent_rect_table = 
+		{
+			
+			{
+				17360,
+				1425,
+			},
+			
+			{
+				19536,
+				5905,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				points_of_interest = 
+				{
+					[3180] = 
+					{
+						coord = "18623.6, 2411.48",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18623.6,
+							y = 2411.48,
+						},
+						name = "Veins of Jormag",
+						poi_id = 3180,
+						pos = 
+						{
+							5750.4,
+							31620.5,
+						},
+						type = "landmark",
+					},
+					[3181] = 
+					{
+						coord = "17634, 2599.12",
+						floor = 1,
+						global_pos = 
+						{
+							x = 17634,
+							y = 2599.12,
+						},
+						name = "Thermal Vent",
+						poi_id = 3181,
+						pos = 
+						{
+							-18000,
+							27117.1,
+						},
+						type = "landmark",
+					},
+					[3183] = 
+					{
+						coord = "18867.5, 3117.45",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18867.5,
+							y = 3117.45,
+						},
+						name = "Archstone Dominion Camp",
+						poi_id = 3183,
+						pos = 
+						{
+							11604,
+							14677.2,
+						},
+						type = "landmark",
+					},
+					[3184] = 
+					{
+						coord = "18679.1, 1769.23",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18679.1,
+							y = 1769.23,
+						},
+						name = "Iceblood Channel",
+						poi_id = 3184,
+						pos = 
+						{
+							7082.4,
+							47034.5,
+						},
+						type = "landmark",
+					},
+					[3187] = 
+					{
+						coord = "17997.5, 2084.3",
+						floor = 1,
+						global_pos = 
+						{
+							x = 17997.5,
+							y = 2084.3,
+						},
+						name = "Sanctum of the Wild",
+						poi_id = 3187,
+						pos = 
+						{
+							-9276,
+							39472.8,
+						},
+						type = "landmark",
+					},
+					[3188] = 
+					{
+						coord = "18871.9, 1907.6",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18871.9,
+							y = 1907.6,
+						},
+						name = "The Spire",
+						poi_id = 3188,
+						pos = 
+						{
+							11709.6,
+							43713.6,
+						},
+						type = "landmark",
+					},
+					[3189] = 
+					{
+						coord = "18405.7, 2676.87",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18405.7,
+							y = 2676.87,
+						},
+						name = "Iron Lookout",
+						poi_id = 3189,
+						pos = 
+						{
+							520.8,
+							25251.1,
+						},
+						type = "landmark",
+					},
+					[3191] = 
+					{
+						coord = "18454.6, 3081.31",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18454.6,
+							y = 3081.31,
+						},
+						name = "Canopy Overlook",
+						poi_id = 3191,
+						pos = 
+						{
+							1694.4,
+							15544.6,
+						},
+						type = "landmark",
+					},
+					[3193] = 
+					{
+						coord = "17655.2, 3044.12",
+						floor = 1,
+						global_pos = 
+						{
+							x = 17655.2,
+							y = 3044.12,
+						},
+						name = "United Legions Forward Camp",
+						poi_id = 3193,
+						pos = 
+						{
+							-17491.2,
+							16437.1,
+						},
+						type = "landmark",
+					},
+					[3194] = 
+					{
+						coord = "18398.5, 3417.92",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18398.5,
+							y = 3417.92,
+						},
+						name = "Sniper's Slope",
+						poi_id = 3194,
+						pos = 
+						{
+							348,
+							7465.9,
+						},
+						type = "landmark",
+					},
+					[3195] = 
+					{
+						coord = "18363.2, 2111.74",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18363.2,
+							y = 2111.74,
+						},
+						name = "Ice Dragon's Gate",
+						poi_id = 3195,
+						pos = 
+						{
+							-499.2,
+							38814.2,
+						},
+						type = "landmark",
+					},
+					[3196] = 
+					{
+						coord = "18919.5, 2661.55",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18919.5,
+							y = 2661.55,
+						},
+						name = "Shoreline Dominion Camp",
+						poi_id = 3196,
+						pos = 
+						{
+							12852,
+							25618.8,
+						},
+						type = "landmark",
+					},
+					[3198] = 
+					{
+						coord = "18919.5, 2661.55",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18919.5,
+							y = 2661.55,
+						},
+						name = "Frostvein Dominion Camp",
+						poi_id = 3198,
+						pos = 
+						{
+							12852,
+							25618.8,
+						},
+						type = "landmark",
+					},
+					[3199] = 
+					{
+						coord = "18039, 2334.94",
+						floor = 1,
+						global_pos = 
+						{
+							x = 18039,
+							y = 2334.94,
+						},
+						name = "Cavern Entryway",
+						poi_id = 3199,
+						pos = 
+						{
+							-8280,
+							33457.4,
+						},
+						type = "landmark",
+					},
+					[3200] = 
+					{
+						coord = "19182.9, 3235.75",
+						floor = 1,
+						global_pos = 
+						{
+							x = 19182.9,
+							y = 3235.75,
+						},
+						name = "Stone Archways",
+						poi_id = 3200,
+						pos = 
+						{
+							19173.6,
+							11838,
+						},
+						type = "landmark",
+					},
+				},
+				sectors = 
+				{
+					[1827] = 
+					{
+						coord = "18917.4, 3349.32",
+						global_pos = 
+						{
+							x = 18917.4,
+							y = 3349.32,
+						},
+						level = 80,
+						name = "Archstone Coast",
+						pos = 
+						{
+							12801.6,
+							9112.3,
+						},
+						sector_id = 1827,
+					},
+					[1828] = 
+					{
+						coord = "18482.9, 3218.69",
+						global_pos = 
+						{
+							x = 18482.9,
+							y = 3218.69,
+						},
+						level = 80,
+						name = "Canopy Crag",
+						pos = 
+						{
+							2373.6,
+							12247.4,
+						},
+						sector_id = 1828,
+					},
+					[1830] = 
+					{
+						coord = "17753.7, 2434.38",
+						global_pos = 
+						{
+							x = 17753.7,
+							y = 2434.38,
+						},
+						level = 80,
+						name = "Cavern of Guiding Spirits",
+						pos = 
+						{
+							-15127.2,
+							31070.9,
+						},
+						sector_id = 1830,
+					},
+					[1831] = 
+					{
+						coord = "18473.1, 3694.67",
+						global_pos = 
+						{
+							x = 18473.1,
+							y = 3694.67,
+						},
+						level = 80,
+						name = "Dominion's Breach",
+						pos = 
+						{
+							2138.4,
+							823.9,
+						},
+						sector_id = 1831,
+					},
+					[1832] = 
+					{
+						coord = "18021.8, 1801.18",
+						global_pos = 
+						{
+							x = 18021.8,
+							y = 1801.18,
+						},
+						level = 80,
+						name = "Frost Citadel",
+						pos = 
+						{
+							-8692.8,
+							46267.7,
+						},
+						sector_id = 1832,
+					},
+					[1833] = 
+					{
+						coord = "17569.3, 3205.25",
+						global_pos = 
+						{
+							x = 17569.3,
+							y = 3205.25,
+						},
+						level = 80,
+						name = "Legions' Alcove",
+						pos = 
+						{
+							-19552.8,
+							12570,
+						},
+						sector_id = 1833,
+					},
+					[1834] = 
+					{
+						coord = "18823.2, 2743.06",
+						global_pos = 
+						{
+							x = 18823.2,
+							y = 2743.06,
+						},
+						level = 80,
+						name = "Frostvein Watch",
+						pos = 
+						{
+							10540.8,
+							23662.6,
+						},
+						sector_id = 1834,
+					},
+					[1836] = 
+					{
+						coord = "18100.7, 3343.99",
+						global_pos = 
+						{
+							x = 18100.7,
+							y = 3343.99,
+						},
+						level = 80,
+						name = "Sentinel Bay",
+						pos = 
+						{
+							-6799.2,
+							9240.2,
+						},
+						sector_id = 1836,
+					},
+					[1837] = 
+					{
+						coord = "18225, 2654.86",
+						global_pos = 
+						{
+							x = 18225,
+							y = 2654.86,
+						},
+						level = 80,
+						name = "Drizzlewood Peak",
+						pos = 
+						{
+							-3816,
+							25779.4,
+						},
+						sector_id = 1837,
+					},
+					[1838] = 
+					{
+						coord = "18629.8, 2300.43",
+						global_pos = 
+						{
+							x = 18629.8,
+							y = 2300.43,
+						},
+						level = 80,
+						name = "The Bloodfield",
+						pos = 
+						{
+							5899.2,
+							34285.7,
+						},
+						sector_id = 1838,
+					},
+					[1839] = 
+					{
+						coord = "18947.9, 1839.36",
+						global_pos = 
+						{
+							x = 18947.9,
+							y = 1839.36,
+						},
+						level = 80,
+						name = "Claw's Roost",
+						pos = 
+						{
+							13533.6,
+							45351.4,
+						},
+						sector_id = 1839,
+					},
+				},
+			},
+		},
+		map_id = 1378,
+		map_name = "Behind Enemy Lines",
+		map_rect = "-24576, -52224], [27648, 55296",
+		map_rect_table = 
+		{
+			
+			{
+				-24576,
+				-52224,
+			},
+			
+			{
+				27648,
+				55296,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1379] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "17360, 1425], [19536, 5905",
+		continent_rect_table = 
+		{
+			
+			{
+				17360,
+				1425,
+			},
+			
+			{
+				19536,
+				5905,
+			},
+		},
+		default_floor = 0,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1832] = 
+					{
+						coord = "18021.8, 1801.18",
+						global_pos = 
+						{
+							x = 18021.8,
+							y = 1801.18,
+						},
+						level = 80,
+						name = "Frost Citadel",
+						pos = 
+						{
+							-8692.8,
+							46267.7,
+						},
+						sector_id = 1832,
+					},
+				},
+			},
+		},
+		map_id = 1379,
+		map_name = "One Charr, One Dragon, One Champion",
+		map_rect = "-24576, -52224], [27648, 55296",
+		map_rect_table = 
+		{
+			
+			{
+				-24576,
+				-52224,
+			},
+			
+			{
+				27648,
+				55296,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1380] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "24576, 4864], [25856, 6144",
+		continent_rect_table = 
+		{
+			
+			{
+				24576,
+				4864,
+			},
+			
+			{
+				25856,
+				6144,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+			},
+		},
+		map_id = 1380,
+		map_name = "Epilogue",
+		map_rect = "-15360, -15360], [15360, 15360",
+		map_rect_table = 
+		{
+			
+			{
+				-15360,
+				-15360,
+			},
+			
+			{
+				15360,
+				15360,
+			},
+		},
+		max_level = 0,
+		min_level = 0,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1382] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "17360, 1425], [19536, 5905",
+		continent_rect_table = 
+		{
+			
+			{
+				17360,
+				1425,
+			},
+			
+			{
+				19536,
+				5905,
+			},
+		},
+		default_floor = 1,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1827] = 
+					{
+						coord = "18917.4, 3349.32",
+						global_pos = 
+						{
+							x = 18917.4,
+							y = 3349.32,
+						},
+						level = 80,
+						name = "Archstone Coast",
+						pos = 
+						{
+							12801.6,
+							9112.3,
+						},
+						sector_id = 1827,
+					},
+					[1828] = 
+					{
+						coord = "18482.9, 3218.69",
+						global_pos = 
+						{
+							x = 18482.9,
+							y = 3218.69,
+						},
+						level = 80,
+						name = "Canopy Crag",
+						pos = 
+						{
+							2373.6,
+							12247.4,
+						},
+						sector_id = 1828,
+					},
+					[1830] = 
+					{
+						coord = "17753.7, 2434.38",
+						global_pos = 
+						{
+							x = 17753.7,
+							y = 2434.38,
+						},
+						level = 80,
+						name = "Cavern of Guiding Spirits",
+						pos = 
+						{
+							-15127.2,
+							31070.9,
+						},
+						sector_id = 1830,
+					},
+					[1831] = 
+					{
+						coord = "18473.1, 3694.67",
+						global_pos = 
+						{
+							x = 18473.1,
+							y = 3694.67,
+						},
+						level = 80,
+						name = "Dominion's Breach",
+						pos = 
+						{
+							2138.4,
+							823.9,
+						},
+						sector_id = 1831,
+					},
+					[1832] = 
+					{
+						coord = "18021.8, 1801.18",
+						global_pos = 
+						{
+							x = 18021.8,
+							y = 1801.18,
+						},
+						level = 80,
+						name = "Frost Citadel",
+						pos = 
+						{
+							-8692.8,
+							46267.7,
+						},
+						sector_id = 1832,
+					},
+					[1833] = 
+					{
+						coord = "17569.3, 3205.25",
+						global_pos = 
+						{
+							x = 17569.3,
+							y = 3205.25,
+						},
+						level = 80,
+						name = "Legions' Alcove",
+						pos = 
+						{
+							-19552.8,
+							12570,
+						},
+						sector_id = 1833,
+					},
+					[1834] = 
+					{
+						coord = "18823.2, 2743.06",
+						global_pos = 
+						{
+							x = 18823.2,
+							y = 2743.06,
+						},
+						level = 80,
+						name = "Frostvein Watch",
+						pos = 
+						{
+							10540.8,
+							23662.6,
+						},
+						sector_id = 1834,
+					},
+					[1836] = 
+					{
+						coord = "18100.7, 3343.99",
+						global_pos = 
+						{
+							x = 18100.7,
+							y = 3343.99,
+						},
+						level = 80,
+						name = "Sentinel Bay",
+						pos = 
+						{
+							-6799.2,
+							9240.2,
+						},
+						sector_id = 1836,
+					},
+					[1837] = 
+					{
+						coord = "18225, 2654.86",
+						global_pos = 
+						{
+							x = 18225,
+							y = 2654.86,
+						},
+						level = 80,
+						name = "Drizzlewood Peak",
+						pos = 
+						{
+							-3816,
+							25779.4,
+						},
+						sector_id = 1837,
+					},
+					[1838] = 
+					{
+						coord = "18629.8, 2300.43",
+						global_pos = 
+						{
+							x = 18629.8,
+							y = 2300.43,
+						},
+						level = 80,
+						name = "The Bloodfield",
+						pos = 
+						{
+							5899.2,
+							34285.7,
+						},
+						sector_id = 1838,
+					},
+					[1839] = 
+					{
+						coord = "18947.9, 1839.36",
+						global_pos = 
+						{
+							x = 18947.9,
+							y = 1839.36,
+						},
+						level = 80,
+						name = "Claw's Roost",
+						pos = 
+						{
+							13533.6,
+							45351.4,
+						},
+						sector_id = 1839,
+					},
+				},
+			},
+		},
+		map_id = 1382,
+		map_name = "",
+		map_rect = "-24576, -52224], [27648, 55296",
+		map_rect_table = 
+		{
+			
+			{
+				-24576,
+				-52224,
+			},
+			
+			{
+				27648,
+				55296,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1383] = 
+	{
+		continent_id = 1,
+		continent_name = "Tyria",
+		continent_rect = "17360, 1425], [19536, 5905",
+		continent_rect_table = 
+		{
+			
+			{
+				17360,
+				1425,
+			},
+			
+			{
+				19536,
+				5905,
+			},
+		},
+		default_floor = 0,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1827] = 
+					{
+						coord = "18917.4, 3349.32",
+						global_pos = 
+						{
+							x = 18917.4,
+							y = 3349.32,
+						},
+						level = 80,
+						name = "Archstone Coast",
+						pos = 
+						{
+							12801.6,
+							9112.3,
+						},
+						sector_id = 1827,
+					},
+					[1828] = 
+					{
+						coord = "18482.9, 3218.69",
+						global_pos = 
+						{
+							x = 18482.9,
+							y = 3218.69,
+						},
+						level = 80,
+						name = "Canopy Crag",
+						pos = 
+						{
+							2373.6,
+							12247.4,
+						},
+						sector_id = 1828,
+					},
+					[1830] = 
+					{
+						coord = "17753.7, 2434.38",
+						global_pos = 
+						{
+							x = 17753.7,
+							y = 2434.38,
+						},
+						level = 80,
+						name = "Cavern of Guiding Spirits",
+						pos = 
+						{
+							-15127.2,
+							31070.9,
+						},
+						sector_id = 1830,
+					},
+					[1831] = 
+					{
+						coord = "18473.1, 3694.67",
+						global_pos = 
+						{
+							x = 18473.1,
+							y = 3694.67,
+						},
+						level = 80,
+						name = "Dominion's Breach",
+						pos = 
+						{
+							2138.4,
+							823.9,
+						},
+						sector_id = 1831,
+					},
+					[1832] = 
+					{
+						coord = "18021.8, 1801.18",
+						global_pos = 
+						{
+							x = 18021.8,
+							y = 1801.18,
+						},
+						level = 80,
+						name = "Frost Citadel",
+						pos = 
+						{
+							-8692.8,
+							46267.7,
+						},
+						sector_id = 1832,
+					},
+					[1833] = 
+					{
+						coord = "17569.3, 3205.25",
+						global_pos = 
+						{
+							x = 17569.3,
+							y = 3205.25,
+						},
+						level = 80,
+						name = "Legions' Alcove",
+						pos = 
+						{
+							-19552.8,
+							12570,
+						},
+						sector_id = 1833,
+					},
+					[1834] = 
+					{
+						coord = "18823.2, 2743.06",
+						global_pos = 
+						{
+							x = 18823.2,
+							y = 2743.06,
+						},
+						level = 80,
+						name = "Frostvein Watch",
+						pos = 
+						{
+							10540.8,
+							23662.6,
+						},
+						sector_id = 1834,
+					},
+					[1836] = 
+					{
+						coord = "18100.7, 3343.99",
+						global_pos = 
+						{
+							x = 18100.7,
+							y = 3343.99,
+						},
+						level = 80,
+						name = "Sentinel Bay",
+						pos = 
+						{
+							-6799.2,
+							9240.2,
+						},
+						sector_id = 1836,
+					},
+					[1837] = 
+					{
+						coord = "18225, 2654.86",
+						global_pos = 
+						{
+							x = 18225,
+							y = 2654.86,
+						},
+						level = 80,
+						name = "Drizzlewood Peak",
+						pos = 
+						{
+							-3816,
+							25779.4,
+						},
+						sector_id = 1837,
+					},
+					[1838] = 
+					{
+						coord = "18629.8, 2300.43",
+						global_pos = 
+						{
+							x = 18629.8,
+							y = 2300.43,
+						},
+						level = 80,
+						name = "The Bloodfield",
+						pos = 
+						{
+							5899.2,
+							34285.7,
+						},
+						sector_id = 1838,
+					},
+					[1839] = 
+					{
+						coord = "18947.9, 1839.36",
+						global_pos = 
+						{
+							x = 18947.9,
+							y = 1839.36,
+						},
+						level = 80,
+						name = "Claw's Roost",
+						pos = 
+						{
+							13533.6,
+							45351.4,
+						},
+						sector_id = 1839,
+					},
+				},
+			},
+		},
+		map_id = 1383,
+		map_name = "A Simple Negotiation",
+		map_rect = "-24576, -52224], [27648, 55296",
+		map_rect_table = 
+		{
+			
+			{
+				-24576,
+				-52224,
+			},
+			
+			{
+				27648,
+				55296,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 1,
+		region_name = "Shiverpeak Mountains",
+		type = "Instance",
 		waypoints = 
 		{
 		},
