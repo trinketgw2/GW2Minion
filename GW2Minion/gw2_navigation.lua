@@ -1069,9 +1069,11 @@ function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 		if ( (dist3D - navconradius*32) < ml_navigation.NavPointReachedDistances["Diving"]) then
 			-- We reached the node
 			-- d("[Navigation] - Cube Node reached. ("..tostring(math.round(dist3D - navconradius*32,2)).." < "..tostring(ml_navigation.NavPointReachedDistances["Diving"])..")")
-
+			ml_navigation.omc_track = ml_navigation.omc_track or {}
 			-- We arrived at a NavConnection Node
-			if( navcon) then
+			if( navcon) and (not ml_navigation.omc_track[nextnode.navconnectionid] or TimeSince(ml_navigation.omc_track[nextnode.navconnectionid]) > 2500) then
+				ml_navigation.omc_track[nextnode.navconnectionid] = ml_navigation.omc_track[nextnode.navconnectionid] or ml_global_information.Now
+
 				d("[Navigation] -  Arrived at NavConnection ID: "..tostring(nextnode.navconnectionid))
 				ml_navigation:ResetOMCHandler()
 				gw2_unstuck.SoftReset()
@@ -1083,7 +1085,8 @@ function ml_navigation:NextNodeReached( playerpos, nextnode , nextnextnode)
 				if ( navconradius > 0 and navconradius < 1.0 ) then	-- kinda shitfix for the conversion of the old OMCs to the new NavCons, I set all precise connections to have a radius of 0.5
 					ml_navigation:SetEnsureStartPosition(nextnode, nextnextnode, playerpos, ml_navigation.navconnection)
 				end
-
+			elseif ( navcon) then
+				return true
 			else
 				if (ml_navigation.navconnection) then
 					gw2_unstuck.Reset()
