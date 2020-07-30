@@ -817,7 +817,7 @@ end
 -- for easy use juse use:
 -- id = itemid / currency id / skillid
 -- category = item/skill/currency/...
--- creates automatically a new request if the requested icon is not available to get it and returns GetStartupPath().."\\GUI\\UI_Textures\\change.png" to have a placeholder and not mess up the UI
+-- creates automatically a new request if the requested icon is not available to get it and returns either the fallback_icon or GetStartupPath().."\\GUI\\UI_Textures\\change.png" to have a placeholder and not mess up the UI
 function gw2_api_manager.getIcon(id, category, fallback_icon)
    local categories = gw2_api_manager.categories
    local folder
