@@ -182,6 +182,7 @@ function gw2minion.Init()
 		--LS5
 		ml_mesh_mgr.SetDefaultMesh(1330,"Grothmar Valley",enforce)
 		ml_mesh_mgr.SetDefaultMesh(1343,"Bjora Marches",enforce)
+		ml_mesh_mgr.SetDefaultMesh(1371,"Drizzlewood Coast",enforce)
 		
 		--Instances
 		ml_mesh_mgr.SetDefaultMesh(896,"North Nolan Hatchery",enforce) -- Diessa Plateau
