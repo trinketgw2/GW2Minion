@@ -528,10 +528,10 @@ function gw2_api_manager.setEntryData(data, category)
 end
 
 function gw2_api_manager.LoadData(category, id)
-   local tbl = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] and gw2_api_manager.API_Data[category][id]) or FileLoad(gw2_api_manager.data_folders[category] .. id .. ".lua")
+   local tbl = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] and gw2_api_manager.API_Data[category][id]) or (gw2_api_manager.data_folders[category] and FileLoad(gw2_api_manager.data_folders[category] .. id .. ".lua")) or false
    local error
 
-   if table.valid(tbl) then
+   if tbl and table.valid(tbl) then
       gw2_api_manager.API_Data[category][id] = tbl
 
       if category == "items" and gw2_api_manager.chinese and (not gw2_api_manager.API_Data[category][id].name[5] or gw2_api_manager.API_Data[category][id].name[5] == "") then
