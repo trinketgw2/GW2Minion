@@ -13,6 +13,7 @@ gw2_api_manager.HTTP_Status = {
 }
 gw2_api_manager.http_requests = {}
 gw2_api_manager.api_requests = {}
+gw2_api_manager.gw2_api_requests = {}
 gw2_api_manager.API_Request_Running = false
 gw2_api_manager.categories = {
    "skills",
@@ -64,6 +65,7 @@ gw2_api_manager.language_dependent = {
    text = true,
 }
 gw2_api_manager.chinese = Player:GetLanguage() == 5
+gw2_api_manager.RequestQueue = {}
 
 -- create folders, load already gathered data files
 function gw2_api_manager.ModuleInit()
@@ -156,92 +158,51 @@ function gw2_api_manager.queue_API_Data(id, category, forced)
    end
 
    gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
-   gw2_api_manager.http_requests[category] = gw2_api_manager.http_requests[category] or {}
-   gw2_api_manager.api_requests[category] = gw2_api_manager.api_requests[category] or {}
+   gw2_api_manager.gw2_api_requests["api_data"] = gw2_api_manager.gw2_api_requests["api_data"] or {}
+   gw2_api_manager.gw2_api_requests["api_data"][category] = gw2_api_manager.gw2_api_requests["api_data"][category] or {}
 
-   if (type(id) == "string" or type(id) == "number") and not gw2_api_manager.is_Blacklisted(id, category) and (not gw2_api_manager.api_requests[category][id] or TimeSince(gw2_api_manager.api_requests[category][id]) > 5000) then
-      gw2_api_manager.api_requests[category][id] = ml_global_information.Now
-      tbl[category] = tbl[category] or {}
-      tbl[category][id] = { status = s.queued, url = false, forced = forced or false }
-      table.insert(ids, id)
+   local count = 0
+
+   if (type(id) == "string" or type(id) == "number") and not gw2_api_manager.is_Blacklisted(id, category) then
+      local queued
+
+      for k, v in pairs(gw2_api_manager.gw2_api_requests["api_data"][category]) do
+         if v.id == id then
+            queued = (v.requested > 0 and TimeSince(v.requested) > 60000 and v.status ~= gw2_api_manager.HTTP_Status.queued and false) or true
+         end
+      end
+
+      if not queued then
+         table.insert(gw2_api_manager.gw2_api_requests["api_data"][category], { id = id, status = gw2_api_manager.HTTP_Status.queued, queued = ml_global_information.Now, requested = 0, last_update = 0 })
+         table.insert(ids, id)
+         count = count + 1
+      end
    end
 
    if type(id) == "table" then
-      local count = 0
       for _, entry in pairs(id) do
-         if count < 200 and not gw2_api_manager.is_Blacklisted(entry, category) and (not gw2_api_manager.api_requests[category][entry] or TimeSince(gw2_api_manager.api_requests[category][entry]) > 5000) then
-            gw2_api_manager.api_requests[category][entry] = ml_global_information.Now
-            tbl[category] = tbl[category] or {}
-            tbl[category][entry] = { status = s.queued, url = false, forced = forced or false }
-            table.insert(ids, entry)
-            count = count + 1
+         local queued
+         if count < 200 and not gw2_api_manager.is_Blacklisted(entry, category) then
+
+            for k, v in pairs(gw2_api_manager.gw2_api_requests["api_data"][category]) do
+               if v.id == entry then
+                  queued = (v.requested > 0 and TimeSince(v.requested) > 60000 and v.status ~= gw2_api_manager.HTTP_Status.queued and false) or true
+               end
+            end
+
+            if not queued then
+               table.insert(gw2_api_manager.gw2_api_requests["api_data"][category], { id = entry, status = gw2_api_manager.HTTP_Status.queued, queued = ml_global_information.Now, requested = 0, last_update = 0 })
+               table.insert(ids, id)
+               count = count + 1
+            end
          end
       end
    end
 
-   if tbl[category] then
-      local idstring, count = "", 0
-      for id, entry in pairs(tbl[category]) do
-         if count < 200 and (entry.forced or ((not gw2_api_manager.http_requests[category][entry] or not gw2_api_manager.http_requests[category][entry].status == s.queued) and not gw2_api_manager.API_Data[category][entry] or (gw2_api_manager.API_Data[category][entry].lastupdate) and gw2_api_manager.TimeSince(gw2_api_manager.API_Data[category][entry].lastupdate) > 900)) then
-            if (idstring == "") then
-               idstring = tostring(id)
-            else
-               idstring = idstring .. "," .. tostring(id)
-            end
-            count = count + 1
-         end
-      end
-
-      local function success(str)
-         local data = json.decode(str)
-         gw2_api_manager.API_Request_Running = false
-         gw2_api_manager.http_requests[idstring .. " - " .. category] = nil
-
-         if data.text == "all ids provided are invalid" then
-            d("[gw2_api_manager]: Requested ids are invalid.")
-            for k, v in pairs(ids) do
-               gw2_api_manager.add_to_Blacklist(v, category)
-            end
-            return
-         end
-
-         d("[gw2_api_manager]: HTTP Request successful.")
-         for k, v in pairs(ids) do
-            local found = false
-            for _, entry in pairs(data) do
-               if entry.id == v then
-                  found = true
-               end
-            end
-
-            if not found then
-               gw2_api_manager.add_to_Blacklist(v, category)
-            end
-         end
-
-         local time = os.time()
-         for _, entry in pairs(data) do
-            gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
-            gw2_api_manager.API_Data[category][entry.id] = gw2_api_manager.setEntryData(entry, category)
-            gw2_api_manager.API_Data[category][entry.id].lastupdate = time
-         end
-         gw2_api_manager.Save_API_Data(category, ids)
-      end
-
-      local function failed(str)
-         d("[gw2_api_manager]: HTTP Request failed.")
-         local data = json.decode(str)
-         d(data or str)
-         gw2_api_manager.API_Request_Running = false
-      end
-
-      if count >= 1 then
-         local params = { host = hosts[category], path = paths[category] .. "?ids=" .. idstring .. "&lang=" .. languages[Player:GetLanguage()], port = 443, method = "GET", https = true, onsuccess = success, onfailure = failed }
-         gw2_api_manager.http_requests[idstring .. " - " .. category] = params
-         gw2_api_manager.http_requests[idstring .. " - " .. category].status = s.queued
-      end
-
-      return tbl
+   if count > 0 then
+      gw2_api_manager.RequestQueue[ml_global_information.Now] = gw2_api_manager.RequestQueue[ml_global_information.Now] or {}
+      table.insert(gw2_api_manager.RequestQueue[ml_global_information.Now], "api_data")
+      return ids
    end
 
    return false
@@ -255,94 +216,55 @@ function gw2_api_manager.queue_API_Prices(id, forced)
    local hosts = gw2_api_manager.hosts
    local languages = gw2_api_manager.languages
    local paths = gw2_api_manager.paths
-   category = "commerce"
-   tbl[category] = tbl[category] or {}
+   local category = "commerce"
 
    gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
-   gw2_api_manager.http_requests[category] = gw2_api_manager.http_requests[category] or {}
-   gw2_api_manager.api_requests[category] = gw2_api_manager.api_requests[category] or {}
+   gw2_api_manager.gw2_api_requests["item_prices"] = gw2_api_manager.gw2_api_requests["item_prices"] or {}
+   local count = 0
 
-   if (type(id) == "string" or type(id) == "number") and not gw2_api_manager.is_Blacklisted(id, category) and (not gw2_api_manager.api_requests[category][id] or TimeSince(gw2_api_manager.api_requests[category][id]) > 5000) then
-      gw2_api_manager.api_requests[category][id] = ml_global_information.Now
-      tbl[category] = tbl[category] or {}
-      tbl[category][id] = tbl[category][id] or { status = s.queued, url = false, forced = forced or false }
-      table.insert(ids, id)
-   end
+   if (type(id) == "string" or type(id) == "number") and not gw2_api_manager.is_Blacklisted(id, category) then
+      local queued
 
-   if type(id) == "table" then
-      local count = 0
-      for _, entry in pairs(id) do
-         if count < 200 and not gw2_api_manager.is_Blacklisted(entry, category) and (not gw2_api_manager.api_requests[category][entry] or TimeSince(gw2_api_manager.api_requests[category][entry]) > 5000) then
-            tbl[category][entry] = tbl[category][entry] or { status = s.queued, url = false, forced = forced or false }
-            gw2_api_manager.api_requests[category][entry] = ml_global_information.Now
-            table.insert(ids, entry)
-            count = count + 1
+      for k, v in pairs(gw2_api_manager.gw2_api_requests["item_prices"]) do
+         if v.id == id then
+            queued = (v.requested > 0 and TimeSince(v.requested) > 60000 and v.status ~= gw2_api_manager.HTTP_Status.queued and false) or true
          end
       end
-   end
 
-   local idstring, count = "", 0
-   for id, entry in pairs(tbl[category]) do
-      if count < 200 and (entry.forced or ((not gw2_api_manager.http_requests[category][entry] or not gw2_api_manager.http_requests[category][entry].status == s.queued) and not gw2_api_manager.API_Data[category][entry] or (gw2_api_manager.API_Data[category][entry].lastupdate) and gw2_api_manager.TimeSince(gw2_api_manager.API_Data[category][entry].lastupdate) > 900)) then
-         if (idstring == "") then
-            idstring = tostring(id)
-         else
-            idstring = idstring .. "," .. tostring(id)
-         end
+      if not queued then
+         table.insert(gw2_api_manager.gw2_api_requests["item_prices"], { id = id, status = gw2_api_manager.HTTP_Status.queued, queued = ml_global_information.Now, requested = 0, last_update = 0 })
+         table.insert(ids, id)
          count = count + 1
       end
    end
 
-   local function success(str)
-      local data = json.decode(str)
+   if type(id) == "table" then
+      for _, entry in pairs(id) do
+         local queued
+         if count < 200 and not gw2_api_manager.is_Blacklisted(entry, category) then
 
-      if data.text == "all ids provided are invalid" then
-         d("[gw2_api_manager]: Requested ids are invalid.")
-         for k, v in pairs(ids) do
-            gw2_api_manager.add_to_Blacklist(v, category)
-         end
-         return
-      end
+            for k, v in pairs(gw2_api_manager.gw2_api_requests["item_prices"]) do
+               if v.id == entry then
+                  queued = (v.requested > 0 and TimeSince(v.requested) > 60000 and v.status ~= gw2_api_manager.HTTP_Status.queued and false) or true
+               end
+            end
 
-      for k, v in pairs(ids) do
-         local found = false
-         for _, entry in pairs(data) do
-            if entry.id == v then
-               found = true
+            if not queued then
+               table.insert(gw2_api_manager.gw2_api_requests["item_prices"], { id = entry, status = gw2_api_manager.HTTP_Status.queued, queued = ml_global_information.Now, requested = 0, last_update = 0 })
+               table.insert(ids, id)
+               count = count + 1
             end
          end
-
-         if not found then
-            gw2_api_manager.add_to_Blacklist(v, category)
-         end
       end
-
-      d("[gw2_api_manager]: HTTP Request successful.")
-      local time = os.time()
-      for _, entry in pairs(data) do
-         gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
-         gw2_api_manager.API_Data[category][entry.id] = gw2_api_manager.setEntryData(entry, category)
-         gw2_api_manager.API_Data[category][entry.id].lastupdate = time
-      end
-      gw2_api_manager.API_Request_Running = false
-      gw2_api_manager.http_requests[idstring .. " - " .. category] = nil
-      gw2_api_manager.Save_API_Data(category, ids)
    end
 
-   local function failed(str)
-      d("[gw2_api_manager]: HTTP Request failed.")
-      gw2_api_manager.API_Request_Running = false
-      local data = json.decode(str)
-      d(data or str)
+   if count > 0 then
+      gw2_api_manager.RequestQueue[ml_global_information.Now] = gw2_api_manager.RequestQueue[ml_global_information.Now] or {}
+      table.insert(gw2_api_manager.RequestQueue[ml_global_information.Now], "item_prices")
+      return ids
    end
 
-   if count >= 1 then
-      local params = { host = hosts[category], path = paths[category] .. "/prices?ids=" .. idstring, port = 443, method = "GET", https = true, onsuccess = success, onfailure = failed }
-      gw2_api_manager.http_requests[idstring .. " - " .. category] = params
-      gw2_api_manager.http_requests[idstring .. " - " .. category].status = s.queued
-   end
-
-   return tbl
+   return false
 end
 
 -- create a new HTTP request to fetch data of an item/skill/currency/... - if not available yet or forced
@@ -353,95 +275,56 @@ function gw2_api_manager.queue_API_Listings(id, forced)
    local hosts = gw2_api_manager.hosts
    local languages = gw2_api_manager.languages
    local paths = gw2_api_manager.paths
-   category = "commerce"
-   tbl[category] = tbl[category] or {}
+   local category = "commerce"
 
    gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
-   gw2_api_manager.http_requests[category] = gw2_api_manager.http_requests[category] or {}
-   gw2_api_manager.api_requests[category] = gw2_api_manager.api_requests[category] or {}
+   gw2_api_manager.gw2_api_requests["item_listings"] = gw2_api_manager.gw2_api_requests["item_listings"] or {}
 
-   if (type(id) == "string" or type(id) == "number") and not gw2_api_manager.is_Blacklisted(id, category) and (not gw2_api_manager.api_requests[category][id] or TimeSince(gw2_api_manager.api_requests[category][id]) > 5000) then
-      gw2_api_manager.api_requests[category][id] = ml_global_information.Now
-      tbl[category] = tbl[category] or {}
-      tbl[category][id] = tbl[category][id] or { status = s.queued, url = false, forced = forced or false }
-      table.insert(ids, id)
-   end
+   local count = 0
 
-   if type(id) == "table" then
-      local count = 0
-      for _, entry in pairs(id) do
-         if count < 200 and not gw2_api_manager.is_Blacklisted(entry, category) and (not gw2_api_manager.api_requests[category][entry] or TimeSince(gw2_api_manager.api_requests[category][entry]) > 5000) then
-            tbl[category][entry] = tbl[category][entry] or { status = s.queued, url = false, forced = forced or false }
-            gw2_api_manager.api_requests[category][entry] = ml_global_information.Now
-            table.insert(ids, entry)
-            count = count + 1
+   if (type(id) == "string" or type(id) == "number") and not gw2_api_manager.is_Blacklisted(id, category) then
+      local queued
+
+      for k, v in pairs(gw2_api_manager.gw2_api_requests["item_listings"]) do
+         if v.id == id then
+            queued = (v.requested > 0 and TimeSince(v.requested) > 60000 and v.status ~= gw2_api_manager.HTTP_Status.queued and false) or true
          end
       end
-   end
 
-   local idstring, count = "", 0
-   for id, entry in pairs(tbl[category]) do
-      if count < 200 and (entry.forced or ((not gw2_api_manager.http_requests[category][entry] or not gw2_api_manager.http_requests[category][entry].status == s.queued) and not gw2_api_manager.API_Data[category][entry] or (gw2_api_manager.API_Data[category][entry].lastupdate) and gw2_api_manager.TimeSince(gw2_api_manager.API_Data[category][entry].lastupdate) > 900)) then
-         if (idstring == "") then
-            idstring = tostring(id)
-         else
-            idstring = idstring .. "," .. tostring(id)
-         end
+      if not queued then
+         table.insert(gw2_api_manager.gw2_api_requests["item_listings"], { id = id, status = gw2_api_manager.HTTP_Status.queued, queued = ml_global_information.Now, requested = 0, last_update = 0 })
+         table.insert(ids, id)
          count = count + 1
       end
    end
 
-   local function success(str)
-      local data = json.decode(str)
+   if type(id) == "table" then
+      for _, entry in pairs(id) do
+         local queued
+         if count < 200 and not gw2_api_manager.is_Blacklisted(entry, category) then
 
-      if data.text == "all ids provided are invalid" then
-         d("[gw2_api_manager]: Requested ids are invalid.")
-         for k, v in pairs(ids) do
-            gw2_api_manager.add_to_Blacklist(v, category)
-         end
-         return
-      end
+            for k, v in pairs(gw2_api_manager.gw2_api_requests["item_listings"]) do
+               if v.id == entry then
+                  queued = (v.requested > 0 and TimeSince(v.requested) > 60000 and v.status ~= gw2_api_manager.HTTP_Status.queued and false) or true
+               end
+            end
 
-      for k, v in pairs(ids) do
-         local found = false
-         for _, entry in pairs(data) do
-            if entry.id == v then
-               found = true
+            if not queued then
+               table.insert(gw2_api_manager.gw2_api_requests["item_listings"], { id = entry, status = gw2_api_manager.HTTP_Status.queued, queued = ml_global_information.Now, requested = 0, last_update = 0 })
+               table.insert(ids, id)
+               count = count + 1
             end
          end
-
-         if not found then
-            gw2_api_manager.add_to_Blacklist(v, category)
-         end
       end
-
-      d("[gw2_api_manager]: HTTP Request successful.")
-      local time = os.time()
-      for _, entry in pairs(data) do
-         gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
-         gw2_api_manager.API_Data[category][entry.id] = gw2_api_manager.setEntryData(entry, category)
-         gw2_api_manager.API_Data[category][entry.id].listing_update = time
-         gw2_api_manager.API_Data[category][entry.id].lastupdate = time
-      end
-      gw2_api_manager.API_Request_Running = false
-      gw2_api_manager.http_requests[idstring .. " - " .. category] = nil
-      gw2_api_manager.Save_API_Data(category, ids)
    end
 
-   local function failed(str)
-      d("[gw2_api_manager]: HTTP Request failed.")
-      gw2_api_manager.API_Request_Running = false
-      local data = json.decode(str)
-      d(data or str)
+   if count > 0 then
+      gw2_api_manager.RequestQueue[ml_global_information.Now] = gw2_api_manager.RequestQueue[ml_global_information.Now] or {}
+      table.insert(gw2_api_manager.RequestQueue[ml_global_information.Now], "item_listings")
+      return ids
    end
 
-   if count >= 1 then
-      local params = { host = hosts[category], path = paths[category] .. "/listings?ids=" .. idstring, port = 443, method = "GET", https = true, onsuccess = success, onfailure = failed }
-      gw2_api_manager.http_requests[idstring .. " - " .. category] = params
-      gw2_api_manager.http_requests[idstring .. " - " .. category].status = s.queued
-   end
-
-   return tbl
+   return false
 end
 
 -- download an Icon from the API, create a new HTTP request to fetch the data and icon url - if not available yet or forced
@@ -499,15 +382,15 @@ function gw2_api_manager.setEntryData(data, category)
       if k == "sells" or k == "buys" then
          if table.valid(v) and v[1] then
             tbl[k] = tbl[k] or {}
-            tbl[k] = v or {quantity = 0, unit_price = 0}
+            tbl[k] = v or { quantity = 0, unit_price = 0 }
             tbl[k].quantity = v[1].quantity or 0
             tbl[k].unit_price = v[1].unit_price or 0
          elseif table.valid(v) then
-            tbl[k] = tbl[k] or {quantity = 0, unit_price = 0}
+            tbl[k] = tbl[k] or { quantity = 0, unit_price = 0 }
             tbl[k].quantity = v.quantity or 0
             tbl[k].unit_price = v.unit_price or 0
          else
-            tbl[k] = {quantity = 0, unit_price = 0}
+            tbl[k] = { quantity = 0, unit_price = 0 }
          end
       elseif not gw2_api_manager.language_dependent[k] then
          tbl[k] = v
@@ -664,7 +547,7 @@ function gw2_api_manager.getPrice(id, all_data)
             if k == "buys" or k == "sells" then
                if table.valid(v) then
                   if v.quantity and v.unit_price then
-                     tbl[k] = {quantity = v.quantity, unit_price = v.unit_price}
+                     tbl[k] = { quantity = v.quantity, unit_price = v.unit_price }
                   else
                      table.insert(request_ids, id)
                   end
@@ -707,7 +590,7 @@ function gw2_api_manager.getPrice(id, all_data)
                if k == "buys" or k == "sells" then
                   if table.valid(v) then
                      if v.quantity and v.unit_price then
-                        tbl[entry][k] = {quantity = v.quantity, unit_price = v.unit_price}
+                        tbl[entry][k] = { quantity = v.quantity, unit_price = v.unit_price }
                      else
                         table.insert(request_ids, entry)
                      end
@@ -860,6 +743,253 @@ function gw2_api_manager.Load_Blacklist()
 end
 
 -- Handler for the hole http request stuff
+function gw2_api_manager.SendRequests()
+
+   if table.valid(gw2_api_manager.RequestQueue) then
+      for k, queued in table.pairsbykeys(gw2_api_manager.RequestQueue) do
+         for _, request_type in pairs(queued) do
+            if request_type == "item_prices" then
+               local count, idstring, ids = 0, "", {}
+               local category = "commerce"
+               for _, v in pairs(gw2_api_manager.gw2_api_requests["item_prices"]) do
+                  if count < 200 and not gw2_api_manager.is_Blacklisted(v.id, "commerce") and (v.status ~= gw2_api_manager.HTTP_Status.request_sent or TimeSince(v.requested) > 60000) then
+                     count = count + 1
+                     idstring = idstring .. "," .. tostring(v.id)
+                     table.insert(ids, v.id)
+                     v.status = gw2_api_manager.HTTP_Status.request_sent
+                     v.requested = ml_global_information.Now
+                  else
+                     break
+                  end
+               end
+
+               local function success(str)
+                  local data = json.decode(str)
+
+                  if data.text == "all ids provided are invalid" then
+                     gw2_api_manager.d("[gw2_api_manager]: Requested ids are invalid.")
+                     for k, v in pairs(ids) do
+                        gw2_api_manager.add_to_Blacklist(v, category)
+                     end
+                     return
+                  end
+
+                  -- wipe successful ids off the queue
+                  for index, v in pairs(gw2_api_manager.gw2_api_requests["item_prices"]) do
+                     for _, entry in pairs(data) do
+                        if entry.id == v.id then
+                           gw2_api_manager.gw2_api_requests["item_prices"][index] = nil
+                           break
+                        end
+                     end
+                  end
+
+                  for k, v in pairs(ids) do
+                     local found = false
+                     for _, entry in pairs(data) do
+                        if entry.id == v then
+                           found = true
+                        end
+                     end
+
+                     if not found then
+                        gw2_api_manager.add_to_Blacklist(v, category)
+                     end
+                  end
+
+                  gw2_api_manager.d("[gw2_api_manager]: HTTP Request successful.")
+                  local time = os.time()
+                  for _, entry in pairs(data) do
+                     gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
+                     gw2_api_manager.API_Data[category][entry.id] = gw2_api_manager.setEntryData(entry, category)
+                     gw2_api_manager.API_Data[category][entry.id].lastupdate = time
+                  end
+                  gw2_api_manager.API_Request_Running = false
+                  gw2_api_manager.http_requests[idstring .. " - " .. category] = nil
+                  gw2_api_manager.Save_API_Data(category, ids)
+               end
+               local function failed(str)
+                  gw2_api_manager.d("[gw2_api_manager]: HTTP Request failed.")
+                  gw2_api_manager.API_Request_Running = false
+                  local data = json.decode(str)
+                  gw2_api_manager.d(data or str)
+               end
+
+               local params = { host = gw2_api_manager.hosts[category], path = gw2_api_manager.paths[category] .. "/prices?ids=" .. idstring, port = 443, method = "GET", https = true, onsuccess = success, onfailure = failed }
+
+               if count > 0 then
+                  HttpRequest(params)
+                  gw2_api_manager.RequestQueue[k] = nil
+                  gw2_api_manager.d("[gw2_api_manager]: Send HTTP Request to get " .. request_type .. " for ids " .. gw2_api_manager.ltrim(tostring(idstring),1))
+                  gw2_api_manager.API_Request_Running = os.time()
+
+                  return request_type, ids
+               end
+            end
+            if request_type == "item_listings" then
+               local count, idstring, ids = 0, "", {}
+               local category = "commerce"
+               for k, v in pairs(gw2_api_manager.gw2_api_requests["item_listings"]) do
+                  if count < 200 and not gw2_api_manager.is_Blacklisted(v.id, "commerce") and (v.status ~= gw2_api_manager.HTTP_Status.request_sent or TimeSince(v.requested) > 60000) then
+                     count = count + 1
+                     idstring = idstring .. "," .. tostring(v.id)
+                     table.insert(ids, v.id)
+                     v.status = gw2_api_manager.HTTP_Status.request_sent
+                     v.requested = ml_global_information.Now
+                  else
+                     break
+                  end
+               end
+
+               local function success(str)
+                  local data = json.decode(str)
+
+                  if data.text == "all ids provided are invalid" then
+                     gw2_api_manager.d("[gw2_api_manager]: Requested ids are invalid.")
+                     for _, v in pairs(ids) do
+                        gw2_api_manager.add_to_Blacklist(v, category)
+                     end
+                     return
+                  end
+
+                  -- wipe successful ids off the queue
+                  for index, v in pairs(gw2_api_manager.gw2_api_requests["item_listings"]) do
+                     for _, entry in pairs(data) do
+                        if entry.id == v.id then
+                           gw2_api_manager.gw2_api_requests["item_listings"][index] = nil
+                           break
+                        end
+                     end
+                  end
+
+                  for _, v in pairs(ids) do
+                     local found = false
+                     for _, entry in pairs(data) do
+                        if entry.id == v then
+                           found = true
+                        end
+                     end
+
+                     if not found then
+                        gw2_api_manager.add_to_Blacklist(v, category)
+                     end
+                  end
+
+                  gw2_api_manager.d("[gw2_api_manager]: HTTP Request successful.")
+                  local time = os.time()
+                  for _, entry in pairs(data) do
+                     gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
+                     gw2_api_manager.API_Data[category][entry.id] = gw2_api_manager.setEntryData(entry, category)
+                     gw2_api_manager.API_Data[category][entry.id].listing_update = time
+                     gw2_api_manager.API_Data[category][entry.id].lastupdate = time
+                  end
+                  gw2_api_manager.API_Request_Running = false
+                  gw2_api_manager.http_requests[idstring .. " - " .. category] = nil
+                  gw2_api_manager.Save_API_Data(category, ids)
+               end
+               local function failed(str)
+                  gw2_api_manager.d("[gw2_api_manager]: HTTP Request failed.")
+                  gw2_api_manager.API_Request_Running = false
+                  local data = json.decode(str)
+                  gw2_api_manager.d(data or str)
+               end
+               local params = { host = gw2_api_manager.hosts[category], path = gw2_api_manager.paths[category] .. "/listings?ids=" .. idstring, port = 443, method = "GET", https = true, onsuccess = success, onfailure = failed }
+
+               if count > 0 then
+                  HttpRequest(params)
+                  gw2_api_manager.RequestQueue[k] = nil
+                  gw2_api_manager.d("[gw2_api_manager]: Send HTTP Request to get " .. request_type .. " for ids " .. gw2_api_manager.ltrim(tostring(idstring),1))
+                  gw2_api_manager.API_Request_Running = os.time()
+
+                  return request_type, ids
+               end
+            end
+            if request_type == "api_data" then
+               local count, idstring, ids = 0, "", {}
+               for category, data in pairs(gw2_api_manager.gw2_api_requests["api_data"]) do
+                  for k, v in pairs(data) do
+                     if count < 200 and not gw2_api_manager.is_Blacklisted(v.id, category) and (v.status ~= gw2_api_manager.HTTP_Status.request_sent or TimeSince(v.requested) > 60000) then
+                        count = count + 1
+                        idstring = idstring .. "," .. tostring(v.id)
+                        table.insert(ids, v.id)
+                        v.status = gw2_api_manager.HTTP_Status.request_sent
+                        v.requested = ml_global_information.Now
+                     else
+                        break
+                     end
+                  end
+
+                  local function success(str)
+                     local data = json.decode(str)
+
+                     if data.text == "all ids provided are invalid" then
+                        gw2_api_manager.d("[gw2_api_manager]: Requested ids are invalid.")
+                        for _, v in pairs(ids) do
+                           gw2_api_manager.add_to_Blacklist(v, category)
+                        end
+                        return
+                     end
+
+                     gw2_api_manager.d("[gw2_api_manager]: HTTP Request successful.")
+
+                     -- wipe successful ids off the queue
+                     for index, v in pairs(gw2_api_manager.gw2_api_requests["api_data"][category]) do
+                        for _, entry in pairs(data) do
+                           if entry.id == v.id then
+                              gw2_api_manager.gw2_api_requests["api_data"][category][index] = nil
+                              break
+                           end
+                        end
+                     end
+
+                     for _, v in pairs(ids) do
+                        local found = false
+                        for _, entry in pairs(data) do
+                           if entry.id == v then
+                              found = true
+                           end
+                        end
+
+                        if not found then
+                           gw2_api_manager.add_to_Blacklist(v, category)
+                        end
+                     end
+
+                     local time = os.time()
+                     for _, entry in pairs(data) do
+                        gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
+                        gw2_api_manager.API_Data[category][entry.id] = gw2_api_manager.setEntryData(entry, category)
+                        gw2_api_manager.API_Data[category][entry.id].lastupdate = time
+                     end
+                     gw2_api_manager.Save_API_Data(category, ids)
+                  end
+
+                  local function failed(str)
+                     gw2_api_manager.d("[gw2_api_manager]: HTTP Request failed.")
+                     local data = json.decode(str)
+                     gw2_api_manager.d(data or str)
+                     gw2_api_manager.API_Request_Running = false
+                  end
+
+                  local params = { host = gw2_api_manager.hosts[category], path = gw2_api_manager.paths[category] .. "?ids=" .. idstring .. "&lang=" .. gw2_api_manager.languages[Player:GetLanguage()], port = 443, method = "GET", https = true, onsuccess = success, onfailure = failed }
+
+                  if count > 0 then
+                     HttpRequest(params)
+                     gw2_api_manager.RequestQueue[k] = nil
+                     gw2_api_manager.d("[gw2_api_manager]: Send HTTP Request to get " .. request_type .. " for ids " .. gw2_api_manager.ltrim(tostring(idstring),1))
+                     gw2_api_manager.API_Request_Running = os.time()
+
+                     return request_type, ids
+                  end
+               end
+            end
+         end
+      end
+   end
+
+   return false
+end
+
 function gw2_api_manager.API_DataHandler(_, ticks)
    local folders = gw2_api_manager.folders
    local hosts = gw2_api_manager.hosts
@@ -886,7 +1016,7 @@ function gw2_api_manager.API_DataHandler(_, ticks)
             if table.valid(v) and not gw2_api_manager.lastImage then
                for id, entry in pairs(v) do
                   if entry.url and ((entry.status == s.download_queued) or gw2_api_manager.TimeSince(gw2_api_manager.lastDownload) > 10) then
-                     d("[gw2_api_manager]: Start download for " .. tostring(category) .. " id: " .. tostring(id))
+                     gw2_api_manager.d("[gw2_api_manager]: Start download for " .. tostring(category) .. " id: " .. tostring(id))
                      WebAPI:GetImage(id, entry.url, folders[category] .. id .. ".png")
                      entry.status = s.downloading
                      entry.download_start = os.time()
@@ -897,7 +1027,7 @@ function gw2_api_manager.API_DataHandler(_, ticks)
                   end
 
                   if gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] and gw2_api_manager.API_Data[category][id].icon and not FileExists(folders[category] .. id .. ".png") then
-                     d("[gw2_api_manager]: Start download for " .. tostring(category) .. " id: " .. tostring(id))
+                     gw2_api_manager.d("[gw2_api_manager]: Start download for " .. tostring(category) .. " id: " .. tostring(id))
                      WebAPI:GetImage(id, gw2_api_manager.API_Data[category][id].icon, folders[category] .. id .. ".png")
                      entry.status = s.downloading
                      entry.download_start = os.time()
@@ -922,7 +1052,10 @@ function gw2_api_manager.API_DataHandler(_, ticks)
 
    -- API data get, tick ever 666ms, max requests are one each 200 ms so we added a bit of a tolerance to prevent issues
    if ticks - gw2_api_manager.API_Call_Ticks > 1000 * (2 / 3) then
-      gw2_api_manager.API_Call_Ticks = ticks
+      if gw2_api_manager.SendRequests() then
+         gw2_api_manager.API_Call_Ticks = ticks
+      end
+
       if table.valid(gw2_api_manager.ImageQueue) then
          for category, v in pairs(gw2_api_manager.ImageQueue) do
             local idstring = ""
@@ -952,9 +1085,9 @@ function gw2_api_manager.API_DataHandler(_, ticks)
                local function success(str)
                   local data = json.decode(str)
                   if data.text == "all ids provided are invalid" then
-                     d("[gw2_api_manager]: Requested ids are invalid.")
+                     gw2_api_manager.d("[gw2_api_manager]: Requested ids are invalid.")
                      for k, v in pairs(ids) do
-                        d(v)
+                        gw2_api_manager.d(v)
                         gw2_api_manager.add_to_Blacklist(v, category)
                      end
                      return
@@ -973,7 +1106,7 @@ function gw2_api_manager.API_DataHandler(_, ticks)
                      end
                   end
 
-                  d("[gw2_api_manager]: HTTP Request to get Image URL successful.")
+                  gw2_api_manager.d("[gw2_api_manager]: HTTP Request to get Image URL successful.")
                   for _, entry in pairs(data) do
                      gw2_api_manager.ImageQueue[category][entry.id] = { url = entry.icon, status = s.download_queued, name = entry.name }
                      gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
@@ -987,9 +1120,9 @@ function gw2_api_manager.API_DataHandler(_, ticks)
                end
 
                local function failed(str)
-                  d("[gw2_api_manager]: HTTP Request failed.")
+                  gw2_api_manager.d("[gw2_api_manager]: HTTP Request failed.")
                   local data = json.decode(str)
-                  d(data or str)
+                  gw2_api_manager.d(data or str)
                   gw2_api_manager.API_Request_Running = false
                   --local data = json.decode(str)
                end
@@ -1008,15 +1141,31 @@ function gw2_api_manager.API_DataHandler(_, ticks)
       if table.valid(gw2_api_manager.http_requests) then
          for identifier, params in pairs(gw2_api_manager.http_requests) do
             if params.host and (not params.status or params.status == s.queued) then
-               d("[gw2_api_manager]: Send HTTP Request to get Infos for ids " .. tostring(identifier))
+               gw2_api_manager.d("[gw2_api_manager]: Send HTTP Request to get Infos for ids " .. tostring(identifier))
                HttpRequest(params)
                params.status = s.request_sent
                gw2_api_manager.API_Request_Running = os.time()
+               gw2_api_manager.API_Call_Ticks = ticks
                break
             end
          end
       end
    end
+end
+
+-- custom console print to only spam the console when gw2_api_manager.Debug == true
+function gw2_api_manager.d(txt)
+   if gw2_api_manager.Debug then
+      d(txt)
+   end
+end
+
+-- custom trim code to trim from left
+function gw2_api_manager.ltrim(txt, num)
+   txt = string.reverse(txt)
+   txt = string.trim(txt, num)
+   txt = string.reverse(txt)
+   return txt
 end
 
 RegisterEventHandler("Module.Initalize", gw2_api_manager.ModuleInit, "gw2_api_manager.ModuleInit")
