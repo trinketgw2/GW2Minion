@@ -751,15 +751,18 @@ function gw2_api_manager.SendRequests()
             if request_type == "item_prices" then
                local count, idstring, ids = 0, "", {}
                local category = "commerce"
-               for _, v in pairs(gw2_api_manager.gw2_api_requests["item_prices"]) do
+               for k, v in pairs(gw2_api_manager.gw2_api_requests["item_prices"]) do
                   if count < 200 and not gw2_api_manager.is_Blacklisted(v.id, "commerce") and (v.status ~= gw2_api_manager.HTTP_Status.request_sent or TimeSince(v.requested) > 60000) then
                      count = count + 1
                      idstring = idstring .. "," .. tostring(v.id)
                      table.insert(ids, v.id)
                      v.status = gw2_api_manager.HTTP_Status.request_sent
                      v.requested = ml_global_information.Now
-                  else
+                     v.requests = v.requests and v.requests + 1 or 1
+                  elseif count >= 200 then
                      break
+                  elseif v.requests and v.requests >= 5 then
+                     gw2_api_manager.gw2_api_requests["item_prices"][k] = nil
                   end
                end
 
@@ -836,8 +839,11 @@ function gw2_api_manager.SendRequests()
                      table.insert(ids, v.id)
                      v.status = gw2_api_manager.HTTP_Status.request_sent
                      v.requested = ml_global_information.Now
-                  else
+                     v.requests = v.requests and v.requests + 1 or 1
+                  elseif count >= 200 then
                      break
+                  elseif v.requests and v.requests >= 5 then
+                     gw2_api_manager.gw2_api_requests["item_listings"][k] = nil
                   end
                end
 
@@ -914,8 +920,11 @@ function gw2_api_manager.SendRequests()
                         table.insert(ids, v.id)
                         v.status = gw2_api_manager.HTTP_Status.request_sent
                         v.requested = ml_global_information.Now
-                     else
+                        v.requests = v.requests and v.requests + 1 or 1
+                     elseif count >= 200 then
                         break
+                     elseif v.requests and v.requests >= 5 then
+                        gw2_api_manager.gw2_api_requests["api_data"][k] = nil
                      end
                   end
 
