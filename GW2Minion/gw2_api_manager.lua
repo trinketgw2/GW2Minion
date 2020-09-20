@@ -92,6 +92,11 @@ function gw2_api_manager.Load_API_Data()
       for _, file in pairs(FolderList(gw2_api_manager.path .. foldername, ".*.lua", false) or {}) do
          gw2_api_manager.API_Data[foldername] = gw2_api_manager.API_Data[foldername] or {}
          gw2_api_manager.API_Data[foldername][string.trim(file, 4)] = FileLoad(gw2_api_manager.path .. foldername .. "\\" .. file) or {}
+
+         if not table.valid(gw2_api_manager.API_Data[foldername][string.trim(file, 4)]) then
+            FileDelete(gw2_api_manager.path .. foldername .. "\\" .. file)
+            gw2_api_manager.API_Data[foldername][string.trim(file, 4)] = {}
+         end
       end
    end
 end
@@ -132,10 +137,10 @@ function gw2_api_manager.Save_API_Data(category, id)
    end
 end
 
--- get passed time in seconds based on os.time(), we need to know if the data is from the same day or not
+-- get passed time in seconds based on os.time() in form of gw2_api_manager.Now, we need to know if the data is from the same day or not
 function gw2_api_manager.TimeSince(time)
    if time then
-      return os.time() - time
+      return gw2_api_manager.Now - time
    end
 
    return 86400 -- return 24 h when no time is given, just lazy stuff so we can call it without checking the time
@@ -411,7 +416,12 @@ function gw2_api_manager.setEntryData(data, category)
 end
 
 function gw2_api_manager.LoadData(category, id)
-   local tbl = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] and gw2_api_manager.API_Data[category][id]) or (gw2_api_manager.data_folders[category] and FileLoad(gw2_api_manager.data_folders[category] .. id .. ".lua")) or false
+   local tbl = (gw2_api_manager.API_Data[category] and gw2_api_manager.API_Data[category][id] and gw2_api_manager.API_Data[category][id]) or (gw2_api_manager.data_folders[category] and FileLoad(gw2_api_manager.data_folders[category] .. id .. ".lua"))
+   if not table.valid(tbl) and gw2_api_manager.data_folders[category] and FileExists(gw2_api_manager.data_folders[category] .. id .. ".lua") then
+      FileDelete(gw2_api_manager.data_folders[category] .. id .. ".lua")
+   end
+   tbl = table.valid(tbl) and tbl or false
+
    local error
 
    if tbl and table.valid(tbl) then
@@ -720,8 +730,16 @@ function gw2_api_manager.getIcon(id, category, fallback_icon)
 end
 
 function gw2_api_manager.add_to_Blacklist(id, category, reason)
-   gw2_api_manager.blacklist[category] = gw2_api_manager.blacklist[category] or {}
-   gw2_api_manager.blacklist[category][id] = { time = os.time(), reason = reason }
+   if table.valid(id) then
+      for _, v in pairs(id) do
+         gw2_api_manager.blacklist[category] = gw2_api_manager.blacklist[category] or {}
+         gw2_api_manager.blacklist[category][v] = { time = gw2_api_manager.Now, reason = reason }
+      end
+   else
+      gw2_api_manager.blacklist[category] = gw2_api_manager.blacklist[category] or {}
+      gw2_api_manager.blacklist[category][id] = { time = gw2_api_manager.Now, reason = reason }
+   end
+
    gw2_api_manager.Save_Blacklist()
 end
 
@@ -739,7 +757,12 @@ function gw2_api_manager.Save_Blacklist()
 end
 
 function gw2_api_manager.Load_Blacklist()
-   gw2_api_manager.blacklist = FileLoad(GetLuaModsPath() .. "\\GW2Minion\\API_Data\\blacklist.lua") or {}
+   local tbl = FileLoad(GetLuaModsPath() .. "\\GW2Minion\\API_Data\\blacklist.lua")
+   if not table.valid(tbl) and FileExists(GetLuaModsPath() .. "\\GW2Minion\\API_Data\\blacklist.lua") then
+      FileDelete(GetLuaModsPath() .. "\\GW2Minion\\API_Data\\blacklist.lua")
+   end
+
+   gw2_api_manager.blacklist = (table.valid(tbl) and tbl) or {}
 end
 
 -- Handler for the hole http request stuff
@@ -801,7 +824,7 @@ function gw2_api_manager.SendRequests()
                   end
 
                   gw2_api_manager.d("[gw2_api_manager]: HTTP Request successful.")
-                  local time = os.time()
+                  local time = gw2_api_manager.Now
                   for _, entry in pairs(data) do
                      gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
                      gw2_api_manager.API_Data[category][entry.id] = gw2_api_manager.setEntryData(entry, category)
@@ -823,8 +846,8 @@ function gw2_api_manager.SendRequests()
                if count > 0 then
                   HttpRequest(params)
                   gw2_api_manager.RequestQueue[k] = nil
-                  gw2_api_manager.d("[gw2_api_manager]: Send HTTP Request to get " .. request_type .. " for ids " .. gw2_api_manager.ltrim(tostring(idstring),1))
-                  gw2_api_manager.API_Request_Running = os.time()
+                  gw2_api_manager.d("[gw2_api_manager]: Send HTTP Request to get " .. request_type .. " for ids " .. gw2_api_manager.ltrim(tostring(idstring), 1))
+                  gw2_api_manager.API_Request_Running = gw2_api_manager.Now
 
                   return request_type, ids
                end
@@ -882,7 +905,7 @@ function gw2_api_manager.SendRequests()
                   end
 
                   gw2_api_manager.d("[gw2_api_manager]: HTTP Request successful.")
-                  local time = os.time()
+                  local time = gw2_api_manager.Now
                   for _, entry in pairs(data) do
                      gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
                      gw2_api_manager.API_Data[category][entry.id] = gw2_api_manager.setEntryData(entry, category)
@@ -904,8 +927,8 @@ function gw2_api_manager.SendRequests()
                if count > 0 then
                   HttpRequest(params)
                   gw2_api_manager.RequestQueue[k] = nil
-                  gw2_api_manager.d("[gw2_api_manager]: Send HTTP Request to get " .. request_type .. " for ids " .. gw2_api_manager.ltrim(tostring(idstring),1))
-                  gw2_api_manager.API_Request_Running = os.time()
+                  gw2_api_manager.d("[gw2_api_manager]: Send HTTP Request to get " .. request_type .. " for ids " .. gw2_api_manager.ltrim(tostring(idstring), 1))
+                  gw2_api_manager.API_Request_Running = gw2_api_manager.Now
 
                   return request_type, ids
                end
@@ -964,7 +987,7 @@ function gw2_api_manager.SendRequests()
                         end
                      end
 
-                     local time = os.time()
+                     local time = gw2_api_manager.Now
                      for _, entry in pairs(data) do
                         gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
                         gw2_api_manager.API_Data[category][entry.id] = gw2_api_manager.setEntryData(entry, category)
@@ -985,8 +1008,8 @@ function gw2_api_manager.SendRequests()
                   if count > 0 then
                      HttpRequest(params)
                      gw2_api_manager.RequestQueue[k] = nil
-                     gw2_api_manager.d("[gw2_api_manager]: Send HTTP Request to get " .. request_type .. " for ids " .. gw2_api_manager.ltrim(tostring(idstring),1))
-                     gw2_api_manager.API_Request_Running = os.time()
+                     gw2_api_manager.d("[gw2_api_manager]: Send HTTP Request to get " .. request_type .. " for ids " .. gw2_api_manager.ltrim(tostring(idstring), 1))
+                     gw2_api_manager.API_Request_Running = gw2_api_manager.Now
 
                      return request_type, ids
                   end
@@ -1005,6 +1028,7 @@ function gw2_api_manager.API_DataHandler(_, ticks)
    local languages = gw2_api_manager.languages
    local paths = gw2_api_manager.paths
    local s = gw2_api_manager.HTTP_Status
+   gw2_api_manager.Now = os.time()
 
    -- image downloading, restart each 10 seconds
    if ticks - gw2_api_manager.imageticks > 15 then
@@ -1028,10 +1052,10 @@ function gw2_api_manager.API_DataHandler(_, ticks)
                      gw2_api_manager.d("[gw2_api_manager]: Start download for " .. tostring(category) .. " id: " .. tostring(id))
                      WebAPI:GetImage(id, entry.url, folders[category] .. id .. ".png")
                      entry.status = s.downloading
-                     entry.download_start = os.time()
+                     entry.download_start = gw2_api_manager.Now
                      entry.folder = folders[category] .. id .. ".png"
                      gw2_api_manager.lastImage = folders[category] .. id .. ".png"
-                     gw2_api_manager.lastDownload = os.time()
+                     gw2_api_manager.lastDownload = gw2_api_manager.Now
                      break
                   end
 
@@ -1039,10 +1063,10 @@ function gw2_api_manager.API_DataHandler(_, ticks)
                      gw2_api_manager.d("[gw2_api_manager]: Start download for " .. tostring(category) .. " id: " .. tostring(id))
                      WebAPI:GetImage(id, gw2_api_manager.API_Data[category][id].icon, folders[category] .. id .. ".png")
                      entry.status = s.downloading
-                     entry.download_start = os.time()
+                     entry.download_start = gw2_api_manager.Now
                      entry.folder = folders[category] .. id .. ".png"
                      gw2_api_manager.lastImage = folders[category] .. id .. ".png"
-                     gw2_api_manager.lastDownload = os.time()
+                     gw2_api_manager.lastDownload = gw2_api_manager.Now
                      break
                   end
                end
@@ -1120,7 +1144,7 @@ function gw2_api_manager.API_DataHandler(_, ticks)
                      gw2_api_manager.ImageQueue[category][entry.id] = { url = entry.icon, status = s.download_queued, name = entry.name }
                      gw2_api_manager.API_Data[category] = gw2_api_manager.API_Data[category] or {}
                      gw2_api_manager.API_Data[category][entry.id] = gw2_api_manager.setEntryData(entry, category)
-                     gw2_api_manager.API_Data[category][entry.id].lastupdate = os.time()
+                     gw2_api_manager.API_Data[category][entry.id].lastupdate = gw2_api_manager.Now
                   end
                   gw2_api_manager.API_Request_Running = false
                   gw2_api_manager.http_requests[idstring .. " - " .. category] = nil
@@ -1153,7 +1177,7 @@ function gw2_api_manager.API_DataHandler(_, ticks)
                gw2_api_manager.d("[gw2_api_manager]: Send HTTP Request to get Infos for ids " .. tostring(identifier))
                HttpRequest(params)
                params.status = s.request_sent
-               gw2_api_manager.API_Request_Running = os.time()
+               gw2_api_manager.API_Request_Running = gw2_api_manager.Now
                gw2_api_manager.API_Call_Ticks = ticks
                break
             end
