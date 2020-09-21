@@ -128,6 +128,7 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(350,"Heart of the Mists",enforce)
 		ml_mesh_mgr.SetDefaultMesh(873,"Southsun Cove",enforce)
 		ml_mesh_mgr.SetDefaultMesh(968,"Edge of the Mists",enforce)
+		ml_mesh_mgr.SetDefaultMesh(1370,"Eye of the North",enforce)
 		
 		--LS2
 		ml_mesh_mgr.SetDefaultMesh(988,"Dry Top",enforce)
@@ -201,6 +202,9 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(960,"Aetherblade Retreat",enforce)
 		ml_mesh_mgr.SetDefaultMesh(958,"Solid Ocean",enforce)
 		ml_mesh_mgr.SetDefaultMesh(950,"Urban Battleground",enforce)
+		
+		-- Strikes
+		ml_mesh_mgr.SetDefaultMesh(1346,"Voice of the Fallen and Claw of the Fallen",enforce)
 		
 		--Festivals
 		ml_mesh_mgr.SetDefaultMesh(1326,"Dragon Bash Arena",enforce)
