@@ -225325,7 +225325,7 @@ local tbl =
 			},
 		},
 		map_id = 1382,
-		map_name = "",
+		map_name = "Arena of the Wolverine",
 		map_rect = "-24576, -52224], [27648, 55296",
 		map_rect_table = 
 		{
@@ -225584,6 +225584,76 @@ local tbl =
 		min_level = 80,
 		region_id = 1,
 		region_name = "Shiverpeak Mountains",
+		type = "Instance",
+		waypoints = 
+		{
+		},
+	},
+	[1384] = 
+	{
+		continent_id = 2,
+		continent_name = "Mists",
+		continent_rect = "11204, 4414], [12228, 5438",
+		continent_rect_table = 
+		{
+			
+			{
+				11204,
+				4414,
+			},
+			
+			{
+				12228,
+				5438,
+			},
+		},
+		default_floor = 51,
+		floors = 
+		{
+			
+			{
+				sectors = 
+				{
+					[1840] = 
+					{
+						coord = "11748.6, 4942.32",
+						global_pos = 
+						{
+							x = 11748.6,
+							y = 4942.32,
+						},
+						level = 80,
+						name = "Sunqua Peak Fractal",
+						pos = 
+						{
+							782.4,
+							-391.7,
+						},
+						sector_id = 1840,
+					},
+				},
+			},
+		},
+		map_id = 1384,
+		map_name = "Fractals of the Mists",
+		map_rect = "-12288, -12288], [12288, 12288",
+		map_rect_table = 
+		{
+			
+			{
+				-12288,
+				-12288,
+			},
+			
+			{
+				12288,
+				12288,
+			},
+		},
+		max_level = 80,
+		min_level = 80,
+		region_id = 26,
+		region_name = "Fractals of the Mists",
 		type = "Instance",
 		waypoints = 
 		{
