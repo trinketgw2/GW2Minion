@@ -784,7 +784,7 @@ function gw2_api_manager.SendRequests()
                      v.requests = v.requests and v.requests + 1 or 1
                   elseif count >= 200 then
                      break
-                  elseif v.requests and v.requests >= 5 then
+                  elseif v.requests and v.requests >= 1 then
                      gw2_api_manager.gw2_api_requests["item_prices"][k] = nil
                   end
                end
@@ -865,7 +865,7 @@ function gw2_api_manager.SendRequests()
                      v.requests = v.requests and v.requests + 1 or 1
                   elseif count >= 200 then
                      break
-                  elseif v.requests and v.requests >= 5 then
+                  elseif v.requests and v.requests >= 1 then
                      gw2_api_manager.gw2_api_requests["item_listings"][k] = nil
                   end
                end
@@ -946,7 +946,7 @@ function gw2_api_manager.SendRequests()
                         v.requests = v.requests and v.requests + 1 or 1
                      elseif count >= 200 then
                         break
-                     elseif v.requests and v.requests >= 5 then
+                     elseif v.requests and v.requests >= 1 then
                         gw2_api_manager.gw2_api_requests["api_data"][k] = nil
                      end
                   end
@@ -1015,6 +1015,13 @@ function gw2_api_manager.SendRequests()
                   end
                end
             end
+         end
+      end
+   else
+      for k, v in pairs(gw2_api_manager.gw2_api_requests) do
+         if table.size(v) >= 1 then
+            gw2_api_manager.RequestQueue[ml_global_information.Now] = gw2_api_manager.RequestQueue[ml_global_information.Now] or {}
+            table.insert(gw2_api_manager.RequestQueue[ml_global_information.Now], k)
          end
       end
    end
