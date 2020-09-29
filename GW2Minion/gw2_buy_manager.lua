@@ -102,6 +102,9 @@ function gw2_buy_manager.ModuleInit()
    end
    gw2_buy_manager.toolList = Settings.gw2_buy_manager.toolList
 
+   -- tracking charactername to prevent returning true because of missing data when loading
+   gw2_buy_manager.character = false
+
    -- init button in minionmainbutton
    ml_gui.ui_mgr:AddMember({ id = "GW2MINION##BUYMGR", name = "Buy", onClick = function()
       gw2_buy_manager.mainWindow.open = gw2_buy_manager.mainWindow.open ~= true
@@ -252,20 +255,25 @@ function gw2_buy_manager.setMapAvailablity(salvageItems, gatheringItems)
 end
 
 function gw2_buy_manager.NeedToBuySalvageKits(nearby)
-   local neededKits = gw2_buy_manager.GetNeededSalvageKitList()
-   for itemID, count in pairs(neededKits) do
-      if (nearby == true and count > 0) then
-         return true
-      elseif (nearby ~= true) then
-         if (itemID == gw2_buy_manager.tools.salvage[1] and count == tonumber(gw2_buy_manager.crudeKit)) or
-                 (itemID == gw2_buy_manager.tools.salvage[2] and count == tonumber(gw2_buy_manager.basicKit)) or
-                 (itemID == gw2_buy_manager.tools.salvage[3] and count == tonumber(gw2_buy_manager.fineKit)) or
-                 (itemID == gw2_buy_manager.tools.salvage[4] and count == tonumber(gw2_buy_manager.journeymanKit)) or
-                 (itemID == gw2_buy_manager.tools.salvage[5] and count == tonumber(gw2_buy_manager.masterKit)) then
+   if gw2_buy_manager.character == ml_global_information.Player_Name then
+      local neededKits = gw2_buy_manager.GetNeededSalvageKitList()
+      for itemID, count in pairs(neededKits) do
+         if (nearby == true and count > 0) then
             return true
+         elseif (nearby ~= true) then
+            if (itemID == gw2_buy_manager.tools.salvage[1] and count == tonumber(gw2_buy_manager.crudeKit)) or
+                    (itemID == gw2_buy_manager.tools.salvage[2] and count == tonumber(gw2_buy_manager.basicKit)) or
+                    (itemID == gw2_buy_manager.tools.salvage[3] and count == tonumber(gw2_buy_manager.fineKit)) or
+                    (itemID == gw2_buy_manager.tools.salvage[4] and count == tonumber(gw2_buy_manager.journeymanKit)) or
+                    (itemID == gw2_buy_manager.tools.salvage[5] and count == tonumber(gw2_buy_manager.masterKit)) then
+               return true
+            end
          end
       end
+   else
+      gw2_buy_manager.character = ml_global_information.Player_Name
    end
+
    return false
 end
 
@@ -296,15 +304,20 @@ function gw2_buy_manager.GetNeededSalvageKitList()
 end
 
 function gw2_buy_manager.NeedToBuyGatheringTools(nearby)
-   local neededTools = gw2_buy_manager.GetNeededGatheringToolList()
+   if gw2_buy_manager.character == ml_global_information.Player_Name then
+      local neededTools = gw2_buy_manager.GetNeededGatheringToolList()
 
-   for itemID, count in pairs(neededTools) do
-      if (nearby == true and count > 0) then
-         return true
-      elseif (nearby ~= true and count == tonumber(gw2_buy_manager.toolStack)) then
-         return true
+      for itemID, count in pairs(neededTools) do
+         if (nearby == true and count > 0) then
+            return true
+         elseif (nearby ~= true and count == tonumber(gw2_buy_manager.toolStack)) then
+            return true
+         end
       end
+   else
+      gw2_buy_manager.character = ml_global_information.Player_Name
    end
+
    return false
 end
 
