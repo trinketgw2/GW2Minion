@@ -68,6 +68,9 @@ function gw2_sell_manager.ModuleInit()
 	-- init inventorylist stuff here.
 	gw2_sell_manager.updateInventoryItems()
 
+	-- tracking charactername to prevent returning true because of missing data when loading
+	gw2_sell_manager.character = false
+
 	-- init button in minionmainbutton
 	ml_gui.ui_mgr:AddMember({ id = "GW2MINION##SELLMGR", name = "Sell", onClick = function() gw2_sell_manager.mainWindow.open = gw2_sell_manager.mainWindow.open ~= true end, tooltip = "Click to open \"Sell Manager\" window.", texture = GetStartupPath().."\\GUI\\UI_Textures\\sell.png"},"GW2MINION##MENU_HEADER")
 end
@@ -656,17 +659,22 @@ end
 
 --needtosell.
 function gw2_sell_manager.needToSell(nearby)
-	local junkitems = Inventory("rarity="..GW2.ITEMRARITY.Junk..",exclude_contentid="..gw2_blacklistmanager.GetExcludeString(GetString("Sell items")))
-	local selljunk = table.size(junkitems) > 3 or (table.valid(junkitems) and ((ml_global_information.Player_Inventory_SlotsFree*100)/Inventory.slotcount) < 15)
-	local sellitems =  gw2_sell_manager.ItemsToSell() > 3 or (gw2_sell_manager.ItemsToSell() > 0 and ((ml_global_information.Player_Inventory_SlotsFree*100)/Inventory.slotcount) < 15)
-	
-	if (table.valid(gw2_sell_manager.createItemList()) or selljunk or sellitems) then
-		if (nearby and ((ml_global_information.Player_Inventory_SlotsFree*100)/Inventory.slotcount) < 33) then
-			return true
-		elseif (ml_global_information.Player_Inventory_SlotsFree <= 2) then
-			return true
+	if gw2_sell_manager.character == ml_global_information.Player_Name then
+		local junkitems = Inventory("rarity="..GW2.ITEMRARITY.Junk..",exclude_contentid="..gw2_blacklistmanager.GetExcludeString(GetString("Sell items")))
+		local selljunk = table.size(junkitems) > 3 or (table.valid(junkitems) and ((ml_global_information.Player_Inventory_SlotsFree*100)/Inventory.slotcount) < 15)
+		local sellitems =  gw2_sell_manager.ItemsToSell() > 3 or (gw2_sell_manager.ItemsToSell() > 0 and ((ml_global_information.Player_Inventory_SlotsFree*100)/Inventory.slotcount) < 15)
+
+		if (table.valid(gw2_sell_manager.createItemList()) or selljunk or sellitems) then
+			if (nearby and ((ml_global_information.Player_Inventory_SlotsFree*100)/Inventory.slotcount) < 33) then
+				return true
+			elseif (ml_global_information.Player_Inventory_SlotsFree <= 2) then
+				return true
+			end
 		end
+	else
+		gw2_sell_manager.character = ml_global_information.Player_Name
 	end
+
 	return false
 end
 
