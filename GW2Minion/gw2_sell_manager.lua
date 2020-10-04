@@ -671,7 +671,7 @@ function gw2_sell_manager.needToSell(nearby)
 				return true
 			end
 		end
-	else
+	elseif ml_global_information.Player_Name ~= "" then
 		gw2_sell_manager.character = ml_global_information.Player_Name
 	end
 
