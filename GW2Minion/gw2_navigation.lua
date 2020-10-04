@@ -4,6 +4,7 @@
 ml_navigation.NavPointReachedDistances = 			{ 	["Walk"] = 32,		["Diving"] = 48,	["Mounted"] = 100,}		-- Distance to the next node in the path at which the ml_navigation.pathindex is iterated
 ml_navigation.PathDeviationDistances = 				{ 	["Walk"] = 50,		["Diving"] = 150, 	["Mounted"] = 150,}		-- The max. distance the playerposition can be away from the current path. (The Point-Line distance between player and the last & next pathnode)
 ml_navigation.lastMount = 0
+ml_navigation.movement_status = 0
 
 -- gw2_obstacle_manager has control over this now
 ml_navigation.avoidanceareasize = 50
@@ -58,6 +59,7 @@ function Player:MoveTo(x, y, z, targetid, stoppingdistance, randommovement, smoo
 		end
 		ml_navigation.navconnection = nil
 		local status = ml_navigation:MoveTo(x, y, z, targetid)
+		ml_navigation.movement_status = status
 
 		-- Handle stuck if we start off mesh
 		if(status == -1 or status == -7) then
