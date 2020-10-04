@@ -270,7 +270,7 @@ function gw2_buy_manager.NeedToBuySalvageKits(nearby)
             end
          end
       end
-   else
+   elseif ml_global_information.Player_Name ~= "" then
       gw2_buy_manager.character = ml_global_information.Player_Name
    end
 
@@ -314,7 +314,7 @@ function gw2_buy_manager.NeedToBuyGatheringTools(nearby)
             return true
          end
       end
-   else
+   elseif ml_global_information.Player_Name ~= "" then
       gw2_buy_manager.character = ml_global_information.Player_Name
    end
 
