@@ -12,6 +12,8 @@ dev.chatchannel = 0
 dev.renderobjdrawmode = { [0] = "POINTS", [1] = "LINES", [2] = "TRIANGLES", }
 dev.equipskillslotAquatic = false
 dev.driftvec = { x =0,y =0, z =0, }
+dev.numenergies = 2
+dev.numenergiesdecimals = 9
 function dev.Init()
 	-- Register Button
 	ml_gui.ui_mgr:AddSubMember({ id = "GW2MINION##DEV_1", name = "Dev-Monitor", onClick = function() dev.open = not dev.open end, tooltip = "Open the Dev monitor.", texture = GetStartupPath().."\\GUI\\UI_Textures\\api.png"},"GW2MINION##MENU_HEADER","GW2MINION##MENU_ADDONS")
@@ -353,7 +355,7 @@ function dev.DrawCall(event, ticks )
 -- END COMPASS
 
 
--- EQUIPMENT
+-- START EQUIPMENT
 					if ( GUI:TreeNode("Equipment") ) then
 						dev.equipitemslotidx = GUI:Combo("EquipSlot", dev.equipitemslotidx or 1, dev.equipmentslot)
 						local b = Inventory:GetEquippedItemBySlot(dev.equipitemslotidx)
@@ -379,6 +381,113 @@ function dev.DrawCall(event, ticks )
 						GUI:TreePop()
 					end
 -- END EQUIPMENT
+
+-- START ENERGIES
+					if ( GUI:TreeNode("Energies") ) then
+						GUI:PushItemWidth(175)
+						GUI:NewLine()
+						GUI:BulletText(GetString("Player:GetEnergies(#)"))
+						GUI:BulletText(GetString("Table index starts at 0."))
+						GUI:BulletText(GetString("Valid entries are .A through .G"))
+						GUI:Indent()
+						GUI:NewLine()
+						GUI:Text(GetString("NOTE: Mount Endurance   "))
+						GUI:SameLine()
+						GUI:InputText("##devenergiesnote1","Player:GetEnergies(0).A",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+						GUI:Text(GetString("NOTE: Skyscale Endurance"))
+						GUI:SameLine()
+						GUI:InputText("##devenergiesnote2","Player:GetEnergies(1).A",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+						GUI:Text(GetString("NOTE: Please document other entries here."))
+						GUI:Unindent()
+						GUI:NewLine()
+						GUI:PopItemWidth()
+						GUI:Separator()
+						GUI:NewLine()
+						GUI:Indent()
+						GUI:Text(GetString("Energies: "))
+						GUI:SameLine()
+						GUI:PushItemWidth(75)
+						dev.numenergies = GUI:InputInt("##devnumenergies",dev.numenergies,1,1)
+						if dev.numenergies < 1 then dev.numenergies = 1 end
+						if dev.numenergies > 1000 then dev.numenergies = 1000 end
+						GUI:Text(GetString("Decimals: "))
+						GUI:SameLine()
+						dev.numenergiesdecimals = GUI:InputInt("##devnumenergiesdecimals",dev.numenergiesdecimals,1,1)
+						if dev.numenergiesdecimals < 0 then dev.numenergiesdecimals = 0 end
+						if dev.numenergiesdecimals > 10 then dev.numenergiesdecimals = 10 end
+						GUI:PopItemWidth()
+						GUI:NewLine()
+						GUI:Columns(8,"DevEnergiesColumns",true)
+						GUI:SetColumnWidth(0, 270)
+						GUI:SetColumnWidth(1, 100)
+						GUI:SetColumnWidth(2, 100)
+						GUI:SetColumnWidth(3, 100)
+						GUI:SetColumnWidth(4, 100)
+						GUI:SetColumnWidth(5, 100)
+						GUI:Text("Function")
+						GUI:NextColumn()
+						GUI:Text(".A")
+						GUI:NextColumn()
+						GUI:Text(".B")
+						GUI:NextColumn()
+						GUI:Text(".C")
+						GUI:NextColumn()
+						GUI:Text(".D")
+						GUI:NextColumn()
+						GUI:Text(".E")
+						GUI:NextColumn()
+						GUI:Text(".F")
+						GUI:NextColumn()
+						GUI:Text(".G")
+						GUI:NextColumn()
+						local function formatenergies(number)
+							local formattedstring
+							if string.find(tostring(number),"nan") then
+								formattedstring = "NaN"
+							elseif string.find(tostring(number),"inf") then
+								formattedstring = "Inf"
+							else
+								formattedstring = tostring(math.round(number,dev.numenergiesdecimals))
+							end
+							if formattedstring == "-0" then
+								formattedstring = 0
+							end
+							if string.find(formattedstring,"e+") then
+								local length = string.len(formattedstring)
+								local decimals = dev.numenergiesdecimals - 1
+								formattedstring = string.sub(formattedstring,1,decimals) .. string.sub(formattedstring,length-3,length)
+							end
+							return formattedstring
+						end
+						for i = 0,dev.numenergies-1 do
+							local energies = Player:GetEnergies(i)
+							local energynum = 0
+							if table.valid(energies) then
+								GUI:InputText("##devenergies" .. tostring(i),"Player:GetEnergies(" .. tostring(i) .. ")",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+								GUI:NextColumn()
+								GUI:Text(formatenergies(energies.A))
+								GUI:NextColumn()
+								GUI:Text(formatenergies(energies.B))
+								GUI:NextColumn()
+								GUI:Text(formatenergies(energies.C))
+								GUI:NextColumn()
+								GUI:Text(formatenergies(energies.D))
+								GUI:NextColumn()
+								GUI:Text(formatenergies(energies.E))
+								GUI:NextColumn()
+								GUI:Text(formatenergies(energies.F))
+								GUI:NextColumn()
+								GUI:Text(formatenergies(energies.G))
+								GUI:NextColumn()
+							end
+						end
+						GUI:Columns(1)
+						GUI:NewLine()
+						GUI:Separator()
+						GUI:Unindent()
+						GUI:TreePop()
+					end
+-- END ENERGIES
 
 
 					if ( GUI:TreeNode("Events") ) then
@@ -1137,12 +1246,12 @@ function dev.DrawCall(event, ticks )
 									Squad:LockSubGroups(true)
 								end
 								GUI:SameLine()
-								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions1",tostring("Squad:LockSubGroups(true)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions1",tostring("Squad:LockSubGroups(true)",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)) GUI:PopItemWidth()
 								if (GUI:Button(GetString("Unlock".."##DevSquadUnlock"),150,13) ) then
 									Squad:LockSubGroups(false)
 								end
 								GUI:SameLine()
-								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions2",tostring("Squad:LockSubGroups(false)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions2",tostring("Squad:LockSubGroups(false)",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)) GUI:PopItemWidth()
 								GUI:Unindent()
 								GUI:BulletText(GetString("JoinRules"))
 								GUI:Indent()
@@ -1150,17 +1259,17 @@ function dev.DrawCall(event, ticks )
 									Squad:JoinRules(0)
 								end
 								GUI:SameLine()
-								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions3",tostring("Squad:JoinRules(0)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions3",tostring("Squad:JoinRules(0)",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)) GUI:PopItemWidth()
 								if (GUI:Button(GetString("Approved") .. " (1)" .. "##DevSquadJoinRules1",150,13)) then
 									Squad:JoinRules(1)
 								end
 								GUI:SameLine()
-								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions4",tostring("Squad:JoinRules(1)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions4",tostring("Squad:JoinRules(1)",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)) GUI:PopItemWidth()
 								if (GUI:Button(GetString("No") .. " (2)" .. "##DevSquadJoinRules2",150,13)) then
 									Squad:JoinRules(2)
 								end
 								GUI:SameLine()
-								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions5",tostring("Squad:JoinRules(2)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions5",tostring("Squad:JoinRules(2)",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)) GUI:PopItemWidth()
 								GUI:Unindent()
 								GUI:BulletText(GetString("AllowMembersToInvite"))
 								GUI:Indent()
@@ -1168,12 +1277,12 @@ function dev.DrawCall(event, ticks )
 									Squad:AllowMembersToInvite(true)
 								end
 								GUI:SameLine()
-								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions6",tostring("Squad:AllowMembersToInvite(true)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions6",tostring("Squad:AllowMembersToInvite(true)",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)) GUI:PopItemWidth()
 								if (GUI:Button(GetString("False".."##DevAllowMembersToInviteFalse"),150,13) ) then
 									Squad:AllowMembersToInvite(false)
 								end
 								GUI:SameLine()
-								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions7",tostring("Squad:AllowMembersToInvite(false)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions7",tostring("Squad:AllowMembersToInvite(false)",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)) GUI:PopItemWidth()
 								GUI:Unindent()
 								GUI:BulletText(GetString("Leave"))
 								GUI:Indent()
@@ -1181,7 +1290,7 @@ function dev.DrawCall(event, ticks )
 									Squad:Leave()
 								end
 								GUI:SameLine()
-								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions8",tostring("Squad:Leave()",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions8",tostring("Squad:Leave()",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)) GUI:PopItemWidth()
 								GUI:Unindent()
 								GUI:BulletText(GetString("RaidMode"))
 								GUI:Indent()
@@ -1189,12 +1298,12 @@ function dev.DrawCall(event, ticks )
 									Squad:RaidMode(10)
 								end
 								GUI:SameLine()
-								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions9",tostring("Squad:RaidMode(10)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions9",tostring("Squad:RaidMode(10)",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)) GUI:PopItemWidth()
 								if (GUI:Button(GetString("Normal Squad") .. " (50)" .. "##DevRaidMode50",150,13) ) then
 									Squad:RaidMode(50)
 								end
 								GUI:SameLine()
-								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions10",tostring("Squad:RaidMode(50)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions10",tostring("Squad:RaidMode(50)",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)) GUI:PopItemWidth()
 								GUI:Unindent()
 								GUI:BulletText(GetString("Create"))
 								GUI:Indent()
@@ -1202,7 +1311,7 @@ function dev.DrawCall(event, ticks )
 									Squad:Create()
 								end
 								GUI:SameLine()
-								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions11",tostring("Squad:Create()",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions11",tostring("Squad:Create()",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)) GUI:PopItemWidth()
 								GUI:Unindent()
 								GUI:BulletText(GetString("Ready"))
 								GUI:Indent()
@@ -1210,7 +1319,7 @@ function dev.DrawCall(event, ticks )
 									Squad:Ready()
 								end
 								GUI:SameLine()
-								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions12",tostring("Squad:Ready()",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions12",tostring("Squad:Ready()",GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)) GUI:PopItemWidth()
 								GUI:Unindent()
 								GUI:TreePop()
 							end
