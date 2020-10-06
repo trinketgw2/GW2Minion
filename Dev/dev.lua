@@ -1093,13 +1093,12 @@ function dev.DrawCall(event, ticks )
 					end
 -- END SPECIALIZATIONS
 
-
+-- START SQUAD
 						if ( GUI:TreeNode("Squad") ) then
-						local list = Player:GetSquad()
-						if ( table.valid(list) )then
-							GUI:PushItemWidth(250)
-							--for i, squadgroup in pairs(list) do
-								--if ( table.valid(squadgroup)) then
+							if ( GUI:TreeNode(tostring("Members")) ) then
+								local list = Player:GetSquad()
+								if ( table.valid(list) )then
+									GUI:PushItemWidth(250)
 									for id, b in pairs(list) do
 										if ( GUI:TreeNode(tostring(id).."-"..b.name)) then
 											GUI:BulletText("Ptr") GUI:SameLine(200) GUI:InputText("##devsq0",tostring(string.format( "%X",b.ptr)),GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
@@ -1125,17 +1124,101 @@ function dev.DrawCall(event, ticks )
 											GUI:TreePop()
 										end
 									end
-								--end
-							--end
-							GUI:PopItemWidth()
-						else
-							GUI:Text("No Squad found.")
+									GUI:PopItemWidth()
+								else
+									GUI:Text("No Squad found.")
+								end
+								GUI:TreePop()
+							end
+							if ( GUI:TreeNode(tostring("Control Panel")) ) then
+								GUI:BulletText(GetString("SubGroups"))
+								GUI:Indent()
+								if (GUI:Button(GetString("Lock".."##DevSquadLock"),150,13) ) then
+									Squad:LockSubGroups(true)
+								end
+								GUI:SameLine()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions1",tostring("Squad:LockSubGroups(true)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								if (GUI:Button(GetString("Unlock".."##DevSquadUnlock"),150,13) ) then
+									Squad:LockSubGroups(false)
+								end
+								GUI:SameLine()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions2",tostring("Squad:LockSubGroups(false)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:Unindent()
+								GUI:BulletText(GetString("JoinRules"))
+								GUI:Indent()
+								if (GUI:Button(GetString("Anyone") .. " (0)" .. "##DevSquadJoinRules0",150,13)) then
+									Squad:JoinRules(0)
+								end
+								GUI:SameLine()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions3",tostring("Squad:JoinRules(0)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								if (GUI:Button(GetString("Approved") .. " (1)" .. "##DevSquadJoinRules1",150,13)) then
+									Squad:JoinRules(1)
+								end
+								GUI:SameLine()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions4",tostring("Squad:JoinRules(1)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								if (GUI:Button(GetString("No") .. " (2)" .. "##DevSquadJoinRules2",150,13)) then
+									Squad:JoinRules(2)
+								end
+								GUI:SameLine()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions5",tostring("Squad:JoinRules(2)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:Unindent()
+								GUI:BulletText(GetString("AllowMembersToInvite"))
+								GUI:Indent()
+								if (GUI:Button(GetString("True".."##DevAllowMembersToInviteTrue"),150,13) ) then
+									Squad:AllowMembersToInvite(true)
+								end
+								GUI:SameLine()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions6",tostring("Squad:AllowMembersToInvite(true)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								if (GUI:Button(GetString("False".."##DevAllowMembersToInviteFalse"),150,13) ) then
+									Squad:AllowMembersToInvite(false)
+								end
+								GUI:SameLine()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions7",tostring("Squad:AllowMembersToInvite(false)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:Unindent()
+								GUI:BulletText(GetString("Leave"))
+								GUI:Indent()
+								if (GUI:Button(GetString("Leave".."##DevLeaveSquad"),150,13) ) then
+									Squad:Leave()
+								end
+								GUI:SameLine()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions8",tostring("Squad:Leave()",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:Unindent()
+								GUI:BulletText(GetString("RaidMode"))
+								GUI:Indent()
+								if (GUI:Button(GetString("Raid Squad") .. " (10)" .. "##DevRaidMode10",150,13) ) then
+									Squad:RaidMode(10)
+								end
+								GUI:SameLine()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions9",tostring("Squad:RaidMode(10)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								if (GUI:Button(GetString("Normal Squad") .. " (50)" .. "##DevRaidMode50",150,13) ) then
+									Squad:RaidMode(50)
+								end
+								GUI:SameLine()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions10",tostring("Squad:RaidMode(50)",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:Unindent()
+								GUI:BulletText(GetString("Create"))
+								GUI:Indent()
+								if (GUI:Button(GetString("Create".."##DevCreateSquad"),150,13) ) then
+									Squad:Create()
+								end
+								GUI:SameLine()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions11",tostring("Squad:Create()",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:Unindent()
+								GUI:BulletText(GetString("Ready"))
+								GUI:Indent()
+								if (GUI:Button(GetString("Ready".."##DevReadySquad"),150,13) ) then
+									Squad:Ready()
+								end
+								GUI:SameLine()
+								GUI:PushItemWidth(250) GUI:InputText("##DevSquadFuncions12",tostring("Squad:Ready()",GUI.InputTextFlags_ReadOnly)) GUI:PopItemWidth()
+								GUI:Unindent()
+								GUI:TreePop()
+							end
+							GUI:TreePop()
 						end
-						GUI:TreePop()
-					end
 -- END SQUAD
 
-
+-- START QUESTS
 					if ( GUI:TreeNode("Quests") ) then
 						GUI:PushItemWidth(250)
 						local qm = QuestManager:GetActiveQuest()
@@ -1179,9 +1262,7 @@ function dev.DrawCall(event, ticks )
 						GUI:TreePop()
 					end
 
--- END QUEST
-
-
+-- END QUESTS
 
 					-- Also available:
 					-- Inventory:Get(itemid)
