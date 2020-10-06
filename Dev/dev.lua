@@ -410,11 +410,6 @@ function dev.DrawCall(event, ticks )
 						dev.numenergies = GUI:InputInt("##devnumenergies",dev.numenergies,1,1)
 						if dev.numenergies < 1 then dev.numenergies = 1 end
 						if dev.numenergies > 1000 then dev.numenergies = 1000 end
-						GUI:Text(GetString("Decimals: "))
-						GUI:SameLine()
-						dev.numenergiesdecimals = GUI:InputInt("##devnumenergiesdecimals",dev.numenergiesdecimals,1,1)
-						if dev.numenergiesdecimals < 0 then dev.numenergiesdecimals = 0 end
-						if dev.numenergiesdecimals > 10 then dev.numenergiesdecimals = 10 end
 						GUI:PopItemWidth()
 						GUI:NewLine()
 						GUI:Columns(8,"DevEnergiesColumns",true)
@@ -424,6 +419,8 @@ function dev.DrawCall(event, ticks )
 						GUI:SetColumnWidth(3, 100)
 						GUI:SetColumnWidth(4, 100)
 						GUI:SetColumnWidth(5, 100)
+						GUI:SetColumnWidth(6, 100)
+						GUI:SetColumnWidth(7, 100)
 						GUI:Text("Function")
 						GUI:NextColumn()
 						GUI:Text(".A")
@@ -447,17 +444,17 @@ function dev.DrawCall(event, ticks )
 							elseif string.find(tostring(number),"inf") then
 								formattedstring = "Inf"
 							else
-								formattedstring = tostring(math.round(number,dev.numenergiesdecimals))
-							end
-							if formattedstring == "-0" then
-								formattedstring = 0
+								formattedstring = tostring(number)
 							end
 							if string.find(formattedstring,"e+") then
 								local length = string.len(formattedstring)
-								local decimals = dev.numenergiesdecimals - 1
-								formattedstring = string.sub(formattedstring,1,decimals) .. string.sub(formattedstring,length-3,length)
+								formattedstring = string.sub(formattedstring,1,8) .. string.sub(formattedstring,length-3,length)
+							end
+							if string.len(formattedstring) > 12 then
+								formattedstring = string.sub(formattedstring,1,12)
 							end
 							return formattedstring
+							-- formattedstring = string.format("%." .. (dev.numenergiesdecimals) .. "f",number)
 						end
 						for i = 0,dev.numenergies-1 do
 							local energies = Player:GetEnergies(i)
