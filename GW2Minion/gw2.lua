@@ -87,6 +87,7 @@ function gw2minion.Init()
 		
 		-- Lions Arch
 		ml_mesh_mgr.SetDefaultMesh(50,"Lion's Arch",enforce)
+		
 		-- Black Citadel
 		ml_mesh_mgr.SetDefaultMesh(218,"Black Citadel",enforce)
 		ml_mesh_mgr.SetDefaultMesh(371,"Hero's Canton (Home)",enforce)
@@ -97,6 +98,7 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(215,"The Tribune's Call",enforce)
 		ml_mesh_mgr.SetDefaultMesh(262,"Chain of Command",enforce)
 		ml_mesh_mgr.SetDefaultMesh(211,"Best Laid Plans",enforce)
+		
 		-- Divitnity's Reach
 		ml_mesh_mgr.SetDefaultMesh(18,"Divinity's Reach",enforce)
 		ml_mesh_mgr.SetDefaultMesh(378,"Queen's Throne Room",enforce)
@@ -106,17 +108,21 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(212,"Welcome Home",enforce)
 		ml_mesh_mgr.SetDefaultMesh(226,"On the Mend",enforce)
 		ml_mesh_mgr.SetDefaultMesh(330,"Seraph Headquarters",enforce)
+		
 		-- Hoelbrak
 		ml_mesh_mgr.SetDefaultMesh(326,"Hoelbrak",enforce)
 		ml_mesh_mgr.SetDefaultMesh(374,"Knut Whitebear's Loft",enforce)
 		ml_mesh_mgr.SetDefaultMesh(375,"Hunter's Hearth (Home)",enforce)
 		ml_mesh_mgr.SetDefaultMesh(376,"Stonewright's Steading",enforce)
 		ml_mesh_mgr.SetDefaultMesh(392,"A Pup's Illness",enforce)
+		
 		-- Rata Sum
 		ml_mesh_mgr.SetDefaultMesh(139,"Rata Sum",enforce)
 		ml_mesh_mgr.SetDefaultMesh(650,"Applied Development Lab (Home)",enforce)
 		ml_mesh_mgr.SetDefaultMesh(651,"Council Level",enforce)
 		ml_mesh_mgr.SetDefaultMesh(649,"Snaff Memorial Lab",enforce)
+		ml_mesh_mgr.SetDefaultMesh(620,"Any Sufficiently Advanced Science",enforce)
+		
 		-- The Grove
 		ml_mesh_mgr.SetDefaultMesh(91,"The Grove",enforce)
 		ml_mesh_mgr.SetDefaultMesh(647,"Dreamer's Terrace (Home)",enforce)
@@ -162,7 +168,6 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(1163,"Revenge of the Capricorn",enforce)
 		ml_mesh_mgr.SetDefaultMesh(1171,"Eternal Coliseum",enforce)
 		ml_mesh_mgr.SetDefaultMesh(1305,"Djinns Dominion",enforce)
-		
 		
 		--PoF
 		ml_mesh_mgr.SetDefaultMesh(1210,"Crystal Oasis",enforce)
