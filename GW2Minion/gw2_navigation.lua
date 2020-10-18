@@ -426,7 +426,7 @@ function ml_navigation.Navigate(event, ticks)
                         -- We got into combat so we abort the OMC
                         if (not Player.mounted and Player.incombat and ml_navigation.navconnection) then
                            ml_navigation.currentMountOMC = nil
-                           local target = gw2_common_functions.AggroTarget(nextnode, 1200)
+                           local target = gw2_common_functions.AggroTargetAtPos(nextnode, 1200)
                            if target then
                               ml_navigation.fight_aggro = {
                                  target_id = target.id,
@@ -611,7 +611,7 @@ function ml_navigation.Navigate(event, ticks)
                         -- We got into combat so we abort the OMC
                         if (not Player.mounted and Player.incombat and ml_navigation.navconnection) then
                            ml_navigation.currentMountOMC = nil
-                           local target = gw2_common_functions.AggroTarget(nextnode, 1200)
+                           local target = gw2_common_functions.AggroTargetAtPos(nextnode, 1200)
                            if target then
                               ml_navigation.fight_aggro = {
                                  target_id = target.id,
@@ -792,7 +792,7 @@ function ml_navigation.Navigate(event, ticks)
                         -- We got into combat so we abort the OMC
                         if (not Player.mounted and Player.incombat and ml_navigation.navconnection) then
                            ml_navigation.currentMountOMC = nil
-                           local target = gw2_common_functions.AggroTarget(nextnode, 1200)
+                           local target = gw2_common_functions.AggroTargetAtPos(nextnode, 1200)
                            if target then
                               ml_navigation.fight_aggro = {
                                  target_id = target.id,
