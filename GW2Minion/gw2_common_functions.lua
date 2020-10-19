@@ -309,11 +309,11 @@ function gw2_common_functions.GetBestCharacterTargetForAssist()
    if (target == nil) then
       target = gw2_common_functions.GetCharacterTargetExtended("maxdistance=" .. tostring(ml_global_information.AttackRange + 250) .. hostileCheck)
    end
-   -- 
+   --
    if (target == nil and not Settings.GW2Minion.ignoreyellowmobs) then
       target = gw2_common_functions.GetCharacterTargetExtended("maxdistance=" .. tostring(ml_global_information.AttackRange) .. "onmesh,nearest,los,maxlevel=15")
    end
-   -- 
+   --
    if (target == nil and not Settings.GW2Minion.ignoreyellowmobs) then
       target = gw2_common_functions.GetCharacterTargetExtended("maxdistance=" .. tostring(ml_global_information.AttackRange) .. "onmesh,nearest,maxlevel=15")
    end
@@ -387,7 +387,7 @@ function gw2_common_functions.AggroTargetAtPos(pos, range)
    range = range or 1250
    local lowest, target = 99999999999999
 
-   for k, v in pairs(CharacterList("attackable,nocritter,onmesh,los,aggro")) do
+   for k, v in pairs(CharacterList("attackable,nocritter,onmesh,aggro")) do
       if math.distance3d(v.pos, pos) < range and not gw2_blacklistmanager.CheckBlacklistEntry(GetString("Temporary Combat"), v.id) then
          if v.health and v.health.current and v.health.current < lowest then
             if v.isreachable then
@@ -495,7 +495,7 @@ function gw2_common_functions.GetCharacterTargetExtended(filterstring, healthsta
       filterstring = filterstring .. ",downed"
    end
 
-   -- Only in AssistMode we want to allow these settings	
+   -- Only in AssistMode we want to allow these settings
    if (gw2_common_functions.useCustomSMFilterSettings) then
       if (Settings.GW2Minion.smmode == 2) then
          filterstring = filterstring .. ",player"
