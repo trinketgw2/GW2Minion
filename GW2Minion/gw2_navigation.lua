@@ -473,10 +473,13 @@ function ml_navigation.Navigate(event, ticks)
                            local angleToEndPos = gw2_common_functions.angle2DToTargetInDeg(playerpos, { x = playerpos.hx, y = playerpos.hy }, endPos)
 
                            -- OMC end reached or we failed to jump
+                           local movementstate = Player:GetMovementState()
+
                            if (ml_navigation.currentMountOMC.jumpTime
-                                   and math.distance2d(playerpos, startPos) > math.distance2d(endPos, startPos) - endPos.radius * 32
-                                   and (Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundMoving
-                                   or Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving)) then
+                                   and ((math.distance3d(playerpos, startPos) > math.distance3d(playerpos, endPos) - endPos.radius * 32) or (math.distance2d(playerpos, startPos) > math.distance2d(startPos, endPos) - endPos.radius * 32))
+                                   and (movementstate == GW2.MOVEMENTSTATE.GroundMoving
+                                   or movementstate == GW2.MOVEMENTSTATE.GroundNotMoving)) then
+
                               if (TimeSince(ml_navigation.currentMountOMC.jumpTime) > neededChargeTime + needTravelTime) then
                                  resetSpringerOMC()
                               else
@@ -538,7 +541,7 @@ function ml_navigation.Navigate(event, ticks)
                               end
                               Player:SetFacingExact(endPos.x, endPos.y, endPos.z)
                               ml_navigation.currentMountOMC.jumpTime = ml_global_information.Now
-                              ml_navigation.currentMountOMC.mount_energy = ml_navigation.mount_energy
+                              ml_navigation.currentMountOMC.start_mount_energy = ml_navigation.mount_energy
                               d("[Navigation] - Springer OMC jump with charge time of (" .. tostring(neededChargeTime) .. ")")
                               return
                            end
@@ -548,6 +551,7 @@ function ml_navigation.Navigate(event, ticks)
                               gw2_unstuck.SoftReset()
                               -- Interrupt jump
                               KeyUp(Settings.GW2Minion.mountAbility2Key)
+                              ml_navigation.currentMountOMC.stop_mount_energy = ml_navigation.currentMountOMC.stop_mount_energy or ml_navigation.mount_energy
                               -- Move towards endPos
                               local inAir = Player:GetMovementState() == GW2.MOVEMENTSTATE.Falling or Player:GetMovementState() == GW2.MOVEMENTSTATE.Jumping
                               -- TODO: as soon we get a better way to track the charge skill bar we can start moving forward earlier and thus getting further
@@ -563,8 +567,8 @@ function ml_navigation.Navigate(event, ticks)
                                  end
                               end
 
-                              if ml_navigation.mount_energy >= ml_navigation.currentMountOMC.mount_energy and math.distance2d(playerpos, startPos) < math.distance2d(playerpos, endPos) then
-                                 d("[Navigation] - Mount Energy still is above or equals our starting energy of " .. tostring(ml_navigation.currentMountOMC.mount_energy) ..". Mount Energy at: "..tostring(ml_navigation.mount_energy))
+                              if ml_navigation.currentMountOMC.stop_mount_energy >= ml_navigation.currentMountOMC.start_mount_energy and math.distance2d(playerpos, startPos) < math.distance2d(playerpos, endPos) then
+                                 d("[Navigation] - Mount Energy still is above or equals our starting energy of " .. tostring(ml_navigation.currentMountOMC.start_mount_energy) ..". Mount Energy at: "..tostring(ml_navigation.currentMountOMC.stop_mount_energy))
                                  resetSpringerOMC()
                               end
                               return
@@ -780,6 +784,7 @@ function ml_navigation.Navigate(event, ticks)
                            end
                            -- Interrupt jump
                            KeyUp(Settings.GW2Minion.mountAbility2Key)
+                           ml_navigation.currentMountOMC.stop_mount_energy = ml_navigation.currentMountOMC.stop_mount_energy or ml_navigation.mount_energy
                            Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward)
                            Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
                            ml_navigation.pathindex = ml_navigation.pathindex + 1
@@ -910,7 +915,7 @@ function ml_navigation.Navigate(event, ticks)
                               end
                               -- Do jump
                               KeyDown(Settings.GW2Minion.mountAbility2Key)
-                              ml_navigation.currentMountOMC.mount_energy = ml_navigation.mount_energy
+                              ml_navigation.currentMountOMC.start_mount_energy = ml_navigation.mount_energy
                               Player:SetFacingExact(endPos.x, endPos.y, endPos.z)
                               ml_navigation.currentMountOMC.jumpTime = ml_global_information.Now
                               return
@@ -922,6 +927,7 @@ function ml_navigation.Navigate(event, ticks)
                               -- Interrupt Jump
                               if (math.distance2d(playerpos, startPos) > math.distance2d(endPos, startPos) - endPos.radius * 32 - 500) and TimeSince(ml_navigation.currentMountOMC.jumpTime) > 150 then
                                  KeyUp(Settings.GW2Minion.mountAbility2Key)
+                                 ml_navigation.currentMountOMC.stop_mount_energy = ml_navigation.currentMountOMC.stop_mount_energy or ml_navigation.mount_energy
                               end
                               -- prevent boosting over the endpoint
                               if (math.distance2d(playerpos, startPos) > math.distance2d(endPos, startPos) - endPos.radius * 32) then
@@ -934,8 +940,8 @@ function ml_navigation.Navigate(event, ticks)
                                  end
                               end
 
-                              if ml_navigation.mount_energy >= ml_navigation.currentMountOMC.mount_energy  and TimeSince(ml_navigation.currentMountOMC.jumpTime) > 50 and math.distance2d(playerpos, startPos) < math.distance2d(playerpos, endPos) then
-                                 d("[Navigation] - Mount Energy still is above or equals our starting energy of " .. tostring(ml_navigation.currentMountOMC.mount_energy) ..". Mount Energy at: "..tostring(ml_navigation.mount_energy))
+                              if ml_navigation.currentMountOMC.stop_mount_energy and ml_navigation.currentMountOMC.stop_mount_energy >= ml_navigation.currentMountOMC.start_mount_energy  and TimeSince(ml_navigation.currentMountOMC.jumpTime) > 50 and math.distance2d(playerpos, startPos) < math.distance2d(playerpos, endPos) then
+                                 d("[Navigation] - Mount Energy still is above or equals our starting energy of " .. tostring(ml_navigation.currentMountOMC.start_mount_energy) ..". Mount Energy at: "..tostring(ml_navigation.currentMountOMC.stop_mount_energy))
                                  resetRaptorOMC()
                               end
                               return
