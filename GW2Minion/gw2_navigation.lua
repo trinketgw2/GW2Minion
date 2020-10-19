@@ -96,6 +96,8 @@ function ml_navigation.Navigate(event, ticks)
 
    if ((ticks - (ml_navigation.lastupdate or 0)) > 10) then
       ml_navigation.lastupdate = ticks
+      local energy = Player:GetEnergies(0)
+      ml_navigation.mount_energy = energy and energy.A or 0
 
       if (ml_navigation.forcereset) then
          ml_navigation.forcereset = nil
@@ -536,6 +538,7 @@ function ml_navigation.Navigate(event, ticks)
                               end
                               Player:SetFacingExact(endPos.x, endPos.y, endPos.z)
                               ml_navigation.currentMountOMC.jumpTime = ml_global_information.Now
+                              ml_navigation.currentMountOMC.mount_energy = ml_navigation.mount_energy
                               d("[Navigation] - Springer OMC jump with charge time of (" .. tostring(neededChargeTime) .. ")")
                               return
                            end
@@ -559,6 +562,11 @@ function ml_navigation.Navigate(event, ticks)
                                     Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
                                  end
                               end
+
+                              if ml_navigation.mount_energy >= ml_navigation.currentMountOMC.mount_energy and math.distance2d(playerpos, startPos) < math.distance2d(playerpos, endPos) then
+                                 d("[Navigation] - Mount Energy still is above or equals our starting energy of " .. tostring(ml_navigation.currentMountOMC.mount_energy) ..". Mount Energy at: "..tostring(ml_navigation.mount_energy))
+                                 resetSpringerOMC()
+                              end
                               return
                            end
                         else
@@ -576,6 +584,7 @@ function ml_navigation.Navigate(event, ticks)
                            Player:Stop()
                            d("[Navigation] - Springer OMC started")
                         end
+
                         return
 
                      elseif (ncsubtype == 8) then
@@ -901,6 +910,7 @@ function ml_navigation.Navigate(event, ticks)
                               end
                               -- Do jump
                               KeyDown(Settings.GW2Minion.mountAbility2Key)
+                              ml_navigation.currentMountOMC.mount_energy = ml_navigation.mount_energy
                               Player:SetFacingExact(endPos.x, endPos.y, endPos.z)
                               ml_navigation.currentMountOMC.jumpTime = ml_global_information.Now
                               return
@@ -923,6 +933,11 @@ function ml_navigation.Navigate(event, ticks)
                                     Player:SetFacingExact(endPos.x, endPos.y, endPos.z)
                                  end
                               end
+
+                              if ml_navigation.mount_energy >= ml_navigation.currentMountOMC.mount_energy  and TimeSince(ml_navigation.currentMountOMC.jumpTime) > 50 and math.distance2d(playerpos, startPos) < math.distance2d(playerpos, endPos) then
+                                 d("[Navigation] - Mount Energy still is above or equals our starting energy of " .. tostring(ml_navigation.currentMountOMC.mount_energy) ..". Mount Energy at: "..tostring(ml_navigation.mount_energy))
+                                 resetRaptorOMC()
+                              end
                               return
                            end
                         else
@@ -941,6 +956,7 @@ function ml_navigation.Navigate(event, ticks)
                            Player:Stop()
                            d("[Navigation] - Raptor Jump OMC started")
                         end
+
                         return
 
                      end
@@ -1177,7 +1193,10 @@ function ml_navigation:MoveToNextNode(playerpos, lastnode, nextnode, overridefac
             if (ml_navigation.smoothturns and anglediff < 75 and nodedist > 2 * ml_navigation.NavPointReachedDistances[ml_navigation.GetMovementType()]) then
                Player:SetFacing(nextnode.x, nextnode.y, nextnode.z)
             else
-               Player:SetFacingExact(nextnode.x, nextnode.y, nextnode.z, true)
+               local ncsubtype = ml_navigation.navconnection and ml_navigation.navconnection.details and ml_navigation.navconnection.details.subtype
+               if not Player.incombat or not ncsubtype or (ncsubtype ~= 7 and ncsubtype ~= 8 and ncsubtype ~= 9) then
+                  Player:SetFacingExact(nextnode.x, nextnode.y, nextnode.z, true)
+               end
             end
          end
 
@@ -1221,8 +1240,11 @@ function ml_navigation:MoveToNextNode(playerpos, lastnode, nextnode, overridefac
                self:IsStillOnPath(playerpos, lastnode, nextnode, ml_navigation.PathDeviationDistances[ml_navigation.GetMovementType()])
             end
          else
-            Player:SetMovement(GW2.MOVEMENTTYPE.Forward)
-            self:IsStillOnPath(playerpos, lastnode, nextnode, ml_navigation.PathDeviationDistances[ml_navigation.GetMovementType()])
+            local ncsubtype = ml_navigation.navconnection and ml_navigation.navconnection.details and ml_navigation.navconnection.details.subtype
+            if not ncsubtype or (ncsubtype ~= 7 and ncsubtype ~= 8 and ncsubtype ~= 9) or (ml_navigation:GetRaycast_Player_Node_Distance(playerpos, nextnode) > ml_navigation.NavPointReachedDistances["Walk"]) then
+               Player:SetMovement(GW2.MOVEMENTTYPE.Forward)
+               self:IsStillOnPath(playerpos, lastnode, nextnode, ml_navigation.PathDeviationDistances[ml_navigation.GetMovementType()])
+            end
          end
 
       else
