@@ -5,6 +5,7 @@ ml_navigation.NavPointReachedDistances = { ["Walk"] = 32, ["Diving"] = 48, ["Mou
 ml_navigation.PathDeviationDistances = { ["Walk"] = 50, ["Diving"] = 150, ["Mounted"] = 150, }      -- The max. distance the playerposition can be away from the current path. (The Point-Line distance between player and the last & next pathnode)
 ml_navigation.lastMount = 0
 ml_navigation.movement_status = 0
+ml_navigation.acc_name = GetAccountName()
 
 -- gw2_obstacle_manager has control over this now
 ml_navigation.avoidanceareasize = 50
@@ -22,10 +23,10 @@ ml_navigation.gw2mount.springer = {
    LOWBOOSTFACTOR = 0.25, -- if we jump higher than far
    HIGHBOOSTFACTOR = 0.75, -- if we jump further than high
    GetMaxTravelHeight = function()
-      return Settings.GW2Minion.springerMastered and 1050 or 550
+      return (ml_navigation.acc_name ~= "" and Settings.GW2Minion[ml_navigation.acc_name] and Settings.GW2Minion[ml_navigation.acc_name].springerMastered and 1050) or 550
    end,
    GetMaxTravelTime = function()
-      return Settings.GW2Minion.springerMastered and 3500 or 2050
+      return (ml_navigation.acc_name ~= "" and Settings.GW2Minion[ml_navigation.acc_name] and Settings.GW2Minion[ml_navigation.acc_name].springerMastered and 3500) or 2050
    end,
 }
 ml_navigation.gw2mount.jackal = {
@@ -40,7 +41,7 @@ ml_navigation.gw2mount.raptor = {
    GRACETIME = 1000,
    SYNCTIME = 500,
    GetMaxTravelDistance = function()
-      return Settings.GW2Minion.raptorMastered and 1884 or 1100
+      return (ml_navigation.acc_name ~= "" and Settings.GW2Minion[ml_navigation.acc_name] and Settings.GW2Minion[ml_navigation.acc_name].raptorMastered and 1884) or 1100
    end,
 }
 
@@ -96,6 +97,9 @@ function ml_navigation.Navigate(event, ticks)
 
    if ((ticks - (ml_navigation.lastupdate or 0)) > 10) then
       ml_navigation.lastupdate = ticks
+
+      ml_navigation.acc_name = ml_navigation.acc_name ~= "" and ml_navigation.acc_name or GetAccountName()
+
       local energy = Player:GetEnergies(0)
       ml_navigation.mount_energy = energy and energy.A or 0
 
@@ -133,7 +137,7 @@ function ml_navigation.Navigate(event, ticks)
                      if (omc and omc.details and navConId ~= 0 and omc.details.subtype == 7) then
                         local startPos = (omc.sideA.walkable and omc.sideA.x == navCon.x and omc.sideA.y == navCon.y and omc.sideA.z == navCon.z) and omc.sideA or omc.sideB
                         local endPos = (omc.sideA.x == startPos.x and omc.sideA.y == startPos.y and omc.sideA.z == startPos.z) and omc.sideB or omc.sideA
-                        if (not Settings.GW2Minion.usemount or not ml_navigation:ValidSpringerOMC(startPos, endPos)) then
+                        if (not Settings.GW2Minion[ml_navigation.acc_name].usemount or not ml_navigation:ValidSpringerOMC(startPos, endPos)) then
                            if (omc.enabled) then
                               d("[Navigation] - Springer OMC (ID:" .. tostring(navConId) .. ") disabled at [" .. tostring(startPos.x) .. "," .. tostring(startPos.y) .. "," .. tostring(startPos.z) .. "]")
                               NavigationManager:ResetPath()
@@ -145,7 +149,7 @@ function ml_navigation.Navigate(event, ticks)
                         end
                      elseif (omc and omc.details and navConId ~= 0 and omc.details.subtype == 8) then
                         local startPos = (omc.sideA.walkable and omc.sideA.x == navCon.x and omc.sideA.y == navCon.y and omc.sideA.z == navCon.z) and omc.sideA or omc.sideB
-                        if (not Settings.GW2Minion.usemount or not Settings.GW2Minion.jackalPortalMastered) then
+                        if (not Settings.GW2Minion[ml_navigation.acc_name].usemount or not Settings.GW2Minion[ml_navigation.acc_name].jackalPortalMastered) then
                            if (omc.enabled) then
                               d("[Navigation] - Jackal Portal OMC (ID:" .. tostring(navConId) .. ") disabled at [" .. tostring(startPos.x) .. "," .. tostring(startPos.y) .. "," .. tostring(startPos.z) .. "]")
                               NavigationManager:ResetPath()
@@ -158,7 +162,7 @@ function ml_navigation.Navigate(event, ticks)
                      elseif (omc and omc.details and navConId ~= 0 and omc.details.subtype == 9) then
                         local startPos = (omc.sideA.walkable and omc.sideA.x == navCon.x and omc.sideA.y == navCon.y and omc.sideA.z == navCon.z) and omc.sideA or omc.sideB
                         local endPos = (omc.sideA.x == startPos.x and omc.sideA.y == startPos.y and omc.sideA.z == startPos.z) and omc.sideB or omc.sideA
-                        if (not Settings.GW2Minion.usemount or not ml_navigation:ValidRaptorOMC(startPos, endPos)) then
+                        if (not Settings.GW2Minion[ml_navigation.acc_name].usemount or not ml_navigation:ValidRaptorOMC(startPos, endPos)) then
                            if (omc.enabled) then
                               d("[Navigation] - Raptor Jump OMC (ID:" .. tostring(navConId) .. ") disabled at [" .. tostring(startPos.x) .. "," .. tostring(startPos.y) .. "," .. tostring(startPos.z) .. "]")
                               NavigationManager:ResetPath()
@@ -418,11 +422,11 @@ function ml_navigation.Navigate(event, ticks)
                         end
 
                         -- Make sure this is setup
-                        if (Settings.GW2Minion.mountAbility2Key == nil) then
-                           Settings.GW2Minion.mountAbility2Key = 0x56 -- V
+                        if (Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key == nil) then
+                           Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key = 0x56 -- V
                         end
-                        if (Settings.GW2Minion.stepBackwards == nil) then
-                           Settings.GW2Minion.stepBackwards = 0x53 -- S
+                        if (Settings.GW2Minion[ml_navigation.acc_name].stepBackwards == nil) then
+                           Settings.GW2Minion[ml_navigation.acc_name].stepBackwards = 0x53 -- S
                         end
 
                         -- We got into combat so we abort the OMC
@@ -537,7 +541,7 @@ function ml_navigation.Navigate(event, ticks)
                               end
                               -- Do jump
                               if (neededChargeTime > 0) then
-                                 KeyDown(Settings.GW2Minion.mountAbility2Key)
+                                 KeyDown(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
                               end
                               Player:SetFacingExact(endPos.x, endPos.y, endPos.z)
                               ml_navigation.currentMountOMC.jumpTime = ml_global_information.Now
@@ -550,7 +554,7 @@ function ml_navigation.Navigate(event, ticks)
                            if (ml_navigation.currentMountOMC.jumpTime and TimeSince(ml_navigation.currentMountOMC.jumpTime) > neededChargeTime) then
                               gw2_unstuck.SoftReset()
                               -- Interrupt jump
-                              KeyUp(Settings.GW2Minion.mountAbility2Key)
+                              KeyUp(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
                               ml_navigation.currentMountOMC.stop_mount_energy = ml_navigation.currentMountOMC.stop_mount_energy or ml_navigation.mount_energy
                               -- Move towards endPos
                               local inAir = Player:GetMovementState() == GW2.MOVEMENTSTATE.Falling or Player:GetMovementState() == GW2.MOVEMENTSTATE.Jumping
@@ -614,11 +618,11 @@ function ml_navigation.Navigate(event, ticks)
                         end
 
                         -- Make sure this is setup
-                        if (Settings.GW2Minion.mountAbility2Key == nil) then
-                           Settings.GW2Minion.mountAbility2Key = 0x56 -- V
+                        if (Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key == nil) then
+                           Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key = 0x56 -- V
                         end
-                        if (Settings.GW2Minion.stepBackwards == nil) then
-                           Settings.GW2Minion.stepBackwards = 0x53 -- S
+                        if (Settings.GW2Minion[ml_navigation.acc_name].stepBackwards == nil) then
+                           Settings.GW2Minion[ml_navigation.acc_name].stepBackwards = 0x53 -- S
                         end
 
                         -- We got into combat so we abort the OMC
@@ -677,7 +681,7 @@ function ml_navigation.Navigate(event, ticks)
                                  end
                               elseif (TimeSince(ml_navigation.currentMountOMC.syncPos) < ml_navigation.gw2mount.jackal.SYNCTIME) then
                                  -- Sync camera TODO: make this one day better...
-                                 PressKey(Settings.GW2Minion.stepBackwards)
+                                 PressKey(Settings.GW2Minion[ml_navigation.acc_name].stepBackwards)
                               else
                                  resetJackalJumpOMC()
                               end
@@ -747,7 +751,7 @@ function ml_navigation.Navigate(event, ticks)
 
                               -- Jump phase
                               if (not ml_navigation.currentMountOMC.jumpTime or TimeSince(ml_navigation.currentMountOMC.jumpTime) > ml_navigation.gw2mount.springer.GRACETIME) then
-                                 PressKey(Settings.GW2Minion.mountAbility2Key)
+                                 PressKey(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
                                  ml_navigation.currentMountOMC.jumpTime = ml_global_information.Now
                               end
                               return
@@ -783,7 +787,7 @@ function ml_navigation.Navigate(event, ticks)
                               ml_navigation.lastMount = ml_global_information.Now + ml_navigation.gw2mount.raptor.GRACETIME
                            end
                            -- Interrupt jump
-                           KeyUp(Settings.GW2Minion.mountAbility2Key)
+                           KeyUp(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
                            ml_navigation.currentMountOMC.stop_mount_energy = ml_navigation.currentMountOMC.stop_mount_energy or ml_navigation.mount_energy
                            Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward)
                            Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
@@ -796,11 +800,11 @@ function ml_navigation.Navigate(event, ticks)
                         end
 
                         -- Make sure this is setup
-                        if (Settings.GW2Minion.mountAbility2Key == nil) then
-                           Settings.GW2Minion.mountAbility2Key = 0x56 -- V
+                        if (Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key == nil) then
+                           Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key = 0x56 -- V
                         end
-                        if (Settings.GW2Minion.stepBackwards == nil) then
-                           Settings.GW2Minion.stepBackwards = 0x53 -- S
+                        if (Settings.GW2Minion[ml_navigation.acc_name].stepBackwards == nil) then
+                           Settings.GW2Minion[ml_navigation.acc_name].stepBackwards = 0x53 -- S
                         end
 
                         -- We got into combat so we abort the OMC
@@ -848,7 +852,7 @@ function ml_navigation.Navigate(event, ticks)
                            -- OMC end reached or we failed to jump
                            if (ml_navigation.currentMountOMC.jumpTime and TimeSince(ml_navigation.currentMountOMC.jumpTime) > 1000 and not drifting) then
                               -- Interrupt jump
-                              KeyUp(Settings.GW2Minion.mountAbility2Key)
+                              KeyUp(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
                               Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
                               if (not ml_navigation.currentMountOMC.syncPos) then
                                  if (Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving) then
@@ -856,7 +860,7 @@ function ml_navigation.Navigate(event, ticks)
                                  end
                               elseif (TimeSince(ml_navigation.currentMountOMC.syncPos) < ml_navigation.gw2mount.raptor.SYNCTIME) then
                                  -- Sync camera TODO: make this one day better...
-                                 PressKey(Settings.GW2Minion.stepBackwards)
+                                 PressKey(Settings.GW2Minion[ml_navigation.acc_name].stepBackwards)
                               else
                                  resetRaptorOMC()
                               end
@@ -914,7 +918,7 @@ function ml_navigation.Navigate(event, ticks)
                                  Player:UnSetMovement(GW2.MOVEMENTTYPE.TurnRight)
                               end
                               -- Do jump
-                              KeyDown(Settings.GW2Minion.mountAbility2Key)
+                              KeyDown(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
                               ml_navigation.currentMountOMC.start_mount_energy = ml_navigation.mount_energy
                               Player:SetFacingExact(endPos.x, endPos.y, endPos.z)
                               ml_navigation.currentMountOMC.jumpTime = ml_global_information.Now
@@ -926,7 +930,7 @@ function ml_navigation.Navigate(event, ticks)
                               gw2_unstuck.SoftReset()
                               -- Interrupt Jump
                               if (math.distance2d(playerpos, startPos) > math.distance2d(endPos, startPos) - endPos.radius * 32 - 500) and TimeSince(ml_navigation.currentMountOMC.jumpTime) > 150 then
-                                 KeyUp(Settings.GW2Minion.mountAbility2Key)
+                                 KeyUp(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
                                  ml_navigation.currentMountOMC.stop_mount_energy = ml_navigation.currentMountOMC.stop_mount_energy or ml_navigation.mount_energy
                               end
                               -- prevent boosting over the endpoint
@@ -981,7 +985,7 @@ function ml_navigation.Navigate(event, ticks)
 
                else
                   -- TODO: check if water surface node, dont try to mount if so.
-                  if ((Settings.GW2Minion.usemount == nil or Settings.GW2Minion.usemount) and not Player.mounted and Player.canmount and ml_global_information.Now - ml_navigation.lastMount > 5000) then
+                  if ((Settings.GW2Minion[ml_navigation.acc_name].usemount == nil or Settings.GW2Minion[ml_navigation.acc_name].usemount) and not Player.mounted and Player.canmount and ml_global_information.Now - ml_navigation.lastMount > 5000) then
                      local remainingPathLenght = ml_navigation:GetRemainingPathLenght()
                      if (remainingPathLenght ~= 0 and remainingPathLenght > 800) then
                         local allowMount = true
