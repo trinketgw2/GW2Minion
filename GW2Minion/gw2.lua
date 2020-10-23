@@ -23,10 +23,39 @@ function gw2minion.Init()
 		ml_mesh_mgr.GetMapName = function () return gw2_datamanager.GetMapName(Player:GetLocalMapID())  end
 		ml_mesh_mgr.GetPlayerPos = function () return Player.pos end
 		-- extending subtypes list with mounts
-		local ncsubtypes = ml_mesh_mgr.GetNavConnectionSubTypes()
-		ncsubtypes[7] = "Springer"
-		ncsubtypes[8] = "Jackal Portal"
-		ncsubtypes[9] = "Raptor Jump"
+
+		local function GW2Mounts(nc, l_changed)
+			-- Gw2 mounts
+			if nc and (ml_navigation.gw2mount and nc.type == 4 and nc.details
+					and (nc.details.subtype == 7 or nc.details.subtype == 8 or nc.details.subtype == 9)) then
+				local maxx, maxy = GUI:GetContentRegionAvail()
+				if (GUI:Button(GetString("Try OMC"), maxx, 20)) then
+					if (math.distance3d(Player.pos, nc.sideB) < math.distance3d(Player.pos, nc.sideA)) then
+						Player:MoveTo(nc.sideA.x, nc.sideA.y, nc.sideA.z)
+					else
+						Player:MoveTo(nc.sideB.x, nc.sideB.y, nc.sideB.z)
+					end
+				end
+			end
+			return nc, l_changed
+		end
+		local Springer = {
+			name = GetString("Springer"),
+			draw = GW2Mounts,
+		}
+		ml_mesh_mgr.AddNCSubtype(7, Springer)
+
+		local Jackal = {
+			name = GetString("Jackal Portal"),
+			draw = GW2Mounts,
+		}
+		ml_mesh_mgr.AddNCSubtype(8, Jackal)
+
+		local Raptor = {
+			name = GetString("Raptor Jump"),
+			draw = GW2Mounts,
+		}
+		ml_mesh_mgr.AddNCSubtype(9, Raptor)
 
 		-- Set worldnavigation data
 		ml_mesh_mgr.navData = {} -- Holds the data for world navigation
