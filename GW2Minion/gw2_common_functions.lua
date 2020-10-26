@@ -406,7 +406,7 @@ function gw2_common_functions.AggroTargetAtPos(pos, range)
       local ComatData, Player_ID = GetCombatData(false), Player.id
       local cData = {}
       for k,v in pairs(ComatData) do
-         if v.target == Player_ID and v.age < 15000 then
+         if v.target == Player_ID and v.age < 15000 and v.source then
             cData[v.source] = v.age
          end
       end
