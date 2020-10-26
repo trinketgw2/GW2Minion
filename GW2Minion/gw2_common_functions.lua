@@ -384,10 +384,12 @@ function gw2_common_functions.GetBestAggroTarget(healthstate)
 end
 -- Checks for Aggro Targets at position
 function gw2_common_functions.AggroTargetAtPos(pos, range)
+   pos = pos or ml_global_information.Player_Position
    range = range or 1250
    local lowest, target = 99999999999999
+   local list = CharacterList("attackable,nocritter,onmesh,aggro")
 
-   for k, v in pairs(CharacterList("attackable,nocritter,onmesh,aggro")) do
+   for k, v in pairs(list) do
       if math.distance3d(v.pos, pos) < range and not gw2_blacklistmanager.CheckBlacklistEntry(GetString("Temporary Combat"), v.id) then
          if v.health and v.health.current and v.health.current < lowest then
             if v.isreachable then
@@ -399,6 +401,28 @@ function gw2_common_functions.AggroTargetAtPos(pos, range)
          end
       end
    end
+
+   if not target then
+      local ComatData, Player_ID = GetCombatData(false), Player.id
+      local cData = {}
+      for k,v in pairs(ComatData) do
+         if v.target == Player_ID and v.age < 15000 then
+            cData[v.source] = v.age
+         end
+      end
+
+      for k, v in pairs(list) do
+         if v.id and cData[v.id] and math.distance3d(v.pos, pos) < range * 1.5 then
+            if v.isreachable then
+               target = v
+            else
+               d("[GetBestAggroTarget] - Blacklisting " .. target.name .. " ID: " .. tostring(target.id))
+               gw2_blacklistmanager.AddBlacklistEntry(GetString("Temporary Combat"), target.id, target.name, 5000, gw2_common_functions.BlackListUntilReachableAndAttackable)
+            end
+         end
+      end
+   end
+
 
    return target
 end
