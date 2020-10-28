@@ -572,7 +572,7 @@ function ml_navigation.Navigate(event, ticks)
                               end
 
                               if ml_navigation.currentMountOMC.stop_mount_energy >= ml_navigation.currentMountOMC.start_mount_energy and math.distance2d(playerpos, startPos) < math.distance2d(playerpos, endPos) then
-                                 d("[Navigation] - Mount Energy still is above or equals our starting energy of " .. tostring(ml_navigation.currentMountOMC.start_mount_energy) ..". Mount Energy at: "..tostring(ml_navigation.currentMountOMC.stop_mount_energy))
+                                 d("[Navigation] - Mount Energy still is above or equals our starting energy of " .. tostring(ml_navigation.currentMountOMC.start_mount_energy) .. ". Mount Energy at: " .. tostring(ml_navigation.currentMountOMC.stop_mount_energy))
                                  resetSpringerOMC()
                               end
                               return
@@ -766,7 +766,7 @@ function ml_navigation.Navigate(event, ticks)
                            ml_navigation.currentMountOMC.endSide = table.deepcompare(ml_navigation.currentMountOMC.startSide, ml_navigation.navconnection.sideB, true)
                                    and ml_navigation.navconnection.sideA
                                    or ml_navigation.navconnection.sideB
-                           ml_navigation.currentMountOMC.startPortal = (({ next(GadgetList("contentid=17513,nearest")) })[2] or {}).pos
+                           ml_navigation.currentMountOMC.startPortal = ml_navigation.JackalPortal().pos
 
                            ml_navigation.currentMountOMC.path = table.valid(ml_navigation.path) and table.deepcopy(ml_navigation.path[table.size(ml_navigation.path)], false)
                            Player:Stop()
@@ -944,8 +944,8 @@ function ml_navigation.Navigate(event, ticks)
                                  end
                               end
 
-                              if ml_navigation.currentMountOMC.stop_mount_energy and ml_navigation.currentMountOMC.stop_mount_energy >= ml_navigation.currentMountOMC.start_mount_energy  and TimeSince(ml_navigation.currentMountOMC.jumpTime) > 50 and math.distance2d(playerpos, startPos) < math.distance2d(playerpos, endPos) then
-                                 d("[Navigation] - Mount Energy still is above or equals our starting energy of " .. tostring(ml_navigation.currentMountOMC.start_mount_energy) ..". Mount Energy at: "..tostring(ml_navigation.currentMountOMC.stop_mount_energy))
+                              if ml_navigation.currentMountOMC.stop_mount_energy and ml_navigation.currentMountOMC.stop_mount_energy >= ml_navigation.currentMountOMC.start_mount_energy and TimeSince(ml_navigation.currentMountOMC.jumpTime) > 50 and math.distance2d(playerpos, startPos) < math.distance2d(playerpos, endPos) then
+                                 d("[Navigation] - Mount Energy still is above or equals our starting energy of " .. tostring(ml_navigation.currentMountOMC.start_mount_energy) .. ". Mount Energy at: " .. tostring(ml_navigation.currentMountOMC.stop_mount_energy))
                                  resetRaptorOMC()
                               end
                               return
@@ -1701,4 +1701,17 @@ function ml_navigation:ValidRaptorOMC(startPos, endPos)
       return false
    end
    return true
+end
+
+-- gets a jackal portal
+function ml_navigation.JackalPortal()
+   local portal, nearest = {}, 1000
+   for k, v in pairs(GadgetList("contentid=17513,type=11,maxdistance=1000")) do
+      if v.status == 3741829306 and v.type2 == 10 and v.distance < nearest then
+         portal = v
+         nearest = v.distance
+      end
+   end
+
+   return portal
 end
