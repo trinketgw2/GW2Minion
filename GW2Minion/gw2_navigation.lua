@@ -1696,8 +1696,9 @@ function ml_navigation:ValidRaptorOMC(startPos, endPos)
    -- VARIABLES
    local xyDistToTravel = math.distance2d(startPos, endPos)
    local zDistToTravel = -startPos.z + endPos.z -- negativ means we have to descend
+   local jump_up = startPos.z > endPos.z
 
-   if (zDistToTravel > 200) then
+   if (zDistToTravel > 200) and jump_up then
       return false
    end -- too high endPos, might jump into edge/wall
    if (xyDistToTravel > ml_navigation.gw2mount.raptor.GetMaxTravelDistance()) then
