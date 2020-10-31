@@ -102,6 +102,9 @@ function ml_navigation.Navigate(event, ticks)
 
       local energy = Player:GetEnergies(0)
       ml_navigation.mount_energy = energy and energy.A or 0
+      if ml_global_information.Player_IsMounted then
+         ml_navigation.fight_aggro = false
+      end
 
       if (ml_navigation.forcereset) then
          ml_navigation.forcereset = nil
