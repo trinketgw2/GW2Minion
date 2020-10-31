@@ -395,8 +395,8 @@ function gw2_common_functions.AggroTargetAtPos(pos, range)
             if v.isreachable then
                target = v
             else
-               d("[GetBestAggroTarget] - Blacklisting " .. target.name .. " ID: " .. tostring(target.id))
-               gw2_blacklistmanager.AddBlacklistEntry(GetString("Temporary Combat"), target.id, target.name, 5000, gw2_common_functions.BlackListUntilReachableAndAttackable)
+               d("[GetBestAggroTarget] - Blacklisting " .. v.name .. " ID: " .. tostring(v.id))
+               gw2_blacklistmanager.AddBlacklistEntry(GetString("Temporary Combat"), v.id, v.name, 5000, gw2_common_functions.BlackListUntilReachableAndAttackable)
             end
          end
       end
@@ -416,8 +416,8 @@ function gw2_common_functions.AggroTargetAtPos(pos, range)
             if v.isreachable then
                target = v
             else
-               d("[GetBestAggroTarget] - Blacklisting " .. target.name .. " ID: " .. tostring(target.id))
-               gw2_blacklistmanager.AddBlacklistEntry(GetString("Temporary Combat"), target.id, target.name, 5000, gw2_common_functions.BlackListUntilReachableAndAttackable)
+               d("[GetBestAggroTarget] - Blacklisting " .. v.name .. " ID: " .. tostring(v.id))
+               gw2_blacklistmanager.AddBlacklistEntry(GetString("Temporary Combat"), v.id, v.name, 5000, gw2_common_functions.BlackListUntilReachableAndAttackable)
             end
          end
       end
