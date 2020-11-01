@@ -405,7 +405,7 @@ function gw2_common_functions.AggroTargetAtPos(pos, range)
    if not target then
       local ComatData, Player_ID = GetCombatData(false), Player.id
       local cData = {}
-      for k,v in pairs(ComatData) do
+      for k, v in pairs(ComatData) do
          if v.target == Player_ID and v.age < 15000 and v.source then
             cData[v.source] = v.age
          end
@@ -413,8 +413,10 @@ function gw2_common_functions.AggroTargetAtPos(pos, range)
 
       for k, v in pairs(list) do
          if v.id and cData[v.id] and math.distance3d(v.pos, pos) < range * 1.5 then
-            if v.isreachable and v.incombat then
-               target = v
+            if v.isreachable then
+               if v.incombat then
+                  target = v
+               end
             else
                d("[GetBestAggroTarget] - Blacklisting " .. v.name .. " ID: " .. tostring(v.id))
                gw2_blacklistmanager.AddBlacklistEntry(GetString("Temporary Combat"), v.id, v.name, 5000, gw2_common_functions.BlackListUntilReachableAndAttackable)
@@ -422,7 +424,6 @@ function gw2_common_functions.AggroTargetAtPos(pos, range)
          end
       end
    end
-
 
    return target
 end
