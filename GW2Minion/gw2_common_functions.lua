@@ -413,7 +413,7 @@ function gw2_common_functions.AggroTargetAtPos(pos, range)
 
       for k, v in pairs(list) do
          if v.id and cData[v.id] and math.distance3d(v.pos, pos) < range * 1.5 then
-            if v.isreachable then
+            if v.isreachable and v.incombat then
                target = v
             else
                d("[GetBestAggroTarget] - Blacklisting " .. v.name .. " ID: " .. tostring(v.id))
