@@ -244,6 +244,10 @@ function gw2minion.Init()
 		ml_mesh_mgr.SetDefaultMesh(1326,"Dragon Bash Arena",enforce)
 						
 	end
+
+	if Settings.GW2Minion.autostart_delay == nil then
+		Settings.GW2Minion.autostart_delay = 5000
+	end
 	
 	gw2minion.init_time = false
 end
@@ -325,7 +329,7 @@ function gw2minion.DrawCall(event, ticks )
 	-- Autostart once on loading ingame
 	if ( not gw2minion.startedonce and Settings.GW2Minion.autostartbot == true and not BehaviorManager:Running() and GetGameState() == GW2.GAMESTATE.GAMEPLAY and NavigationManager:GetNavMeshState() == GLOBAL.MESHSTATE.MESHREADY) then
 		gw2minion.init_time = gw2minion.init_time or ml_global_information.Now
-		if TimeSince(gw2minion.init_time) > 5000 then
+		if TimeSince(gw2minion.init_time) > Settings.GW2Minion.autostart_delay then
 			gw2minion.startedonce = true
 			BehaviorManager:Start()
 			d("[GW2Minion] - Automatically starting bot")
