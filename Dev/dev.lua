@@ -354,6 +354,43 @@ function dev.DrawCall(event, ticks )
 			end
 -- END COMPASS
 
+				if ( GUI:TreeNode("Effects") ) then
+					local list = GetEffects()
+					if ( table.valid(list) )then
+						GUI:PushItemWidth(250)
+						for id, b in pairs(list) do
+							local uniqueID = "###dev_ef" .. id
+							if ( GUI:TreeNode(tostring(id).." - "..b.name)) then
+								GUI:BulletText("Ptr")			GUI:SameLine(200) GUI:InputText(uniqueID .. "_2",	string.format( "%X",b.ptr),	GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+								GUI:BulletText("Ptr2")			GUI:SameLine(200) GUI:InputText(uniqueID .. "_2",	string.format( "%X",b.ptr2),	GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+								GUI:BulletText("id")			GUI:SameLine(200) GUI:InputText(uniqueID .. "_3",	tostring(b.id),	GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+								GUI:BulletText("type")			GUI:SameLine(200) GUI:InputText(uniqueID .. "_4",	tostring(b.type), GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+								GUI:BulletText("active")		GUI:SameLine(200) GUI:InputText(uniqueID .. "_5",	tostring(b.active), GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+								GUI:BulletText("flags")			GUI:SameLine(200) GUI:InputText(uniqueID .. "_6",	tostring(b.flags), GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+								GUI:BulletText("pos")			GUI:SameLine(200) GUI:InputFloat3(uniqueID .. "_7",	b.pos.x,b.pos.y,b.pos.z,2, GUI.InputTextFlags_CharsDecimal)
+								local matrix = b.matrix		
+								d(type(matrix)						)
+								d(#matrix)
+								d(matrix)
+								GUI:BulletText("matrix X")		GUI:SameLine(200) GUI:InputFloat3(uniqueID .. "_8",	matrix[1].x,matrix[1].y,matrix[1].z,2, GUI.InputTextFlags_CharsDecimal)
+								GUI:BulletText("matrix Y")		GUI:SameLine(200) GUI:InputFloat3(uniqueID .. "_9",	matrix[2].x,matrix[2].y,matrix[2].z,2, GUI.InputTextFlags_CharsDecimal)
+								GUI:BulletText("matrix Z")		GUI:SameLine(200) GUI:InputFloat3(uniqueID .. "_10",matrix[3].x,matrix[3].y,matrix[3].z,2, GUI.InputTextFlags_CharsDecimal)
+								GUI:Text("Shit below, no clue what it is ...so halp plz :D")						
+								GUI:BulletText("owner?")		GUI:SameLine(200) GUI:InputText(uniqueID .. "_11",	tostring(b.owner), GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+								GUI:BulletText("host?")			GUI:SameLine(200) GUI:InputText(uniqueID .. "_12",	tostring(b.host), GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+								GUI:BulletText("grounddistance")GUI:SameLine(200) GUI:InputText(uniqueID .. "_13",	tostring(b.grounddistance), GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+								GUI:BulletText("test")			GUI:SameLine(200) GUI:InputText(uniqueID .. "_14",	tostring(b.test), GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+								GUI:BulletText("test2")			GUI:SameLine(200) GUI:InputText(uniqueID .. "_15",	tostring(b.test2), GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+								GUI:BulletText("test3")			GUI:SameLine(200) GUI:InputText(uniqueID .. "_16",	tostring(b.test3), GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+								GUI:BulletText("test4")			GUI:SameLine(200) GUI:InputText(uniqueID .. "_17",	tostring(b.test4), GUI.InputTextFlags_ReadOnly+GUI.InputTextFlags_AutoSelectAll)
+								GUI:TreePop()
+							end
+						end
+						GUI:PopItemWidth()
+					end
+					GUI:TreePop()
+				end
+-- END EFFECTS
 
 -- START EQUIPMENT
 					if ( GUI:TreeNode("Equipment") ) then
