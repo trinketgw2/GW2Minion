@@ -790,7 +790,7 @@ end
 ---id = itemid or table of ids
 ---all_data will force to return all language variants for the name, description, text ... ; default is false and returns only in Players language
 ---creates automatically a new request if the requested info is not available or older then 15 minutes
-function api_manager.getPrice(ids, all_data)
+function api_manager.getPrice(ids, all_data, include_infos)
    local category = "prices"
    all_data = type(all_data) == "boolean" and all_data or false
 
@@ -804,7 +804,7 @@ function api_manager.getPrice(ids, all_data)
       for _, id in pairs(ids) do
          if (api_manager.API_Data[category] and api_manager.API_Data[category][id]) or FileExists(path .. id .. ".lua") then
             local info = api_manager.LoadData(category, id, request_ids, all_data)
-            local item_info = api_manager.LoadData("items", id, request_ids, all_data)
+            local item_info = include_infos and api_manager.LoadData("items", id, request_ids, all_data)
             local valid_duration = api_manager.categories[category].valid_duration
 
             tbl[id] = item_info or info
@@ -937,7 +937,7 @@ function api_manager.getIcon(ids, category, fallback_icon, custom_key, check)
       for _, id in pairs(ids) do
          local info = api_manager.getInfo(id, category)
          local path = api_manager.categories[category].icon_path
-         local url = info and api_manager.geturl(info, custom_key)
+         local url = info and api_manager.geturl(info, table.deepcopy(custom_key))
 
          if url then
             local skin_id = api_manager.createIconID(url)
@@ -968,7 +968,7 @@ function api_manager.getIcon(ids, category, fallback_icon, custom_key, check)
       _, tbl = next(tbl)
    end
 
-   return tbl or false
+   return tbl or (fallback_icon or GetStartupPath() .. "\\GUI\\UI_Textures\\change.png")
 end
 
 ---delete a entry from the queue
@@ -1412,13 +1412,7 @@ function api_manager.API_DataHandler()
                      local info = api_manager.getInfo(v.id, v.category)
 
                      if table.valid(info) then
-                        v.url = info and api_manager.geturl(info, v.custom_key)
-
-                        d({
-                           custom_key = v.custom_key,
-                           url = v.url,
-                        })
-
+                        v.url = info and api_manager.geturl(info, table.deepcopy(v.custom_key))
                         if not v.url then
                            api_manager.queue[v.key] = nil
                         end
