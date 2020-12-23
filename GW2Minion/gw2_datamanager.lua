@@ -3,6 +3,7 @@ gw2_datamanager = { }
 gw2_datamanager.path = GetStartupPath().. [[\LuaMods\GW2Minion\map_data.lua]]
 gw2_datamanager.mapData = {}
 gw2_datamanager.levelmap = {} -- Create a "2D - Levelmap/Table" which provides us an avg. level for all other entries in the zone, also for random navigation
+gw2_datamanager.wvwmaps = {[96] = 1 , [97] = 1 ,[38] = 1 , [1099] = 1,}
 
 function gw2_datamanager.ModuleInit()
 	if(FileExists(gw2_datamanager.path)) then
@@ -128,39 +129,53 @@ end
 -- mapid_pos = if the position is in another map then the target mapid, set this to the mapid of the position
 -- For example if you want to get the nearest waypoint from your current position to another map
 function gw2_datamanager.GetLocalWaypointListByDistance(mapid, pos, mapid_pos)
-	pos = table.valid(pos) and pos or ml_global_information.Player_Position
-	mapid = mapid ~= nil and mapid or ml_global_information.CurrentMapID
-	mapid_pos = mapid_pos ~= nil and mapid_pos or mapid
-	local waypointData = gw2_datamanager.GetLocalWaypointList(mapid)
+    pos = table.valid(pos) and pos or ml_global_information.Player_Position
+    mapid = mapid ~= nil and mapid or ml_global_information.CurrentMapID
+    mapid_pos = mapid_pos ~= nil and mapid_pos or mapid
+    local waypointData = gw2_datamanager.GetLocalWaypointList(mapid)
+    if (table.valid(waypointData)) then
+        if gw2_datamanager.wvwmaps[mapid] then
+            local oklist = {}
+            for _, b in pairs(waypointData) do
+                if not b.contested and b.distance then
+                    table.insert(oklist, b)
+                end
+            end
+            table.sort(oklist, function(a, b)
+                if (a.distance and b.distance) then
+                    return a.distance < b.distance
+                else
+                    return a.distance2D < b.distance2D
+                end
+            end)
+            return oklist
+        else
+            local mdata = gw2_datamanager.GetLocalMapData(mapid_pos)
+            -- Convert the local input pos to a world coordinate so it works for both local and world waypoints
+            local convertedpos = gw2_datamanager.to_world(mdata.continent_rect, mdata.map_rect, pos)
+            local globalpos = { x = convertedpos[1]; y = convertedpos[2]; z = pos.z or 0 }
 
-	if (table.valid(waypointData)) then
-		local mdata = gw2_datamanager.GetLocalMapData(mapid_pos)
-		
-		-- Convert the local input pos to a world coordinate so it works for both local and world waypoints
-		local convertedpos = gw2_datamanager.to_world(mdata.continent_rect, mdata.map_rect, pos)
-		local globalpos = {x = convertedpos[1]; y = convertedpos[2]; z = pos.z or 0}
+            for _, waypoint in pairs(waypointData) do
+                -- 1 unit = 24 inches in game
+                waypoint.distance2D = math.distance2d(waypoint.global_pos, globalpos) * 24
 
-		for _,waypoint in pairs(waypointData) do
-			-- 1 unit = 24 inches in game
-			waypoint.distance2D = math.distance2d(waypoint.global_pos,globalpos) * 24
-			
-			-- Update distance to use input pos
-			-- Only local waypoints have distance, so use normal pos
-			if(waypoint.distance) then
-				waypoint.distance = math.distance3d(waypoint.pos,pos)
-			end
-		end
-		
-		table.sort(waypointData, function(a,b)
-			if(a.distance and b.distance) then
-				return a.distance < b.distance
-			else
-				return a.distance2D < b.distance2D
-			end
-		end)
-	end
-	
-	return waypointData
+                -- Update distance to use input pos
+                -- Only local waypoints have distance, so use normal pos
+                if (waypoint.distance) then
+                    waypoint.distance = math.distance3d(waypoint.pos, pos)
+                end
+            end
+
+            table.sort(waypointData, function(a, b)
+                if (a.distance and b.distance) then
+                    return a.distance < b.distance
+                else
+                    return a.distance2D < b.distance2D
+                end
+            end)
+        end
+    end
+    return waypointData
 end
 
 -- converts the coordinates from the data file to ingame coordinates
