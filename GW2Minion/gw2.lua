@@ -242,6 +242,7 @@ function gw2minion.Init()
 		
 		--Festivals
 		ml_mesh_mgr.SetDefaultMesh(1326,"Dragon Bash Arena",enforce)
+		ml_mesh_mgr.SetDefaultMesh(882,"Winter Wonderland",enforce)
 						
 	end
 
