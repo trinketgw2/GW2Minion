@@ -582,8 +582,8 @@ end
 
 ---load already gathered data files
 function api_manager.Load_API_Data()
-   for _, foldername in pairs(FolderList(api_manager.path, ".*", true)) do
-      for _, file in pairs(FolderList(api_manager.path .. foldername, ".*.lua", false) or {}) do
+   for _, foldername in pairs(FolderList(api_manager.path .. "API_Data", ".*", true)) do
+      for _, file in pairs(FolderList(api_manager.path .. "API_Data\\" .. foldername, ".*.lua", false) or {}) do
          api_manager.API_Data[foldername] = api_manager.API_Data[foldername] or {}
          api_manager.API_Data[foldername][string.trim(file, 4)] = FileLoad(api_manager.path .. foldername .. "\\" .. file) or {}
 
