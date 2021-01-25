@@ -166,6 +166,11 @@ function ml_global_information.Stop()
 end
 
 -- Waits xxx seconds before running the next pulse
-function ml_global_information.Wait( mseconds )
-	BehaviorManager:SetLastTick( (BehaviorManager:GetLastTick()  or ml_global_information.Now) + mseconds )
+function ml_global_information.Waiting()
+	return TimeSince(ml_global_information.next_tick) < 0
+end
+
+function ml_global_information.Wait(mseconds)
+	ml_global_information.next_tick = (BehaviorManager:GetLastTick() or ml_global_information.Now) + mseconds
+	BehaviorManager:SetLastTick(ml_global_information.next_tick)
 end
