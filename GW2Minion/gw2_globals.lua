@@ -167,6 +167,7 @@ end
 
 -- Waits xxx seconds before running the next pulse
 function ml_global_information.Waiting()
+	ml_global_information.next_tick = ml_global_information.next_tick or BehaviorManager:GetLastTick() or ml_global_information.Now
 	return TimeSince(ml_global_information.next_tick) < 0
 end
 
