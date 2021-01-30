@@ -206,7 +206,7 @@ local tbl =
 		filename = "GatherMode.bt",
 		finishcode = "d(\"GatherMode Off\")\n\nml_global_information.Stop()",
 		info = "",
-		menucode = "GUI:SetNextTreeNodeOpened(true,GUI.SetCond_Appearing)\nif (GUI:TreeNode(GetString(\"gatherMode\"))) then\n\n\t\t-- SM backwards compatibily fix \n\t\tgBotMode = GetString(\"gatherMode\")\n\t\n\n\t\tif ( Settings.GW2Minion.doevents == nil) then Settings.GW2Minion.doevents = true end\n\n\t\tSettings.GW2Minion.doevents = GUI:Checkbox(GetString(\"doEvents\"),Settings.GW2Minion.doevents)\n\n\t\tGUI:TreePop()\nend",
+		menucode = "\n\t\t-- SM backwards compatibily fix \n\t\tgBotMode = GetString(\"gatherMode\")\n\t\n\n\t\tif ( Settings.GW2Minion.doevents == nil) then Settings.GW2Minion.doevents = true end\n\n\t\tSettings.GW2Minion.doevents = GUI:Checkbox(GetString(\"doEvents\"),Settings.GW2Minion.doevents)",
 		monitorcode = "GUI:Text('Last State: '..tostring(self:getState())) GUI:Text('Filename: '..self.variables.filename) GUI:Text('Filepath: '..self.filepath)",
 		runcode = "",
 		startcode = "d(\"GatherMode On\")\nml_global_information.Start()\n\ngBotMode = GetString(\"gatherMode\")",
