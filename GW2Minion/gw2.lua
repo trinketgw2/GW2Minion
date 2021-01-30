@@ -359,8 +359,6 @@ function gw2minion.Init()
       Settings.GW2Minion.autostart_delay = 5000
    end
 
-   Settings.GW2Minion = Settings.GW2Minion
-
    gw2minion.init_time = false
 end
 RegisterEventHandler("Module.Initalize", gw2minion.Init, "gw2minion.Init")
