@@ -269,7 +269,7 @@ local tbl =
 		filename = "GrindMode.bt",
 		finishcode = "d(\"GrindMode Off\")\n\nml_global_information.Stop()",
 		info = "",
-		menucode = "GUI:SetNextTreeNodeOpened(true,GUI.SetCond_Appearing)\nif (GUI:TreeNode(GetString(\"grindMode\"))) then\n\n\t\t-- SM backwards compatibily fix \n\t\tgBotMode = GetString(\"grindMode\")\n\t\n\n\t\tif ( Settings.GW2Minion.doevents == nil) then Settings.GW2Minion.doevents = true end\n\t\tif ( Settings.GW2Minion.gather == nil) then Settings.GW2Minion.gather = true end\n\n\t\tSettings.GW2Minion.doevents = GUI:Checkbox(GetString(\"Do Events\"),Settings.GW2Minion.doevents)\n\t\tSettings.GW2Minion.gather = GUI:Checkbox(GetString(\"Gather\"),Settings.GW2Minion.gather)\n\n\t\tGUI:TreePop()\nend",
+		menucode = "\n\t\t-- SM backwards compatibily fix \n\t\tgBotMode = GetString(\"grindMode\")\n\t\n\n\t\tif ( Settings.GW2Minion.doevents == nil) then Settings.GW2Minion.doevents = true end\n\t\tif ( Settings.GW2Minion.gather == nil) then Settings.GW2Minion.gather = true end\n\n\t\tSettings.GW2Minion.doevents = GUI:Checkbox(GetString(\"Do Events\"),Settings.GW2Minion.doevents)\n\t\tSettings.GW2Minion.gather = GUI:Checkbox(GetString(\"Gather\"),Settings.GW2Minion.gather)",
 		monitorcode = "GUI:Text('Last State: '..tostring(self:getState()))\nGUI:Text('Game State: '..tostring(ml_global_information.GameState))\n",
 		runcode = "",
 		startcode = "d(\"GrindMode On\")\nml_global_information.Start()\ngBotMode = GetString(\"GrindMode\")",
