@@ -363,7 +363,7 @@ local tbl =
 		filename = "Wintersday-Defend Dolyak.bt",
 		finishcode = "",
 		info = "",
-		menucode = "GUI:SetNextTreeNodeOpened(true,GUI.SetCond_Appearing)\nif (GUI:TreeNode(GetString(\"Dolyak Stats\"))) then\n\n\t\tif ( Settings.GW2Minion.presentstotal == nil) then Settings.GW2Minion.presentstotal = 0 end\n\t\tif ( Settings.GW2Minion.hohodonation == nil) then Settings.GW2Minion.hohodonation = 0 end\n\t\t\n\n\n\t\tif ( context and context.presentscollected ) then\n\t\t\t\tGUI:Text(\"Presents Collected Session: \"..tostring(context.presentscollected))\n\t\telse\n\t\t\t\tGUI:Text(\"Presents Collected Session: 0\")\n\t\tend\n\n\t\tGUI:Text(\"Presents Collected Total: \"..tostring(Settings.GW2Minion.presentstotal))\n\t\tGUI:Text(\"Silver Donated to HoHo: \"..tostring(Settings.GW2Minion.hohodonation))\n\n\t\tGUI:TreePop()\nend",
+		menucode = "if (Settings.GW2Minion.presentstotal == nil) then\n   Settings.GW2Minion.presentstotal = 0\nend\n\nif (Settings.GW2Minion.hohodonation == nil) then\n   Settings.GW2Minion.hohodonation = 0\nend\n\nif (context and context.presentscollected) then\n   GUI:Text(\"Presents Collected Session: \" .. tostring(context.presentscollected))\nelse\n   GUI:Text(\"Presents Collected Session: 0\")\nend\n\nGUI:Text(\"Presents Collected Total: \" .. tostring(Settings.GW2Minion.presentstotal))\nGUI:Text(\"Silver Donated to HoHo: \" .. tostring(Settings.GW2Minion.hohodonation))",
 		monitorcode = "GUI:Text('Last State: '..tostring(self:getState())) GUI:Text('Filename: '..self.variables.filename) GUI:Text('Filepath: '..self.filepath)",
 		runcode = "",
 		startcode = "context.yakexist = ml_global_information.Now\ncontext.donationcount = 0",
