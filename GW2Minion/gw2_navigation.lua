@@ -6,6 +6,16 @@ ml_navigation.PathDeviationDistances = { ["Walk"] = 50, ["Diving"] = 150, ["Moun
 ml_navigation.lastMount = 0
 ml_navigation.movement_status = 0
 ml_navigation.acc_name = GetAccountName()
+ml_navigation.skills = {}
+ml_navigation.ticks = {
+   favorite_mount = 0,
+   mount = 0,
+}
+
+ml_navigation.thresholds = {
+   favorite_mount = 500,
+   mount = 1000,
+}
 
 -- gw2_obstacle_manager has control over this now
 ml_navigation.avoidanceareasize = 50
@@ -14,6 +24,37 @@ ml_navigation.avoidanceareas = { }   -- TODO: make a proper API in c++ for handl
 -- all mount related variables
 ml_navigation.lastMountOMCID = nil
 ml_navigation.gw2mount = {}
+
+ml_navigation.gw2mount.skimmer = {
+   ID = 40509,
+   SKILLID = 41253,
+   GRACETIME = 2000,
+   SYNCTIME = 1000,
+}
+ml_navigation.gw2mount.warclaw = {
+   ID = 54871,
+   SKILLID = 54912,
+   GRACETIME = 2000,
+   SYNCTIME = 1000,
+}
+ml_navigation.gw2mount.griffon = {
+   ID = 44590,
+   SKILLID = 41192,
+   GRACETIME = 2000,
+   SYNCTIME = 1000,
+}
+ml_navigation.gw2mount.skyscale = {
+   ID = 55715,
+   SKILLID = 55536,
+   GRACETIME = 2000,
+   SYNCTIME = 1000,
+}
+ml_navigation.gw2mount.rollerbeetle = {
+   ID = 50908,
+   SKILLID = 51040,
+   GRACETIME = 2000,
+   SYNCTIME = 1000,
+}
 ml_navigation.gw2mount.springer = {
    ID = 41731,
    SKILLID = 45994,
@@ -114,6 +155,13 @@ function ml_navigation.Navigate(event, ticks)
 
       if (GetGameState() == GW2.GAMESTATE.GAMEPLAY and not ml_navigation.debug) then
          local playerpos = Player.pos
+         ml_navigation.mounted = Player.mounted
+         ml_navigation.skills[5] = Player:GetSpellInfo(5)
+         ml_navigation.skills[19] = Player:GetSpellInfo(19)
+         ml_navigation.skills.current_Mount = ml_navigation.getCurrentMount((ml_navigation.skills[5] and ml_navigation.skills[5].id), (ml_navigation.skills[19] and ml_navigation.skills[19].id))
+         ml_navigation.inWvW = ml_navigation.IsInWvW()
+         local mount = (Settings.GW2Minion[ml_navigation.acc_name].favorite_mount ~= 1 and ml_navigation.inWvW and "warclaw") or (Settings.GW2Minion[ml_navigation.acc_name].favorite_mount == 2 and "raptor") or (Settings.GW2Minion[ml_navigation.acc_name].favorite_mount == 3 and "jackal")
+         ml_navigation.skills.favorite_mount = mount and ml_navigation.gw2mount[mount] and ml_navigation.getCurrentMount(ml_navigation.gw2mount[mount].SKILLID, ml_navigation.gw2mount[mount].ID)
          ml_navigation.pathindex = NavigationManager.NavPathNode   -- gets the current path index which is saved in c++ ( and changed there on updating / adjusting the path, which happens each time MoveTo() is called. Index starts at 1 and 'usually' is 2 whne running
 
          local pathsize = table.size(ml_navigation.path)
@@ -453,7 +501,7 @@ function ml_navigation.Navigate(event, ticks)
                            ml_navigation.fight_aggro = false
                         end
 
-                        local skill = Player:GetSpellInfo(19)
+                        local skill = ml_navigation.skills[19]
                         -- Low level character without mount skill slot
                         if (not skill) then
                            DisableNavConnection(ml_navigation.navconnection, nil)
@@ -512,17 +560,17 @@ function ml_navigation.Navigate(event, ticks)
                            -- Mount springer and save last mount to swap back later
                            if (ml_navigation.currentMountOMC.mountTime and TimeSince(ml_navigation.currentMountOMC.mountTime) < 1000) then
                               return
-                           elseif (Player.mounted and Player:GetSpellInfo(5).skillid ~= ml_navigation.gw2mount.springer.SKILLID) then
+                           elseif (Player.mounted and ml_navigation.skills[5].skillid ~= ml_navigation.gw2mount.springer.SKILLID) then
                               Player:Dismount()
                               return
-                           elseif (not Player.mounted and Player:GetSpellInfo(19).skillid == ml_navigation.gw2mount.springer.ID and Player.canmount) then
+                           elseif (not Player.mounted and ml_navigation.skills[19].skillid == ml_navigation.gw2mount.springer.ID and Player.canmount) then
                               if (Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving) then
                                  Player:Mount()
                                  ml_navigation.currentMountOMC.mountTime = ml_global_information.Now
                               end
                               return
                            elseif (not Player.mounted and Player.canmount and not ml_navigation.lastMountOMCID) then
-                              ml_navigation.lastMountOMCID = Player:GetSpellInfo(19).skillid
+                              ml_navigation.lastMountOMCID = ml_navigation.skills[19].skillid
                               Player:SelectMount(ml_navigation.gw2mount.springer.ID)
                               return
                            elseif (not Player.mounted) then
@@ -650,7 +698,7 @@ function ml_navigation.Navigate(event, ticks)
                         end
 
                         -- Low level character without mount skill slot
-                        if (not Player:GetSpellInfo(19)) then
+                        if (not ml_navigation.skills[19]) then
                            DisableNavConnection(ml_navigation.navconnection, nil)
                            NavigationManager:ResetPath()
                            ml_navigation:MoveTo(ml_navigation.targetposition.x, ml_navigation.targetposition.y, ml_navigation.targetposition.z, ml_navigation.targetid)
@@ -707,17 +755,17 @@ function ml_navigation.Navigate(event, ticks)
                            -- Mount jackal and save last mount to swap back later
                            if (ml_navigation.currentMountOMC.mountTime and TimeSince(ml_navigation.currentMountOMC.mountTime) < 1000) then
                               return
-                           elseif (Player.mounted and Player:GetSpellInfo(5).skillid ~= ml_navigation.gw2mount.jackal.SKILLID) then
+                           elseif (Player.mounted and ml_navigation.skills[5].skillid ~= ml_navigation.gw2mount.jackal.SKILLID) then
                               Player:Dismount()
                               return
-                           elseif (not Player.mounted and Player:GetSpellInfo(19).skillid == ml_navigation.gw2mount.jackal.ID and Player.canmount) then
+                           elseif (not Player.mounted and ml_navigation.skills[19].skillid == ml_navigation.gw2mount.jackal.ID and Player.canmount) then
                               if (Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving) then
                                  Player:Mount()
                                  ml_navigation.currentMountOMC.mountTime = ml_global_information.Now
                               end
                               return
                            elseif (not Player.mounted and Player.canmount and not ml_navigation.lastMountOMCID) then
-                              ml_navigation.lastMountOMCID = Player:GetSpellInfo(19).skillid
+                              ml_navigation.lastMountOMCID = ml_navigation.skills[19].skillid
                               Player:SelectMount(ml_navigation.gw2mount.jackal.ID)
                               return
                            elseif (not Player.mounted) then
@@ -831,7 +879,7 @@ function ml_navigation.Navigate(event, ticks)
                            ml_navigation.fight_aggro = false
                         end
 
-                        local skill = Player:GetSpellInfo(19)
+                        local skill = ml_navigation.skills[19]
                         -- Low level character without mount skill slot
                         if (not skill) then
                            DisableNavConnection(ml_navigation.navconnection, nil)
@@ -890,17 +938,17 @@ function ml_navigation.Navigate(event, ticks)
                            -- Mount raptor and save last mount to swap back later
                            if (ml_navigation.currentMountOMC.mountTime and TimeSince(ml_navigation.currentMountOMC.mountTime) < 1000) then
                               return
-                           elseif (Player.mounted and Player:GetSpellInfo(5).skillid ~= ml_navigation.gw2mount.raptor.SKILLID) then
+                           elseif (Player.mounted and ml_navigation.skills[5].skillid ~= ml_navigation.gw2mount.raptor.SKILLID) then
                               Player:Dismount()
                               return
-                           elseif (not Player.mounted and Player:GetSpellInfo(19).skillid == ml_navigation.gw2mount.raptor.ID and Player.canmount) then
+                           elseif (not Player.mounted and ml_navigation.skills[19].skillid == ml_navigation.gw2mount.raptor.ID and Player.canmount) then
                               if (Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving) then
                                  Player:Mount()
                                  ml_navigation.currentMountOMC.mountTime = ml_global_information.Now
                               end
                               return
                            elseif (not Player.mounted and Player.canmount and not ml_navigation.lastMountOMCID) then
-                              ml_navigation.lastMountOMCID = Player:GetSpellInfo(19).skillid
+                              ml_navigation.lastMountOMCID = ml_navigation.skills[19].skillid
                               Player:SelectMount(ml_navigation.gw2mount.raptor.ID)
                               return
                            elseif (not Player.mounted) then
@@ -987,8 +1035,42 @@ function ml_navigation.Navigate(event, ticks)
                   end
 
                else
+
+                  if TimeSince(ml_navigation.ticks.favorite_mount) > ml_navigation.thresholds.favorite_mount then
+                     ml_navigation.ticks.favorite_mount = ml_global_information.Now
+
+                     if Settings.GW2Minion[ml_navigation.acc_name].usemount then
+                        if not ml_navigation.currentMountOMC or not table.valid(ml_navigation.currentMountOMC) and not ml_global_information.Player_InCombat then
+                           if Settings.GW2Minion[ml_navigation.acc_name].favorite_mount > 1 then
+                              if ml_navigation.skills.favorite_mount then
+                                 if ml_navigation.mounted then
+                                    local c = ml_navigation.skills.current_Mount
+                                    if (not ml_navigation.skills[5] or (ml_navigation.skills[5].id ~= ml_navigation.gw2mount[mount].SKILLID)) and (not ml_navigation.skills[19] or (ml_navigation.skills[19].id ~= ml_navigation.gw2mount[mount].ID)) then
+                                       if not ml_navigation.inWvW then
+                                          d("[Navigation] - We are currently mounted on " .. ((c and c.name and "our " .. (c.name and c.name ~= "" or c.name_fallback)) or " a wrong mount") .. ". Swapping to our favorite mount: " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
+                                       else
+                                          d("[Navigation] - We are currently mounted on " .. ((c and c.name and "our " .. (c.name and c.name ~= "" or c.name_fallback)) or " a wrong mount") .. ". Swapping to : " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
+                                       end
+                                       Player:Dismount()
+                                    end
+                                 end
+
+                                 if not ml_navigation.mounted and (ml_navigation.skills[19] and (ml_navigation.skills[19].id ~= ml_navigation.gw2mount[mount].ID)) then
+                                    if not ml_navigation.inWvW then
+                                       d("[Navigation] - Selecting our favorite mount: " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
+                                    else
+                                       d("[Navigation] - Selecting : " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
+                                    end
+                                    Player:SelectMount(ml_navigation.gw2mount[mount].ID)
+                                 end
+                              end
+                           end
+                        end
+                     end
+                  end
+
                   -- TODO: check if water surface node, dont try to mount if so.
-                  if ((Settings.GW2Minion[ml_navigation.acc_name].usemount == nil or Settings.GW2Minion[ml_navigation.acc_name].usemount) and not Player.mounted and Player.canmount and ml_global_information.Now - ml_navigation.lastMount > 5000) then
+                  if ((Settings.GW2Minion[ml_navigation.acc_name].usemount == nil or Settings.GW2Minion[ml_navigation.acc_name].usemount) and not Player.mounted and Player.canmount and TimeSince(ml_navigation.lastMount) > ml_navigation.thresholds.mount) then
                      local remainingPathLenght = ml_navigation:GetRemainingPathLenght()
                      if (remainingPathLenght ~= 0 and remainingPathLenght > 800) then
                         local allowMount = true
@@ -1001,7 +1083,7 @@ function ml_navigation.Navigate(event, ticks)
                            allowMount = false
                         end
 
-                        local mountDisableingBuffs = { [57576] = true, [43406] = true, [49494] = true }
+                        local mountDisableingBuffs = { [57576] = true, [43406] = true, [49494] = true, [54938] = true }
                         if (Player.buffs and gw2_common_functions.HasBuffs(Player, mountDisableingBuffs)) then
                            allowMount = false
                         end
@@ -1013,6 +1095,7 @@ function ml_navigation.Navigate(event, ticks)
                            if (distanceToNextNode >= 500) then
                               if (anglediffPlayerNextNode < 30) then
                                  gw2_common_functions.NecroLeaveDeathshroud()
+
                                  Player:Mount()
                                  ml_navigation.lastMount = ml_global_information.Now
                               end
@@ -1033,7 +1116,7 @@ function ml_navigation.Navigate(event, ticks)
                if (ml_navigation.lastMountOMCID and TimeSince(ml_navigation.lastMount) > 4000) then
                   if (not Player.mounted) then
                      -- Make sure we have the mount we last used
-                     if (ml_navigation.lastMountOMCID == Player:GetSpellInfo(19).skillid) then
+                     if (ml_navigation.lastMountOMCID == ml_navigation.skills[19].skillid) then
                         ml_navigation.lastMountOMCID = nil
                      else
                         Player:SelectMount(ml_navigation.lastMountOMCID)
@@ -1718,4 +1801,39 @@ function ml_navigation.JackalPortal()
    end
 
    return portal
+end
+
+function ml_navigation.getCurrentMount(slot5, slot19)
+   for mount_name, mount in pairs(ml_navigation.gw2mount) do
+      if (slot5 and slot5 == mount.SKILLID) or (slot19 and slot19 == mount.ID) then
+         local skill = Player:GetSpellInfoByID(mount.ID)
+         if skill then
+            skill.name_fallback = mount_name
+         end
+
+         return skill
+      end
+   end
+end
+
+function ml_navigation.IsInWvW()
+   local WvW_Maps = {
+      [95] = "Alpine Borderlands",
+      [96] = "Alpine Borderlands",
+      [1099] = "Desert Borderlands",
+      [38] = "Eternal Battlegrounds",
+   }
+
+   return WvW_Maps[ml_global_information.CurrentMapID]
+end
+
+function ml_navigation.ResetMountUsage(time)
+   ml_navigation.ticks.favorite_mount = 0
+   ml_navigation.lastMount = 0
+end
+
+function ml_navigation.PauseMountUsage(time)
+   time = type(time) == "number" and time or 500
+   ml_navigation.ticks.favorite_mount = ml_global_information.Now + time
+   ml_navigation.lastMount = ml_global_information.Now + time
 end
