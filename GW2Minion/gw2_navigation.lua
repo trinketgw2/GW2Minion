@@ -16,6 +16,11 @@ ml_navigation.thresholds = {
    favorite_mount = 500,
    mount = 1000,
 }
+ml_navigation.favorite_mounts = {
+   "none",
+   "Raptor",
+   "Jackal",
+}
 
 -- gw2_obstacle_manager has control over this now
 ml_navigation.avoidanceareasize = 50
