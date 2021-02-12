@@ -1060,7 +1060,7 @@ function ml_navigation.Navigate(event, ticks)
                                     end
                                  end
 
-                                 if not ml_navigation.mounted and (ml_navigation.skills[19] and (ml_navigation.skills[19].id ~= ml_navigation.gw2mount[mount].ID)) then
+                                 if not ml_navigation.mounted and (not ml_navigation.skills[19] or (ml_navigation.skills[19].id ~= ml_navigation.gw2mount[mount].ID)) then
                                     if not ml_navigation.inWvW then
                                        d("[Navigation] - Selecting our favorite mount: " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
                                     else
