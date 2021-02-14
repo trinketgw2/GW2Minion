@@ -183,6 +183,19 @@ function ml_navigation.Navigate(event, ticks)
                   return
                end
 
+               if not ml_navigation.navconnection and Settings.GW2Minion.Beta.obstacle_check then
+                  local hit, gap = ml_navigation.ObstacleCheck(ml_navigation.mounted and 125 or 45, 20)
+                  if hit then
+                     if ml_navigation.mounted then
+                        d("[Navigation]: Something is blocking our path. Dismounting.")
+                        Player:Dismount()
+                     elseif gap and gap > 10 then
+                        d("[Navigation]: Something is blocking our path, but we should be able to jump over it. Jumping.")
+                        Player:Jump()
+                     end
+                  end
+               end
+
                -- Validate the next few path nodes if they are mount OMCs and are reachable (mastery, too high/far in general etc.)
                for index = 0, 20 do
                   local navCon = ml_navigation.path[ml_navigation.pathindex + index]
@@ -1841,4 +1854,146 @@ function ml_navigation.PauseMountUsage(time)
    time = type(time) == "number" and time or 500
    ml_navigation.ticks.favorite_mount = ml_global_information.Now + time
    ml_navigation.lastMount = ml_global_information.Now + time
+end
+
+function ml_navigation.ObstacleCheck(input_distance, amount)
+   local hit = {
+      left = 0,
+      right = 0,
+      frontal = 0,
+   }
+   local no_hit = {
+      frontal = {},
+   }
+   local size = Player.height + 5
+   local width = Player.radius + 2
+   amount = amount or 20
+   local p = Player.pos
+   local staymounted = true
+
+   local nav_node = ml_navigation.path[ml_navigation.pathindex]
+   if nav_node then
+      for distance = 0, input_distance, (input_distance / 5) do
+         local dis = math.distance3d(p, nav_node)
+         no_hit.frontal = {}
+         local vec = {
+            x = (nav_node.x - p.x) / dis,
+            y = (nav_node.y - p.y) / dis,
+            z = (nav_node.z - p.z) / dis
+         }
+         local vech = math.atan2(vec.y, vec.x)
+         local vec_perp_L = {
+            hx = -math.sin(vech),
+            hy = math.cos(vech)
+         }
+         local vec_perp_R = {
+            hx = math.sin(vech),
+            hy = -math.cos(vech)
+         }
+         local ahead_loc = {
+            x = p.x + (distance * vec.x),
+            y = p.y + (distance * vec.y),
+            z = p.z + (distance * vec.z)
+         }
+
+         local frontal = {
+            x = p.x + ((distance + 25) * vec.x),
+            y = p.y + ((distance + 25) * vec.y),
+            z = p.z + ((distance + 25) * vec.z)
+         }
+
+         --- RayCasts
+         local Rays = {
+            down = {},
+            up = {},
+            left = {},
+            right = {},
+            frontal = {}
+         }
+
+         Rays.down.hit, Rays.down.x, Rays.down.y, Rays.down.z = RayCast(ahead_loc.x, ahead_loc.y, ahead_loc.z - (size / 2), ahead_loc.x, ahead_loc.y, ahead_loc.z + (size / 2))
+         if Rays.down.hit then
+            local z = {
+               feet = Rays.down.z - 25,
+               head = Rays.down.z - size,
+            }
+
+            Rays.up.hit, Rays.up.x, Rays.up.y, Rays.up.z = RayCast(ahead_loc.x, ahead_loc.y, z.feet, ahead_loc.x, ahead_loc.y, z.head)
+
+            local left = {
+               x = ahead_loc.x + (width * vec_perp_L.hx),
+               y = ahead_loc.y + (width * vec_perp_L.hy)
+            }
+            local right = {
+               x = ahead_loc.x + (width * vec_perp_R.hx),
+               y = ahead_loc.y + (width * vec_perp_R.hy)
+            }
+
+            local step = -(z.feet - z.head) / amount
+
+            for height = z.feet, z.head, step do
+               local l = {
+                  ray = {},
+                  start = {
+                     x = ahead_loc.x,
+                     y = ahead_loc.y,
+                     z = height,
+                  },
+                  dest = {
+                     x = left.x,
+                     y = left.y,
+                     z = height,
+                  },
+               }
+               l.ray.hit, l.ray.x, l.ray.y, l.ray.z = RayCast(ahead_loc.x, ahead_loc.y, height, left.x, left.y, height)
+               hit.left = hit.left + (l.ray.hit and 1 or 0)
+
+               local r = {
+                  ray = {},
+                  start = {
+                     x = ahead_loc.x,
+                     y = ahead_loc.y,
+                     z = height,
+                  },
+                  dest = {
+                     x = right.x,
+                     y = right.y,
+                     z = height,
+                  },
+               }
+               r.ray.hit, r.ray.x, r.ray.y, r.ray.z = RayCast(ahead_loc.x, ahead_loc.y, height, right.x, right.y, height)
+               hit.right = hit.right + (r.ray.hit and 1 or 0)
+
+               local f = {
+                  ray = {},
+                  start = {
+                     x = ahead_loc.x,
+                     y = ahead_loc.y,
+                     z = height,
+                  },
+                  dest = {
+                     x = frontal.x,
+                     y = frontal.y,
+                     z = height,
+                  },
+               }
+               f.ray.hit, f.ray.x, f.ray.y, f.ray.z = RayCast(ahead_loc.x, ahead_loc.y, height, frontal.x, frontal.y, height)
+               hit.frontal = hit.frontal + (f.ray.hit and 1 or 0)
+               if f.ray.hit then
+                  no_hit.frontal = {}
+               else
+                  table.insert(no_hit.frontal, math.abs(height) - math.abs(z.feet))
+               end
+            end
+
+            if hit.right > 0 and hit.left > 0 then
+               return true
+            end
+
+            if hit.frontal > 1 then
+               return true, table.size(no_hit.frontal)
+            end
+         end
+      end
+   end
 end
