@@ -178,6 +178,7 @@ function ml_navigation.Navigate(event, ticks)
                local nextnode = ml_navigation.path[ml_navigation.pathindex]
                local nextnextnode = ml_navigation.path[ml_navigation.pathindex + 1]
                local totalpathdistance = ml_navigation.path[1].pathdistance or 0
+               local movementstate = Player:GetMovementState()
 
                -- Ensure Position: Takes a second to make sure the player is really stopped at the wanted position (used for precise OMC bunnyhopping)
                if (table.valid(ml_navigation.ensureposition) and ml_navigation:EnsurePosition(playerpos)) then
@@ -185,8 +186,8 @@ function ml_navigation.Navigate(event, ticks)
                   return
                end
 
-               if not ml_navigation.navconnection and Settings.GW2Minion.Beta.obstacle_check then
-                  local hit, gap = ml_navigation.ObstacleCheck(ml_navigation.mounted and 125 or 45, 20)
+               if not ml_navigation.navconnection and Settings.GW2Minion.Beta.obstacle_check and movementstate == GW2.MOVEMENTSTATE.GroundMoving then
+                  local hit, gap = ml_navigation.ObstacleCheck(ml_navigation.mounted and 125 or 25, 20)
                   if hit then
                      if ml_navigation.mounted then
                         d("[Navigation]: Something is blocking our path. Dismounting.")
@@ -289,7 +290,6 @@ function ml_navigation.Navigate(event, ticks)
                         end
                         lastnode = nextnode
                         nextnode = ml_navigation.path[ml_navigation.pathindex + 1]
-                        local movementstate = Player:GetMovementState()
                         if (movementstate == GW2.MOVEMENTSTATE.Jumping) then
                            if (not ml_navigation.omc_startheight) then
                               ml_navigation.omc_startheight = playerpos.z
@@ -391,7 +391,6 @@ function ml_navigation.Navigate(event, ticks)
 
                      elseif (ncsubtype == 4) then
                         -- INTERACT
-                        local movementstate = Player:GetMovementState()
                         Player:Stop()
                         -- delay getting on mount, this can cancel whatever interacter needs to take place
                         ml_navigation.lastMount = ml_global_information.Now - 2000
@@ -546,10 +545,8 @@ function ml_navigation.Navigate(event, ticks)
                            local neededChargeTime = totalDistToTravel / ml_navigation.gw2mount.springer.GetMaxTravelHeight() * ml_navigation.gw2mount.springer.MAXLOADTIME
                            local needTravelTime = ml_navigation.gw2mount.springer.GetMaxTravelHeight() / ml_navigation.gw2mount.springer.GetMaxTravelTime() * totalDistToTravel
                            local angleToEndPos = gw2_common_functions.angle2DToTargetInDeg(playerpos, { x = playerpos.hx, y = playerpos.hy }, endPos)
-
+                           
                            -- OMC end reached or we failed to jump
-                           local movementstate = Player:GetMovementState()
-
                            if (ml_navigation.currentMountOMC.jumpTime
                                    and ((math.distance3d(playerpos, startPos) > math.distance3d(playerpos, endPos) - endPos.radius * 32) or (math.distance2d(playerpos, startPos) > math.distance2d(startPos, endPos) - endPos.radius * 32))
                                    and (movementstate == GW2.MOVEMENTSTATE.GroundMoving
@@ -584,7 +581,7 @@ function ml_navigation.Navigate(event, ticks)
                               Player:Dismount()
                               return
                            elseif (not Player.mounted and ml_navigation.skills[19].skillid == ml_navigation.gw2mount.springer.ID and Player.canmount) then
-                              if (Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving) then
+                              if (movementstate == GW2.MOVEMENTSTATE.GroundNotMoving) then
                                  Player:Mount()
                                  ml_navigation.currentMountOMC.mountTime = ml_global_information.Now
                               end
@@ -628,7 +625,7 @@ function ml_navigation.Navigate(event, ticks)
                               KeyUp(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
                               ml_navigation.currentMountOMC.stop_mount_energy = ml_navigation.currentMountOMC.stop_mount_energy or ml_navigation.mount_energy
                               -- Move towards endPos
-                              local inAir = Player:GetMovementState() == GW2.MOVEMENTSTATE.Falling or Player:GetMovementState() == GW2.MOVEMENTSTATE.Jumping
+                              local inAir = movementstate == GW2.MOVEMENTSTATE.Falling or movementstate == GW2.MOVEMENTSTATE.Jumping
                               -- TODO: as soon we get a better way to track the charge skill bar we can start moving forward earlier and thus getting further
                               if ((inAir or neededChargeTime <= 0) and math.distance2d(playerpos, startPos) <= math.distance2d(endPos, startPos)) then
                                  Player:SetMovement(GW2.MOVEMENTTYPE.Forward)
@@ -747,7 +744,7 @@ function ml_navigation.Navigate(event, ticks)
                            -- OMC end reached or we failed to jump
                            if (math.distance2d(playerpos, startPos) > math.distance2d(playerpos, endPos) - endPos.radius * 32) then
                               if (not ml_navigation.currentMountOMC.syncPos) then
-                                 if (Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving) then
+                                 if (movementstate == GW2.MOVEMENTSTATE.GroundNotMoving) then
                                     ml_navigation.currentMountOMC.syncPos = ml_global_information.Now
                                  end
                               elseif (TimeSince(ml_navigation.currentMountOMC.syncPos) < ml_navigation.gw2mount.jackal.SYNCTIME) then
@@ -779,7 +776,7 @@ function ml_navigation.Navigate(event, ticks)
                               Player:Dismount()
                               return
                            elseif (not Player.mounted and ml_navigation.skills[19].skillid == ml_navigation.gw2mount.jackal.ID and Player.canmount) then
-                              if (Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving) then
+                              if (movementstate == GW2.MOVEMENTSTATE.GroundNotMoving) then
                                  Player:Mount()
                                  ml_navigation.currentMountOMC.mountTime = ml_global_information.Now
                               end
@@ -926,7 +923,7 @@ function ml_navigation.Navigate(event, ticks)
                               KeyUp(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
                               Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
                               if (not ml_navigation.currentMountOMC.syncPos) then
-                                 if (Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving) then
+                                 if (movementstate == GW2.MOVEMENTSTATE.GroundNotMoving) then
                                     ml_navigation.currentMountOMC.syncPos = ml_global_information.Now
                                  end
                               elseif (TimeSince(ml_navigation.currentMountOMC.syncPos) < ml_navigation.gw2mount.raptor.SYNCTIME) then
@@ -962,7 +959,7 @@ function ml_navigation.Navigate(event, ticks)
                               Player:Dismount()
                               return
                            elseif (not Player.mounted and ml_navigation.skills[19].skillid == ml_navigation.gw2mount.raptor.ID and Player.canmount) then
-                              if (Player:GetMovementState() == GW2.MOVEMENTSTATE.GroundNotMoving) then
+                              if (movementstate == GW2.MOVEMENTSTATE.GroundNotMoving) then
                                  Player:Mount()
                                  ml_navigation.currentMountOMC.mountTime = ml_global_information.Now
                               end
@@ -1009,8 +1006,8 @@ function ml_navigation.Navigate(event, ticks)
                                  Player:SetMovement(GW2.MOVEMENTTYPE.Backward)
                               else
                                  Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
-                                 if (Player:GetMovementState() == GW2.MOVEMENTSTATE.Jumping
-                                         or Player:GetMovementState() == GW2.MOVEMENTSTATE.Falling) then
+                                 if (movementstate == GW2.MOVEMENTSTATE.Jumping
+                                         or movementstate == GW2.MOVEMENTSTATE.Falling) then
                                     Player:SetFacingExact(endPos.x, endPos.y, endPos.z)
                                  end
                               end
@@ -1181,7 +1178,6 @@ function ml_navigation.Navigate(event, ticks)
                end
                Player:StopMovement()
                gw2_unstuck.Reset()
-
             end
          end
       end
@@ -1894,6 +1890,7 @@ function ml_navigation.ObstacleCheck(input_distance, amount)
 
       if nav_node then
          for distance = 0, input_distance, (input_distance / 5) do
+            hit.frontal = 0
             no_hit.frontal = {}
             local ahead_loc = {
                x = p.x + (distance * vec.x),
