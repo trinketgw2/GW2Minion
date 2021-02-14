@@ -64,6 +64,10 @@ function gw2minion.Init()
          open = true,
       },
 
+      Beta = {
+         obstacle_check = false,
+      },
+
       vendorassist = true,
       claimRewards = true,
       equipGathering = true,
