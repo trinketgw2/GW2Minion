@@ -16,7 +16,7 @@ ml_navigation.ticks = {
 ml_navigation.thresholds = {
    favorite_mount = 500,
    mount = 2500,
-   obstacle_check = 50,
+   obstacle_check = 25,
 }
 ml_navigation.favorite_mounts = {
    "none",
@@ -187,7 +187,7 @@ function ml_navigation.Navigate(event, ticks)
                end
 
                if not ml_navigation.navconnection and Settings.GW2Minion.Beta.obstacle_check and movementstate == GW2.MOVEMENTSTATE.GroundMoving then
-                  local hit, gap = ml_navigation.ObstacleCheck(ml_navigation.mounted and 125 or 25, 20)
+                  local hit, gap = ml_navigation.ObstacleCheck(ml_navigation.mounted and 125 or 25, 15)
                   if hit then
                      if ml_navigation.mounted then
                         d("[Navigation]: Something is blocking our path. Dismounting.")
@@ -545,7 +545,7 @@ function ml_navigation.Navigate(event, ticks)
                            local neededChargeTime = totalDistToTravel / ml_navigation.gw2mount.springer.GetMaxTravelHeight() * ml_navigation.gw2mount.springer.MAXLOADTIME
                            local needTravelTime = ml_navigation.gw2mount.springer.GetMaxTravelHeight() / ml_navigation.gw2mount.springer.GetMaxTravelTime() * totalDistToTravel
                            local angleToEndPos = gw2_common_functions.angle2DToTargetInDeg(playerpos, { x = playerpos.hx, y = playerpos.hy }, endPos)
-                           
+
                            -- OMC end reached or we failed to jump
                            if (ml_navigation.currentMountOMC.jumpTime
                                    and ((math.distance3d(playerpos, startPos) > math.distance3d(playerpos, endPos) - endPos.radius * 32) or (math.distance2d(playerpos, startPos) > math.distance2d(startPos, endPos) - endPos.radius * 32))
@@ -1064,9 +1064,9 @@ function ml_navigation.Navigate(event, ticks)
                                     local c = ml_navigation.skills.current_Mount
                                     if (not ml_navigation.skills[5] or (ml_navigation.skills[5].id ~= ml_navigation.gw2mount[mount].SKILLID)) and (not ml_navigation.skills[19] or (ml_navigation.skills[19].id ~= ml_navigation.gw2mount[mount].ID)) then
                                        if not ml_navigation.inWvW then
-                                          d("[Navigation] - We are currently mounted on " .. ((c and c.name and "our " .. (c.name and c.name ~= "" or c.name_fallback)) or " a wrong mount") .. ". Swapping to our favorite mount: " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
+                                          d("[Navigation] - We are currently mounted on " .. ((c and c.name and (c.name and (c.name ~= "" and ("our " .. c.name)) or ((c.name_fallback and "our " .. c.name_fallback) or " a wrong mount"))) or " a wrong mount") .. ". Swapping to our favorite mount: " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
                                        else
-                                          d("[Navigation] - We are currently mounted on " .. ((c and c.name and "our " .. (c.name and c.name ~= "" or c.name_fallback)) or " a wrong mount") .. ". Swapping to : " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
+                                          d("[Navigation] - We are currently mounted on " .. ((c and c.name and (c.name and (c.name ~= "" and ("our " .. c.name)) or ((c.name_fallback and "our " .. c.name_fallback) or " a wrong mount"))) or " a wrong mount") .. ". Swapping to : " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
                                        end
                                        Player:Dismount()
                                     end
@@ -1838,6 +1838,7 @@ function ml_navigation.IsInWvW()
       [96] = "Alpine Borderlands",
       [1099] = "Desert Borderlands",
       [38] = "Eternal Battlegrounds",
+      [899] = "Obsidian Sanctum",
    }
 
    return WvW_Maps[ml_global_information.CurrentMapID]
@@ -1889,7 +1890,8 @@ function ml_navigation.ObstacleCheck(input_distance, amount)
       }
 
       if nav_node then
-         for distance = 0, input_distance, (input_distance / 5) do
+         local distance = input_distance
+         --for distance = 0, input_distance, (input_distance / 5) do
             hit.frontal = 0
             no_hit.frontal = {}
             local ahead_loc = {
@@ -1996,7 +1998,7 @@ function ml_navigation.ObstacleCheck(input_distance, amount)
                   return true, table.size(no_hit.frontal)
                end
             end
-         end
+         --end
       end
    end
 end
