@@ -845,7 +845,7 @@ function gw2_common_functions.getTurnDirection(targetPos)
       elseif delta < -180 then
          delta = delta + 360
       end
-      return delta < 0 and GW2.MOVEMENTTYPE.TurnLeft or GW2.MOVEMENTTYPE.TurnRight
+      return delta < 0 and GW2.MOVEMENTTYPE.TurnRight or GW2.MOVEMENTTYPE.TurnLeft
    end
 end
 
