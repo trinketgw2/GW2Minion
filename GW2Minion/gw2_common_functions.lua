@@ -837,9 +837,14 @@ function gw2_common_functions.getTurnDirection(targetPos)
    local origin = Player and Player.pos
    if (table.valid(origin) and table.valid(targetPos)) then
       local endHeading = gw2_common_functions.normalize({ x = targetPos.x - origin.x, y = targetPos.y - origin.y })
-      local bearingCurrentHeading = math.deg(math.tan(origin.hy / origin.hx))
-      local bearingGoalHeading = math.deg(math.tan(endHeading.y / endHeading.x))
-      local delta = (bearingGoalHeading - bearingCurrentHeading + 540) % 360 - 180
+      local bearingCurrentHeading = math.deg(math.atan2(origin.hy, origin.hx))
+      local bearingGoalHeading = math.deg(math.atan2(endHeading.y, endHeading.x))
+      local delta = bearingGoalHeading - bearingCurrentHeading
+      if delta > 180 then
+         delta = delta - 360
+      elseif delta < -180 then
+         delta = delta + 360
+      end
       return delta < 0 and GW2.MOVEMENTTYPE.TurnLeft or GW2.MOVEMENTTYPE.TurnRight
    end
 end
