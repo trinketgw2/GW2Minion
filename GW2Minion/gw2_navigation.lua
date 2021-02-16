@@ -207,8 +207,8 @@ function ml_navigation.Navigate(event, ticks)
                      local omc = NavigationManager:GetNavConnection(navConId)
 
                      if (omc and omc.details and navConId ~= 0) then
-                        if omc.details.subtype == 7 or omc.details.subtype == 8 or omc.details.subtype == 9 then
-                           if math.distance3d({navCon.x, navCon.y, navCon.z}, playerpos) < 1800 then
+                        if omc.details.subtype and (omc.details.subtype == 7 or omc.details.subtype == 8 or omc.details.subtype == 9) then
+                           if math.distance3d({x = navCon.x, y = navCon.y, z = navCon.z}, playerpos) < 1800 then
                               can_switch_mount = false
                            end
                         end
