@@ -170,6 +170,7 @@ function ml_navigation.Navigate(event, ticks)
          local mount = (Settings.GW2Minion[ml_navigation.acc_name].favorite_mount ~= 1 and ml_navigation.inWvW and "warclaw") or (Settings.GW2Minion[ml_navigation.acc_name].favorite_mount == 2 and "raptor") or (Settings.GW2Minion[ml_navigation.acc_name].favorite_mount == 3 and "jackal")
          ml_navigation.skills.favorite_mount = mount and ml_navigation.gw2mount[mount] and ml_navigation.getCurrentMount(ml_navigation.gw2mount[mount].SKILLID, ml_navigation.gw2mount[mount].ID)
          ml_navigation.pathindex = NavigationManager.NavPathNode   -- gets the current path index which is saved in c++ ( and changed there on updating / adjusting the path, which happens each time MoveTo() is called. Index starts at 1 and 'usually' is 2 whne running
+         local can_switch_mount = true
 
          local pathsize = table.size(ml_navigation.path)
          if (pathsize > 0) then
@@ -182,7 +183,6 @@ function ml_navigation.Navigate(event, ticks)
 
                -- Ensure Position: Takes a second to make sure the player is really stopped at the wanted position (used for precise OMC bunnyhopping)
                if (table.valid(ml_navigation.ensureposition) and ml_navigation:EnsurePosition(playerpos)) then
-
                   return
                end
 
@@ -205,6 +205,14 @@ function ml_navigation.Navigate(event, ticks)
                   if (navCon) then
                      local navConId = navCon.navconnectionid
                      local omc = NavigationManager:GetNavConnection(navConId)
+
+                     if (omc and omc.details and navConId ~= 0) then
+                        if omc.details.subtype == 7 or omc.details.subtype == 8 or omc.details.subtype == 9 then
+                           if math.distance3d({navCon.x, navCon.y, navCon.z}, playerpos) < 1800 then
+                              can_switch_mount = false
+                           end
+                        end
+                     end
 
                      if (omc and omc.details and navConId ~= 0 and omc.details.subtype == 7) then
                         local startPos = (omc.sideA.walkable and omc.sideA.x == navCon.x and omc.sideA.y == navCon.y and omc.sideA.z == navCon.z) and omc.sideA or omc.sideB
@@ -1053,32 +1061,34 @@ function ml_navigation.Navigate(event, ticks)
 
                else
 
-                  if TimeSince(ml_navigation.ticks.favorite_mount) > ml_navigation.thresholds.favorite_mount then
-                     ml_navigation.ticks.favorite_mount = ml_global_information.Now
+                  if (not ml_navigation.lastMountOMCID or TimeSince(ml_navigation.lastMount) > 4000) and can_switch_mount then
+                     if TimeSince(ml_navigation.ticks.favorite_mount) > ml_navigation.thresholds.favorite_mount then
+                        ml_navigation.ticks.favorite_mount = ml_global_information.Now
 
-                     if Settings.GW2Minion[ml_navigation.acc_name].usemount then
-                        if not ml_navigation.currentMountOMC or not table.valid(ml_navigation.currentMountOMC) and not ml_global_information.Player_InCombat then
-                           if Settings.GW2Minion[ml_navigation.acc_name].favorite_mount > 1 then
-                              if ml_navigation.skills.favorite_mount then
-                                 if ml_navigation.mounted then
-                                    local c = ml_navigation.skills.current_Mount
-                                    if (not ml_navigation.skills[5] or (ml_navigation.skills[5].id ~= ml_navigation.gw2mount[mount].SKILLID)) and (not ml_navigation.skills[19] or (ml_navigation.skills[19].id ~= ml_navigation.gw2mount[mount].ID)) then
-                                       if not ml_navigation.inWvW then
-                                          d("[Navigation] - We are currently mounted on " .. ((c and c.name and (c.name and (c.name ~= "" and ("our " .. c.name)) or ((c.name_fallback and "our " .. c.name_fallback) or " a wrong mount"))) or " a wrong mount") .. ". Swapping to our favorite mount: " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
-                                       else
-                                          d("[Navigation] - We are currently mounted on " .. ((c and c.name and (c.name and (c.name ~= "" and ("our " .. c.name)) or ((c.name_fallback and "our " .. c.name_fallback) or " a wrong mount"))) or " a wrong mount") .. ". Swapping to : " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
+                        if Settings.GW2Minion[ml_navigation.acc_name].usemount then
+                           if not ml_navigation.currentMountOMC or not table.valid(ml_navigation.currentMountOMC) and not ml_global_information.Player_InCombat then
+                              if Settings.GW2Minion[ml_navigation.acc_name].favorite_mount > 1 then
+                                 if ml_navigation.skills.favorite_mount then
+                                    if ml_navigation.mounted then
+                                       local c = ml_navigation.skills.current_Mount
+                                       if (not ml_navigation.skills[5] or (ml_navigation.skills[5].id ~= ml_navigation.gw2mount[mount].SKILLID)) and (not ml_navigation.skills[19] or (ml_navigation.skills[19].id ~= ml_navigation.gw2mount[mount].ID)) then
+                                          if not ml_navigation.inWvW then
+                                             d("[Navigation] - We are currently mounted on " .. ((c and c.name and (c.name and (c.name ~= "" and ("our " .. c.name)) or ((c.name_fallback and "our " .. c.name_fallback) or " a wrong mount"))) or " a wrong mount") .. ". Swapping to our favorite mount: " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
+                                          else
+                                             d("[Navigation] - We are currently mounted on " .. ((c and c.name and (c.name and (c.name ~= "" and ("our " .. c.name)) or ((c.name_fallback and "our " .. c.name_fallback) or " a wrong mount"))) or " a wrong mount") .. ". Swapping to : " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
+                                          end
+                                          Player:Dismount()
                                        end
-                                       Player:Dismount()
                                     end
-                                 end
 
-                                 if not ml_navigation.mounted and (not ml_navigation.skills[19] or (ml_navigation.skills[19].id ~= ml_navigation.gw2mount[mount].ID)) then
-                                    if not ml_navigation.inWvW then
-                                       d("[Navigation] - Selecting our favorite mount: " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
-                                    else
-                                       d("[Navigation] - Selecting : " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
+                                    if not ml_navigation.mounted and (not ml_navigation.skills[19] or (ml_navigation.skills[19].id ~= ml_navigation.gw2mount[mount].ID)) then
+                                       if not ml_navigation.inWvW then
+                                          d("[Navigation] - Selecting our favorite mount: " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
+                                       else
+                                          d("[Navigation] - Selecting : " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
+                                       end
+                                       Player:SelectMount(ml_navigation.gw2mount[mount].ID)
                                     end
-                                    Player:SelectMount(ml_navigation.gw2mount[mount].ID)
                                  end
                               end
                            end
@@ -1892,112 +1902,112 @@ function ml_navigation.ObstacleCheck(input_distance, amount)
       if nav_node then
          local distance = input_distance
          --for distance = 0, input_distance, (input_distance / 5) do
-            hit.frontal = 0
-            no_hit.frontal = {}
-            local ahead_loc = {
-               x = p.x + (distance * vec.x),
-               y = p.y + (distance * vec.y),
-               z = p.z + (distance * vec.z)
+         hit.frontal = 0
+         no_hit.frontal = {}
+         local ahead_loc = {
+            x = p.x + (distance * vec.x),
+            y = p.y + (distance * vec.y),
+            z = p.z + (distance * vec.z)
+         }
+
+         local frontal = {
+            x = p.x + ((distance + 25) * vec.x),
+            y = p.y + ((distance + 25) * vec.y),
+            z = p.z + ((distance + 25) * vec.z)
+         }
+
+         --- RayCasts
+         local Rays = {
+            down = {},
+            up = {},
+            left = {},
+            right = {},
+            frontal = {}
+         }
+
+         Rays.down.hit, Rays.down.x, Rays.down.y, Rays.down.z = RayCast(ahead_loc.x, ahead_loc.y, ahead_loc.z - (size / 2), ahead_loc.x, ahead_loc.y, ahead_loc.z + (size / 2))
+         if Rays.down.hit then
+            local z = {
+               feet = Rays.down.z - 25,
+               head = Rays.down.z - size,
             }
 
-            local frontal = {
-               x = p.x + ((distance + 25) * vec.x),
-               y = p.y + ((distance + 25) * vec.y),
-               z = p.z + ((distance + 25) * vec.z)
+            Rays.up.hit, Rays.up.x, Rays.up.y, Rays.up.z = RayCast(ahead_loc.x, ahead_loc.y, z.feet, ahead_loc.x, ahead_loc.y, z.head)
+
+            local left = {
+               x = ahead_loc.x + (width * vec_perp_L.hx),
+               y = ahead_loc.y + (width * vec_perp_L.hy)
+            }
+            local right = {
+               x = ahead_loc.x + (width * vec_perp_R.hx),
+               y = ahead_loc.y + (width * vec_perp_R.hy)
             }
 
-            --- RayCasts
-            local Rays = {
-               down = {},
-               up = {},
-               left = {},
-               right = {},
-               frontal = {}
-            }
+            local step = -(z.feet - z.head) / amount
 
-            Rays.down.hit, Rays.down.x, Rays.down.y, Rays.down.z = RayCast(ahead_loc.x, ahead_loc.y, ahead_loc.z - (size / 2), ahead_loc.x, ahead_loc.y, ahead_loc.z + (size / 2))
-            if Rays.down.hit then
-               local z = {
-                  feet = Rays.down.z - 25,
-                  head = Rays.down.z - size,
+            for height = z.feet, z.head, step do
+               local l = {
+                  ray = {},
+                  start = {
+                     x = ahead_loc.x,
+                     y = ahead_loc.y,
+                     z = height,
+                  },
+                  dest = {
+                     x = left.x,
+                     y = left.y,
+                     z = height,
+                  },
                }
+               l.ray.hit, l.ray.x, l.ray.y, l.ray.z = RayCast(ahead_loc.x, ahead_loc.y, height, left.x, left.y, height)
+               hit.left = hit.left + (l.ray.hit and 1 or 0)
 
-               Rays.up.hit, Rays.up.x, Rays.up.y, Rays.up.z = RayCast(ahead_loc.x, ahead_loc.y, z.feet, ahead_loc.x, ahead_loc.y, z.head)
-
-               local left = {
-                  x = ahead_loc.x + (width * vec_perp_L.hx),
-                  y = ahead_loc.y + (width * vec_perp_L.hy)
+               local r = {
+                  ray = {},
+                  start = {
+                     x = ahead_loc.x,
+                     y = ahead_loc.y,
+                     z = height,
+                  },
+                  dest = {
+                     x = right.x,
+                     y = right.y,
+                     z = height,
+                  },
                }
-               local right = {
-                  x = ahead_loc.x + (width * vec_perp_R.hx),
-                  y = ahead_loc.y + (width * vec_perp_R.hy)
+               r.ray.hit, r.ray.x, r.ray.y, r.ray.z = RayCast(ahead_loc.x, ahead_loc.y, height, right.x, right.y, height)
+               hit.right = hit.right + (r.ray.hit and 1 or 0)
+
+               local f = {
+                  ray = {},
+                  start = {
+                     x = ahead_loc.x,
+                     y = ahead_loc.y,
+                     z = height,
+                  },
+                  dest = {
+                     x = frontal.x,
+                     y = frontal.y,
+                     z = height,
+                  },
                }
-
-               local step = -(z.feet - z.head) / amount
-
-               for height = z.feet, z.head, step do
-                  local l = {
-                     ray = {},
-                     start = {
-                        x = ahead_loc.x,
-                        y = ahead_loc.y,
-                        z = height,
-                     },
-                     dest = {
-                        x = left.x,
-                        y = left.y,
-                        z = height,
-                     },
-                  }
-                  l.ray.hit, l.ray.x, l.ray.y, l.ray.z = RayCast(ahead_loc.x, ahead_loc.y, height, left.x, left.y, height)
-                  hit.left = hit.left + (l.ray.hit and 1 or 0)
-
-                  local r = {
-                     ray = {},
-                     start = {
-                        x = ahead_loc.x,
-                        y = ahead_loc.y,
-                        z = height,
-                     },
-                     dest = {
-                        x = right.x,
-                        y = right.y,
-                        z = height,
-                     },
-                  }
-                  r.ray.hit, r.ray.x, r.ray.y, r.ray.z = RayCast(ahead_loc.x, ahead_loc.y, height, right.x, right.y, height)
-                  hit.right = hit.right + (r.ray.hit and 1 or 0)
-
-                  local f = {
-                     ray = {},
-                     start = {
-                        x = ahead_loc.x,
-                        y = ahead_loc.y,
-                        z = height,
-                     },
-                     dest = {
-                        x = frontal.x,
-                        y = frontal.y,
-                        z = height,
-                     },
-                  }
-                  f.ray.hit, f.ray.x, f.ray.y, f.ray.z = RayCast(ahead_loc.x, ahead_loc.y, height, frontal.x, frontal.y, height)
-                  hit.frontal = hit.frontal + (f.ray.hit and 1 or 0)
-                  if f.ray.hit then
-                     no_hit.frontal = {}
-                  else
-                     table.insert(no_hit.frontal, math.abs(height) - math.abs(z.feet))
-                  end
-               end
-
-               if hit.right > 0 and hit.left > 0 then
-                  return true
-               end
-
-               if hit.frontal > 1 then
-                  return true, table.size(no_hit.frontal)
+               f.ray.hit, f.ray.x, f.ray.y, f.ray.z = RayCast(ahead_loc.x, ahead_loc.y, height, frontal.x, frontal.y, height)
+               hit.frontal = hit.frontal + (f.ray.hit and 1 or 0)
+               if f.ray.hit then
+                  no_hit.frontal = {}
+               else
+                  table.insert(no_hit.frontal, math.abs(height) - math.abs(z.feet))
                end
             end
+
+            if hit.right > 0 and hit.left > 0 then
+               return true
+            end
+
+            if hit.frontal > 1 then
+               return true, table.size(no_hit.frontal)
+            end
+         end
          --end
       end
    end
