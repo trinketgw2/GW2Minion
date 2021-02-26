@@ -52,6 +52,7 @@ function gw2minion.Init()
 
       [acc_name] = {
          usemount = true,
+         usemountleaps = true,
          springerMastered = false,
          raptorMastered = false,
          mountAbility2Key = 0x56,
@@ -63,11 +64,6 @@ function gw2minion.Init()
          visible = true,
          open = true,
       },
-
-      Beta = {
-         obstacle_check = false,
-      },
-
       vendorassist = true,
       claimRewards = true,
       equipGathering = true,
