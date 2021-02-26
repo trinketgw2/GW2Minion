@@ -125,6 +125,10 @@ function gw2_unstuck.HandleStuck()
       return gw2_unstuck.lastresult
    end
 
+   if movementstate == 0 then
+      ml_navigation.Sync()
+   end
+
    -- Make sure we are actually in the game and not a cutscene
    if (ml_global_information.GameState ~= GW2.GAMESTATE.GAMEPLAY) then
       gw2_unstuck.lastresult = true
