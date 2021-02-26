@@ -11,12 +11,16 @@ ml_navigation.ticks = {
    favorite_mount = 0,
    mount = 0,
    obstacle_check = 0,
+   sync = 0,
+   mount_leap = 0,
 }
 
 ml_navigation.thresholds = {
    favorite_mount = 500,
    mount = 2500,
    obstacle_check = 25,
+   sync = 25,
+   mount_leap = 125,
 }
 ml_navigation.favorite_mounts = {
    "none",
@@ -27,42 +31,64 @@ ml_navigation.favorite_mounts = {
 -- gw2_obstacle_manager has control over this now
 ml_navigation.avoidanceareasize = 50
 ml_navigation.avoidanceareas = { }   -- TODO: make a proper API in c++ for handling a list and accessing single entries
+ml_navigation.previous = {}
+ml_navigation.obstacles = {
+   left = {},
+   right = {},
+}
 
 -- all mount related variables
 ml_navigation.lastMountOMCID = nil
 ml_navigation.gw2mount = {}
-
+ml_navigation.gw2mount.disabled_buffs = { [57576] = true, [43406] = true, [49494] = true, [54938] = true, [14346] = true, [7509] = true, [7466] = true }
 ml_navigation.gw2mount.skimmer = {
    ID = 40509,
    SKILLID = 41253,
    GRACETIME = 2000,
    SYNCTIME = 1000,
+   PREMOUNT_DISTANCE = 750,
+   DISMOUNT_DISTANCE = 450,
+   NAME = "Skimmer",
 }
 ml_navigation.gw2mount.warclaw = {
    ID = 54871,
    SKILLID = 54912,
+   SKILLID_MASTERED = 54889,
    GRACETIME = 2000,
    SYNCTIME = 1000,
+   PREMOUNT_DISTANCE = 5000,
+   DISMOUNT_DISTANCE = 500,
+   NAME = "Warclaw",
 }
 ml_navigation.gw2mount.griffon = {
    ID = 44590,
    SKILLID = 41192,
    GRACETIME = 2000,
    SYNCTIME = 1000,
+   PREMOUNT_DISTANCE = 750,
+   DISMOUNT_DISTANCE = 450,
+   NAME = "Griffon",
 }
 ml_navigation.gw2mount.skyscale = {
    ID = 55715,
    SKILLID = 55536,
    GRACETIME = 2000,
    SYNCTIME = 1000,
+   PREMOUNT_DISTANCE = 750,
+   DISMOUNT_DISTANCE = 450,
+   NAME = "Skyscale",
 }
 ml_navigation.gw2mount.rollerbeetle = {
    ID = 50908,
    SKILLID = 51040,
    GRACETIME = 2000,
    SYNCTIME = 1000,
+   PREMOUNT_DISTANCE = 2500,
+   DISMOUNT_DISTANCE = 600,
+   NAME = "Roller Beetle",
 }
 ml_navigation.gw2mount.springer = {
+   NC_SUBTYPE = 7,
    ID = 41731,
    SKILLID = 45994,
    MAXLOADTIME = 800,
@@ -76,14 +102,24 @@ ml_navigation.gw2mount.springer = {
    GetMaxTravelTime = function()
       return (ml_navigation.acc_name ~= "" and Settings.GW2Minion[ml_navigation.acc_name] and Settings.GW2Minion[ml_navigation.acc_name].springerMastered and 3500) or 2050
    end,
+   PREMOUNT_DISTANCE = 600,
+   MOUNT_SWITCH_DISTANCE = 450,
+   DISMOUNT_DISTANCE = 450,
+   NAME = "Springer",
 }
 ml_navigation.gw2mount.jackal = {
+   NC_SUBTYPE = 8,
    ID = 40215,
    SKILLID = 46089,
    GRACETIME = 2000,
    SYNCTIME = 1000,
+   PREMOUNT_DISTANCE = 3000,
+   MOUNT_SWITCH_DISTANCE = 600,
+   DISMOUNT_DISTANCE = 500,
+   NAME = "Jackal",
 }
 ml_navigation.gw2mount.raptor = {
+   NC_SUBTYPE = 9,
    ID = 41378,
    SKILLID = 40409,
    GRACETIME = 1000,
@@ -91,8 +127,20 @@ ml_navigation.gw2mount.raptor = {
    GetMaxTravelDistance = function()
       return (ml_navigation.acc_name ~= "" and Settings.GW2Minion[ml_navigation.acc_name] and Settings.GW2Minion[ml_navigation.acc_name].raptorMastered and 1884) or 1100
    end,
+   PREMOUNT_DISTANCE = 3000,
+   MOUNT_SWITCH_DISTANCE = 600,
+   DISMOUNT_DISTANCE = 500,
+   NAME = "Raptor",
 }
-
+ml_navigation.smooth_dismounts = {
+   [1] = 575,
+   [3] = 425,
+   [4] = 425,
+   [6] = 425,
+   [7] = ml_navigation.gw2mount.springer.DISMOUNT_DISTANCE,
+   [8] = ml_navigation.gw2mount.jackal.DISMOUNT_DISTANCE,
+   [9] = ml_navigation.gw2mount.raptor.DISMOUNT_DISTANCE,
+}
 ml_navigation.GetMovementType = function()
    if (Player.swimming ~= GW2.SWIMSTATE.Diving) then
       if (Player.mounted) then
@@ -109,38 +157,78 @@ ml_navigation.StopMovement = function()
 end
 
 -- Main function to move the player. 'targetid' is optional but should be used as often as possible, if there is no target, use 0
-function Player:MoveTo(x, y, z, targetid, stoppingdistance, randommovement, smoothturns, staymounted)
-   ml_navigation.stoppingdistance = stoppingdistance or 154
-   ml_navigation.randommovement = randommovement
-   ml_navigation.smoothturns = smoothturns or true
-   ml_navigation.targetid = targetid or 0
-   ml_navigation.staymounted = staymounted or false
-   ml_navigation.debug = nil
+function Player:MoveTo(x, y, z, targetid, stoppingdistance, randommovement, smoothturns, staymounted, use_leaps)
+   local ms = Player.movementstate
+   local last_dest = ml_navigation.path and ml_navigation.path[table.size(ml_navigation.path)]
 
-   ml_navigation.targetposition = { x = x, y = y, z = z }
+   --- Check if we are synced with the world due to teleports or what not; added here to handle everything movement related.
 
-   if (not ml_navigation.navconnection or ml_navigation.navconnection.type == 5) then
-      -- We are not currently handling a NavConnection / ignore MacroMesh Connections, these have to be replaced with a proper path by calling this exact function here
-      if (ml_navigation.navconnection) then
-         gw2_unstuck.Reset()
+   local not_moving = (ms == GW2.MOVEMENTSTATE.GroundNotMoving or ms == GW2.MOVEMENTSTATE.AboveWaterNotMoving or ms == GW2.MOVEMENTSTATE.BelowWaterNotMoving or ms == 0)
+   local valid_new_previous = not ml_navigation.previous.targetposition or math.distance3d(ml_navigation.previous.targetposition, { x = x, y = y, z = z }) > 1
+   local valid_destination = math.distance3d({ x = 0, y = 0, z = 0 }, { x = x, y = y, z = z }) > 1
+
+   if not valid_new_previous and not_moving then
+      if TimeSince(ml_navigation.previous.start) > 1250 then
+         if math.distance3d(ml_navigation.previous.targetposition, Player.pos) == ml_navigation.previous.distance then
+            d("[Navigation] - Standing on the same position for " .. math.round(tostring(TimeSince(ml_navigation.previous.start) / 1000), 2) .. " seconds while we have a valid path. Stepping backwards.")
+            ml_navigation.Sync(ms)
+         else
+            ml_navigation.previous = {
+               targetposition = { x = x, y = y, z = z },
+               start = ml_global_information.Now,
+               distance = math.distance3d({ x = x, y = y, z = z }, Player.pos),
+            }
+         end
       end
-      ml_navigation.navconnection = nil
-      local status = ml_navigation:MoveTo(x, y, z, targetid)
-      ml_navigation.movement_status = status
 
-      -- Handle stuck if we start off mesh
-      if (status == -1 or status == -7) then
-         -- We're starting off the mesh, so return 0 (valid) to let unstuck handle moving without failing the moveto
-         gw2_unstuck.HandleStuck()
-         return 0
+   elseif not not_moving or (valid_destination and valid_new_previous) then
+      ml_navigation.previous = {
+         targetposition = { x = x, y = y, z = z },
+         start = ml_global_information.Now,
+         distance = math.distance3d({ x = x, y = y, z = z }, Player.pos),
+      }
+   end
+
+   if (ms ~= GW2.MOVEMENTSTATE.Falling and ms ~= GW2.MOVEMENTSTATE.Jumping) or not table.valid(ml_navigation.path) or (last_dest and math.distance3d(last_dest, { x = x, y = y, z = z }) > 5) then
+      ml_navigation.stoppingdistance = stoppingdistance or 154
+      ml_navigation.randommovement = randommovement
+      ml_navigation.smoothturns = smoothturns or true
+      ml_navigation.targetid = targetid or 0
+      ml_navigation.staymounted = staymounted or false
+      ml_navigation.use_leaps = use_leaps == nil and true or use_leaps
+      ml_navigation.debug = nil
+
+      ml_navigation.targetposition = { x = x, y = y, z = z }
+
+      if (not ml_navigation.navconnection or ml_navigation.navconnection.type == 5) then
+         -- We are not currently handling a NavConnection / ignore MacroMesh Connections, these have to be replaced with a proper path by calling this exact function here
+         if (ml_navigation.navconnection) then
+            gw2_unstuck.Reset()
+         end
+         ml_navigation.navconnection = nil
+         local status = ml_navigation:MoveTo(x, y, z, targetid)
+         ml_navigation.movement_status = status
+
+         -- Handle stuck if we start off mesh
+         if (status == -1 or status == -7) then
+            -- We're starting off the mesh, so return 0 (valid) to let unstuck handle moving without failing the moveto
+            gw2_unstuck.HandleStuck()
+            return 0
+         end
+         return status
+      else
+         return table.size(ml_navigation.path)
       end
-      return status
    else
-      return table.size(ml_navigation.path)
+      if table.valid(ml_navigation.path) then
+         return table.size(ml_navigation.path)
+      else
+         return ml_navigation.movement_status
+      end
    end
 end
 
--- Handles the Navigation along the current Path. Is not supposed to be called manually.
+--- Handles the Navigation along the current Path. Is not supposed to be called manually.
 function ml_navigation.Navigate(event, ticks)
 
    if ((ticks - (ml_navigation.lastupdate or 0)) > 10) then
@@ -150,7 +238,7 @@ function ml_navigation.Navigate(event, ticks)
 
       local energy = Player:GetEnergies(0)
       ml_navigation.mount_energy = energy and energy.A or 0
-      if ml_global_information.Player_IsMounted then
+      if Player.mounted then
          ml_navigation.fight_aggro = false
       end
 
@@ -160,17 +248,35 @@ function ml_navigation.Navigate(event, ticks)
          return
       end
 
+      --- Sync in case we are not
+      if ml_navigation.sync ~= nil then
+         local moving = ml_navigation.isMoving(Player.movementstate)
+         if ml_navigation.sync == true or not moving then
+            Player:SetMovement(GW2.MOVEMENTTYPE.Backward)
+            ml_navigation.sync = false
+         elseif moving then
+            Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
+            ml_navigation.sync = nil
+         end
+      end
+
       if (GetGameState() == GW2.GAMESTATE.GAMEPLAY and not ml_navigation.debug) then
          local playerpos = Player.pos
+         local allowMount = true
          ml_navigation.mounted = Player.mounted
          ml_navigation.skills[5] = Player:GetSpellInfo(5)
          ml_navigation.skills[19] = Player:GetSpellInfo(19)
-         ml_navigation.skills.current_Mount = ml_navigation.getCurrentMount((ml_navigation.skills[5] and ml_navigation.skills[5].id), (ml_navigation.skills[19] and ml_navigation.skills[19].id))
+         ml_navigation.current_Mount = {}
+         ml_navigation.current_Mount.skill, ml_navigation.current_Mount.info = ml_navigation.getCurrentMount((ml_navigation.skills[5] and ml_navigation.skills[5].id), (ml_navigation.skills[19] and ml_navigation.skills[19].id))
          ml_navigation.inWvW = ml_navigation.IsInWvW()
          local mount = (Settings.GW2Minion[ml_navigation.acc_name].favorite_mount ~= 1 and ml_navigation.inWvW and "warclaw") or (Settings.GW2Minion[ml_navigation.acc_name].favorite_mount == 2 and "raptor") or (Settings.GW2Minion[ml_navigation.acc_name].favorite_mount == 3 and "jackal")
          ml_navigation.skills.favorite_mount = mount and ml_navigation.gw2mount[mount] and ml_navigation.getCurrentMount(ml_navigation.gw2mount[mount].SKILLID, ml_navigation.gw2mount[mount].ID)
          ml_navigation.pathindex = NavigationManager.NavPathNode   -- gets the current path index which is saved in c++ ( and changed there on updating / adjusting the path, which happens each time MoveTo() is called. Index starts at 1 and 'usually' is 2 whne running
          local can_switch_mount = true
+
+         if (Player.buffs and gw2_common_functions.HasBuffs(Player, ml_navigation.gw2mount.disabled_buffs)) then
+            allowMount = false
+         end
 
          local pathsize = table.size(ml_navigation.path)
          if (pathsize > 0) then
@@ -180,39 +286,22 @@ function ml_navigation.Navigate(event, ticks)
                local nextnextnode = ml_navigation.path[ml_navigation.pathindex + 1]
                local totalpathdistance = ml_navigation.path[1].pathdistance or 0
                local movementstate = Player:GetMovementState()
+               local path_distance, check_obstacle, smooth_dismount, next_mount = 0, true
 
-               -- Ensure Position: Takes a second to make sure the player is really stopped at the wanted position (used for precise OMC bunnyhopping)
+               --- Ensure Position: Takes a second to make sure the player is really stopped at the wanted position (used for precise OMC bunnyhopping)
                if (table.valid(ml_navigation.ensureposition) and ml_navigation:EnsurePosition(playerpos)) then
                   return
                end
 
-               if not ml_navigation.navconnection and Settings.GW2Minion.Beta.obstacle_check and movementstate == GW2.MOVEMENTSTATE.GroundMoving then
-                  local hit, gap = ml_navigation.ObstacleCheck(ml_navigation.mounted and 125 or 25, 15)
-                  if hit then
-                     if ml_navigation.mounted then
-                        d("[Navigation]: Something is blocking our path. Dismounting.")
-                        Player:Dismount()
-                     elseif gap and gap > 10 then
-                        d("[Navigation]: Something is blocking our path, but we should be able to jump over it. Jumping.")
-                        Player:Jump()
-                     end
-                  end
-               end
-
-               -- Validate the next few path nodes if they are mount OMCs and are reachable (mastery, too high/far in general etc.)
+               --- Validate the next few path nodes if they are mount OMCs and are reachable (mastery, too high/far in general etc.)
                for index = 0, 20 do
                   local navCon = ml_navigation.path[ml_navigation.pathindex + index]
+                  local prevCon = ((ml_navigation.pathindex + index - 1) >= ml_navigation.pathindex and ml_navigation.path[ml_navigation.pathindex + index - 1]) or playerpos
                   if (navCon) then
+                     path_distance = path_distance + ((prevCon and math.distance3d({ x = navCon.x, y = navCon.y, z = navCon.z }, { x = prevCon.x, y = prevCon.y, z = prevCon.z })) or 0)
+
                      local navConId = navCon.navconnectionid
                      local omc = NavigationManager:GetNavConnection(navConId)
-
-                     if (omc and omc.details and navConId ~= 0) then
-                        if omc.details.subtype and (omc.details.subtype == 7 or omc.details.subtype == 8 or omc.details.subtype == 9) then
-                           if math.distance3d({x = navCon.x, y = navCon.y, z = navCon.z}, playerpos) < 1800 then
-                              can_switch_mount = false
-                           end
-                        end
-                     end
 
                      if (omc and omc.details and navConId ~= 0 and omc.details.subtype == 7) then
                         local startPos = (omc.sideA.walkable and omc.sideA.x == navCon.x and omc.sideA.y == navCon.y and omc.sideA.z == navCon.z) and omc.sideA or omc.sideB
@@ -226,6 +315,13 @@ function ml_navigation.Navigate(event, ticks)
                            end
                         else
                            EnableNavConnection(omc)
+                           if not next_mount then
+                              next_mount = {
+                                 distance = math.round(path_distance),
+                                 mount = ml_navigation.gw2mount.springer,
+                                 pre_mount = path_distance <= ml_navigation.gw2mount.springer.PREMOUNT_DISTANCE,
+                              }
+                           end
                         end
                      elseif (omc and omc.details and navConId ~= 0 and omc.details.subtype == 8) then
                         local startPos = (omc.sideA.walkable and omc.sideA.x == navCon.x and omc.sideA.y == navCon.y and omc.sideA.z == navCon.z) and omc.sideA or omc.sideB
@@ -238,6 +334,13 @@ function ml_navigation.Navigate(event, ticks)
                            end
                         else
                            EnableNavConnection(omc)
+                           if not next_mount then
+                              next_mount = {
+                                 distance = math.round(path_distance),
+                                 mount = ml_navigation.gw2mount.jackal,
+                                 pre_mount = path_distance <= ml_navigation.gw2mount.jackal.PREMOUNT_DISTANCE,
+                              }
+                           end
                         end
                      elseif (omc and omc.details and navConId ~= 0 and omc.details.subtype == 9) then
                         local startPos = (omc.sideA.walkable and omc.sideA.x == navCon.x and omc.sideA.y == navCon.y and omc.sideA.z == navCon.z) and omc.sideA or omc.sideB
@@ -251,18 +354,47 @@ function ml_navigation.Navigate(event, ticks)
                            end
                         else
                            EnableNavConnection(omc)
+                           if not next_mount then
+                              next_mount = {
+                                 distance = math.round(path_distance),
+                                 mount = ml_navigation.gw2mount.raptor,
+                                 pre_mount = path_distance <= ml_navigation.gw2mount.raptor.PREMOUNT_DISTANCE,
+                              }
+                           end
+                        end
+
+                     elseif (omc and omc.details and (omc.details.subtype == 1 or omc.details.subtype == 3 or omc.details.subtype == 4 or omc.details.subtype == 6)) then
+                        if omc.details.subtype == 6 then
+                           if omc.details.luacode then
+                              if string.contains(omc.details.luacode, "PauseMountUsage") then
+                                 smooth_dismount = smooth_dismount or {
+                                    distance = path_distance,
+                                    subtype = omc.details.subtype,
+                                 }
+                              end
+                           end
+
+                        elseif omc.details.subtype ~= 6 then
+                           smooth_dismount = smooth_dismount or {
+                              distance = path_distance,
+                              subtype = omc.details.subtype,
+                           }
+                        end
+                     elseif omc and omc.details and (omc.details.subtype == 5) then
+                        if index <= 1 then
+                           check_obstacle = false
                         end
                      end
                   end
                end
 
-               -- Handle Current NavConnections
+               --- Handle Current NavConnections
                if (ml_navigation.navconnection) then
-
                   -- Temp solution to cancel navcon handling after 10 sec
                   if (ml_navigation.navconnection_start_tmr and (ml_global_information.Now - ml_navigation.navconnection_start_tmr > 10000)) then
                      d("[Navigation] - We did not complete the Navconnection handling in 10 seconds, something went wrong ?...Resetting Path..")
                      ml_navigation.currentMountOMC = nil
+                     allowMount = false
                      Player:StopMovement()
                      return
                   end
@@ -292,9 +424,9 @@ function ml_navigation.Navigate(event, ticks)
                      end
                      if (ncsubtype == 1) then
                         -- JUMP
-                        if (Player.mounted) then
+                        if (ml_navigation.mounted) then
                            Player:Dismount()
-                           ml_navigation.lastMount = ml_global_information.Now - 5000
+                           ml_navigation.PauseMountUsage(5000)
                         end
                         lastnode = nextnode
                         nextnode = ml_navigation.path[ml_navigation.pathindex + 1]
@@ -374,7 +506,6 @@ function ml_navigation.Navigate(event, ticks)
                         end
                         return
 
-
                      elseif (ncsubtype == 2) then
                         -- WALK
                         lastnode = nextnode      -- OMC start
@@ -401,17 +532,16 @@ function ml_navigation.Navigate(event, ticks)
                         -- INTERACT
                         Player:Stop()
                         -- delay getting on mount, this can cancel whatever interacter needs to take place
-                        ml_navigation.lastMount = ml_global_information.Now - 2000
-                        if (not Player.mounted and movementstate ~= GW2.MOVEMENTSTATE.Jumping and movementstate ~= GW2.MOVEMENTSTATE.Falling) then
+                        ml_navigation.PauseMountUsage(2000)
+                        if (not ml_navigation.mounted and movementstate ~= GW2.MOVEMENTSTATE.Jumping and movementstate ~= GW2.MOVEMENTSTATE.Falling) then
                            Player:Interact()
                            ml_navigation.lastupdate = ml_navigation.lastupdate + 1000
                            ml_navigation.pathindex = ml_navigation.pathindex + 1
                            NavigationManager.NavPathNode = ml_navigation.pathindex
                            ml_navigation.navconnection = nil
-                        elseif (Player.mounted) then
+                        elseif (ml_navigation.mounted) then
                            Player:Dismount()
-                           -- ml_navigation.lastMount = ml_global_information.Now - 3000
-                           -- Player:Stop()
+                           ml_navigation.PauseMountUsage(3000)
                         end
                         return
 
@@ -487,13 +617,14 @@ function ml_navigation.Navigate(event, ticks)
                            -- Continue path available
                            if (navConId ~= 0 and (NavigationManager:GetNavConnection(navConId).details or {}).subtype == 7) then
                               -- We will have right after a springer jump OMC again so we stay mounted on springer
-                              ml_navigation.lastMount = ml_global_information.Now + ml_navigation.gw2mount.springer.GRACETIME
+                              ml_navigation.PauseMountUsage(ml_navigation.gw2mount.springer.GRACETIME)
                            end
                            Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward)
                            Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
                            ml_navigation.pathindex = ml_navigation.pathindex + 1
                            NavigationManager.NavPathNode = ml_navigation.pathindex
                            ml_navigation.currentMountOMC = nil
+                           allowMount = false
                            ml_navigation.navconnection = nil
                            d("[Navigation] - Springer OMC done")
                            return
@@ -508,8 +639,9 @@ function ml_navigation.Navigate(event, ticks)
                         end
 
                         -- We got into combat so we abort the OMC
-                        if (not Player.mounted and Player.incombat and ml_navigation.navconnection) then
+                        if (not ml_navigation.mounted and Player.inCombat and ml_navigation.navconnection) then
                            ml_navigation.currentMountOMC = nil
+                           allowMount = false
                            local target = gw2_common_functions.AggroTargetAtPos(nextnode, 1200)
                            if target then
                               ml_navigation.fight_aggro = {
@@ -576,7 +708,7 @@ function ml_navigation.Navigate(event, ticks)
                               Player:SetFacingExact(endPos.x, endPos.y, endPos.z, true)
                               ml_navigation.currentMountOMC.facingSet = ml_global_information.Now
                               --SetFacing has a "casttime" while beeing mounted, so we wait a bit
-                              if (Player.mounted and ml_navigation.lastupdate) then
+                              if (ml_navigation.mounted and ml_navigation.lastupdate) then
                                  ml_navigation.lastupdate = ml_navigation.lastupdate + 1000 / 180 * angleToEndPos
                               end
                               return
@@ -585,20 +717,20 @@ function ml_navigation.Navigate(event, ticks)
                            -- Mount springer and save last mount to swap back later
                            if (ml_navigation.currentMountOMC.mountTime and TimeSince(ml_navigation.currentMountOMC.mountTime) < 1000) then
                               return
-                           elseif (Player.mounted and ml_navigation.skills[5].skillid ~= ml_navigation.gw2mount.springer.SKILLID) then
+                           elseif (ml_navigation.mounted and ml_navigation.skills[5].skillid ~= ml_navigation.gw2mount.springer.SKILLID) then
                               Player:Dismount()
                               return
-                           elseif (not Player.mounted and ml_navigation.skills[19].skillid == ml_navigation.gw2mount.springer.ID and Player.canmount) then
+                           elseif (not ml_navigation.mounted and ml_navigation.skills[19].skillid == ml_navigation.gw2mount.springer.ID and Player.canmount) then
                               if (movementstate == GW2.MOVEMENTSTATE.GroundNotMoving) then
                                  Player:Mount()
                                  ml_navigation.currentMountOMC.mountTime = ml_global_information.Now
                               end
                               return
-                           elseif (not Player.mounted and Player.canmount and not ml_navigation.lastMountOMCID) then
+                           elseif (not ml_navigation.mounted and Player.canmount and not ml_navigation.lastMountOMCID) then
                               ml_navigation.lastMountOMCID = ml_navigation.skills[19].skillid
                               Player:SelectMount(ml_navigation.gw2mount.springer.ID)
                               return
-                           elseif (not Player.mounted) then
+                           elseif (not ml_navigation.mounted) then
                               return
                            end
 
@@ -681,13 +813,14 @@ function ml_navigation.Navigate(event, ticks)
                            -- Continue path available
                            if (navConId ~= 0 and (NavigationManager:GetNavConnection(navConId).details or {}).subtype == 8) then
                               -- We will have right after a springer jump OMC again so we stay mounted on springer
-                              ml_navigation.lastMount = ml_global_information.Now + ml_navigation.gw2mount.jackal.GRACETIME
+                              ml_navigation.PauseMountUsage(ml_navigation.gw2mount.jackal.GRACETIME)
                            end
                            Player:UnSetMovement(GW2.MOVEMENTTYPE.Forward)
                            Player:UnSetMovement(GW2.MOVEMENTTYPE.Backward)
                            ml_navigation.pathindex = ml_navigation.pathindex + 1
                            NavigationManager.NavPathNode = ml_navigation.pathindex
                            ml_navigation.currentMountOMC = nil
+                           allowMount = false
                            ml_navigation.navconnection = nil
                            d("[Navigation] - Jackal Portal OMC done")
                            return
@@ -702,8 +835,9 @@ function ml_navigation.Navigate(event, ticks)
                         end
 
                         -- We got into combat so we abort the OMC
-                        if (not Player.mounted and Player.incombat and ml_navigation.navconnection) then
+                        if (not ml_navigation.mounted and Player.inCombat and ml_navigation.navconnection) then
                            ml_navigation.currentMountOMC = nil
+                           allowMount = false
                            local target = gw2_common_functions.AggroTargetAtPos(nextnode, 1200)
                            if target then
                               ml_navigation.fight_aggro = {
@@ -744,6 +878,7 @@ function ml_navigation.Navigate(event, ticks)
 
                            if (not angleToStartPortal) then
                               ml_navigation.currentMountOMC = nil
+                              allowMount = false
                               Player:StopMovement()
                               d("[Navigation] - Reset OMC due not finding any portal closeby.")
                               return
@@ -771,7 +906,7 @@ function ml_navigation.Navigate(event, ticks)
                               Player:SetFacingExact(startPortalPos.x, startPortalPos.y, startPortalPos.z, true)
                               ml_navigation.currentMountOMC.facingSet = ml_global_information.Now
                               --SetFacing has a "casttime" while beeing mounted, so we wait a bit
-                              if (Player.mounted and ml_navigation.lastupdate) then
+                              if (ml_navigation.mounted and ml_navigation.lastupdate) then
                                  ml_navigation.lastupdate = ml_navigation.lastupdate + 1000 / 180 * angleToStartPortal
                               end
                               return
@@ -780,20 +915,20 @@ function ml_navigation.Navigate(event, ticks)
                            -- Mount jackal and save last mount to swap back later
                            if (ml_navigation.currentMountOMC.mountTime and TimeSince(ml_navigation.currentMountOMC.mountTime) < 1000) then
                               return
-                           elseif (Player.mounted and ml_navigation.skills[5].skillid ~= ml_navigation.gw2mount.jackal.SKILLID) then
+                           elseif (ml_navigation.mounted and ml_navigation.skills[5].skillid ~= ml_navigation.gw2mount.jackal.SKILLID) then
                               Player:Dismount()
                               return
-                           elseif (not Player.mounted and ml_navigation.skills[19].skillid == ml_navigation.gw2mount.jackal.ID and Player.canmount) then
+                           elseif (not ml_navigation.mounted and ml_navigation.skills[19].skillid == ml_navigation.gw2mount.jackal.ID and Player.canmount) then
                               if (movementstate == GW2.MOVEMENTSTATE.GroundNotMoving) then
                                  Player:Mount()
                                  ml_navigation.currentMountOMC.mountTime = ml_global_information.Now
                               end
                               return
-                           elseif (not Player.mounted and Player.canmount and not ml_navigation.lastMountOMCID) then
+                           elseif (not ml_navigation.mounted and Player.canmount and not ml_navigation.lastMountOMCID) then
                               ml_navigation.lastMountOMCID = ml_navigation.skills[19].skillid
                               Player:SelectMount(ml_navigation.gw2mount.jackal.ID)
                               return
-                           elseif (not Player.mounted) then
+                           elseif (not ml_navigation.mounted) then
                               return
                            end
 
@@ -860,7 +995,7 @@ function ml_navigation.Navigate(event, ticks)
                            -- Continue path available
                            if (navConId ~= 0 and (NavigationManager:GetNavConnection(navConId).details or {}).subtype == 9) then
                               -- We will have right after a springer jump OMC again so we stay mounted on springer
-                              ml_navigation.lastMount = ml_global_information.Now + ml_navigation.gw2mount.raptor.GRACETIME
+                              ml_navigation.PauseMountUsage(ml_navigation.gw2mount.raptor.GRACETIME)
                            end
                            -- Interrupt jump
                            KeyUp(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
@@ -870,6 +1005,7 @@ function ml_navigation.Navigate(event, ticks)
                            ml_navigation.pathindex = ml_navigation.pathindex + 1
                            NavigationManager.NavPathNode = ml_navigation.pathindex
                            ml_navigation.currentMountOMC = nil
+                           allowMount = false
                            ml_navigation.navconnection = nil
                            d("[Navigation] - Raptor Jump OMC done")
                            return
@@ -884,8 +1020,9 @@ function ml_navigation.Navigate(event, ticks)
                         end
 
                         -- We got into combat so we abort the OMC
-                        if (not Player.mounted and Player.incombat and ml_navigation.navconnection) then
+                        if (not ml_navigation.mounted and Player.inCombat and ml_navigation.navconnection) then
                            ml_navigation.currentMountOMC = nil
+                           allowMount = false
                            local target = gw2_common_functions.AggroTargetAtPos(nextnode, 1200)
                            if target then
                               ml_navigation.fight_aggro = {
@@ -954,7 +1091,7 @@ function ml_navigation.Navigate(event, ticks)
                               Player:SetFacingExact(endPos.x, endPos.y, endPos.z, true)
                               ml_navigation.currentMountOMC.facingSet = ml_global_information.Now
                               --SetFacing has a "casttime" while beeing mounted, so we wait a bit
-                              if (Player.mounted and ml_navigation.lastupdate) then
+                              if (ml_navigation.mounted and ml_navigation.lastupdate) then
                                  ml_navigation.lastupdate = ml_navigation.lastupdate + 1000 / 180 * angleToEndPos
                               end
                               return
@@ -963,20 +1100,20 @@ function ml_navigation.Navigate(event, ticks)
                            -- Mount raptor and save last mount to swap back later
                            if (ml_navigation.currentMountOMC.mountTime and TimeSince(ml_navigation.currentMountOMC.mountTime) < 1000) then
                               return
-                           elseif (Player.mounted and ml_navigation.skills[5].skillid ~= ml_navigation.gw2mount.raptor.SKILLID) then
+                           elseif (ml_navigation.mounted and ml_navigation.skills[5].skillid ~= ml_navigation.gw2mount.raptor.SKILLID) then
                               Player:Dismount()
                               return
-                           elseif (not Player.mounted and ml_navigation.skills[19].skillid == ml_navigation.gw2mount.raptor.ID and Player.canmount) then
+                           elseif (not ml_navigation.mounted and ml_navigation.skills[19].skillid == ml_navigation.gw2mount.raptor.ID and Player.canmount) then
                               if (movementstate == GW2.MOVEMENTSTATE.GroundNotMoving) then
                                  Player:Mount()
                                  ml_navigation.currentMountOMC.mountTime = ml_global_information.Now
                               end
                               return
-                           elseif (not Player.mounted and Player.canmount and not ml_navigation.lastMountOMCID) then
+                           elseif (not ml_navigation.mounted and Player.canmount and not ml_navigation.lastMountOMCID) then
                               ml_navigation.lastMountOMCID = ml_navigation.skills[19].skillid
                               Player:SelectMount(ml_navigation.gw2mount.raptor.ID)
                               return
-                           elseif (not Player.mounted) then
+                           elseif (not ml_navigation.mounted) then
                               return
                            end
 
@@ -1061,17 +1198,109 @@ function ml_navigation.Navigate(event, ticks)
 
                else
 
-                  if (not ml_navigation.lastMountOMCID or TimeSince(ml_navigation.lastMount) > 4000) and can_switch_mount then
-                     if TimeSince(ml_navigation.ticks.favorite_mount) > ml_navigation.thresholds.favorite_mount then
-                        ml_navigation.ticks.favorite_mount = ml_global_information.Now
+                  --- Check if the Camera is bugged and we are mounted, includes a check for Manual Camera Rotation with Mouse Left & Right; if stuck do not allow to mount
+                  if not ml_navigation.navconnection and ml_navigation.CameraStuck(playerpos) then
+                     ml_navigation.camera_stuck = ml_navigation.camera_stuck or ml_global_information.Now
 
-                        if Settings.GW2Minion[ml_navigation.acc_name].usemount then
-                           if not ml_navigation.currentMountOMC or not table.valid(ml_navigation.currentMountOMC) and not ml_global_information.Player_InCombat then
-                              if Settings.GW2Minion[ml_navigation.acc_name].favorite_mount > 1 then
+                     if TimeSince(ml_navigation.camera_stuck) > 1000 then
+                        d("[Navigation] - Camera stuck? Dismounting and resetting movement to unstuck.")
+                        Player:Dismount()
+                        Player:StopMovement()
+                        ml_navigation.camera_stuck = false
+                        allowMount = false
+                     end
+                  else
+                     ml_navigation.camera_stuck = false
+                  end
+
+                  --- Check for Obstacles in front of us, jump over it or dismount; if so do not allow to mount
+                  if not ml_navigation.navconnection and movementstate == GW2.MOVEMENTSTATE.GroundMoving and check_obstacle then
+                     local hit1 = ml_navigation.ObstacleCheck(200, 6)
+                     local hit2, gap = ml_navigation.ObstacleCheck(50, 6, true, 15)
+                     if hit1 or hit2 then
+                        if ml_navigation.mounted then
+                           if not ml_navigation.obstacles.dismount then
+                              d("[Navigation]: Something is blocking our path. Dismounting.")
+                           end
+
+                           if hit2 then
+                              Player:StopMovement()
+                           end
+
+                           ml_navigation.obstacles.dismount = true
+                           allowMount = false
+                           Player:Dismount()
+                        elseif gap and gap > 7 and ml_navigation:DistanceToNextNavConnection() > 250 and Player:IsMoving() and ml_navigation:GetRemainingPathLenght() >= 150 then
+                           d("[Navigation]: Something is blocking our path, but we should be able to jump over it. Jumping.")
+                           Player:Jump()
+                           ml_navigation.PauseMountUsage(500)
+                        end
+                     end
+                  end
+
+                  if not ml_navigation.mounted and ml_navigation.obstacles.dismount then
+                     ml_navigation.PauseMountUsage(1250)
+                     ml_navigation.obstacles = {
+                        left = {},
+                        right = {},
+                     }
+                  end
+
+                  if not ml_navigation.navconnection and smooth_dismount and (not next_mount or next_mount.distance > smooth_dismount.distance) and smooth_dismount.distance < ml_navigation.smooth_dismounts[smooth_dismount.subtype] then
+                     allowMount = false
+                     ml_navigation.PauseMountUsage(2500)
+
+                     if ml_navigation.mounted then
+                        d("[Navigation] - We have a non mount OMC next. To have a smoother handling for that we dismount already.")
+                        Player:Dismount()
+                     end
+                  end
+
+                  if TimeSince(ml_navigation.lastMount) > ml_navigation.thresholds.mount and Settings.GW2Minion[ml_navigation.acc_name].usemount and allowMount and not ml_navigation.currentMountOMC then
+                     local remainingPathLenght = ml_navigation:GetRemainingPathLenght()
+
+                     --- Checks if one of the next 20 nodes is a mount OMC, if it is and its nearer then the 'premount distance' for that mount we switch over to that mount
+                     if next_mount and next_mount.pre_mount then
+                        can_switch_mount = false
+                        if ml_navigation.current_Mount.skill and (next_mount.mount.ID ~= ml_navigation.current_Mount.skill.id) then
+                           allowMount = false
+
+                           if ml_navigation.mounted and not ml_global_information.Player_InCombat then
+                              local _, aggro_nearby = next(CharacterList("nearest,Hostile,aggro,maxdistance=900"))
+                              local enemies_nearby = CharacterList("Hostile,maxdistance=750")
+                              if not aggro_nearby and table.size(enemies_nearby) <= 1 then
+                                 d("[Navigation] - We will need " .. tostring(next_mount.mount.NAME) .. " in " .. tostring(next_mount.distance) .. " units. Dismounting to swap to it already.")
+                                 Player:Dismount()
+                                 ml_navigation.PauseMountUsage(250)
+                              end
+
+                           elseif not ml_navigation.mounted then
+                              d("[Navigation] - We will need " .. tostring(next_mount.mount.NAME) .. " in " .. tostring(next_mount.distance) .. " units. Selecting mount already.")
+                              Player:SelectMount(next_mount.mount.ID)
+                              ml_navigation.PauseMountUsage(250)
+                           elseif next_mount.distance < next_mount.mount.MOUNT_SWITCH_DISTANCE then
+                              d("[Navigation] - Dismounting for a smoother start of the next " .. tostring(next_mount.mount.NAME) .. " OMC in " .. tostring(next_mount.distance) .. " units.")
+                              Player:SelectMount(next_mount.mount.ID)
+                              Player:Dismount()
+                              ml_navigation.PauseMountUsage(250)
+                           end
+                        end
+                     end
+
+                     --- Checking for the correct mount if we don't use a specific one for the current or upcoming OMCs
+                     if (not next_mount or (not next_mount.pre_mount and next_mount.distance > 1800)) then
+                        if TimeSince(ml_navigation.ticks.favorite_mount) > ml_navigation.thresholds.favorite_mount then
+                           ml_navigation.ticks.favorite_mount = ml_global_information.Now
+
+                           if (not ml_navigation.currentMountOMC or not table.valid(ml_navigation.currentMountOMC)) and not ml_global_information.Player_InCombat then
+                              local _, aggro_nearby = next(CharacterList("nearest,Hostile,aggro,maxdistance=900"))
+                              local enemies_nearby = CharacterList("Hostile,maxdistance=750")
+
+                              if Settings.GW2Minion[ml_navigation.acc_name].favorite_mount > 1 and not aggro_nearby and table.size(enemies_nearby) <= 1 then
                                  if ml_navigation.skills.favorite_mount then
                                     if ml_navigation.mounted then
-                                       local c = ml_navigation.skills.current_Mount
-                                       if (not ml_navigation.skills[5] or (ml_navigation.skills[5].id ~= ml_navigation.gw2mount[mount].SKILLID)) and (not ml_navigation.skills[19] or (ml_navigation.skills[19].id ~= ml_navigation.gw2mount[mount].ID)) then
+                                       local c = ml_navigation.current_Mount.skill
+                                       if (not ml_navigation.skills[5] or (ml_navigation.skills[5].id ~= ml_navigation.gw2mount[mount].SKILLID and (not ml_navigation.gw2mount[mount].SKILLID_MASTERED or ml_navigation.skills[5].id ~= ml_navigation.gw2mount[mount].SKILLID_MASTERED))) and (not ml_navigation.skills[19] or (ml_navigation.skills[19].id ~= ml_navigation.gw2mount[mount].ID)) then
                                           if not ml_navigation.inWvW then
                                              d("[Navigation] - We are currently mounted on " .. ((c and c.name and (c.name and (c.name ~= "" and ("our " .. c.name)) or ((c.name_fallback and "our " .. c.name_fallback) or " a wrong mount"))) or " a wrong mount") .. ". Swapping to our favorite mount: " .. (ml_navigation.skills.favorite_mount.name ~= "" and ml_navigation.skills.favorite_mount.name or mount))
                                           else
@@ -1094,44 +1323,50 @@ function ml_navigation.Navigate(event, ticks)
                            end
                         end
                      end
-                  end
 
-                  -- TODO: check if water surface node, dont try to mount if so.
-                  if ((Settings.GW2Minion[ml_navigation.acc_name].usemount == nil or Settings.GW2Minion[ml_navigation.acc_name].usemount) and not Player.mounted and Player.canmount and TimeSince(ml_navigation.lastMount) > ml_navigation.thresholds.mount) then
-                     local remainingPathLenght = ml_navigation:GetRemainingPathLenght()
-                     if (remainingPathLenght ~= 0 and remainingPathLenght > 800) then
-                        local allowMount = true
-                        local distanceToNextNode = math.distance3d(playerpos, { x = nextnode.x, y = nextnode.y, z = nextnode.z, })
-
-                        if (lastnode and lastnode.navconnectionid ~= 0 and nextnode and nextnode.navconnectionid ~= 0) then
+                     --- Check if we are close to the path end, if so we dismount earlier
+                     if ml_navigation.current_Mount.info and remainingPathLenght <= ml_navigation.current_Mount.info.DISMOUNT_DISTANCE then
+                        if (ml_navigation.mounted and ml_navigation.staymounted == false) then
+                           d("[Navigation] - Reaching the path end in " .. math.round(remainingPathLenght) .. " units. Dismounting already to smooth it and not overshoot.")
+                           Player:Dismount()
                            allowMount = false
+                           ml_navigation.PauseMountUsage(2500)
                         end
-                        if (ml_navigation:DistanceToNextNavConnection() < 1000) then
-                           allowMount = false
-                        end
+                     end
 
-                        local mountDisableingBuffs = { [57576] = true, [43406] = true, [49494] = true, [54938] = true }
-                        if (Player.buffs and gw2_common_functions.HasBuffs(Player, mountDisableingBuffs)) then
-                           allowMount = false
-                        end
+                     --- Only use leaps if we are allowed to, set by Player:MoveTo(); default = true
+                     if ml_navigation.use_leaps then
+                        ml_navigation.UseMountLeap(allowMount)
+                     end
 
-                        if (allowMount) then
-                           local anglediffPlayerNextNode = math.angle({ x = playerpos.hx, y = playerpos.hy, z = 0 }, { x = nextnode.x - playerpos.x, y = nextnode.y - playerpos.y, z = 0, })
-                           local anglediffNextNodeNextNextNode = nextnextnode and math.angle({ x = nextnode.x - playerpos.x, y = nextnode.y - playerpos.y, z = 0 }, { x = nextnextnode.x - nextnode.x, y = nextnextnode.y - nextnode.y, z = 0, }) or 0
+                     -- TODO: check if water surface node, dont try to mount if so.
+                     if not ml_navigation.mounted and Player.canmount then
+                        if (remainingPathLenght ~= 0 and remainingPathLenght > ((ml_navigation.current_Mount.info and ml_navigation.current_Mount.info.DISMOUNT_DISTANCE * 2.5) or 1200)) then
+                           local distanceToNextNode = math.distance3d(playerpos, { x = nextnode.x, y = nextnode.y, z = nextnode.z, })
 
-                           if (distanceToNextNode >= 500) then
-                              if (anglediffPlayerNextNode < 30) and not ml_navigation.navconnection then
-                                 gw2_common_functions.NecroLeaveDeathshroud()
+                           if (lastnode and lastnode.navconnectionid ~= 0 and nextnode and nextnode.navconnectionid ~= 0) then
+                              allowMount = false
+                           end
+                           if (not next_mount or not next_mount.pre_mount) and (ml_navigation:DistanceToNextNavConnection() < 1000) then
+                              allowMount = false
+                           end
 
-                                 Player:Mount()
-                                 ml_navigation.lastMount = ml_global_information.Now
-                              end
+                           if (allowMount) then
+                              local anglediffPlayerNextNode = math.angle({ x = playerpos.hx, y = playerpos.hy, z = 0 }, { x = nextnode.x - playerpos.x, y = nextnode.y - playerpos.y, z = 0, })
+                              local anglediffNextNodeNextNextNode = nextnextnode and math.angle({ x = nextnode.x - playerpos.x, y = nextnode.y - playerpos.y, z = 0 }, { x = nextnextnode.x - nextnode.x, y = nextnextnode.y - nextnode.y, z = 0, }) or 0
 
-                           else
-                              if (anglediffPlayerNextNode < 30 and anglediffNextNodeNextNextNode < 45) and not ml_navigation.navconnection then
-                                 gw2_common_functions.NecroLeaveDeathshroud()
-                                 Player:Mount()
-                                 ml_navigation.lastMount = ml_global_information.Now
+                              if (distanceToNextNode >= 500) then
+                                 if (anglediffPlayerNextNode < 30) and not ml_navigation.navconnection then
+                                    gw2_common_functions.NecroLeaveDeathshroud()
+
+                                    Player:Mount()
+                                 end
+
+                              else
+                                 if (anglediffPlayerNextNode < 30 and anglediffNextNodeNextNextNode < 45) and not ml_navigation.navconnection then
+                                    gw2_common_functions.NecroLeaveDeathshroud()
+                                    Player:Mount()
+                                 end
                               end
                            end
                         end
@@ -1139,42 +1374,17 @@ function ml_navigation.Navigate(event, ticks)
                   end
                end
 
-               -- If we used a mount OMC and we had a different mount before the OMC, then we want to swap back to the old one here
-               if (ml_navigation.lastMountOMCID and TimeSince(ml_navigation.lastMount) > 4000) then
-                  if (not Player.mounted) then
-                     -- Make sure we have the mount we last used
-                     if (ml_navigation.lastMountOMCID == ml_navigation.skills[19].skillid) then
-                        ml_navigation.lastMountOMCID = nil
-                     else
-                        Player:SelectMount(ml_navigation.lastMountOMCID)
-                     end
-                     return
-                  else
-                     Player:Dismount()
-                     return
-                  end
-               end
-
-               -- update last time we were mounted. If navigation dismounts, this is resets.
-               -- if we leave our mount for any other reason, like unstuck or falling into water, we wait 5 seconds before we mount again.
-               if (Player.mounted) then
-                  ml_navigation.lastMount = ml_global_information.Now
-               elseif (Player.swimming == GW2.SWIMSTATE.Diving or Player.swimming == GW2.SWIMSTATE.Swimming) then
-                  ml_navigation.lastMount = ml_global_information.Now - 2000
-               end
-
-               -- Move to next node in our path
+               --- Move to next node in our path
                if (ml_navigation:NextNodeReached(playerpos, nextnode, nextnextnode)) then
                   ml_navigation.pathindex = ml_navigation.pathindex + 1
                   NavigationManager.NavPathNode = ml_navigation.pathindex
                else
                   -- Dismount when we are close to our target position, so we can get to the actual point and not overshooting it or similiar unprecise stuff
-                  -- if (pathsize - ml_navigation.pathindex < 5 and Player.mounted and ml_navigation.staymounted == false)then
-                  if (Player.mounted and ml_navigation.staymounted == false) then
+                  -- if (pathsize - ml_navigation.pathindex < 5 and ml_navigation.mounted and ml_navigation.staymounted == false)then
+                  if (ml_navigation.mounted and ml_navigation.staymounted == false) then
                      local remainingPathLenght = ml_navigation:GetRemainingPathLenght()
                      if (remainingPathLenght ~= 0 and remainingPathLenght < 400) then
                         Player:Dismount()
-                        ml_navigation.lastMount = ml_global_information.Now - 5000
                      end
                   end
                   ml_navigation:MoveToNextNode(playerpos, lastnode, nextnode)
@@ -1182,9 +1392,8 @@ function ml_navigation.Navigate(event, ticks)
                return
             else
                d("[Navigation] - Path end reached.")
-               if (Player.mounted and ml_navigation.staymounted == false) then
+               if (ml_navigation.mounted and ml_navigation.staymounted == false) then
                   Player:Dismount()
-                  ml_navigation.lastMount = ml_global_information.Now - 5000
                end
                Player:StopMovement()
                gw2_unstuck.Reset()
@@ -1316,7 +1525,7 @@ function ml_navigation:MoveToNextNode(playerpos, lastnode, nextnode, overridefac
                Player:SetFacing(nextnode.x, nextnode.y, nextnode.z)
             else
                local ncsubtype = ml_navigation.navconnection and ml_navigation.navconnection.details and ml_navigation.navconnection.details.subtype
-               if not Player.incombat or not ncsubtype or (ncsubtype ~= 7 and ncsubtype ~= 8 and ncsubtype ~= 9) then
+               if not ml_global_information.Player_InCombat or not ncsubtype or (ncsubtype ~= 7 and ncsubtype ~= 8 and ncsubtype ~= 9) then
                   Player:SetFacingExact(nextnode.x, nextnode.y, nextnode.z, true)
                end
             end
@@ -1464,7 +1673,7 @@ function ml_navigation:GetRemainingPathLenght()
       end
 
    else
-      if (self.pathindex == pathNodeCount) then
+      if (self.pathindex == pathNodeCount) and self.path[pathNodeCount] and lastNodePosition then
          pathLength = math.distance3d(lastNodePosition, self.path[pathNodeCount])
       end
    end
@@ -1620,7 +1829,7 @@ end
 function ml_navigation:EnsurePosition(playerpos)
    if (Player.mounted) then
       Player:Dismount()
-      ml_navigation.lastMount = ml_global_information.Now - 5000
+      ml_navigation.PauseMountUsage(5000)
    end
    if (not self.ensurepositionstarttime) then
       self.ensurepositionstarttime = ml_global_information.Now
@@ -1770,6 +1979,10 @@ end
 
 -- Resets Path and Stops the Player Movement
 function Player:StopMovement()
+   ml_navigation.obstacles = {
+      left = {},
+      right = {},
+   }
    ml_navigation.navconnection = nil
    ml_navigation.navconnection_start_tmr = nil
    ml_navigation.pathindex = 0
@@ -1831,13 +2044,13 @@ end
 
 function ml_navigation.getCurrentMount(slot5, slot19)
    for mount_name, mount in pairs(ml_navigation.gw2mount) do
-      if (slot5 and slot5 == mount.SKILLID) or (slot19 and slot19 == mount.ID) then
+      if (slot5 and slot5 == mount.SKILLID) or (mount.SKILLID_MASTERED and slot5 and slot5 == mount.SKILLID_MASTERED) or (slot19 and slot19 == mount.ID) then
          local skill = Player:GetSpellInfoByID(mount.ID)
          if skill then
             skill.name_fallback = mount_name
          end
 
-         return skill
+         return skill, mount
       end
    end
 end
@@ -1854,7 +2067,7 @@ function ml_navigation.IsInWvW()
    return WvW_Maps[ml_global_information.CurrentMapID]
 end
 
-function ml_navigation.ResetMountUsage(time)
+function ml_navigation.ResetMountUsage()
    ml_navigation.ticks.favorite_mount = 0
    ml_navigation.lastMount = 0
 end
@@ -1865,24 +2078,24 @@ function ml_navigation.PauseMountUsage(time)
    ml_navigation.lastMount = ml_global_information.Now + time
 end
 
-function ml_navigation.ObstacleCheck(input_distance, amount)
-   if TimeSince(ml_navigation.ticks.obstacle_check) > ml_navigation.thresholds.obstacle_check then
-      ml_navigation.ticks.obstacle_check = ml_global_information.Now
-      local hit = {
-         left = 0,
-         right = 0,
-         frontal = 0,
-      }
-      local no_hit = {
-         frontal = {},
-      }
-      local size = Player.height + 5
-      local width = Player.radius + 2
-      amount = amount or 20
-      local p = Player.pos
-      local staymounted = true
+function ml_navigation.ObstacleCheck(input_distance, amount, front, front_amount)
+   local hit = {
+      left = 0,
+      right = 0,
+      frontal = 0,
+   }
+   local no_hit = {
+      frontal = {},
+   }
+   local size = Player.height + 5
+   local width = Player.radius + 2
+   amount = amount == nil and 8 or amount
+   front_amount = front_amount or 15
+   local p = Player.pos
+   local staymounted, ray_distance = true
 
-      local nav_node = ml_navigation.path[ml_navigation.pathindex]
+   local nav_node = ml_navigation.path[ml_navigation.pathindex]
+   if nav_node then
       local dis = math.distance3d(p, nav_node)
       local vec = {
          x = (nav_node.x - p.x) / dis,
@@ -1898,51 +2111,58 @@ function ml_navigation.ObstacleCheck(input_distance, amount)
          hx = math.sin(vech),
          hy = -math.cos(vech)
       }
+      local distance = input_distance
+      hit.frontal = 0
+      no_hit.frontal = {}
+      local ahead_loc = {
+         x = p.x + (distance * vec.x),
+         y = p.y + (distance * vec.y),
+         z = p.z + (distance * vec.z)
+      }
 
-      if nav_node then
-         local distance = input_distance
-         --for distance = 0, input_distance, (input_distance / 5) do
-         hit.frontal = 0
-         no_hit.frontal = {}
-         local ahead_loc = {
-            x = p.x + (distance * vec.x),
-            y = p.y + (distance * vec.y),
-            z = p.z + (distance * vec.z)
+      local frontal = {
+         x = p.x + ((distance + 25) * vec.x),
+         y = p.y + ((distance + 25) * vec.y),
+         z = p.z + ((distance + 25) * vec.z)
+      }
+
+      local frontal_dis = math.distance3d(p, frontal)
+      if frontal_dis > dis then
+         frontal = {
+            x = p.x + ((dis + 25) * vec.x),
+            y = p.y + ((dis + 25) * vec.y),
+            z = p.z + ((dis + 25) * vec.z),
+         }
+      end
+
+      --- RayCasts
+      local Rays = {
+         down = {},
+         up = {},
+         left = {},
+         right = {},
+         frontal = {}
+      }
+
+      Rays.down.hit, Rays.down.x, Rays.down.y, Rays.down.z = RayCast(ahead_loc.x, ahead_loc.y, ahead_loc.z - (size / 2), ahead_loc.x, ahead_loc.y, ahead_loc.z + (size / 2))
+      if Rays.down.hit then
+         local z = {
+            feet = Rays.down.z - 25,
+            head = Rays.down.z - size,
          }
 
-         local frontal = {
-            x = p.x + ((distance + 25) * vec.x),
-            y = p.y + ((distance + 25) * vec.y),
-            z = p.z + ((distance + 25) * vec.z)
+         Rays.up.hit, Rays.up.x, Rays.up.y, Rays.up.z = RayCast(ahead_loc.x, ahead_loc.y, z.feet, ahead_loc.x, ahead_loc.y, z.head)
+
+         local left = {
+            x = ahead_loc.x + (width * 2 * vec_perp_L.hx),
+            y = ahead_loc.y + (width * 2 * vec_perp_L.hy)
+         }
+         local right = {
+            x = ahead_loc.x + (width * 2 * vec_perp_R.hx),
+            y = ahead_loc.y + (width * 2 * vec_perp_R.hy)
          }
 
-         --- RayCasts
-         local Rays = {
-            down = {},
-            up = {},
-            left = {},
-            right = {},
-            frontal = {}
-         }
-
-         Rays.down.hit, Rays.down.x, Rays.down.y, Rays.down.z = RayCast(ahead_loc.x, ahead_loc.y, ahead_loc.z - (size / 2), ahead_loc.x, ahead_loc.y, ahead_loc.z + (size / 2))
-         if Rays.down.hit then
-            local z = {
-               feet = Rays.down.z - 25,
-               head = Rays.down.z - size,
-            }
-
-            Rays.up.hit, Rays.up.x, Rays.up.y, Rays.up.z = RayCast(ahead_loc.x, ahead_loc.y, z.feet, ahead_loc.x, ahead_loc.y, z.head)
-
-            local left = {
-               x = ahead_loc.x + (width * vec_perp_L.hx),
-               y = ahead_loc.y + (width * vec_perp_L.hy)
-            }
-            local right = {
-               x = ahead_loc.x + (width * vec_perp_R.hx),
-               y = ahead_loc.y + (width * vec_perp_R.hy)
-            }
-
+         if amount then
             local step = -(z.feet - z.head) / amount
 
             for height = z.feet, z.head, step do
@@ -1961,6 +2181,10 @@ function ml_navigation.ObstacleCheck(input_distance, amount)
                }
                l.ray.hit, l.ray.x, l.ray.y, l.ray.z = RayCast(ahead_loc.x, ahead_loc.y, height, left.x, left.y, height)
                hit.left = hit.left + (l.ray.hit and 1 or 0)
+               ray_distance = math.distance2d(l.ray, ahead_loc)
+               if l.ray.hit and (not ml_navigation.obstacles.right[ml_global_information.Now] or ml_navigation.obstacles.right[ml_global_information.Now].distance > ray_distance) then
+                  ml_navigation.obstacles.right[ml_global_information.Now] = { x = ahead_loc.x, y = ahead_loc.y, z = height, distance = ray_distance }
+               end
 
                local r = {
                   ray = {},
@@ -1977,38 +2201,326 @@ function ml_navigation.ObstacleCheck(input_distance, amount)
                }
                r.ray.hit, r.ray.x, r.ray.y, r.ray.z = RayCast(ahead_loc.x, ahead_loc.y, height, right.x, right.y, height)
                hit.right = hit.right + (r.ray.hit and 1 or 0)
+               ray_distance = math.distance2d(r.ray, ahead_loc)
+               if r.ray.hit and (not ml_navigation.obstacles.right[ml_global_information.Now] or ml_navigation.obstacles.right[ml_global_information.Now].distance > ray_distance) then
+                  ml_navigation.obstacles.right[ml_global_information.Now] = { x = ahead_loc.x, y = ahead_loc.y, z = height, distance = ray_distance }
+               end
+            end
+         end
 
+         if front then
+            local step = (z.head - z.feet) / front_amount
+            local prev_f
+            for height = z.feet, z.head, step do
                local f = {
                   ray = {},
-                  start = {
-                     x = ahead_loc.x,
-                     y = ahead_loc.y,
-                     z = height,
-                  },
-                  dest = {
-                     x = frontal.x,
-                     y = frontal.y,
-                     z = height,
-                  },
                }
                f.ray.hit, f.ray.x, f.ray.y, f.ray.z = RayCast(ahead_loc.x, ahead_loc.y, height, frontal.x, frontal.y, height)
-               hit.frontal = hit.frontal + (f.ray.hit and 1 or 0)
                if f.ray.hit then
-                  no_hit.frontal = {}
+                  if prev_f and prev_f.hit then
+                     local lowerdist = math.distance2d(prev_f, ahead_loc)
+                     local upperdist = math.distance2d(f.ray, ahead_loc)
+
+                     local dist = upperdist - lowerdist
+                     local slope = (prev_f.z - f.ray.z) / dist
+
+                     if slope > 1.5 or slope < 0 then
+                        hit.frontal = hit.frontal + (f.ray.hit and 1 or 0)
+                        no_hit.frontal = {}
+                     end
+                  end
                else
                   table.insert(no_hit.frontal, math.abs(height) - math.abs(z.feet))
                end
-            end
 
-            if hit.right > 0 and hit.left > 0 then
-               return true
-            end
-
-            if hit.frontal > 1 then
-               return true, table.size(no_hit.frontal)
+               prev_f = f.ray
             end
          end
-         --end
+         if amount then
+            if ml_navigation.obstacles.right[ml_global_information.Now] and ml_navigation.obstacles.left[ml_global_information.Now] then
+               if math.distance2d(ml_navigation.obstacles.right[ml_global_information.Now], ml_navigation.obstacles.left[ml_global_information.Now]) > (width * 2) then
+                  return true
+               end
+            end
+         end
+         if front and hit.frontal > 0 then
+            return true, table.size(no_hit.frontal)
+         end
+
+         if amount then
+            if table.valid(ml_navigation.obstacles.right) and table.valid(ml_navigation.obstacles.left) then
+               for r_time, right in table.pairsbykeys(ml_navigation.obstacles.right) do
+                  if TimeSince(r_time) < 2500 then
+                     for l_time, left in table.pairsbykeys(ml_navigation.obstacles.left) do
+                        if TimeSince(l_time) < 2500 then
+                           if math.distance2d(left, right) < (width * 2) then
+                              return true
+                           end
+                        else
+                           ml_navigation.obstacles.left[l_time] = nil
+                        end
+                     end
+                  else
+                     ml_navigation.obstacles.left[r_time] = nil
+                  end
+               end
+            end
+         end
+      end
+   end
+end
+
+function ml_navigation.Sync(ms)
+   if ms == 0 then
+      if HackManager.Hover then
+         d("[Navigation] - Hover hack is active. Disabling it.")
+         HackManager.Hover = false
+      end
+   end
+
+   ml_navigation.sync = true
+end
+
+function ml_navigation.CameraStuck(ppos, tolerance)
+   tolerance = tolerance or 0.4625
+   ppos = ppos or Player.pos
+
+   if ml_global_information.Player_IsMounted and not GUI:IsMouseDown(0) and not GUI:IsMouseDown(1) then
+      local eye = HackManager:GetCompassData().eye
+
+      local cfacing = {
+         x = -(eye.x - ppos.x),
+         y = -(eye.y - ppos.y),
+         z = 0
+      }
+      local pfacing = {
+         x = ppos.hx,
+         y = ppos.hy,
+         z = 0
+      }
+
+      local pangle = math.atan2(pfacing.y, pfacing.x)
+      local cangle = math.atan2(cfacing.y, cfacing.x)
+
+      local difference = math.abs((cangle - pangle + 3 * math.pi) % (2 * math.pi) - math.pi)
+
+      return (difference > tolerance), {
+         difference = difference,
+         cangle = cangle,
+         pangle = pangle,
+      }
+   end
+
+   return false
+end
+
+function ml_navigation.isMoving(ms)
+   if ms then
+      return (ms == GW2.MOVEMENTSTATE.GroundMoving or ms == GW2.MOVEMENTSTATE.Falling or ms == GW2.MOVEMENTSTATE.Jumping or ms == GW2.MOVEMENTSTATE.BelowWaterMoving or ms == GW2.MOVEMENTSTATE.AboveWaterMoving)
+   end
+end
+
+function ml_navigation.UseMountLeap(allowMount)
+   if Settings.GW2Minion[ml_navigation.acc_name].usemountleaps then
+      if ml_navigation.mount_leap then
+         if not ml_navigation.mount_leap.started and allowMount then
+            d("[Navigation] - Starting Raptor Leap.")
+            KeyDown(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
+            ml_navigation.mount_leap.started = true
+         else
+            if not allowMount or (TimeSince(ml_navigation.mount_leap.start) >= 2500 or ml_navigation.mount_energy <= ml_navigation.mount_leap.spent_energy) then
+               if ml_navigation.mount_leap.started then
+                  d("[Navigation] - Stopping Raptor Leap.")
+                  KeyUp(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
+               end
+
+               ml_navigation.mount_leap = false
+            end
+         end
+      end
+
+      if allowMount and ml_navigation.current_Mount and ml_navigation.mounted and TimeSince(ml_navigation.ticks.mount_leap) > ml_navigation.thresholds.mount_leap then
+         ml_navigation.ticks.mount_leap = ml_global_information.Now
+         if ml_navigation.current_Mount.info and ml_navigation.current_Mount.info.NAME == "Jackal" then
+            local prevnode = ml_navigation.pathindex > 1 and ml_navigation.path[ml_navigation.pathindex - 1] or nil
+            local nnode = ml_navigation.path[ml_navigation.pathindex]
+            if nnode and ml_navigation.mount_energy >= 33 and Player:IsMoving() then
+               local nnode_adjust = 0
+               if nnode and nnode.navconnectionid then
+                  local omc = NavigationManager:GetNavConnection(nnode.navconnectionid)
+                  if omc and omc.details and omc.details.subtype then
+                     nnode_adjust = ml_navigation.smooth_dismounts[omc.details.subtype] or 400
+                  end
+               end
+               local ppos = Player.pos
+               local maxdist = 1000
+               local pnndist = math.max(math.distance3d(ppos, nnode) - nnode_adjust, 0)
+
+               if pnndist >= maxdist then
+                  local phead = math.atan2(ppos.hy, ppos.hx)
+                  local pnhead = math.atan2(nnode.y - ppos.y, nnode.x - ppos.x)
+                  local tolerance = math.pi / 32
+                  local correct_heading
+
+                  if (not prevnode or not prevnode.navconnectionsideA) then
+                     local difference = pnhead - phead
+                     difference = (difference + 3 * math.pi) % (math.pi * 2) - math.pi
+                     if difference < tolerance and difference > -tolerance then
+                        correct_heading = true
+                     end
+
+                     if correct_heading and pnndist >= maxdist then
+                        local heading = gw2_common_functions.normalize({ x = ppos.hx, y = ppos.hy })
+                        local endpos = {
+                           x = ppos.x + heading.x * maxdist,
+                           y = ppos.y + heading.y * maxdist,
+                           z = ppos.z
+                        }
+                        local Ray_zcheck = {}
+                        Ray_zcheck.hit, Ray_zcheck.x, Ray_zcheck.y, Ray_zcheck.z = RayCast(endpos.x, endpos.y, endpos.z - 150, endpos.x, endpos.y, endpos.z + 100)
+                        if Ray_zcheck.hit and NavigationManager:IsOnMesh(Ray_zcheck.x, Ray_zcheck.y, Ray_zcheck.z) or nnode.z < ppos.z then
+                           local Ray_front = {}
+                           Ray_front.hit, Ray_front.x, Ray_front.y, Ray_front.z = RayCast(ppos.x, ppos.y, ppos.z - 35, endpos.x, endpos.y, endpos.z - 35)
+                           if not Ray_front.hit or nnode.z < ppos.z then
+                              d("[Navigation] - Using Jackal Leap.")
+                              PressKey(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
+                              ml_navigation.ticks.mount_leap = ml_global_information.Now + 750
+                           end
+                        end
+                     end
+                  end
+               end
+            end
+         end
+
+         if ml_navigation.current_Mount.info and ml_navigation.current_Mount.info.NAME == "Raptor" then
+            local prevnode = ml_navigation.pathindex > 1 and ml_navigation.path[ml_navigation.pathindex - 1] or nil
+            local nnode = ml_navigation.path[ml_navigation.pathindex]
+            local nnnode = ml_navigation.path[ml_navigation.pathindex + 1]
+            if nnode and nnnode and ml_navigation.mount_energy >= 50 and Player:IsMoving() then
+               local nnode_adjust = 0
+               if nnode and nnode.navconnectionid then
+                  local omc = NavigationManager:GetNavConnection(nnode.navconnectionid)
+                  if omc and omc.details and omc.details.subtype then
+                     nnode_adjust = ml_navigation.smooth_dismounts[omc.details.subtype] or 400
+                  end
+               end
+
+               local ppos = Player.pos
+               local pnndist = math.max(math.distance3d(ppos, nnode) - nnode_adjust, 0)
+               local maxdist = ml_navigation.gw2mount.raptor.GetMaxTravelDistance()
+
+               if pnndist >= maxdist / 2 then
+                  local dist12 = math.distance3d(nnode, nnnode)
+                  local phead = math.atan2(ppos.hy, ppos.hx)
+                  local pnhead = math.atan2(nnode.y - ppos.y, nnode.x - ppos.x)
+                  local nhead = math.atan2(nnnode.y - nnode.y, nnnode.x - nnode.x)
+                  local tolerance = math.pi / 16
+                  local pheight = Player.height
+                  local correct_heading, distance_check, distance_check2, truncation, zcheck
+
+                  if pnndist >= maxdist or (pnndist > 600 and pnndist + dist12 >= maxdist) and (not prevnode or not prevnode.navconnectionsideA) then
+                     local difference = pnhead - phead
+                     difference = (difference + 3 * math.pi) % (math.pi * 2) - math.pi
+                     if difference < tolerance and difference > -tolerance then
+                        correct_heading = true
+                     end
+                     if correct_heading and pnndist >= maxdist then
+                        distance_check = true
+                     elseif correct_heading and pnndist + dist12 >= maxdist and not nnode.navconnectionsideA then
+                        local difference2 = nhead - pnhead
+                        difference2 = (difference2 + 3 * math.pi) % (math.pi * 2) - math.pi
+                        if difference2 < tolerance and difference > -tolerance then
+                           distance_check2 = true
+                        end
+                     end
+                  end
+                  --truncation
+                  if pnndist < maxdist and not distance_check and not distance_check2 and (not prevnode or not prevnode.navconnectionsideA) then
+                     local difference = pnhead - phead
+                     difference = (difference + 3 * math.pi) % (math.pi * 2) - math.pi
+                     if difference < tolerance and difference > -tolerance then
+                        truncation = true
+                     end
+                  end
+                  --zpos check
+                  local RC = {}
+                  if truncation or distance_check or distance_check2 then
+                     local zmax = 125
+                     local zmin = -75
+                     if truncation then
+                        local zdiff = nnode.z - ppos.z
+                        if zdiff > zmin and zdiff < zmax then
+                           zcheck = true
+                        end
+                     end
+                     if distance_check then
+                        local magnitude = math.distance2d(nnode.x, nnode.y, ppos.x, ppos.y)
+                        local x = ppos.x + (maxdist * (nnode.x - ppos.x) / magnitude)
+                        local y = ppos.y + (maxdist * (nnode.y - ppos.y) / magnitude)
+                        RC.hit, RC.x, RC.y, RC.z = RayCast(x, y, ppos.z - zmax, x, y, ppos.z - zmin)
+                        if RC.hit then
+                           zcheck = true
+                        end
+                     end
+                     if distance_check2 then
+                        local zdiff = nnode.z - ppos.z
+                        if zdiff < zmax then
+                           local magnitude = math.distance2d(nnode.x, nnode.y, nnnode.x, nnnode.y)
+                           local remainder = math.distance2d(nnode.x, nnode.y, ppos.x, ppos.y)
+                           local x = nnode.x + ((maxdist - remainder) * (nnnode.x - nnode.x) / magnitude)
+                           local y = nnode.y + ((maxdist - remainder) * (nnnode.y - nnode.y) / magnitude)
+                           RC.hit, RC.x, RC.y, RC.z = RayCast(x, y, ppos.z - zmax, x, y, ppos.z - zmin)
+                           if RC.hit then
+                              zcheck = true
+                           end
+                        end
+                     end
+                  end
+
+                  --so we wanna leap, zcheck passed and distance check passed
+                  if zcheck then
+                     if truncation or distance_check then
+                        local center = pnndist / 2
+                        local zheight = 165
+                        local heading = { x = nnode.x - ppos.x, y = nnode.y - ppos.y, z = nnode.z - ppos.z }
+                        heading = gw2_common_functions.normalize(heading)
+                        local point = (truncation == true and nnode) or (distance_check == true and RC)
+                        local RC1_top, RC1_bot, RC2_top, RC2_bot = {}, {}, {}, {}
+                        local toppos = { x = ppos.x + (heading.x * center), y = ppos.y + (heading.y * center), z = ppos.z - zheight - pheight }
+                        local botpos = { x = ppos.x + (heading.x * center), y = ppos.y + (heading.y * center), z = ppos.z - zheight }
+                        RC1_top.hit, RC1_top.x, RC1_top.y, RC1_top.z = RayCast(ppos.x, ppos.y, ppos.z - pheight, toppos.x, toppos.y, toppos.z)
+                        RC1_bot.hit, RC1_bot.x, RC1_bot.y, RC1_bot.z = RayCast(ppos.x, ppos.y, ppos.z - 10, botpos.x, botpos.y, botpos.z)
+                        RC2_top.hit, RC2_top.x, RC2_top.y, RC2_top.z = RayCast(toppos.x, toppos.y, toppos.z, point.x, point.y, point.z - pheight)
+                        RC2_bot.hit, RC2_bot.x, RC2_bot.y, RC2_bot.z = RayCast(botpos.x, botpos.y, botpos.z, point.x, point.y, point.z - 10)
+                        if not RC1_top.hit and not RC1_bot.hit and not RC2_top.hit and not RC2_bot.hit then
+                           if truncation then
+                              local dist = math.distance3d(ppos, point)
+                              local energy_needed = ((20) / (maxdist - (maxdist / 2))) * dist + 10
+                              energy_needed = (energy_needed > 50 and 50) or energy_needed
+
+                              ml_navigation.mount_leap = ml_navigation.mount_leap or {
+                                 spent_energy = ml_navigation.mount_energy - energy_needed,
+                                 start = ml_global_information.Now,
+                              }
+
+                              return pnndist
+                           elseif distance_check then
+                              local energy_needed = 50
+
+                              ml_navigation.mount_leap = ml_navigation.mount_leap or {
+                                 spent_energy = ml_navigation.mount_energy - energy_needed,
+                                 start = ml_global_information.Now,
+                              }
+
+                              return maxdist
+                           end
+                        end
+                     end
+                  end
+               end
+            end
+         end
       end
    end
 end
