@@ -452,34 +452,36 @@ function gw2_radar.updateCompassData() -- TODO: redo this mess. Order stuff, and
 end
 
 function gw2_radar.worldToCompass(ePos)
-	local rPos = {
-		x = ((ePos.x - gw2_radar.compassData.pPos.x) * gw2_radar.compassData.scale), --PvPManager:IsInMatch() and (ePos.x - ((map_rect.upperRight.x - map_rect.lowerLeft.x)/2)) or 
-		y = ((ePos.y - gw2_radar.compassData.pPos.y) * gw2_radar.compassData.scale), --PvPManager:IsInMatch() and (ePos.y - map_rect.y) or 
-	}
-	rPos = {
-		x = (gw2_radar.compassData.cosTheta * rPos.x - gw2_radar.compassData.sinTheta * rPos.y),
-		y = (gw2_radar.compassData.sinTheta * rPos.x + gw2_radar.compassData.cosTheta * rPos.y) * -1,
-	}
-	rPos = {
-		x = gw2_radar.compassData.cPos.x + rPos.x,
-		y = gw2_radar.compassData.cPos.y + rPos.y,
-	}
-	
-	local compassPos = {
-		x1 = gw2_radar.compassData.pos.x,
-		y1 = gw2_radar.compassData.pos.y,
-		x2 = gw2_radar.compassData.pos.x + gw2_radar.compassData.width,
-		y2 = gw2_radar.compassData.pos.y + gw2_radar.compassData.height,
-	}
-	if (rPos.x < compassPos.x1 or rPos.y < compassPos.y1 or rPos.x > compassPos.x2 or rPos.y > compassPos.y2) then
-		rPos = {
-			x = nil,
-			y = nil,
-			ex = rPos.x < compassPos.x1 and compassPos.x1 or rPos.x > compassPos.x2 and compassPos.x2 or rPos.x,
-			ey = rPos.y < compassPos.y1 and compassPos.y1 or rPos.y > compassPos.y2 and compassPos.y2 or rPos.y,
+	if gw2_radar.compassData.pPos then
+		local rPos = {
+			x = ((ePos.x - gw2_radar.compassData.pPos.x) * gw2_radar.compassData.scale), --PvPManager:IsInMatch() and (ePos.x - ((map_rect.upperRight.x - map_rect.lowerLeft.x)/2)) or
+			y = ((ePos.y - gw2_radar.compassData.pPos.y) * gw2_radar.compassData.scale), --PvPManager:IsInMatch() and (ePos.y - map_rect.y) or
 		}
+		rPos = {
+			x = (gw2_radar.compassData.cosTheta * rPos.x - gw2_radar.compassData.sinTheta * rPos.y),
+			y = (gw2_radar.compassData.sinTheta * rPos.x + gw2_radar.compassData.cosTheta * rPos.y) * -1,
+		}
+		rPos = {
+			x = gw2_radar.compassData.cPos.x + rPos.x,
+			y = gw2_radar.compassData.cPos.y + rPos.y,
+		}
+
+		local compassPos = {
+			x1 = gw2_radar.compassData.pos.x,
+			y1 = gw2_radar.compassData.pos.y,
+			x2 = gw2_radar.compassData.pos.x + gw2_radar.compassData.width,
+			y2 = gw2_radar.compassData.pos.y + gw2_radar.compassData.height,
+		}
+		if (rPos.x < compassPos.x1 or rPos.y < compassPos.y1 or rPos.x > compassPos.x2 or rPos.y > compassPos.y2) then
+			rPos = {
+				x = nil,
+				y = nil,
+				ex = rPos.x < compassPos.x1 and compassPos.x1 or rPos.x > compassPos.x2 and compassPos.x2 or rPos.x,
+				ey = rPos.y < compassPos.y1 and compassPos.y1 or rPos.y > compassPos.y2 and compassPos.y2 or rPos.y,
+			}
+		end
+		return rPos
 	end
-	return rPos
 end
 
 -- Create Filter list.
@@ -494,25 +496,27 @@ end
 
 -- Parse entities. (hehe tities...)
 function gw2_radar.parseEntities()
-	if (gw2_radar.compassActive or gw2_radar.radar3DActive) then
+	if (gw2_radar.compassActive or gw2_radar.radar3DActive) and gw2_radar.filterList then
 		local newTrackEntities = {}
 		for listName,radarTypes in pairs(gw2_radar.filterList) do
 			local entityList = _G[listName]("")
-			for _,entity in pairs(entityList) do
-				if (table.valid(entity)) then
-					for _,radarType in pairs(radarTypes) do
-						if (table.valid(radarType) and (radarType.variables.compass.value or radarType.variables.radar3D.value)) then
-							if (gw2_radar.matchFilterEntity(entity,radarType.filter)) then
-								local currEntity = gw2_radar.trackEntities[entity.id]
-								newTrackEntities[entity.id] = {
-									id			= currEntity and currEntity.id or entity.id,
-									name		= currEntity and string.valid(currEntity.name) and currEntity.name or entity.name,
-									variables	= radarType.variables,
-									pos			= entity.pos,
-									health		= entity.health,
-									distance	= entity.distance,
-								}
-								break
+			if entityList then
+				for _,entity in pairs(entityList) do
+					if (table.valid(entity)) then
+						for _,radarType in pairs(radarTypes) do
+							if (table.valid(radarType) and (radarType.variables.compass.value or radarType.variables.radar3D.value)) then
+								if (gw2_radar.matchFilterEntity(entity,radarType.filter)) then
+									local currEntity = gw2_radar.trackEntities[entity.id]
+									newTrackEntities[entity.id] = {
+										id			= currEntity and currEntity.id or entity.id,
+										name		= currEntity and string.valid(currEntity.name) and currEntity.name or entity.name,
+										variables	= radarType.variables,
+										pos			= entity.pos,
+										health		= entity.health,
+										distance	= entity.distance,
+									}
+									break
+								end
 							end
 						end
 					end
