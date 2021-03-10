@@ -47,7 +47,7 @@ ml_navigation.gw2mount.skimmer = {
    GRACETIME = 2000,
    SYNCTIME = 1000,
    PREMOUNT_DISTANCE = 750,
-   DISMOUNT_DISTANCE = 450,
+   DISMOUNT_DISTANCE = 650,
    NAME = "Skimmer",
 }
 ml_navigation.gw2mount.warclaw = {
@@ -57,7 +57,7 @@ ml_navigation.gw2mount.warclaw = {
    GRACETIME = 2000,
    SYNCTIME = 1000,
    PREMOUNT_DISTANCE = 5000,
-   DISMOUNT_DISTANCE = 500,
+   DISMOUNT_DISTANCE = 650,
    NAME = "Warclaw",
 }
 ml_navigation.gw2mount.griffon = {
@@ -66,7 +66,7 @@ ml_navigation.gw2mount.griffon = {
    GRACETIME = 2000,
    SYNCTIME = 1000,
    PREMOUNT_DISTANCE = 750,
-   DISMOUNT_DISTANCE = 450,
+   DISMOUNT_DISTANCE = 600,
    NAME = "Griffon",
 }
 ml_navigation.gw2mount.skyscale = {
@@ -75,7 +75,7 @@ ml_navigation.gw2mount.skyscale = {
    GRACETIME = 2000,
    SYNCTIME = 1000,
    PREMOUNT_DISTANCE = 750,
-   DISMOUNT_DISTANCE = 450,
+   DISMOUNT_DISTANCE = 600,
    NAME = "Skyscale",
 }
 ml_navigation.gw2mount.rollerbeetle = {
@@ -84,7 +84,7 @@ ml_navigation.gw2mount.rollerbeetle = {
    GRACETIME = 2000,
    SYNCTIME = 1000,
    PREMOUNT_DISTANCE = 2500,
-   DISMOUNT_DISTANCE = 600,
+   DISMOUNT_DISTANCE = 1200,
    NAME = "Roller Beetle",
 }
 ml_navigation.gw2mount.springer = {
@@ -104,7 +104,7 @@ ml_navigation.gw2mount.springer = {
    end,
    PREMOUNT_DISTANCE = 600,
    MOUNT_SWITCH_DISTANCE = 450,
-   DISMOUNT_DISTANCE = 450,
+   DISMOUNT_DISTANCE = 600,
    NAME = "Springer",
 }
 ml_navigation.gw2mount.jackal = {
@@ -115,7 +115,7 @@ ml_navigation.gw2mount.jackal = {
    SYNCTIME = 1000,
    PREMOUNT_DISTANCE = 3000,
    MOUNT_SWITCH_DISTANCE = 600,
-   DISMOUNT_DISTANCE = 500,
+   DISMOUNT_DISTANCE = 650,
    NAME = "Jackal",
 }
 ml_navigation.gw2mount.raptor = {
@@ -129,7 +129,7 @@ ml_navigation.gw2mount.raptor = {
    end,
    PREMOUNT_DISTANCE = 3000,
    MOUNT_SWITCH_DISTANCE = 600,
-   DISMOUNT_DISTANCE = 500,
+   DISMOUNT_DISTANCE = 650,
    NAME = "Raptor",
 }
 ml_navigation.smooth_dismounts = {
@@ -2270,7 +2270,7 @@ function ml_navigation.CameraStuck(ppos, tolerance)
 
    if ml_global_information.Player_IsMounted and not GUI:IsMouseDown(0) and not GUI:IsMouseDown(1) then
       local eye = HackManager:GetCompassData().eye
-      
+
       if eye and ppos then
          local cfacing = {
             x = -(eye.x - ppos.x),
