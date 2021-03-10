@@ -163,32 +163,6 @@ function Player:MoveTo(x, y, z, targetid, stoppingdistance, randommovement, smoo
 
    --- Check if we are synced with the world due to teleports or what not; added here to handle everything movement related.
 
-   local not_moving = (ms == GW2.MOVEMENTSTATE.GroundNotMoving or ms == GW2.MOVEMENTSTATE.AboveWaterNotMoving or ms == GW2.MOVEMENTSTATE.BelowWaterNotMoving or ms == 0)
-   local valid_new_previous = not ml_navigation.previous.targetposition or math.distance3d(ml_navigation.previous.targetposition, { x = x, y = y, z = z }) > 1
-   local valid_destination = math.distance3d({ x = 0, y = 0, z = 0 }, { x = x, y = y, z = z }) > 1
-
-   if not valid_new_previous and not_moving then
-      if TimeSince(ml_navigation.previous.start) > 1250 then
-         if math.distance3d(ml_navigation.previous.targetposition, Player.pos) == ml_navigation.previous.distance then
-            d("[Navigation] - Standing on the same position for " .. math.round(tostring(TimeSince(ml_navigation.previous.start) / 1000), 2) .. " seconds while we have a valid path. Stepping backwards.")
-            ml_navigation.Sync(ms)
-         else
-            ml_navigation.previous = {
-               targetposition = { x = x, y = y, z = z },
-               start = ml_global_information.Now,
-               distance = math.distance3d({ x = x, y = y, z = z }, Player.pos),
-            }
-         end
-      end
-
-   elseif not not_moving or (valid_destination and valid_new_previous) then
-      ml_navigation.previous = {
-         targetposition = { x = x, y = y, z = z },
-         start = ml_global_information.Now,
-         distance = math.distance3d({ x = x, y = y, z = z }, Player.pos),
-      }
-   end
-
    if (ms ~= GW2.MOVEMENTSTATE.Falling and ms ~= GW2.MOVEMENTSTATE.Jumping) or not table.valid(ml_navigation.path) or (last_dest and math.distance3d(last_dest, { x = x, y = y, z = z }) > 5) then
       ml_navigation.stoppingdistance = stoppingdistance or 154
       ml_navigation.randommovement = randommovement
@@ -208,6 +182,13 @@ function Player:MoveTo(x, y, z, targetid, stoppingdistance, randommovement, smoo
          ml_navigation.navconnection = nil
          local status = ml_navigation:MoveTo(x, y, z, targetid)
          ml_navigation.movement_status = status
+
+         if status > 0 then
+            if ms == 0 then
+               d("[Navigation] - Players Movement Mode is 0. This is mostly caused by teleports. Stepping backwards to fix.")
+               ml_navigation.Sync()
+            end
+         end
 
          -- Handle stuck if we start off mesh
          if (status == -1 or status == -7) then
