@@ -195,6 +195,9 @@ function gw2minion.Init()
          enforce = true
       end
 
+      --- Intros
+      ml_mesh_mgr.SetDefaultMesh(573, "Explosive Intellect", enforce)
+
       ml_mesh_mgr.SetDefaultMesh(15, "Queensdale", enforce)
       ml_mesh_mgr.SetDefaultMesh(17, "Harathi Hinterlands", enforce)
       ml_mesh_mgr.SetDefaultMesh(19, "Plains of Ashford", enforce)
