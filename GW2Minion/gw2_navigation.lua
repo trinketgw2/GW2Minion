@@ -5,7 +5,6 @@ ml_navigation.NavPointReachedDistances = { ["Walk"] = 32, ["Diving"] = 48, ["Mou
 ml_navigation.PathDeviationDistances = { ["Walk"] = 50, ["Diving"] = 150, ["Mounted"] = 150, }      -- The max. distance the playerposition can be away from the current path. (The Point-Line distance between player and the last & next pathnode)
 ml_navigation.lastMount = 0
 ml_navigation.movement_status = 0
-ml_navigation.acc_name = GetAccountName()
 ml_navigation.skills = {}
 ml_navigation.ticks = {
    favorite_mount = 0,
@@ -156,6 +155,12 @@ ml_navigation.StopMovement = function()
    Player:StopMovement()
 end
 
+function ml_navigation.Init()
+   ml_navigation.acc_name = GetAccountName()
+end
+
+RegisterEventHandler("Module.Initalize", ml_navigation.Init, "ml_navigation.Init")
+
 -- Main function to move the player. 'targetid' is optional but should be used as often as possible, if there is no target, use 0
 function Player:MoveTo(x, y, z, targetid, stoppingdistance, randommovement, smoothturns, staymounted, use_leaps)
    local ms = Player.movementstate
@@ -213,7 +218,6 @@ end
 function ml_navigation.Navigate(event, ticks)
 
    if ((ticks - (ml_navigation.lastupdate or 0)) > 10) then
-      ml_navigation.acc_name = ml_navigation.acc_name ~= "" and ml_navigation.acc_name or GetAccountName()
 
       if GetGameState() == GW2.GAMESTATE.GAMEPLAY then
          ml_navigation.lastupdate = ticks
