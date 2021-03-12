@@ -2348,34 +2348,43 @@ function ml_navigation.UseMountLeap(allowMount)
                local pnndist = math.max(math.distance3d(ppos, nnode) - nnode_adjust, 0)
 
                if pnndist >= maxdist then
-                  local phead = math.atan2(ppos.hy, ppos.hx)
-                  local pnhead = math.atan2(nnode.y - ppos.y, nnode.x - ppos.x)
-                  local tolerance = math.pi / 32
-                  local correct_heading
+                  local eye = HackManager:GetCompassData().eye
+                  if eye then
+                     local cfacing = {
+                        x = ppos.x - eye.x,
+                        y = ppos.y - eye.y,
+                        z = 0
+                     }
+                     local phead = math.atan2(cfacing.y,cfacing.x)
+                     local phead = math.atan2(ppos.hy, ppos.hx)
+                     local pnhead = math.atan2(nnode.y - ppos.y, nnode.x - ppos.x)
+                     local tolerance = math.pi / 32
+                     local correct_heading
 
-                  if (not prevnode or not prevnode.navconnectionsideA) then
-                     local difference = pnhead - phead
-                     difference = (difference + 3 * math.pi) % (math.pi * 2) - math.pi
-                     if difference < tolerance and difference > -tolerance then
-                        correct_heading = true
-                     end
+                     if (not prevnode or not prevnode.navconnectionsideA) then
+                        local difference = pnhead - phead
+                        difference = (difference + 3 * math.pi) % (math.pi * 2) - math.pi
+                        if difference < tolerance and difference > -tolerance then
+                           correct_heading = true
+                        end
 
-                     if correct_heading and pnndist >= maxdist then
-                        local heading = gw2_common_functions.normalize({ x = ppos.hx, y = ppos.hy })
-                        local endpos = {
-                           x = ppos.x + heading.x * maxdist,
-                           y = ppos.y + heading.y * maxdist,
-                           z = ppos.z
-                        }
-                        local Ray_zcheck = {}
-                        Ray_zcheck.hit, Ray_zcheck.x, Ray_zcheck.y, Ray_zcheck.z = RayCast(endpos.x, endpos.y, endpos.z - 150, endpos.x, endpos.y, endpos.z + 100)
-                        if Ray_zcheck.hit and NavigationManager:IsOnMesh(Ray_zcheck.x, Ray_zcheck.y, Ray_zcheck.z) or nnode.z < ppos.z then
-                           local Ray_front = {}
-                           Ray_front.hit, Ray_front.x, Ray_front.y, Ray_front.z = RayCast(ppos.x, ppos.y, ppos.z - 35, endpos.x, endpos.y, endpos.z - 35)
-                           if not Ray_front.hit or nnode.z < ppos.z then
-                              d("[Navigation] - Using Jackal Leap.")
-                              PressKey(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
-                              ml_navigation.ticks.mount_leap = ml_global_information.Now + 750
+                        if correct_heading and pnndist >= maxdist then
+                           local heading = gw2_common_functions.normalize({ x = ppos.hx, y = ppos.hy })
+                           local endpos = {
+                              x = ppos.x + heading.x * maxdist,
+                              y = ppos.y + heading.y * maxdist,
+                              z = ppos.z
+                           }
+                           local Ray_zcheck = {}
+                           Ray_zcheck.hit, Ray_zcheck.x, Ray_zcheck.y, Ray_zcheck.z = RayCast(endpos.x, endpos.y, endpos.z - 150, endpos.x, endpos.y, endpos.z + 100)
+                           if Ray_zcheck.hit and NavigationManager:IsOnMesh(Ray_zcheck.x, Ray_zcheck.y, Ray_zcheck.z) or nnode.z < ppos.z then
+                              local Ray_front = {}
+                              Ray_front.hit, Ray_front.x, Ray_front.y, Ray_front.z = RayCast(ppos.x, ppos.y, ppos.z - 35, endpos.x, endpos.y, endpos.z - 35)
+                              if not Ray_front.hit or nnode.z < ppos.z then
+                                 d("[Navigation] - Using Jackal Leap.")
+                                 PressKey(Settings.GW2Minion[ml_navigation.acc_name].mountAbility2Key)
+                                 ml_navigation.ticks.mount_leap = ml_global_information.Now + 750
+                              end
                            end
                         end
                      end
