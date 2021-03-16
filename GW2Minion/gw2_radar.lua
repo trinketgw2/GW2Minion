@@ -442,10 +442,12 @@ function gw2_radar.updateCompassData() -- TODO: redo this mess. Order stuff, and
 	gw2_radar.compassData.pos = {x = gw2_radar.compassData.sSize.x - gw2_radar.compassData.width, y = gw2_radar.compassData.topposition == 0 and gw2_radar.compassData.sSize.y - gw2_radar.compassData.height - 37 or 0,} -- 37 is the bottom offset.
 	gw2_radar.compassData.cPos = {x = gw2_radar.compassData.pos.x + (gw2_radar.compassData.width / 2), y = gw2_radar.compassData.pos.y + (gw2_radar.compassData.height / 2)}
 	gw2_radar.compassData.pPos = Player.pos
-	
-	local currDirection = gw2_radar.compassData.rotation == 0 and math.atan2(0,1) or math.atan2(gw2_radar.compassData.lookat.x - gw2_radar.compassData.eye.x, gw2_radar.compassData.lookat.y - gw2_radar.compassData.eye.y)
-	gw2_radar.compassData.cosTheta = math.cos(currDirection)
-	gw2_radar.compassData.sinTheta = math.sin(currDirection)
+
+	if gw2_radar.compassData.eye and gw2_radar.compassData.eye.x then
+		local currDirection = gw2_radar.compassData.rotation == 0 and math.atan2(0,1) or math.atan2(gw2_radar.compassData.lookat.x - gw2_radar.compassData.eye.x, gw2_radar.compassData.lookat.y - gw2_radar.compassData.eye.y)
+		gw2_radar.compassData.cosTheta = math.cos(currDirection)
+		gw2_radar.compassData.sinTheta = math.sin(currDirection)
+	end
 	
 	local scaleAdjust = GetGameRegion() == 1 and 8500 or 6000 -- TODO: find the actual scaling it does with diff ui sizes for future.
 	gw2_radar.compassData.scale = (gw2_radar.compassData.maxwidth / scaleAdjust) / (gw2_radar.compassData.zoomlevel+1) -- WIKI: "Zoomed in, the horizontal and vertical range of the compass is 4250 units and the diagonal range is 6000 units." - edit: seems to be from middle out.
