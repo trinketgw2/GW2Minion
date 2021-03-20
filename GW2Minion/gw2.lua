@@ -197,7 +197,12 @@ function gw2minion.Init()
 
       --- Intros
       ml_mesh_mgr.SetDefaultMesh(573, "Explosive Intellect", enforce)
+      ml_mesh_mgr.SetDefaultMesh(458, "Fury of the Dead", enforce)
+      ml_mesh_mgr.SetDefaultMesh(138, "Defense of Shaemoor", enforce)
+      ml_mesh_mgr.SetDefaultMesh(379, "The Great Hunt", enforce)
+      ml_mesh_mgr.SetDefaultMesh(432, "Fighting the Nightmare", enforce)
 
+      --- Central Tyria
       ml_mesh_mgr.SetDefaultMesh(15, "Queensdale", enforce)
       ml_mesh_mgr.SetDefaultMesh(17, "Harathi Hinterlands", enforce)
       ml_mesh_mgr.SetDefaultMesh(19, "Plains of Ashford", enforce)
@@ -226,10 +231,12 @@ function gw2minion.Init()
       ml_mesh_mgr.SetDefaultMesh(65, "Malchor's Leap", enforce)
       ml_mesh_mgr.SetDefaultMesh(73, "Bloodtide Coast", enforce)
 
-      -- Lions Arch
+      --- Lions Arch
       ml_mesh_mgr.SetDefaultMesh(50, "Lion's Arch", enforce)
+      ml_mesh_mgr.SetDefaultMesh(1155, "Lion's Arch Aerodrome", enforce)
+      --ml_mesh_mgr.SetDefaultMesh(1154,"Special Forces Training Area",enforce)
 
-      -- Black Citadel
+      --- Black Citadel
       ml_mesh_mgr.SetDefaultMesh(218, "Black Citadel", enforce)
       ml_mesh_mgr.SetDefaultMesh(371, "Hero's Canton (Home)", enforce)
       ml_mesh_mgr.SetDefaultMesh(833, "Ash Tribune Quarters", enforce)
@@ -240,7 +247,7 @@ function gw2minion.Init()
       ml_mesh_mgr.SetDefaultMesh(262, "Chain of Command", enforce)
       ml_mesh_mgr.SetDefaultMesh(211, "Best Laid Plans", enforce)
 
-      -- Divitnity's Reach
+      --- Divitnity's Reach
       ml_mesh_mgr.SetDefaultMesh(18, "Divinity's Reach", enforce)
       ml_mesh_mgr.SetDefaultMesh(378, "Queen's Throne Room", enforce)
       ml_mesh_mgr.SetDefaultMesh(248, "Salma District (Home)", enforce)
@@ -250,21 +257,21 @@ function gw2minion.Init()
       ml_mesh_mgr.SetDefaultMesh(226, "On the Mend", enforce)
       ml_mesh_mgr.SetDefaultMesh(330, "Seraph Headquarters", enforce)
 
-      -- Hoelbrak
+      --- Hoelbrak
       ml_mesh_mgr.SetDefaultMesh(326, "Hoelbrak", enforce)
       ml_mesh_mgr.SetDefaultMesh(374, "Knut Whitebear's Loft", enforce)
       ml_mesh_mgr.SetDefaultMesh(375, "Hunter's Hearth (Home)", enforce)
       ml_mesh_mgr.SetDefaultMesh(376, "Stonewright's Steading", enforce)
       ml_mesh_mgr.SetDefaultMesh(392, "A Pup's Illness", enforce)
 
-      -- Rata Sum
+      --- Rata Sum
       ml_mesh_mgr.SetDefaultMesh(139, "Rata Sum", enforce)
       ml_mesh_mgr.SetDefaultMesh(650, "Applied Development Lab (Home)", enforce)
       ml_mesh_mgr.SetDefaultMesh(651, "Council Level", enforce)
       ml_mesh_mgr.SetDefaultMesh(649, "Snaff Memorial Lab", enforce)
       ml_mesh_mgr.SetDefaultMesh(620, "Any Sufficiently Advanced Science", enforce)
 
-      -- The Grove
+      --- The Grove
       ml_mesh_mgr.SetDefaultMesh(91, "The Grove", enforce)
       ml_mesh_mgr.SetDefaultMesh(647, "Dreamer's Terrace (Home)", enforce)
       ml_mesh_mgr.SetDefaultMesh(646, "The House of Caithe", enforce)
@@ -272,24 +279,18 @@ function gw2minion.Init()
       ml_mesh_mgr.SetDefaultMesh(520, "Awakening", enforce)
       ml_mesh_mgr.SetDefaultMesh(648, "The Omphalos Chamber", enforce)
 
-      ml_mesh_mgr.SetDefaultMesh(350, "Heart of the Mists", enforce)
-      ml_mesh_mgr.SetDefaultMesh(873, "Southsun Cove", enforce)
-      ml_mesh_mgr.SetDefaultMesh(968, "Edge of the Mists", enforce)
-      ml_mesh_mgr.SetDefaultMesh(1370, "Eye of the North", enforce)
-
-      --LS2
+      --- LS2
       ml_mesh_mgr.SetDefaultMesh(988, "Dry Top", enforce)
+      ml_mesh_mgr.SetDefaultMesh(873, "Southsun Cove", enforce)
       ml_mesh_mgr.SetDefaultMesh(1015, "The Silverwastes", enforce)
 
-      --HoT
+      --- HoT
       ml_mesh_mgr.SetDefaultMesh(1052, "Verdant Brink", enforce)
       ml_mesh_mgr.SetDefaultMesh(1043, "Auric Basin", enforce)
       ml_mesh_mgr.SetDefaultMesh(1041, "Dragon's Stand", enforce)
       ml_mesh_mgr.SetDefaultMesh(1045, "Tangled Depths", enforce)
-      ml_mesh_mgr.SetDefaultMesh(1155, "Lion's Arch Aerodrome", enforce)
-      --ml_mesh_mgr.SetDefaultMesh(1154,"Special Forces Training Area",enforce)
 
-      --LS3
+      --- LS3
       ml_mesh_mgr.SetDefaultMesh(1165, "Bloodstone Fen", enforce)
       ml_mesh_mgr.SetDefaultMesh(1175, "Ember Bay", enforce)
       ml_mesh_mgr.SetDefaultMesh(1178, "Bitterfrost Frontier", enforce)
@@ -297,7 +298,9 @@ function gw2minion.Init()
       ml_mesh_mgr.SetDefaultMesh(1195, "Draconis Mons", enforce)
       ml_mesh_mgr.SetDefaultMesh(1203, "Siren's Landing", enforce)
 
-      --sPVP
+      --- sPVP
+      ml_mesh_mgr.SetDefaultMesh(350, "Heart of the Mists", enforce)
+      ml_mesh_mgr.SetDefaultMesh(968, "Edge of the Mists", enforce)
       ml_mesh_mgr.SetDefaultMesh(549, "Battle of Kyhlo", enforce)
       ml_mesh_mgr.SetDefaultMesh(554, "Forest of Niflhel", enforce)
       ml_mesh_mgr.SetDefaultMesh(795, "Legacy of the Foefire", enforce)
@@ -310,14 +313,14 @@ function gw2minion.Init()
       ml_mesh_mgr.SetDefaultMesh(1171, "Eternal Coliseum", enforce)
       ml_mesh_mgr.SetDefaultMesh(1305, "Djinns Dominion", enforce)
 
-      --PoF
+      --- PoF
       ml_mesh_mgr.SetDefaultMesh(1210, "Crystal Oasis", enforce)
       ml_mesh_mgr.SetDefaultMesh(1228, "Elon Riverlands", enforce)
       ml_mesh_mgr.SetDefaultMesh(1211, "Desert Highlands", enforce)
       ml_mesh_mgr.SetDefaultMesh(1226, "The Desolation", enforce)
       ml_mesh_mgr.SetDefaultMesh(1248, "Domain of Vabbi", enforce)
 
-      --LS4
+      --- LS4
       ml_mesh_mgr.SetDefaultMesh(1263, "Domain of Istan", enforce)
       ml_mesh_mgr.SetDefaultMesh(1271, "Sandswept Isles", enforce)
       ml_mesh_mgr.SetDefaultMesh(1288, "Domain of Kourna", enforce)
@@ -326,33 +329,34 @@ function gw2minion.Init()
       ml_mesh_mgr.SetDefaultMesh(1310, "Thunderhead Peaks", enforce)
       ml_mesh_mgr.SetDefaultMesh(1317, "Dragonfall", enforce)
 
-      --LS5
+      --- LS5
+      ml_mesh_mgr.SetDefaultMesh(1370, "Eye of the North", enforce)
       ml_mesh_mgr.SetDefaultMesh(1330, "Grothmar Valley", enforce)
       ml_mesh_mgr.SetDefaultMesh(1343, "Bjora Marches", enforce)
       ml_mesh_mgr.SetDefaultMesh(1371, "Drizzlewood Coast", enforce)
 
-      --Instances
+      --- Instances
       ml_mesh_mgr.SetDefaultMesh(896, "North Nolan Hatchery", enforce) -- Diessa Plateau
       ml_mesh_mgr.SetDefaultMesh(866, "Mad King's Labyrinth", enforce)
       ml_mesh_mgr.SetDefaultMesh(881, "Bell Choir Ensemble", enforce)
 
-      -- Wvwvw
+      --- WvWvW
       ml_mesh_mgr.SetDefaultMesh(95, "Alpine Borderlands", enforce)
       ml_mesh_mgr.SetDefaultMesh(96, "Alpine Borderlands", enforce)
       ml_mesh_mgr.SetDefaultMesh(1099, "Desert Borderlands", enforce)
       ml_mesh_mgr.SetDefaultMesh(38, "Eternal Battlegrounds", enforce)
 
-      -- Fractals
+      --- Fractals
       ml_mesh_mgr.SetDefaultMesh(872, "Mistlock Observatory", enforce)
       ml_mesh_mgr.SetDefaultMesh(956, "Aetherblade", enforce)
       ml_mesh_mgr.SetDefaultMesh(960, "Aetherblade Retreat", enforce)
       ml_mesh_mgr.SetDefaultMesh(958, "Solid Ocean", enforce)
       ml_mesh_mgr.SetDefaultMesh(950, "Urban Battleground", enforce)
 
-      -- Strikes
+      --- Strikes
       ml_mesh_mgr.SetDefaultMesh(1346, "Voice of the Fallen and Claw of the Fallen", enforce)
 
-      --Festivals
+      --- Festivals
       ml_mesh_mgr.SetDefaultMesh(1326, "Dragon Bash Arena", enforce)
       ml_mesh_mgr.SetDefaultMesh(882, "Winter Wonderland", enforce)
 
