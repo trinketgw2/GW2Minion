@@ -18,6 +18,17 @@ api_manager.categories = {
          "getIcon",
       },
    },
+   ["achievements"] = {
+      data_path = api_manager.data_path .. "achievements\\",
+      icon_path = false,
+      api_path = "/v2/achievements",
+      host = "api.guildwars2.com",
+      name_key = true,
+      valid_duration = false,
+      all_data = {
+         "getInfo",
+      },
+   },
    ["traits"] = {
       data_path = api_manager.data_path .. "traits\\",
       icon_path = api_manager.icons_path .. "traits\\",
