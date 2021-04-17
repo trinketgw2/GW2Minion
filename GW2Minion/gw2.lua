@@ -1,5 +1,6 @@
 gw2minion = {}
 gw2minion.btreecontext = {}
+gw2minion.last_login = 0
 
 function gw2minion.Init()
    -- Register Button
@@ -588,4 +589,8 @@ function gw2minion.RefreshGuestServers()
          [2001] = "Fissure of Woe",
       }
    end
+end
+
+function gw2minion.PauseLogin(time)
+   gw2minion.last_login = ml_global_information.Now + (time or 2500)
 end
