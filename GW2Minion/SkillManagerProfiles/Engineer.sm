@@ -1831,7 +1831,31 @@ local tbl =
 			setsattackrange = false,
 			skillpaletteuid = "Engineer",
 		},
-		
+
+		{
+			activationtime = 0,
+			condition_luacode = "return true",
+			conditions = 
+			{
+
+				{
+
+					{
+						operator = 1,
+						target = 1,
+						uid = "CombatState",
+					}, 
+					casttarget = 2,
+				},
+			},
+			id = 5970,
+			instantcast = true,
+			requireslos = true,
+			setsattackrange = false,
+			skillpaletteuid = "Engineer",
+		},
+
+
 		{
 			activationtime = 0,
 			condition_luacode = "return true",
