@@ -1855,7 +1855,6 @@ local tbl =
 			skillpaletteuid = "Engineer",
 		},
 
-
 		{
 			activationtime = 0,
 			condition_luacode = "return true",
