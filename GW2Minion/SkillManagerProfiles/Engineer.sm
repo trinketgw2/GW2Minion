@@ -1405,29 +1405,6 @@ local tbl =
 		},
 		
 		{
-			activationtime = 0,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "CombatState",
-					}, 
-					casttarget = 2,
-				},
-			},
-			id = 17260,
-			instantcast = true,
-			requireslos = true,
-			setsattackrange = true,
-			skillpaletteuid = "Engi_Flamethrower",
-		},
-		
-		{
 			activationtime = 0.5,
 			condition_luacode = "return true",
 			conditions = 
@@ -1850,29 +1827,6 @@ local tbl =
 				},
 			},
 			id = 6164,
-			requireslos = true,
-			setsattackrange = false,
-			skillpaletteuid = "Engineer",
-		},
-		
-		{
-			activationtime = 0,
-			condition_luacode = "return true",
-			conditions = 
-			{
-				
-				{
-					
-					{
-						operator = 1,
-						target = 1,
-						uid = "CombatState",
-					}, 
-					casttarget = 2,
-				},
-			},
-			id = 5975,
-			instantcast = true,
 			requireslos = true,
 			setsattackrange = false,
 			skillpaletteuid = "Engineer",
