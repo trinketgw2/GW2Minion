@@ -1546,7 +1546,7 @@ local tbl =
 					casttarget = 1,
 				},
 			},
-			id = 15834,
+			id = 9087,
 			instantcast = false,
 			requireslos = true,
 			setsattackrange = true,
